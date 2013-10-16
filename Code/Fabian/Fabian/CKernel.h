@@ -4,23 +4,23 @@
 #include "FabianDef.h"
 #include <list>
 
-class ITask;
+class IService;
 class CKernel
 {
 public:
 	CKernel();
 	virtual ~CKernel();
 	
-	bool AddTask(ITask*);
-	void SuspendTask(ITask*);
-	void ResumeTask(ITask*);
-	void RemoveTask(ITask*);
+	bool AddTask(IService*);
+	void SuspendTask(IService*);
+	void ResumeTask(IService*);
+	void RemoveTask(IService*);
 
 	void KillAllTasks();
 
 private:
-	std::list<ITask*> m_pTaskList;
-	std::list<ITask*> m_pPausedTaskList;
+	std::list<IService*> m_pTaskList;
+	std::list<IService*> m_pPausedTaskList;
 
 	DISALLOW_COPY_AND_ASSIGN(CKernel);
 };
