@@ -11,16 +11,18 @@ public:
 	CKernel();
 	virtual ~CKernel();
 	
-	bool AddTask(IService*);
-	void SuspendTask(IService*);
-	void ResumeTask(IService*);
-	void RemoveTask(IService*);
+	int Execute();
 
-	void KillAllTasks();
+	bool AddService(IService*);
+	void SuspendService(IService*);
+	void ResumeService(IService*);
+	void RemoveService(IService*);
+
+	void KillAllServices();
 
 private:
-	std::list<IService*> m_pTaskList;
-	std::list<IService*> m_pPausedTaskList;
+	std::list<IService*> m_pServiceList;
+	std::list<IService*> m_pPausedServiceList;
 
 	DISALLOW_COPY_AND_ASSIGN(CKernel);
 };
