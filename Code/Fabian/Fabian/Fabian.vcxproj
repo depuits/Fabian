@@ -86,14 +86,18 @@
   <ItemGroup>
     <ClInclude Include="CApplication.h" />
     <ClInclude Include="CKernel.h" />
-    <ClInclude Include="CVideoUpdateService.h" />
+    <ClInclude Include="CServiceMessageLoop.h" />
+    <ClInclude Include="CServiceTimer.h" />
+    <ClInclude Include="CServiceVideoUpdate.h" />
     <ClInclude Include="FabianDef.h" />
     <ClInclude Include="IService.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp" />
     <ClCompile Include="CKernel.cpp" />
-    <ClCompile Include="CVideoUpdateService.cpp" />
+    <ClCompile Include="CServiceMessageLoop.cpp" />
+    <ClCompile Include="CServiceTimer.cpp" />
+    <ClCompile Include="CServiceVideoUpdate.cpp" />
     <ClCompile Include="IService.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>

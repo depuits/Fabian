@@ -27,7 +27,13 @@
     <ClInclude Include="CApplication.h">
       <Filter>Game Files</Filter>
     </ClInclude>
-    <ClInclude Include="CVideoUpdateService.h">
+    <ClInclude Include="CServiceMessageLoop.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CServiceVideoUpdate.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CServiceTimer.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -44,7 +50,13 @@
     <ClCompile Include="CApplication.cpp">
       <Filter>Game Files</Filter>
     </ClCompile>
-    <ClCompile Include="CVideoUpdateService.cpp">
+    <ClCompile Include="CServiceMessageLoop.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CServiceVideoUpdate.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CServiceTimer.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
   </ItemGroup>

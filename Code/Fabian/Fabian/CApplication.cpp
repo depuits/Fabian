@@ -3,12 +3,14 @@
 #include "CKernel.h"
 #include <iostream>
 
-#include "CVideoUpdateService.h"
+#include "CServiceVideoUpdate.h"
+#include "CServiceMessageLoop.h"
+#include "CServiceTimer.h"
 
 CApplication::CApplication()
-	:m_pKernel(nullptr)
-
-	,m_pVideoService(nullptr)
+	:m_pServiceVideo(nullptr)
+	,m_pServiceMsgLoop(nullptr)
+	,m_pServiceTimer(nullptr)
 {
 }
  CApplication::~CApplication()
@@ -20,7 +22,7 @@ CApplication::CApplication()
 	//initiate the log for the app
 
 	//create kernel
-	m_pKernel = new CKernel();
+	CKernel *pKernel = CKernel::Get();
 
 	//load and set potential settings
   
@@ -33,16 +35,22 @@ CApplication::CApplication()
 	//set up the profiler output
 
 	//add services to use
-	m_pVideoService = new CVideoUpdateService(10000);
-	m_pKernel->AddService(m_pVideoService);
+	m_pServiceMsgLoop = new CServiceMessageLoop(100);
+	pKernel->AddService(m_pServiceMsgLoop);
+	m_pServiceTimer = new CServiceTimer(110);
+	pKernel->AddService(m_pServiceTimer);
+	m_pServiceVideo = new CServiceVideoUpdate(10000);
+	pKernel->AddService(m_pServiceVideo);
 
 	//main game loop
-	int rv = m_pKernel->Execute();
+	int rv = pKernel->Execute();
   
 	//clean up
-	delete m_pKernel;
+	delete pKernel;
 
-	delete m_pVideoService;
+	delete m_pServiceVideo;
+	delete m_pServiceMsgLoop;
+	delete m_pServiceTimer;
 
 	return rv;
  }

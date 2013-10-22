@@ -8,7 +8,7 @@ class IService;
 class CKernel
 {
 public:
-	CKernel();
+	static CKernel* Get();
 	virtual ~CKernel();
 	
 	int Execute();
@@ -20,7 +20,12 @@ public:
 
 	void KillAllServices();
 
+	void SendMessage(ServiceMessage);
+
 private:
+	CKernel();
+	static CKernel *m_pInstance;
+
 	std::list<IService*> m_pServiceList;
 	std::list<IService*> m_pPausedServiceList;
 

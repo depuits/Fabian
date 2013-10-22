@@ -15,9 +15,9 @@ public:
 	int Run(int argc, char *argv[]);
 
 private:
-	CKernel* m_pKernel;
-
-	IService *m_pVideoService;
+	IService	*m_pServiceVideo,
+				*m_pServiceMsgLoop,
+				*m_pServiceTimer;
 
 	DISALLOW_COPY_AND_ASSIGN(CApplication);
 };

@@ -18,6 +18,8 @@ public:
 	virtual void Update() = 0;
 	virtual void OnResume() { };
 	virtual void Stop() = 0;
+
+	virtual void MsgProc(ServiceMessage) { };
 	
 	bool GetCanKill() const { return m_bCanKill; };
 	void SetCanKill(bool canKill) { m_bCanKill = canKill; };

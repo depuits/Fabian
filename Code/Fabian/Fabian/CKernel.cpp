@@ -3,6 +3,13 @@
 #include <SDL.h>
 #include "IService.h"
 
+CKernel* CKernel::m_pInstance = nullptr;
+
+CKernel* CKernel::Get()
+{
+	if( m_pInstance == nullptr ) m_pInstance = new CKernel();
+	return m_pInstance;
+}
 
 CKernel::CKernel()
 {
@@ -10,6 +17,7 @@ CKernel::CKernel()
 }
 CKernel::~CKernel()
 {
+	m_pInstance = nullptr;
 	SDL_Quit();
 }
 	
@@ -18,22 +26,22 @@ int CKernel::Execute()
 	bool bRunning(true);
 	while(bRunning)
 	{
-		if ( m_pServiceList.size() <= 0 )
-			bRunning = false;
 		{
 			{
 				//PROFILE("Kernel task loop");
 			
 				std::list<IService*>::iterator it( m_pServiceList.begin() );
-				for( ; it != m_pServiceList.end(); ++it)
+				for( ; it != m_pServiceList.end(); )
 				{
 					IService *s = (*it);
+					++it;
 					if( !s->GetCanKill() )
 						s->Update();
 					else
 					{
 						s->Stop();
 						m_pServiceList.remove(s);
+						s = nullptr;
 					}
 				}
 				//IMMObject::CollectGarbage();
@@ -42,6 +50,9 @@ int CKernel::Execute()
 			CProfileSample::Output();
 	#endif
 		}
+		
+		if ( m_pServiceList.size() <= 0 )
+			bRunning = false;
 	}
 
 	return 0;
@@ -97,6 +108,15 @@ void CKernel::KillAllServices()
 {
 	for(std::list<IService*>::iterator it( m_pServiceList.begin() ); it != m_pServiceList.end(); ++it)
 		(*it)->SetCanKill(true);
+}
+
+void CKernel::SendMessage(ServiceMessage msg)
+{
+	if( msg == SM_QUIT )
+		KillAllServices();
+
+	for(std::list<IService*>::iterator it( m_pServiceList.begin() ); it != m_pServiceList.end(); ++it)
+		(*it)->MsgProc(msg);
 }
 
 
