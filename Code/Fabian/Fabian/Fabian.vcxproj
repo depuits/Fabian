@@ -41,13 +41,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\External\sdl2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\External\sdl2\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\External\glm;..\..\External\glew\include;..\..\External\sdl2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\External\glew\lib\Release\Win32;..\..\External\sdl2\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\External\sdl2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\External\sdl2\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\External\glm;..\..\External\glew\include;..\..\External\sdl2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\External\glew\lib\Release\Win32;..\..\External\sdl2\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
