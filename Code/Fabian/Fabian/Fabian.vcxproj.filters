@@ -36,6 +36,9 @@
     <ClInclude Include="CServiceTimer.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
+    <ClInclude Include="CModel.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CKernel.cpp">
@@ -57,6 +60,9 @@
       <Filter>Engine Files</Filter>
     </ClCompile>
     <ClCompile Include="CServiceTimer.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CModel.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
   </ItemGroup>

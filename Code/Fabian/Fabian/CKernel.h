@@ -20,6 +20,7 @@ public:
 
 	void KillAllServices();
 
+	// framework round dynamic casting of message interface
 	void SendMessage(ServiceMessage);
 
 private:

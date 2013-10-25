@@ -91,6 +91,7 @@
     <ClInclude Include="CServiceVideoUpdate.h" />
     <ClInclude Include="FabianDef.h" />
     <ClInclude Include="IService.h" />
+    <ClInclude Include="CModel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp" />
@@ -100,6 +101,7 @@
     <ClCompile Include="CServiceVideoUpdate.cpp" />
     <ClCompile Include="IService.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="CModel.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
