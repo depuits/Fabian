@@ -39,6 +39,9 @@
     <ClInclude Include="CModel.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
+    <ClInclude Include="CShader.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CKernel.cpp">
@@ -63,6 +66,9 @@
       <Filter>Engine Files</Filter>
     </ClCompile>
     <ClCompile Include="CModel.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CShader.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -89,6 +89,7 @@
     <ClInclude Include="CServiceMessageLoop.h" />
     <ClInclude Include="CServiceTimer.h" />
     <ClInclude Include="CServiceVideoUpdate.h" />
+    <ClInclude Include="CShader.h" />
     <ClInclude Include="FabianDef.h" />
     <ClInclude Include="IService.h" />
     <ClInclude Include="CModel.h" />
@@ -99,6 +100,7 @@
     <ClCompile Include="CServiceMessageLoop.cpp" />
     <ClCompile Include="CServiceTimer.cpp" />
     <ClCompile Include="CServiceVideoUpdate.cpp" />
+    <ClCompile Include="CShader.cpp" />
     <ClCompile Include="IService.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="CModel.cpp" />
