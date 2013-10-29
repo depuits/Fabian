@@ -10,6 +10,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #pragma warning( pop )
 
+#include "IShader.h"
+#include "CTransform.h"
+
 // This will identify our vertex buffer
 GLuint g_vertexbuffer;
 GLuint g_VertexArrayID;
@@ -21,7 +24,7 @@ CModel::~CModel()
 {
 }
 	
-void CModel::Load()
+bool CModel::Init()
 {	
 	GLfloat vertex_buffer_data[] = {
     -1.0f,-1.0f,-1.0f, // triangle 1 : begin
@@ -82,10 +85,15 @@ void CModel::Load()
 	);
 	
 	glBindVertexArray(0); // Disable our Vertex Buffer Object
+
+	return true;
 }
 
-void CModel::Draw()
+void CModel::Draw(IShader* pShader)
 {
+	pShader->SetWorld( Transform()->GetWorld() );
+	//pShader->SetWorld( glm::mat4(1.0f) );
+
 	glBindVertexArray(g_VertexArrayID); // Bind VAO
 	glDrawArrays(GL_TRIANGLES, 0, 12 * 3); // Draw
 	glBindVertexArray(0); // Unbind VAO

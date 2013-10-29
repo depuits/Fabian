@@ -39,8 +39,20 @@
     <ClInclude Include="CModel.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
-    <ClInclude Include="CShader.h">
+    <ClInclude Include="IObject.h">
       <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CTransform.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IShader.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CCamera.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CServiceGame.h">
+      <Filter>Game Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -68,8 +80,20 @@
     <ClCompile Include="CModel.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
-    <ClCompile Include="CShader.cpp">
+    <ClCompile Include="IObject.cpp">
       <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CTransform.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IShader.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CCamera.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CServiceGame.cpp">
+      <Filter>Game Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

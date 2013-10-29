@@ -17,7 +17,8 @@ public:
 private:
 	IService	*m_pServiceVideo,
 				*m_pServiceMsgLoop,
-				*m_pServiceTimer;
+				*m_pServiceTimer,
+				*m_pServiceGame;
 
 	DISALLOW_COPY_AND_ASSIGN(CApplication);
 };

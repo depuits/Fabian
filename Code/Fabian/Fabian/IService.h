@@ -3,6 +3,11 @@
 
 #include "FabianDef.h"
 
+typedef struct Message
+{
+	int msgId;
+} Message;
+
 class IService
 {
 public:

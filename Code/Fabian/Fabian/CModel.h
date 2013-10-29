@@ -2,15 +2,16 @@
 #define FABIAN_CMODEL_H_
 
 #include "FabianDef.h"
+#include "IObject.h"
 
-class CModel
+class CModel : public IObject
 {
 public:
 	CModel();
 	virtual ~CModel();
 	
-	virtual void Load();
-	virtual void Draw();
+	virtual bool Init();
+	virtual void Draw(IShader*);
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(CModel);

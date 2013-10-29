@@ -85,22 +85,30 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h" />
+    <ClInclude Include="CCamera.h" />
     <ClInclude Include="CKernel.h" />
+    <ClInclude Include="CServiceGame.h" />
     <ClInclude Include="CServiceMessageLoop.h" />
     <ClInclude Include="CServiceTimer.h" />
     <ClInclude Include="CServiceVideoUpdate.h" />
-    <ClInclude Include="CShader.h" />
+    <ClInclude Include="IShader.h" />
     <ClInclude Include="FabianDef.h" />
+    <ClInclude Include="IObject.h" />
     <ClInclude Include="IService.h" />
     <ClInclude Include="CModel.h" />
+    <ClInclude Include="CTransform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp" />
+    <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CKernel.cpp" />
+    <ClCompile Include="CServiceGame.cpp" />
     <ClCompile Include="CServiceMessageLoop.cpp" />
     <ClCompile Include="CServiceTimer.cpp" />
     <ClCompile Include="CServiceVideoUpdate.cpp" />
-    <ClCompile Include="CShader.cpp" />
+    <ClCompile Include="IShader.cpp" />
+    <ClCompile Include="CTransform.cpp" />
+    <ClCompile Include="IObject.cpp" />
     <ClCompile Include="IService.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="CModel.cpp" />
