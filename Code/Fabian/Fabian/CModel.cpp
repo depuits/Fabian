@@ -14,7 +14,6 @@
 #include "CTransform.h"
 
 // This will identify our vertex buffer
-GLuint g_vertexbuffer;
 GLuint g_VertexArrayID;
 
 CModel::CModel()
@@ -27,54 +26,75 @@ CModel::~CModel()
 bool CModel::Init()
 {	
 	GLfloat vertex_buffer_data[] = {
-    -1.0f,-1.0f,-1.0f, // triangle 1 : begin
-    -1.0f,-1.0f, 1.0f,
-    -1.0f, 1.0f, 1.0f, // triangle 1 : end
-    1.0f, 1.0f,-1.0f, // triangle 2 : begin
-    -1.0f,-1.0f,-1.0f,
-    -1.0f, 1.0f,-1.0f, // triangle 2 : end
-    1.0f,-1.0f, 1.0f,
-    -1.0f,-1.0f,-1.0f,
-    1.0f,-1.0f,-1.0f,
-    1.0f, 1.0f,-1.0f,
-    1.0f,-1.0f,-1.0f,
-    -1.0f,-1.0f,-1.0f,
-    -1.0f,-1.0f,-1.0f,
-    -1.0f, 1.0f, 1.0f,
-    -1.0f, 1.0f,-1.0f,
-    1.0f,-1.0f, 1.0f,
-    -1.0f,-1.0f, 1.0f,
-    -1.0f,-1.0f,-1.0f,
-    -1.0f, 1.0f, 1.0f,
-    -1.0f,-1.0f, 1.0f,
-    1.0f,-1.0f, 1.0f,
-    1.0f, 1.0f, 1.0f,
-    1.0f,-1.0f,-1.0f,
-    1.0f, 1.0f,-1.0f,
-    1.0f,-1.0f,-1.0f,
-    1.0f, 1.0f, 1.0f,
-    1.0f,-1.0f, 1.0f,
-    1.0f, 1.0f, 1.0f,
-    1.0f, 1.0f,-1.0f,
-    -1.0f, 1.0f,-1.0f,
-    1.0f, 1.0f, 1.0f,
-    -1.0f, 1.0f,-1.0f,
-    -1.0f, 1.0f, 1.0f,
-    1.0f, 1.0f, 1.0f,
-    -1.0f, 1.0f, 1.0f,
-    1.0f,-1.0f, 1.0f
-};
+		-1.0f,-1.0f,-1.0f, // triangle 1 : begin
+		-1.0f,-1.0f, 1.0f,
+		-1.0f, 1.0f, 1.0f, // triangle 1 : end
+		1.0f, 1.0f,-1.0f, // triangle 2 : begin
+		-1.0f,-1.0f,-1.0f,
+		-1.0f, 1.0f,-1.0f, // triangle 2 : end
+		1.0f,-1.0f, 1.0f,
+		-1.0f,-1.0f,-1.0f,
+		1.0f,-1.0f,-1.0f,
+		1.0f, 1.0f,-1.0f,
+		1.0f,-1.0f,-1.0f,
+		-1.0f,-1.0f,-1.0f,
+		-1.0f,-1.0f,-1.0f,
+		-1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f,-1.0f,
+		1.0f,-1.0f, 1.0f,
+		-1.0f,-1.0f, 1.0f,
+		-1.0f,-1.0f,-1.0f,
+		-1.0f, 1.0f, 1.0f,
+		-1.0f,-1.0f, 1.0f,
+		1.0f,-1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f,-1.0f,-1.0f,
+		1.0f, 1.0f,-1.0f,
+		1.0f,-1.0f,-1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f,-1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f,-1.0f,
+		-1.0f, 1.0f,-1.0f,
+		1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f,-1.0f,
+		-1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f, 1.0f,
+		1.0f,-1.0f, 1.0f
+	};
+
+	GLfloat color_buffer_data[12*3*3];
+	for (int v = 0; v < 12*3 ; v++)
+	{
+	    color_buffer_data[3*v+0] = rand() % 1000 / 1000.0f;
+	    color_buffer_data[3*v+1] = rand() % 1000 / 1000.0f;
+	    color_buffer_data[3*v+2] = rand() % 1000 / 1000.0f;
+	}
 	
 	glGenVertexArrays(1, &g_VertexArrayID);	// create VAO for object
-	glBindVertexArray(g_VertexArrayID);		// bind the VAO
  
+	// ------------------------------------ creater buffers ---------------------------------------------------------------------
 	// Generate 1 vertex buffer
-	glGenBuffers(1, &g_vertexbuffer);				// create VBO for object
-	glBindBuffer(GL_ARRAY_BUFFER, g_vertexbuffer);	// bind VBO
+	GLuint vertexbuffer;
+	glGenBuffers(1, &vertexbuffer);				// create VBO for object
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);	// bind VBO
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_buffer_data), vertex_buffer_data, GL_STATIC_DRAW); // Give our vertices to OpenGL.
 
+	// Generate 1 color buffer
+	GLuint colorbuffer;
+	glGenBuffers(1, &colorbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(color_buffer_data), color_buffer_data, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);	
+	// ------------------------------------ creater buffers end ---------------------------------------------------------------------
+
+	glBindVertexArray(g_VertexArrayID);		// bind the VAO
+	
 	// 1rst attribute buffer : vertices
-	glEnableVertexAttribArray(0); // Disable our Vertex Array Object
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);	// bind VBO
+	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(
 	   0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
 	   3,                  // size
@@ -83,7 +103,21 @@ bool CModel::Init()
 	   0,                  // stride
 	   (void*)0            // array buffer offset
 	);
+
 	
+	// 2nd attribute buffer : colors
+	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);	// bind VBO
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(
+	   1,                  // attribute 1. No particular reason for 1, but must match the layout in the shader.
+	   3,                  // size
+	   GL_FLOAT,           // type
+	   GL_FALSE,           // normalized?
+	   0,                  // stride
+	   (void*)0            // array buffer offset
+	);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);	
 	glBindVertexArray(0); // Disable our Vertex Buffer Object
 
 	return true;

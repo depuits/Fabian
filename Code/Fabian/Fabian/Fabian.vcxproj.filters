@@ -54,6 +54,12 @@
     <ClInclude Include="CServiceGame.h">
       <Filter>Game Files</Filter>
     </ClInclude>
+    <ClInclude Include="IGameObject.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CA3dReader.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CKernel.cpp">
@@ -94,6 +100,12 @@
     </ClCompile>
     <ClCompile Include="CServiceGame.cpp">
       <Filter>Game Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IGameObject.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CA3dReader.cpp">
+      <Filter>Engine Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

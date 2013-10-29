@@ -29,8 +29,9 @@ public:
 	const glm::quat& GetRot() const;
 
 	const glm::mat4& GetWorld();
-
+	
 	bool IsChanged() const { return m_bIsChanged; }
+	void ResetIsChanged() { m_bIsChanged = false; }
 
 protected:
 	CTransform *m_pParent;

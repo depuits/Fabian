@@ -41,7 +41,7 @@ bool CServiceGame::Start()
 void CServiceGame::Update()
 {
 	// temp for clearing window	and drawing object
-	glClearColor(1.0f, 0.0f, 0.0f, 1);
+	glClearColor(0.0f, 0.0f, 0.4f, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
 	
 	g_Model->Transform()->Rotate( glm::vec3(0, 0.001f,0) );

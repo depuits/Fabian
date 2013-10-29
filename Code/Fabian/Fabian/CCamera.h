@@ -18,11 +18,16 @@ public:
 	virtual bool Init();
 	virtual void Draw(IShader*);
 	
+	// FOV, AspectRatio, Near, Far
+	void SetProjectionParams(float, float, float, float);
+
 protected:
 	float	m_fFOV,
 			m_fAspectRatio,
 			m_fNear,
 			m_fFar;
+
+	bool m_bProjectionChanged;
 
 	glm::mat4 m_mProjection;
 

@@ -58,6 +58,10 @@ bool CServiceVideoUpdate::Start()
 		SDL_DestroyWindow(m_pWindow);
 		return false;
 	}
+	// Enable depth test
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS);
 
 	//hide the mouse cursor
 	//SDL_ShowCursor(SDL_DISABLE);
