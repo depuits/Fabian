@@ -20,6 +20,7 @@ public:
 	void Rotate(const glm::vec3&);
 	
 	void SetPos(const glm::vec3&);
+	void SetScale(float);
 	void SetScale(const glm::vec3&);
 	void SetRot(const glm::vec3&);
 	void SetRot(const glm::quat&);

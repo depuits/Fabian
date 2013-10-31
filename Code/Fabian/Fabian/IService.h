@@ -2,6 +2,7 @@
 #define FABIAN_ISERVICE_H_
 
 #include "FabianDef.h"
+#include "ServiceMsg.h"
 
 typedef struct Message
 {
@@ -24,7 +25,7 @@ public:
 	virtual void OnResume() { };
 	virtual void Stop() = 0;
 
-	virtual void MsgProc(ServiceMessage) { };
+	virtual void MsgProc(SMsg*) { };
 	
 	bool GetCanKill() const { return m_bCanKill; };
 	void SetCanKill(bool canKill) { m_bCanKill = canKill; };

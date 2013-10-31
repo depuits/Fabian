@@ -8,11 +8,5 @@
   void operator=(const TypeName&)
 
 
-typedef unsigned int ServiceMessage;
-
-
-#define SM_QUIT			0
-#define SM_TIMER_DT		10
-
 
 #endif //FABIAN_FABIANDEF_H_

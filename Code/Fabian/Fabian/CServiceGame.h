@@ -3,6 +3,7 @@
 
 #include "IService.h"
 
+class IInput;
 class CServiceGame : public IService
 {
 public:
@@ -13,9 +14,11 @@ public:
 	virtual void Update();
 	virtual void Stop();
 	
-	virtual void MsgProc(ServiceMessage);
+	virtual void MsgProc(SMsg*);
 
 protected:
+	IInput *m_pInput;
+	float m_fDtime;
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(CServiceGame);

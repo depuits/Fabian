@@ -2,6 +2,7 @@
 #define FABIAN_CKERNEL_H_
 
 #include "FabianDef.h"
+#include "ServiceMsg.h"
 #include <list>
 
 class IService;
@@ -21,12 +22,13 @@ public:
 	void KillAllServices();
 
 	// framework round dynamic casting of message interface
-	void SendMessage(ServiceMessage);
+	void SendMessage(SMsg*);
 
 private:
 	CKernel();
 	static CKernel *m_pInstance;
 
+	IService *m_pServiceInit;
 	std::list<IService*> m_pServiceList;
 	std::list<IService*> m_pPausedServiceList;
 

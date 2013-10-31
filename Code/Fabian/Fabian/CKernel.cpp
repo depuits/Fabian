@@ -12,6 +12,7 @@ CKernel* CKernel::Get()
 }
 
 CKernel::CKernel()
+	:m_pServiceInit(nullptr)
 {
 	SDL_Init(0);
 }
@@ -59,8 +60,12 @@ int CKernel::Execute()
 }
 bool CKernel::AddService(IService* s)
 {
+	m_pServiceInit = s;
 	if(!s->Start())
+	{
+		m_pServiceInit = nullptr;
 		return false;
+	}
 
 	//keep the order of priorities straight
 	std::list<IService*>::iterator it( m_pServiceList.begin() );
@@ -69,6 +74,7 @@ bool CKernel::AddService(IService* s)
 			break;
 
 	m_pServiceList.insert(it, s);
+	m_pServiceInit = nullptr;
 	return true;
 }
 void CKernel::SuspendService(IService* s)
@@ -110,13 +116,16 @@ void CKernel::KillAllServices()
 		(*it)->SetCanKill(true);
 }
 
-void CKernel::SendMessage(ServiceMessage msg)
+void CKernel::SendMessage(SMsg* msg)
 {
-	if( msg == SM_QUIT )
+	if( msg->id == SM_QUIT )
 		KillAllServices();
 
 	for(std::list<IService*>::iterator it( m_pServiceList.begin() ); it != m_pServiceList.end(); ++it)
 		(*it)->MsgProc(msg);
+
+	if( m_pServiceInit != nullptr )
+		m_pServiceInit->MsgProc(msg);
 }
 
 

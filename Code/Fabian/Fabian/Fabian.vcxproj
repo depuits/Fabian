@@ -62,6 +62,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -81,35 +82,47 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CA3dReader.h" />
     <ClInclude Include="CApplication.h" />
     <ClInclude Include="CCamera.h" />
+    <ClInclude Include="CInputSDL.h" />
     <ClInclude Include="CKernel.h" />
+    <ClInclude Include="CMeshOpenGL.h" />
     <ClInclude Include="CServiceGame.h" />
+    <ClInclude Include="CServiceInput.h" />
     <ClInclude Include="CServiceMessageLoop.h" />
     <ClInclude Include="CServiceTimer.h" />
     <ClInclude Include="CServiceVideoUpdate.h" />
     <ClInclude Include="IGameObject.h" />
+    <ClInclude Include="IInput.h" />
+    <ClInclude Include="IMesh.h" />
+    <ClInclude Include="InputDef.h" />
     <ClInclude Include="IShader.h" />
     <ClInclude Include="FabianDef.h" />
     <ClInclude Include="IObject.h" />
     <ClInclude Include="IService.h" />
     <ClInclude Include="CModel.h" />
     <ClInclude Include="CTransform.h" />
+    <ClInclude Include="ServiceMsg.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CA3dReader.cpp" />
     <ClCompile Include="CApplication.cpp" />
     <ClCompile Include="CCamera.cpp" />
+    <ClCompile Include="CInputSDL.cpp" />
     <ClCompile Include="CKernel.cpp" />
+    <ClCompile Include="CMeshOpenGL.cpp" />
     <ClCompile Include="CServiceGame.cpp" />
+    <ClCompile Include="CServiceInput.cpp" />
     <ClCompile Include="CServiceMessageLoop.cpp" />
     <ClCompile Include="CServiceTimer.cpp" />
     <ClCompile Include="CServiceVideoUpdate.cpp" />
     <ClCompile Include="IGameObject.cpp" />
+    <ClCompile Include="IInput.cpp" />
     <ClCompile Include="IShader.cpp" />
     <ClCompile Include="CTransform.cpp" />
     <ClCompile Include="IObject.cpp" />

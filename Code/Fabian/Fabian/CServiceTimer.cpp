@@ -27,7 +27,8 @@ void CServiceTimer::Update()
 	m_ulThisFrameIndex = SDL_GetTicks();
 	float dt = ((float)(m_ulThisFrameIndex - m_ulLastFrameIndex)) / 1000.0f;
 
-	CKernel::Get()->SendMessage(SM_TIMER_DT);
+	SMsgTimerDT msg(dt);
+	CKernel::Get()->SendMessage(&msg);
 }
 void CServiceTimer::Stop()
 {

@@ -1,10 +1,10 @@
 #version 330 core
 
 in vec3 vertexPosition_modelspace;
-layout(location = 1) in vec3 vertexColor;
+//layout(location = 1) in vec3 vertexColor;
 
 // Output data ; will be interpolated for each fragment.
-out vec3 fragmentColor;
+//out vec3 fragmentColor;
 
 uniform mat4 Model;
 uniform mat4 View;
@@ -18,5 +18,5 @@ void main()
 	
 	// The color of each vertex will be interpolated
     // to produce the color of each fragment
-    fragmentColor = vertexColor;
+    //fragmentColor = vertexColor;
 }

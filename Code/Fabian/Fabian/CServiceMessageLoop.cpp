@@ -22,8 +22,9 @@ void CServiceMessageLoop::Update()
 	{
 		//User requests quit 
 		if( e.type == SDL_QUIT )
-		{
-			CKernel::Get()->SendMessage(SM_QUIT);
+		{	
+			SMsg msg(SM_QUIT);
+			CKernel::Get()->SendMessage( &msg );
 		}
 	}
 }

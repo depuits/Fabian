@@ -7,12 +7,14 @@
 #include "CServiceMessageLoop.h"
 #include "CServiceTimer.h"
 #include "CServiceGame.h"
+#include "CServiceInput.h"
 
 CApplication::CApplication()
 	:m_pServiceVideo(nullptr)
 	,m_pServiceMsgLoop(nullptr)
 	,m_pServiceTimer(nullptr)
 	,m_pServiceGame(nullptr)
+	,m_pServiceInput(nullptr)
 {
 }
  CApplication::~CApplication()
@@ -41,6 +43,8 @@ CApplication::CApplication()
 	pKernel->AddService(m_pServiceMsgLoop);
 	m_pServiceTimer = new CServiceTimer(110);
 	pKernel->AddService(m_pServiceTimer);
+	m_pServiceInput = new CServiceInput(150);
+	pKernel->AddService(m_pServiceInput);
 	m_pServiceVideo = new CServiceVideoUpdate(10000);
 	pKernel->AddService(m_pServiceVideo);
 	m_pServiceGame = new CServiceGame(500); // graphic nee to be initialized before the game because of opengl initialization
@@ -52,6 +56,7 @@ CApplication::CApplication()
 	//clean up
 	delete pKernel;
 
+	delete m_pServiceInput;
 	delete m_pServiceGame;
 	delete m_pServiceVideo;
 	delete m_pServiceMsgLoop;

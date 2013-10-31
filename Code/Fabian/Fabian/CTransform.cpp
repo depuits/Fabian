@@ -32,6 +32,11 @@ void CTransform::SetPos(const glm::vec3& v3Pos)
 	m_bIsChanged = true;
 	m_v3Pos = v3Pos;
 }
+void CTransform::SetScale(float fScale)
+{
+	m_bIsChanged = true;
+	m_v3Scale = glm::vec3(fScale);
+}
 void CTransform::SetScale(const glm::vec3& v3Scale)
 {
 	m_bIsChanged = true;

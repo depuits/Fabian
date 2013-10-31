@@ -13,6 +13,15 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Engine Files\Input">
+      <UniqueIdentifier>{d4f5ec71-3a4f-47fa-ade5-b2aedd343e3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\Video">
+      <UniqueIdentifier>{6c8fff41-8a4d-430f-86f9-c28fc0af950b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\Objects">
+      <UniqueIdentifier>{fa994b6b-4703-4290-8e28-f8cd5c7048e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CKernel.h">
@@ -30,34 +39,55 @@
     <ClInclude Include="CServiceMessageLoop.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
-    <ClInclude Include="CServiceVideoUpdate.h">
-      <Filter>Engine Files</Filter>
-    </ClInclude>
     <ClInclude Include="CServiceTimer.h">
-      <Filter>Engine Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CModel.h">
-      <Filter>Engine Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IObject.h">
-      <Filter>Engine Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CTransform.h">
-      <Filter>Engine Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IShader.h">
-      <Filter>Engine Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CCamera.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
     <ClInclude Include="CServiceGame.h">
       <Filter>Game Files</Filter>
     </ClInclude>
+    <ClInclude Include="CInputSDL.h">
+      <Filter>Engine Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="IInput.h">
+      <Filter>Engine Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="InputDef.h">
+      <Filter>Engine Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="CServiceInput.h">
+      <Filter>Engine Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="CServiceVideoUpdate.h">
+      <Filter>Engine Files\Video</Filter>
+    </ClInclude>
+    <ClInclude Include="IShader.h">
+      <Filter>Engine Files\Video</Filter>
+    </ClInclude>
+    <ClInclude Include="IMesh.h">
+      <Filter>Engine Files\Video</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeshOpenGL.h">
+      <Filter>Engine Files\Video</Filter>
+    </ClInclude>
+    <ClInclude Include="IObject.h">
+      <Filter>Engine Files\Objects</Filter>
+    </ClInclude>
     <ClInclude Include="IGameObject.h">
-      <Filter>Engine Files</Filter>
+      <Filter>Engine Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CTransform.h">
+      <Filter>Engine Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CModel.h">
+      <Filter>Engine Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CCamera.h">
+      <Filter>Engine Files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="CA3dReader.h">
+      <Filter>Engine Files\Video</Filter>
+    </ClInclude>
+    <ClInclude Include="ServiceMsg.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -77,35 +107,47 @@
     <ClCompile Include="CServiceMessageLoop.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
-    <ClCompile Include="CServiceVideoUpdate.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
     <ClCompile Include="CServiceTimer.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CModel.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IObject.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CTransform.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IShader.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CCamera.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
     <ClCompile Include="CServiceGame.cpp">
       <Filter>Game Files</Filter>
     </ClCompile>
+    <ClCompile Include="CInputSDL.cpp">
+      <Filter>Engine Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="IInput.cpp">
+      <Filter>Engine Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="CServiceInput.cpp">
+      <Filter>Engine Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="CServiceVideoUpdate.cpp">
+      <Filter>Engine Files\Video</Filter>
+    </ClCompile>
+    <ClCompile Include="IShader.cpp">
+      <Filter>Engine Files\Video</Filter>
+    </ClCompile>
+    <ClCompile Include="CMeshOpenGL.cpp">
+      <Filter>Engine Files\Video</Filter>
+    </ClCompile>
+    <ClCompile Include="IObject.cpp">
+      <Filter>Engine Files\Objects</Filter>
+    </ClCompile>
     <ClCompile Include="IGameObject.cpp">
-      <Filter>Engine Files</Filter>
+      <Filter>Engine Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="CTransform.cpp">
+      <Filter>Engine Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="CModel.cpp">
+      <Filter>Engine Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="CCamera.cpp">
+      <Filter>Engine Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="CA3dReader.cpp">
-      <Filter>Engine Files</Filter>
+      <Filter>Engine Files\Video</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

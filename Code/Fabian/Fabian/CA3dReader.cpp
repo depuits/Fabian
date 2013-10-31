@@ -66,10 +66,3 @@ bool CA3dReader::Read(const wstring& filename)
 	return false;
 }
 
-Mesh* CA3dReader::CreateObject(ContentManager* pContentManager)
-{
-	/*Mesh* temp = new Mesh();
-	temp -> Initialize(pContentManager, m_type, m_vertices, m_indices);
-	return temp;*/
-	return nullptr;
-}
