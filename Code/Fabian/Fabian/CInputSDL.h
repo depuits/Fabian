@@ -23,8 +23,8 @@ protected:
 	bool m_bLockMouse;
 	int m_iMPosX, 
 		m_iMPosY,
-		m_iLastMPosX, 
-		m_iLastMPosY;
+		m_iMPosXLast, 
+		m_iMPosYLast;
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(CInputSDL);
