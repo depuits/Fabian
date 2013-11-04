@@ -80,7 +80,7 @@ void CServiceGame::Update()
 		m_pInput->LockMouse(true);
 		int x(0), y(0);
 		m_pInput->GetMouseMovement(x, y);
-		g_Camera->Transform()->Rotate( glm::vec3(0,0.1f * x * m_fDtime,0) );
+		g_Camera->Transform()->Rotate( glm::vec3(0,0.1f * -x * m_fDtime,0) );
 	}
 	else
 		m_pInput->LockMouse(false);
