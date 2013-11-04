@@ -41,40 +41,26 @@ void CInputSDL::GetMousePos(int& x, int& y) const
 }
 void CInputSDL::GetMouseMovement(int& x, int& y) const
 {
-	if( m_bLockMouse )
-	{
-		x = m_iMPosX;
-		y = m_iMPosY;
-	}
-	else
-	{
-		x = m_iMPosX - m_iMPosXLast;
-		y = m_iMPosY - m_iMPosYLast;
-	}
+	x = m_iMPosX - m_iMPosXLast;
+	y = m_iMPosY - m_iMPosYLast;
 }
 
 void CInputSDL::LockMouse(bool bLockMouse)
 {
 	m_bLockMouse = bLockMouse;
-
-	if( m_bLockMouse )
-		SDL_SetRelativeMouseMode( SDL_TRUE );
-	else
-		SDL_SetRelativeMouseMode( SDL_FALSE );
 }
 
 void CInputSDL::Update()
 {	
 	if( m_bLockMouse )
-		SDL_GetRelativeMouseState(&m_iMPosX, &m_iMPosY);
-		//SDL_WarpMouseInWindow(NULL, m_iMPosXLast, m_iMPosYLast);
+		SDL_WarpMouseInWindow(NULL, m_iMPosXLast, m_iMPosYLast);
 	else
 	{
 		m_iMPosXLast = m_iMPosX;
 		m_iMPosYLast = m_iMPosY;
-
-		SDL_GetMouseState(&m_iMPosX, &m_iMPosY);
 	}
+	
+	SDL_GetMouseState(&m_iMPosX, &m_iMPosY);
 }
 
 
