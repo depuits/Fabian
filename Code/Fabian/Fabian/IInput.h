@@ -14,8 +14,9 @@ public:
 
 	virtual void GetMousePos(int&, int&) const = 0;
 	virtual void GetMouseMovement(int&, int&) const = 0;
-
+	
 	virtual void LockMouse(bool) = 0;
+	virtual void LockMouse(int, int) = 0;
 	
 protected:
 

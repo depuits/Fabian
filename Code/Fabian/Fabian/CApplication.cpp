@@ -10,11 +10,6 @@
 #include "CServiceInput.h"
 
 CApplication::CApplication()
-	:m_pServiceVideo(nullptr)
-	,m_pServiceMsgLoop(nullptr)
-	,m_pServiceTimer(nullptr)
-	,m_pServiceGame(nullptr)
-	,m_pServiceInput(nullptr)
 {
 }
  CApplication::~CApplication()
@@ -39,28 +34,18 @@ CApplication::CApplication()
 	//set up the profiler output
 
 	//add services to use
-	m_pServiceMsgLoop = new CServiceMessageLoop(100);
-	pKernel->AddService(m_pServiceMsgLoop);
-	m_pServiceTimer = new CServiceTimer(110);
-	pKernel->AddService(m_pServiceTimer);
-	m_pServiceInput = new CServiceInput(150);
-	pKernel->AddService(m_pServiceInput);
-	m_pServiceVideo = new CServiceVideoUpdate(10000);
-	pKernel->AddService(m_pServiceVideo);
-	m_pServiceGame = new CServiceGame(500); // graphic nee to be initialized before the game because of opengl initialization
-	pKernel->AddService(m_pServiceGame);
+	pKernel->AddService( new CServiceInput(50) ); // must be called before msg loop to copy the keyboard state
+	pKernel->AddService( new CServiceMessageLoop(100) );
+	pKernel->AddService( new CServiceTimer(110) );
+	pKernel->AddService( new CServiceVideoUpdate(10000) );
+
+	pKernel->AddService( new CServiceGame(500) ); // graphic nee to be initialized before the game because of opengl initialization
 
 	//main game loop
 	int rv = pKernel->Execute();
   
 	//clean up
 	delete pKernel;
-
-	delete m_pServiceInput;
-	delete m_pServiceGame;
-	delete m_pServiceVideo;
-	delete m_pServiceMsgLoop;
-	delete m_pServiceTimer;
 
 	return rv;
  }

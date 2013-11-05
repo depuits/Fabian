@@ -67,7 +67,6 @@ bool CServiceGame::Start()
 }
 void CServiceGame::Update()
 {
-
 	// temp for clearing window	and drawing object
 	glClearColor(0.0f, 0.0f, 0.4f, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
@@ -75,16 +74,39 @@ void CServiceGame::Update()
 	g_Model1->Transform()->Rotate( glm::vec3(0,  0.1f * m_fDtime,0) );
 	g_Model2->Transform()->Rotate( glm::vec3(0, -0.1f * m_fDtime,0) );
 
-	if ( m_pInput->GetKeyState(FKEY_MLBUTTON) & DOWN )
+	if ( (m_pInput->GetKeyState(FKEY_MRBUTTON) & DOWN) == DOWN )
 	{
 		m_pInput->LockMouse(true);
 		int x(0), y(0);
 		m_pInput->GetMouseMovement(x, y);
 		g_Camera->Transform()->Rotate( glm::vec3(0,0.1f * -x * m_fDtime,0) );
-		g_Camera->Transform()->Rotate( glm::vec3(0,0,0.1f * y * m_fDtime) ); // change this to locale rotation
+		g_Camera->Transform()->LocalRotate( glm::vec3(0,0,0.1f * y * m_fDtime) ); // change this to locale rotation
 	}
 	else
 		m_pInput->LockMouse(false);
+	
+	//move forward and backward
+	if ( m_pInput->GetKeyState(FKEY_UP) & DOWN )
+	{
+		g_Camera->Transform()->LocalMove( glm::vec3(-20 * m_fDtime, 0, 0) );
+	}
+	else if ( m_pInput->GetKeyState(FKEY_DOWN) & DOWN )
+	{
+		g_Camera->Transform()->LocalMove( glm::vec3(20 * m_fDtime, 0, 0) );
+	}
+	//move left and right
+	if ( m_pInput->GetKeyState(FKEY_LEFT) & DOWN )
+	{
+		g_Camera->Transform()->LocalMove( glm::vec3(0, 0, 20 * m_fDtime) );
+	}
+	if ( m_pInput->GetKeyState(FKEY_RIGHT) & DOWN )
+	{
+		g_Camera->Transform()->LocalMove( glm::vec3(0, 0, -20 * m_fDtime) );
+	}
+	/*if ( (m_pInput->GetKeyState(FKEY_Z) & DOWN_NEW) == DOWN_NEW )
+	{
+		g_Camera->Transform()->Move( glm::vec3(200 * m_fDtime, 0, 0) );
+	}*/
 
 	g_Shader->Apply();
 	g_Camera->Draw(g_Shader);

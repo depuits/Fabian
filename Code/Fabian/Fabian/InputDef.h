@@ -16,6 +16,8 @@ enum FKey : unsigned char
 	FKEY_MXBUTTON1		= 0x04,
 	FKEY_MXBUTTON2		= 0x05,
 	
+	FKEY_VMOUSEMAX		= 0x05, // the max mouse value
+	
 	FKEY_BACK			= 0x08,
 	FKEY_TAB			= 0x09,
 	
@@ -140,6 +142,8 @@ enum FKey : unsigned char
 	FKEY_RCONTROL		= 0xA3,
 	FKEY_LMENU			= 0xA4,
 	FKEY_RMENU			= 0xA5,
+
+	FKEY_VKEYSMAX		= 0xA5, // the max key value
 };
 
 #endif //FABIAN_INPUTDEF_H_

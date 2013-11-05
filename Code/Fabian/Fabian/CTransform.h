@@ -18,6 +18,9 @@ public:
 	
 	void Move(const glm::vec3&);
 	void Rotate(const glm::vec3&);
+
+	void LocalMove(const glm::vec3&); // not working yet
+	void LocalRotate(const glm::vec3&); // not working yet
 	
 	void SetPos(const glm::vec3&);
 	void SetScale(float);
@@ -28,8 +31,9 @@ public:
 	const glm::vec3& GetPos() const;
 	const glm::vec3& GetScale() const;
 	const glm::quat& GetRot() const;
-
+	
 	const glm::mat4& GetWorld();
+	const glm::mat4& GetWorldNP();
 	
 	bool IsChanged() const { return m_bIsChanged; }
 	void ResetIsChanged() { m_bIsChanged = false; }

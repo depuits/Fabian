@@ -2,6 +2,7 @@
 #define FABIAN_ServiceMsg_H_
 
 #include "FabianDef.h"
+#include <SDL_assert.h>
 
 #define SM_INVALID			-1
 #define SM_QUIT				 0
@@ -26,9 +27,7 @@ typedef struct SMsg
 	template <class T>
 	inline static T Cast(SMsg* sm)
 	{
-		if( dynamic_cast<T>(sm) != static_cast<T>(sm) ) // should change to assert
-			return nullptr;
-
+		SDL_assert_release( dynamic_cast<T>(sm) == static_cast<T>(sm) );
 		return static_cast<T>(sm);
 	}
 

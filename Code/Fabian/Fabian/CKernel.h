@@ -14,7 +14,9 @@ public:
 	
 	int Execute();
 
-	bool AddService(IService*);
+	bool AddService(IService*); // add a service to the kernel and leave it for him. Return service ID (-1 on fail)
+
+	// use service ID to interact with the services
 	void SuspendService(IService*);
 	void ResumeService(IService*);
 	void RemoveService(IService*);

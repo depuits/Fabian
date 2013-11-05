@@ -15,12 +15,6 @@ public:
 	int Run(int argc, char *argv[]);
 
 private:
-	IService	*m_pServiceVideo,
-				*m_pServiceMsgLoop,
-				*m_pServiceTimer,
-				*m_pServiceGame,
-				*m_pServiceInput;
-
 	DISALLOW_COPY_AND_ASSIGN(CApplication);
 };
 

@@ -18,6 +18,8 @@ CKernel::CKernel()
 }
 CKernel::~CKernel()
 {
+	SDL_assert(m_pServiceList.size() <= 0);
+
 	m_pInstance = nullptr;
 	SDL_Quit();
 }
@@ -42,6 +44,7 @@ int CKernel::Execute()
 					{
 						s->Stop();
 						m_pServiceList.remove(s);
+						delete s;
 						s = nullptr;
 					}
 				}
@@ -63,6 +66,7 @@ bool CKernel::AddService(IService* s)
 	m_pServiceInit = s;
 	if(!s->Start())
 	{
+		delete s;
 		m_pServiceInit = nullptr;
 		return false;
 	}
