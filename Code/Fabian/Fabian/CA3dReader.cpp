@@ -14,7 +14,7 @@ CA3dReader::~CA3dReader()
 {
 }
 
-bool CA3dReader::Read(const wstring& filename)
+bool CA3dReader::Read(const string& filename)
 {
 	ifstream file(filename, ios::binary | ios::in);
 	if (file.is_open())

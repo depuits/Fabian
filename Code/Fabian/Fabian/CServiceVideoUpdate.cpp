@@ -1,7 +1,8 @@
 #include "CServiceVideoUpdate.h"
 
 #include <gl/glew.h>
-
+#include "CKernel.h"
+#include "CRendererOpenGL.h"
 
 CServiceVideoUpdate::CServiceVideoUpdate(int priorety)
 	:IService(priorety)
@@ -11,6 +12,8 @@ CServiceVideoUpdate::CServiceVideoUpdate(int priorety)
 
 	,m_pWindow(nullptr)
 	,m_GLContext(NULL)
+
+	,m_pRenderer(nullptr)
 {
 }
 CServiceVideoUpdate::~CServiceVideoUpdate()
@@ -66,6 +69,8 @@ bool CServiceVideoUpdate::Start()
 	//hide the mouse cursor
 	//SDL_ShowCursor(SDL_DISABLE);
 
+	m_pRenderer = new CRendererOpenGL();
+
 	return true;
 }
 void CServiceVideoUpdate::Update()
@@ -75,8 +80,21 @@ void CServiceVideoUpdate::Update()
 }
 void CServiceVideoUpdate::Stop()
 {
+	SMsgRenderer msg(m_pRenderer, SM_H_REMOVE);
+	CKernel::Get()->SendMessage(&msg);
+	delete m_pRenderer;
+
     // Close and destroy the window
     SDL_DestroyWindow(m_pWindow);
 	SDL_QuitSubSystem(SDL_INIT_VIDEO);
+}
+
+void CServiceVideoUpdate::MsgProc(SMsg* sm)
+{
+	if( sm->id == SM_RENDERER + SM_H_REQUEST )
+	{
+		SMsgRenderer msg(m_pRenderer, SM_H_RECEIVE);
+		CKernel::Get()->SendMessage(&msg);
+	}
 }
 

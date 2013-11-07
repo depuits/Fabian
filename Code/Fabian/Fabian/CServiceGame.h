@@ -4,6 +4,7 @@
 #include "IService.h"
 
 class IInput;
+class IRenderer;
 class CServiceGame : public IService
 {
 public:
@@ -18,6 +19,7 @@ public:
 
 protected:
 	IInput *m_pInput;
+	IRenderer *m_pRenderer;
 	float m_fDtime;
 
 private:

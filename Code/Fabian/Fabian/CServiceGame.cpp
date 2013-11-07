@@ -5,9 +5,10 @@
 #include "CKernel.h"
 
 #include "IInput.h"
+#include "IRenderer.h"
 
 #include "IShader.h"
-#include "CMeshOpenGL.h"
+
 #include "CModel.h"
 #include "CCamera.h"
 #include "CTransform.h"
@@ -24,26 +25,37 @@ CServiceGame::CServiceGame(int priorety)
 	:IService(priorety)
 
 	,m_pInput(nullptr)
+	,m_pRenderer(nullptr)
 	,m_fDtime(0)
 {
 }
 CServiceGame::~CServiceGame()
 {
 }
-	
+
+void SendMsg(int id)
+{
+	SMsg msg(id);
+	CKernel::Get()->SendMessage(&msg);
+}
+
 bool CServiceGame::Start()
 {
-	SMsg msg(SM_INPUT_REQUEST);
-	CKernel::Get()->SendMessage(&msg);
+	SendMsg(SM_INPUT + SM_H_REQUEST);
+	SendMsg(SM_RENDERER + SM_H_REQUEST);
 	//m_pInput->LockMouse(true);
+	
+	// just quit when the renderer or input wasn't filled in
+	FASSERTR(m_pInput != nullptr);
+	FASSERTR(m_pRenderer != nullptr);
 
 	g_Camera = new CCamera();
 	g_Camera->Init();
 	g_Camera->Transform()->SetPos( glm::vec3(8,3,0) );
 	//g_Camera->Transform()->SetRot( glm::vec3(0,0,0.3f) );
 	
-	g_Mesh = new CMeshOpenGL();
-	g_Mesh->Load(L"tegels-hi.a3d");
+	g_Shader = m_pRenderer->LoadShader("SimpleShader");
+	g_Mesh = m_pRenderer->LoadMesh("tegels-hi", ".a3d");
 
 	g_Model1 = new CModel(g_Mesh);
 	g_Model1->Init();
@@ -57,9 +69,6 @@ bool CServiceGame::Start()
 	g_Model2->Transform()->SetPos( glm::vec3(0,-10,0) );
 	g_Model2->Transform()->SetScale( 2 );
 
-	g_Shader = new IShader();
-	g_Shader->Load();
-
 	//hide the mouse cursor
 	//SDL_ShowCursor(SDL_DISABLE);
 
@@ -68,8 +77,7 @@ bool CServiceGame::Start()
 void CServiceGame::Update()
 {
 	// temp for clearing window	and drawing object
-	glClearColor(0.0f, 0.0f, 0.4f, 1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
+	m_pRenderer->Clear(0.0f, 0.0f, 0.4f, 1.0f);
 	
 	g_Model1->Transform()->Rotate( glm::vec3(0,  0.1f * m_fDtime,0) );
 	g_Model2->Transform()->Rotate( glm::vec3(0, -0.1f * m_fDtime,0) );
@@ -119,8 +127,6 @@ void CServiceGame::Stop()
 {
 	delete g_Model1;
 	delete g_Model2;
-	delete g_Mesh;
-	delete g_Shader;
 	delete g_Camera;
 }
 
@@ -131,9 +137,12 @@ void CServiceGame::MsgProc(SMsg* sm)
 	case SM_TIMER_DT:
 		m_fDtime = SMsg::Cast<SMsgTimerDT*>(sm)->dt;
 		break;
-	case SM_INPUT:
+	case SM_INPUT + SM_H_RECEIVE:
 		m_pInput = SMsg::Cast<SMsgInput*>(sm)->pInput;
 		break;
+	case SM_RENDERER + SM_H_RECEIVE:
+		m_pRenderer = SMsg::Cast<SMsgRenderer*>(sm)->pRenderer;
+		break;		
 	}
 }
 

@@ -8,5 +8,19 @@
   void operator=(const TypeName&)
 
 
+#include <SDL_assert.h>
+
+#define FASSERT(condition)			\
+	__pragma(warning(push))			\
+	__pragma(warning(disable:4127))	\
+	SDL_assert(condition);			\
+	__pragma(warning(pop))
+
+#define FASSERTR(condition)			\
+	__pragma(warning(push))			\
+	__pragma(warning(disable:4127))	\
+	SDL_assert_release(condition);	\
+	__pragma(warning(pop))
+
 
 #endif //FABIAN_FABIANDEF_H_

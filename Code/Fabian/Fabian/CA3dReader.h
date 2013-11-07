@@ -12,7 +12,7 @@ public:
 	CA3dReader();
 	~CA3dReader();
 
-	bool Read(const std::wstring& filename);
+	bool Read(const std::string& filename);
 	
 	std::vector<float> m_vertices;
 	std::vector<int> m_indices;

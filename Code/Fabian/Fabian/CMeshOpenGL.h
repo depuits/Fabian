@@ -13,7 +13,7 @@ public:
 	CMeshOpenGL();
 	virtual ~CMeshOpenGL();
 	
-	virtual bool Load(const std::wstring&);
+	virtual bool Load(const std::string&);
 	virtual void Draw();
 
 private:

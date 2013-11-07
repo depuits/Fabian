@@ -161,7 +161,7 @@ CInputSDL::~CInputSDL()
 	
 KeyState CInputSDL::GetKeyState(FKey k) const
 {
-	if ( k <= FKEY_VMOUSEMAX )
+	if ( k <= FKEY_H_VMOUSEMAX )
 		return InternalGetMouseState(k);
 
 	return InternalGetKeyState(k);

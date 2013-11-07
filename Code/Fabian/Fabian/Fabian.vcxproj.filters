@@ -90,6 +90,12 @@
     <ClInclude Include="ServiceMsg.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
+    <ClInclude Include="IRenderer.h">
+      <Filter>Engine Files\Video</Filter>
+    </ClInclude>
+    <ClInclude Include="CRendererOpenGL.h">
+      <Filter>Engine Files\Video</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CKernel.cpp">
@@ -147,6 +153,12 @@
       <Filter>Engine Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="CA3dReader.cpp">
+      <Filter>Engine Files\Video</Filter>
+    </ClCompile>
+    <ClCompile Include="IRenderer.cpp">
+      <Filter>Engine Files\Video</Filter>
+    </ClCompile>
+    <ClCompile Include="CRendererOpenGL.cpp">
       <Filter>Engine Files\Video</Filter>
     </ClCompile>
   </ItemGroup>

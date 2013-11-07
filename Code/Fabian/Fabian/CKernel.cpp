@@ -18,7 +18,7 @@ CKernel::CKernel()
 }
 CKernel::~CKernel()
 {
-	SDL_assert(m_pServiceList.size() <= 0);
+	FASSERT(m_pServiceList.size() <= 0);
 
 	m_pInstance = nullptr;
 	SDL_Quit();

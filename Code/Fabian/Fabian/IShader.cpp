@@ -20,9 +20,9 @@ IShader::~IShader()
 {
 }
 	
-void IShader::Load()
+void IShader::Load(const std::string& sName)
 {
-	m_uProgramID = LoadShaders( "SimpleShader.vsh", "SimpleShader.fsh" );
+	m_uProgramID = LoadShaders( (sName + ".vsh").c_str(), (sName + ".fsh").c_str() );
 }
 
 void IShader::Apply()

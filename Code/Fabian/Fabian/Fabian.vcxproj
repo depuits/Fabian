@@ -92,6 +92,7 @@
     <ClInclude Include="CInputSDL.h" />
     <ClInclude Include="CKernel.h" />
     <ClInclude Include="CMeshOpenGL.h" />
+    <ClInclude Include="CRendererOpenGL.h" />
     <ClInclude Include="CServiceGame.h" />
     <ClInclude Include="CServiceInput.h" />
     <ClInclude Include="CServiceMessageLoop.h" />
@@ -101,6 +102,7 @@
     <ClInclude Include="IInput.h" />
     <ClInclude Include="IMesh.h" />
     <ClInclude Include="InputDef.h" />
+    <ClInclude Include="IRenderer.h" />
     <ClInclude Include="IShader.h" />
     <ClInclude Include="FabianDef.h" />
     <ClInclude Include="IObject.h" />
@@ -116,6 +118,7 @@
     <ClCompile Include="CInputSDL.cpp" />
     <ClCompile Include="CKernel.cpp" />
     <ClCompile Include="CMeshOpenGL.cpp" />
+    <ClCompile Include="CRendererOpenGL.cpp" />
     <ClCompile Include="CServiceGame.cpp" />
     <ClCompile Include="CServiceInput.cpp" />
     <ClCompile Include="CServiceMessageLoop.cpp" />
@@ -123,6 +126,7 @@
     <ClCompile Include="CServiceVideoUpdate.cpp" />
     <ClCompile Include="IGameObject.cpp" />
     <ClCompile Include="IInput.cpp" />
+    <ClCompile Include="IRenderer.cpp" />
     <ClCompile Include="IShader.cpp" />
     <ClCompile Include="CTransform.cpp" />
     <ClCompile Include="IObject.cpp" />

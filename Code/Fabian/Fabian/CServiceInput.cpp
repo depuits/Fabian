@@ -24,13 +24,15 @@ void CServiceInput::Update()
 }
 void CServiceInput::Stop()
 {
+	SMsgInput msg(m_pInput, SM_H_REMOVE);
+	CKernel::Get()->SendMessage(&msg);
 	delete m_pInput;
 }
 void CServiceInput::MsgProc(SMsg* sm)
 {
-	if( sm->id == SM_INPUT_REQUEST )
+	if( sm->id == SM_INPUT + SM_H_REQUEST )
 	{
-		SMsgInput msg(m_pInput);
+		SMsgInput msg(m_pInput, SM_H_RECEIVE);
 		CKernel::Get()->SendMessage(&msg);
 	}
 }

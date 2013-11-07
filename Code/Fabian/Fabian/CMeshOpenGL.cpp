@@ -18,7 +18,7 @@ CMeshOpenGL::~CMeshOpenGL()
 	glDeleteVertexArrays(1, &m_VertexArrayID);
 }
 	
-bool CMeshOpenGL::Load(const std::wstring& file)
+bool CMeshOpenGL::Load(const std::string& file)
 {
 	CA3dReader reader;
 	if( !reader.Read(file) )

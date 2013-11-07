@@ -10,7 +10,7 @@ public:
 	IMesh() { };
 	virtual ~IMesh() { };
 	
-	virtual bool Load(const std::wstring&) = 0;
+	virtual bool Load(const std::string&) = 0; // this is going to be a meshLoaderData
 	virtual void Draw() = 0;
 
 private:

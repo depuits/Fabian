@@ -2,15 +2,19 @@
 #define FABIAN_ServiceMsg_H_
 
 #include "FabianDef.h"
-#include <SDL_assert.h>
 
-#define SM_INVALID			-1
-#define SM_QUIT				 0
+#define SM_INVALID				-1
+#define SM_QUIT					 0
 
-#define SM_TIMER_DT			10
+#define SM_TIMER_DT				10
 
-#define SM_INPUT			20
-#define SM_INPUT_REQUEST	21
+#define SM_H_DEFAULT			 0
+#define SM_H_REQUEST			 1
+#define SM_H_RECEIVE			 2
+#define SM_H_REMOVE				 3
+
+#define SM_INPUT				20
+#define SM_RENDERER				40
 
 
 typedef struct SMsg
@@ -27,7 +31,7 @@ typedef struct SMsg
 	template <class T>
 	inline static T Cast(SMsg* sm)
 	{
-		SDL_assert_release( dynamic_cast<T>(sm) == static_cast<T>(sm) );
+		FASSERTR( dynamic_cast<T>(sm) == static_cast<T>(sm) );
 		return static_cast<T>(sm);
 	}
 
@@ -52,20 +56,33 @@ struct SMsgTimerDT : public SMsg
 	}
 	DISALLOW_COPY_AND_ASSIGN(SMsgTimerDT);
 
-	float dt;
+	const float dt;
 };
 
 class IInput;
 struct SMsgInput : public SMsg
 {
-	SMsgInput(IInput* ppInput)
-		:SMsg(SM_INPUT)
+	SMsgInput(IInput* ppInput, int r)
+		:SMsg(SM_INPUT + r)
 		,pInput(ppInput)
 	{
 	}
 	DISALLOW_COPY_AND_ASSIGN(SMsgInput);
 
 	IInput* pInput;
+};
+
+class IRenderer;
+struct SMsgRenderer : public SMsg
+{
+	SMsgRenderer(IRenderer* ppRenderer, int r)
+		:SMsg(SM_RENDERER + r)
+		,pRenderer(ppRenderer)
+	{
+	}
+	DISALLOW_COPY_AND_ASSIGN(SMsgRenderer);
+
+	IRenderer* pRenderer;
 };
 
 

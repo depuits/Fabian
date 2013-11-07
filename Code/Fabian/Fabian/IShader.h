@@ -2,6 +2,7 @@
 #define FABIAN_ISHADER_H_
 
 #include "FabianDef.h"
+#include <string>
 #include <gl/glew.h>
 
 #pragma warning( push )
@@ -15,7 +16,7 @@ public:
 	IShader();
 	virtual ~IShader();
 	
-	virtual void Load();
+	virtual void Load(const std::string&);
 	virtual void Apply();
 
 	void SetVar(int id, int var);
