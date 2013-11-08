@@ -5,6 +5,7 @@
 
 #pragma warning( push )
 #pragma warning( disable: 4201 )
+//#define GLM_SWIZZLE <- can be used for vec4.xyz() method
 #include <glm/glm.hpp>
 #pragma warning( pop )
 

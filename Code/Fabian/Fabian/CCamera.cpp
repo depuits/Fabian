@@ -9,7 +9,7 @@ CCamera::CCamera(IObject *pPar)
 	,m_fFOV(45.0f)
 	,m_fAspectRatio(16.0f/10.0f)
 	,m_fNear(0.1f)
-	,m_fFar(100.0f)
+	,m_fFar(1000.0f)
 	,m_bProjectionChanged(true)
 {
 }

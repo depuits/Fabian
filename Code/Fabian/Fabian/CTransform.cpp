@@ -30,7 +30,8 @@ void CTransform::Rotate(const glm::vec3& v3Rot)
 void CTransform::LocalMove(const glm::vec3& v3Dist)
 {
 	m_bIsChanged = true;
-	m_v3Pos += v3Dist * m_qRot;
+	glm::vec4 vec(v3Dist, 1.0f);
+	m_v3Pos += glm::vec3(glm::toMat4(m_qRot) * vec);
 }
 void CTransform::LocalRotate(const glm::vec3& v3Rot)
 {

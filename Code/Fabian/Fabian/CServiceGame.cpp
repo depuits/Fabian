@@ -119,7 +119,7 @@ void CServiceGame::Update()
 	g_Shader->Apply();
 	g_Camera->Draw(g_Shader);
 	glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-	g_Model1->Draw(g_Shader);
+	m_Model1->Draw(g_Shader);
 	glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 	g_Model2->Draw(g_Shader);
 }
