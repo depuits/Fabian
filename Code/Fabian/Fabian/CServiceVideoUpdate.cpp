@@ -52,6 +52,7 @@ bool CServiceVideoUpdate::Start()
 	{
 		//CLog::Get().Write(LOG_CLIENT, IDS_BAD_DISPLAYMODE, scrWidth, scrHeight, SDL_GetError() );
 		SDL_DestroyWindow(m_pWindow);
+		m_pWindow = nullptr;
 		return false;
 	}
 	
@@ -59,6 +60,7 @@ bool CServiceVideoUpdate::Start()
 	{
 		//CLog::Get().Write(LOG_CLIENT, IDS_BAD_DISPLAYMODE, scrWidth, scrHeight, SDL_GetError() );
 		SDL_DestroyWindow(m_pWindow);
+		m_pWindow = nullptr;
 		return false;
 	}
 	// Enable depth test
@@ -69,7 +71,7 @@ bool CServiceVideoUpdate::Start()
 	//hide the mouse cursor
 	//SDL_ShowCursor(SDL_DISABLE);
 
-	m_pRenderer = new CRendererOpenGL();
+	m_pRenderer = new CRendererOpenGL(this);
 
 	return true;
 }
@@ -86,6 +88,7 @@ void CServiceVideoUpdate::Stop()
 
     // Close and destroy the window
     SDL_DestroyWindow(m_pWindow);
+	m_pWindow = nullptr;
 	SDL_QuitSubSystem(SDL_INIT_VIDEO);
 }
 
@@ -97,4 +100,45 @@ void CServiceVideoUpdate::MsgProc(SMsg* sm)
 		CKernel::Get()->SendMessage(&msg);
 	}
 }
+
+bool CServiceVideoUpdate::SetWindowName(const std::string& sName)
+{
+	if( m_pWindow == nullptr )
+		return false;
+
+	SDL_SetWindowTitle( m_pWindow, sName.c_str() );
+	return true;
+}
+
+bool CServiceVideoUpdate::SetFullScreen(bool bFullscreen)
+{
+	if( m_pWindow == nullptr )
+		return false;
+
+	if( bFullscreen )
+		return ( SDL_SetWindowFullscreen( m_pWindow, SDL_WINDOW_FULLSCREEN) == 0 ); //SDL_WINDOW_FULLSCREEN_DESKTOP
+	else
+		return ( SDL_SetWindowFullscreen( m_pWindow, 0) == 0 );
+}
+bool CServiceVideoUpdate::SetScreenResolution(int w, int h)
+{
+	m_iScreenWidth = w;
+	m_iScreenHeight = h;
+
+	if( m_pWindow == nullptr )
+		return false;
+
+	SDL_DisplayMode target, closest;
+	target.w = w;
+	target.h = h;
+	target.format		= 0; // don't care
+	target.refresh_rate	= 0; // don't care
+	target.driverdata	= 0; // initialize to 0
+	if( SDL_GetClosestDisplayMode(0, &target, &closest) == NULL )
+		return false;
+
+	SDL_SetWindowSize( m_pWindow, w, h );
+	return ( SDL_SetWindowDisplayMode(m_pWindow, &closest) == 0 );
+}
+
 

@@ -179,7 +179,6 @@ void CInputSDL::GetMousePos(int& x, int& y) const
 		x = m_iMPosX;
 		y = m_iMPosY;
 	}
-
 }
 void CInputSDL::GetMouseMovement(int& x, int& y) const
 {
@@ -190,10 +189,14 @@ void CInputSDL::GetMouseMovement(int& x, int& y) const
 void CInputSDL::LockMouse(bool bLockMouse)
 {
 	m_bLockMouse = bLockMouse;
+	if( bLockMouse )
+		SDL_SetWindowGrab( SDL_GL_GetCurrentWindow(), SDL_TRUE);
+	else 
+		SDL_SetWindowGrab( SDL_GL_GetCurrentWindow(), SDL_FALSE);
 }
 void CInputSDL::LockMouse(int x, int y)
 {
-	m_bLockMouse = true;
+	LockMouse(true);
 
 	m_iMPosXLast = x;
 	m_iMPosYLast = y;
@@ -213,7 +216,6 @@ void CInputSDL::Update()
 		m_iMPosXLast = m_iMPosX;
 		m_iMPosYLast = m_iMPosY;
 	}
-	
 
 	m_uMouseButtonsOld = m_uMouseButtons,
 	m_uMouseButtons = SDL_GetMouseState(&m_iMPosX, &m_iMPosY);

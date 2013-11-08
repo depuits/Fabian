@@ -13,6 +13,12 @@ public:
 	IRenderer() { };
 	virtual ~IRenderer() { };
 	
+	//fullscreen
+	virtual void SwitchFullScreen() = 0;
+	virtual void SetFullScreen(bool) = 0;
+	//screen resolution
+	virtual void SetScreenResolution(int, int) = 0;
+
 	virtual void Clear(float, float, float, float) = 0;
 	
 	virtual IShader *LoadShader(const std::string&) = 0;

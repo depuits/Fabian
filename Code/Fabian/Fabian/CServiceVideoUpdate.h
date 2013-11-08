@@ -2,9 +2,10 @@
 #define FABIAN_CSERVICEVIDEOUPDATE_H_
 
 #include "IService.h"
+#include <string>
 #include <SDL.h>
 
-class IRenderer;
+class CRendererOpenGL;
 
 class CServiceVideoUpdate : public IService
 {
@@ -18,6 +19,11 @@ public:
 	
 	virtual void MsgProc(SMsg*);
 
+	bool SetWindowName(const std::string&);
+
+	bool SetFullScreen(bool);
+	bool SetScreenResolution(int, int);
+
 protected:
 	int m_iScreenWidth, 
 		m_iScreenHeight;
@@ -25,7 +31,7 @@ protected:
 	SDL_Window *m_pWindow;
 	SDL_GLContext m_GLContext;
 
-	IRenderer *m_pRenderer;
+	CRendererOpenGL *m_pRenderer;
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(CServiceVideoUpdate);

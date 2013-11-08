@@ -2,10 +2,14 @@
 
 #include <algorithm>
 #include <GL\glew.h>
+#include "CServiceVideoUpdate.h"
+
 #include "IShader.h" // has to change to opengl shader
 #include "CMeshOpenGL.h"
 
-CRendererOpenGL::CRendererOpenGL()
+CRendererOpenGL::CRendererOpenGL(CServiceVideoUpdate *pServiceParent)
+	:m_pServiceParent(pServiceParent)
+	,m_bFullScreen(false)
 {
 }
 CRendererOpenGL::~CRendererOpenGL()
@@ -18,6 +22,22 @@ CRendererOpenGL::~CRendererOpenGL()
 	m_mMeshMap.clear();
 }
 	
+//fullscreen
+void CRendererOpenGL::SwitchFullScreen()
+{
+	SetFullScreen( !m_bFullScreen );
+}
+void CRendererOpenGL::SetFullScreen(bool bFullscreen)
+{
+	m_bFullScreen = bFullscreen;
+	m_pServiceParent->SetFullScreen( m_bFullScreen );
+}
+//screen resolution
+void CRendererOpenGL::SetScreenResolution(int w, int h)
+{
+	m_pServiceParent->SetScreenResolution( w, h );
+}
+
 void CRendererOpenGL::Clear(float r, float g, float b, float a)
 {
 	glClearColor(r, g, b, a);

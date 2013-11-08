@@ -27,6 +27,7 @@ CServiceGame::CServiceGame(int priorety)
 	,m_pInput(nullptr)
 	,m_pRenderer(nullptr)
 	,m_fDtime(0)
+	,m_dTimer(0)
 {
 }
 CServiceGame::~CServiceGame()
@@ -84,11 +85,12 @@ void CServiceGame::Update()
 
 	if ( (m_pInput->GetKeyState(FKEY_MRBUTTON) & DOWN) == DOWN )
 	{
-		m_pInput->LockMouse(true);
 		int x(0), y(0);
 		m_pInput->GetMouseMovement(x, y);
 		g_Camera->Transform()->Rotate( glm::vec3(0,0.1f * -x * m_fDtime,0) );
 		g_Camera->Transform()->LocalRotate( glm::vec3(0,0,0.1f * y * m_fDtime) ); // change this to locale rotation
+
+		m_pInput->LockMouse(300, 300);
 	}
 	else
 		m_pInput->LockMouse(false);
@@ -118,10 +120,17 @@ void CServiceGame::Update()
 
 	g_Shader->Apply();
 	g_Camera->Draw(g_Shader);
-	glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-	m_Model1->Draw(g_Shader);
-	glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+	g_Model1->Draw(g_Shader);
+	//glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 	g_Model2->Draw(g_Shader);
+
+	m_dTimer += m_fDtime;
+	/*if( (int)m_dTimer % 10 == 0 )
+	{
+		m_pRenderer->SetScreenResolution(800, 600);
+		m_pRenderer->SwitchFullScreen();
+	}*/
 }
 void CServiceGame::Stop()
 {
@@ -142,7 +151,7 @@ void CServiceGame::MsgProc(SMsg* sm)
 		break;
 	case SM_RENDERER + SM_H_RECEIVE:
 		m_pRenderer = SMsg::Cast<SMsgRenderer*>(sm)->pRenderer;
-		break;		
+		break;
 	}
 }
 

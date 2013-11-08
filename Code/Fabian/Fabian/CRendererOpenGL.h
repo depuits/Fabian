@@ -4,18 +4,30 @@
 #include "IRenderer.h"
 #include <map>
 
+class CServiceVideoUpdate;
+
 class CRendererOpenGL : public IRenderer
 {
 public:
-	CRendererOpenGL();
+	CRendererOpenGL(CServiceVideoUpdate*);
 	virtual ~CRendererOpenGL();
 	
+	//fullscreen
+	virtual void SwitchFullScreen();
+	virtual void SetFullScreen(bool);
+	//screen resolution
+	virtual void SetScreenResolution(int, int);
+
 	virtual void Clear(float, float, float, float);
 	
 	virtual IShader *LoadShader(const std::string&);
 	virtual IMesh *LoadMesh(const std::string&, const std::string& ext);
 	
 protected:
+	CServiceVideoUpdate *m_pServiceParent;
+	bool m_bFullScreen;
+	
+
 	bool IsShaderPresent(const std::string&) const;
 	bool IsMeshPresent(const std::string&) const;
 

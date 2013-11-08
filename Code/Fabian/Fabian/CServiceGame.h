@@ -22,6 +22,8 @@ protected:
 	IRenderer *m_pRenderer;
 	float m_fDtime;
 
+	double m_dTimer;
+
 private:
 	DISALLOW_COPY_AND_ASSIGN(CServiceGame);
 };
