@@ -3,18 +3,37 @@
 #include "CKernel.h"
 #include <SDL.h>
 
+//******************************************
+// Class CServiceMessageLoop:
+// service responsable for handling message from the system
+// this is needed for moving and closing the window
+//******************************************
+
+//-------------------------------------
+// Constructor
+// p1 in - int, the priorety of the service 
+//            ( the lower the higher the priorety )
 CServiceMessageLoop::CServiceMessageLoop(int priorety)
 	:IService(priorety)
 {
 }
+//-------------------------------------
+// Destructor
 CServiceMessageLoop::~CServiceMessageLoop()
 {
 }
+//-------------------------------------
 	
+//-------------------------------------
+// Called when the service is registered in the kernel
+// rv - return true on succes, 
+//         when false is returned then the service gets deleted	
 bool CServiceMessageLoop::Start()
 {
 	return true;
 }
+//-------------------------------------
+// Called every time the service has to update
 void CServiceMessageLoop::Update()
 {
 	SDL_Event e;
@@ -28,7 +47,10 @@ void CServiceMessageLoop::Update()
 		}
 	}
 }
+//-------------------------------------
+// Called when the service will be deleted
 void CServiceMessageLoop::Stop()
 {
 }
+//-------------------------------------
 

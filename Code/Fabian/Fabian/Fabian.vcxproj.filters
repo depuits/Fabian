@@ -22,6 +22,9 @@
     <Filter Include="Engine Files\Objects">
       <UniqueIdentifier>{fa994b6b-4703-4290-8e28-f8cd5c7048e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine Files\Services">
+      <UniqueIdentifier>{0c9e9e67-d1c2-4c42-b07e-8e8f1ce2450f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CKernel.h">
@@ -35,12 +38,6 @@
     </ClInclude>
     <ClInclude Include="CApplication.h">
       <Filter>Game Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CServiceMessageLoop.h">
-      <Filter>Engine Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CServiceTimer.h">
-      <Filter>Engine Files</Filter>
     </ClInclude>
     <ClInclude Include="CServiceGame.h">
       <Filter>Game Files</Filter>
@@ -96,6 +93,12 @@
     <ClInclude Include="CRendererOpenGL.h">
       <Filter>Engine Files\Video</Filter>
     </ClInclude>
+    <ClInclude Include="CServiceMessageLoop.h">
+      <Filter>Engine Files\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="CServiceTimer.h">
+      <Filter>Engine Files\Services</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CKernel.cpp">
@@ -109,12 +112,6 @@
     </ClCompile>
     <ClCompile Include="CApplication.cpp">
       <Filter>Game Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CServiceMessageLoop.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CServiceTimer.cpp">
-      <Filter>Engine Files</Filter>
     </ClCompile>
     <ClCompile Include="CServiceGame.cpp">
       <Filter>Game Files</Filter>
@@ -160,6 +157,12 @@
     </ClCompile>
     <ClCompile Include="CRendererOpenGL.cpp">
       <Filter>Engine Files\Video</Filter>
+    </ClCompile>
+    <ClCompile Include="CServiceMessageLoop.cpp">
+      <Filter>Engine Files\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="CServiceTimer.cpp">
+      <Filter>Engine Files\Services</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

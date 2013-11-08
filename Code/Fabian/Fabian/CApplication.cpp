@@ -9,15 +9,31 @@
 #include "CServiceGame.h"
 #include "CServiceInput.h"
 
+//******************************************
+// Class CApplication:
+// the entry point where the OO starts and where
+//    the services get added to the kernel
+//******************************************
+
+//-------------------------------------
+// Constructor
 CApplication::CApplication()
 {
 }
- CApplication::~CApplication()
- {
- }
+//-------------------------------------
+// Destructor
+CApplication::~CApplication()
+{
+}
+//-------------------------------------
 	
- int CApplication::Run(int argc, char *argv[])
- {
+//-------------------------------------
+// Called when the service is registered in the kernel
+// p1 in - int, number of arguments past
+// p2 in - char*, array of the past arguments
+// rv - return value of te app	
+int CApplication::Run(int argc, char *argv[])
+{
 	//initiate the log for the app
 
 	//create kernel
@@ -51,5 +67,6 @@ CApplication::CApplication()
 	delete pKernel;
 
 	return rv;
- }
+}
+//-------------------------------------
 

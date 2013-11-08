@@ -21,6 +21,15 @@ IMesh* g_Mesh;
 CModel *g_Model1;
 CModel *g_Model2;
 
+//******************************************
+// Class CServiceGame:
+// game specific service which defines the actual game
+//******************************************
+
+//-------------------------------------
+// Constructor
+// p1 in - int, the priorety of the service 
+//            ( the lower the higher the priorety )
 CServiceGame::CServiceGame(int priorety)
 	:IService(priorety)
 
@@ -30,16 +39,27 @@ CServiceGame::CServiceGame(int priorety)
 	,m_dTimer(0)
 {
 }
+//-------------------------------------
+// Destructor
 CServiceGame::~CServiceGame()
 {
 }
-
+//-------------------------------------
+	
+//-------------------------------------
+// !!! temp !!!
+// gloabal helper class to send SMsg's
 void SendMsg(int id)
 {
 	SMsg msg(id);
 	CKernel::Get()->SendMessage(&msg);
 }
-
+//-------------------------------------
+	
+//-------------------------------------
+// Called when the service is registered in the kernel
+// rv - return true on succes, 
+//         when false is returned then the service gets deleted	
 bool CServiceGame::Start()
 {
 	SendMsg(SM_INPUT + SM_H_REQUEST);
@@ -75,6 +95,8 @@ bool CServiceGame::Start()
 
 	return true;
 }
+//-------------------------------------
+// Called every time the service has to update
 void CServiceGame::Update()
 {
 	// temp for clearing window	and drawing object
@@ -132,13 +154,19 @@ void CServiceGame::Update()
 		m_pRenderer->SwitchFullScreen();
 	}*/
 }
+//-------------------------------------
+// Called when the service will be deleted
 void CServiceGame::Stop()
 {
 	delete g_Model1;
 	delete g_Model2;
 	delete g_Camera;
 }
-
+//-------------------------------------
+	
+//-------------------------------------
+// Called when there are messages send somewhere
+// p1 in - pointer to SMsg object
 void CServiceGame::MsgProc(SMsg* sm)
 {
 	switch( sm->id )
@@ -154,5 +182,6 @@ void CServiceGame::MsgProc(SMsg* sm)
 		break;
 	}
 }
+//-------------------------------------
 
 

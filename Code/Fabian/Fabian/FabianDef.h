@@ -7,7 +7,7 @@
   TypeName(const TypeName&);               \
   void operator=(const TypeName&)
 
-
+// sdl assertion within a macro because of compiler warnings
 #include <SDL_assert.h>
 
 #define FASSERT(condition)			\
