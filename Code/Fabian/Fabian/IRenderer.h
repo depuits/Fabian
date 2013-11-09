@@ -16,6 +16,8 @@ public:
 	//fullscreen
 	virtual void SwitchFullScreen() = 0;
 	virtual void SetFullScreen(bool) = 0;
+	//VSync
+	virtual void SetVSync(bool) = 0;
 	//screen resolution
 	virtual void SetScreenResolution(int, int) = 0;
 

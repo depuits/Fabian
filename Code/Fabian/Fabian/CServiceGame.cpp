@@ -148,11 +148,12 @@ void CServiceGame::Update()
 	g_Model2->Draw(g_Shader);
 
 	m_dTimer += m_fDtime;
-	/*if( (int)m_dTimer % 10 == 0 )
+	if( (int)m_dTimer % 10 == 0 )
 	{
-		m_pRenderer->SetScreenResolution(800, 600);
-		m_pRenderer->SwitchFullScreen();
-	}*/
+		//m_pRenderer->SetVSync(true);
+		//m_pRenderer->SetScreenResolution(800, 600);
+		//m_pRenderer->SwitchFullScreen();
+	}
 }
 //-------------------------------------
 // Called when the service will be deleted

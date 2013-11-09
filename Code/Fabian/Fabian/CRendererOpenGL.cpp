@@ -32,6 +32,14 @@ void CRendererOpenGL::SetFullScreen(bool bFullscreen)
 	m_bFullScreen = bFullscreen;
 	m_pServiceParent->SetFullScreen( m_bFullScreen );
 }
+//VSync
+void CRendererOpenGL::SetVSync(bool bVSync)
+{
+	if( bVSync )
+		SDL_GL_SetSwapInterval(1);
+	else
+		SDL_GL_SetSwapInterval(0);
+}
 //screen resolution
 void CRendererOpenGL::SetScreenResolution(int w, int h)
 {
