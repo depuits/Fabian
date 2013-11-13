@@ -1,6 +1,10 @@
 #ifndef FABIAN_INPUTDEF_H_
 #define FABIAN_INPUTDEF_H_
 
+//******************************************
+// Enum KeyState:
+// the states a key can be in
+//******************************************
 enum KeyState : unsigned char
 {
 	UP			= 0x00,
@@ -8,6 +12,10 @@ enum KeyState : unsigned char
 	DOWN_NEW	= 0x03	// 3 because when its a new down then it is also just down
 };
 
+//******************************************
+// enum FKey:
+// the key values for specific key
+//******************************************
 enum FKey : unsigned char
 {
 	FKEY_MLBUTTON		= 0x01,
@@ -16,7 +24,7 @@ enum FKey : unsigned char
 	FKEY_MXBUTTON1		= 0x04,
 	FKEY_MXBUTTON2		= 0x05,
 	
-	FKEY_H_VMOUSEMAX		= 0x05, // the max mouse value
+	FKEY_H_VMOUSEMAX	= 0x05, // the max mouse value
 	
 	FKEY_BACK			= 0x08,
 	FKEY_TAB			= 0x09,

@@ -3,6 +3,13 @@
 #include <SDL.h>
 #include <string.h>
 
+//******************************************
+// Class CInputSDL:
+// IInput interface implementation with SDL2
+//******************************************
+
+//-------------------------------------
+// Constructor
 CInputSDL::CInputSDL()
 	:IInput()
 	,m_bLockMouse(false)
@@ -154,11 +161,17 @@ CInputSDL::CInputSDL()
 	m_mapMouse.insert( std::pair<FKey, Uint8>(FKEY_MXBUTTON1, SDL_BUTTON_X1) );
 	m_mapMouse.insert( std::pair<FKey, Uint8>(FKEY_MXBUTTON2, SDL_BUTTON_X2) );
 }
+//-------------------------------------
+// Destructor
 CInputSDL::~CInputSDL()
 {
 	delete m_pKeyboardStateOld;
 }
+//-------------------------------------
 	
+//-------------------------------------
+// Gets the state of a requested key
+// rv - KeyState, the state of the key
 KeyState CInputSDL::GetKeyState(FKey k) const
 {
 	if ( k <= FKEY_H_VMOUSEMAX )
@@ -166,7 +179,12 @@ KeyState CInputSDL::GetKeyState(FKey k) const
 
 	return InternalGetKeyState(k);
 }
-
+//-------------------------------------
+	
+//-------------------------------------
+// Gets the current position of the mouse relatieve to the window
+// p1 out - int, X value of the position
+// p2 out - int, Y value of the position
 void CInputSDL::GetMousePos(int& x, int& y) const
 {
 	if( m_bLockMouse )
@@ -180,12 +198,20 @@ void CInputSDL::GetMousePos(int& x, int& y) const
 		y = m_iMPosY;
 	}
 }
+//-------------------------------------
+// Gets the distance the mouse moved since last frame
+// p1 out - int, X value of the movement
+// p2 out - int, Y value of the movement
 void CInputSDL::GetMouseMovement(int& x, int& y) const
 {
 	x = m_iMPosX - m_iMPosXLast;
 	y = m_iMPosY - m_iMPosYLast;
 }
-
+//-------------------------------------
+	
+//-------------------------------------
+// Locks/unlocks the mouse inside the window
+// p1 in - bool, true to lock the mouse and false to free it
 void CInputSDL::LockMouse(bool bLockMouse)
 {
 	m_bLockMouse = bLockMouse;
@@ -194,6 +220,10 @@ void CInputSDL::LockMouse(bool bLockMouse)
 	else 
 		SDL_SetWindowGrab( SDL_GL_GetCurrentWindow(), SDL_FALSE);
 }
+//-------------------------------------
+// Locks the mouse inside the window at a specific position
+// p1 in - int, X value of the position
+// p2 in - int, Y value of the position
 void CInputSDL::LockMouse(int x, int y)
 {
 	LockMouse(true);
@@ -201,7 +231,11 @@ void CInputSDL::LockMouse(int x, int y)
 	m_iMPosXLast = x;
 	m_iMPosYLast = y;
 }
-
+//-------------------------------------
+	
+//-------------------------------------
+// Update the internal state. This should be 
+//    called each frame, unless the input isn't used
 void CInputSDL::Update()
 {	
 	//update keyboard
@@ -220,7 +254,12 @@ void CInputSDL::Update()
 	m_uMouseButtonsOld = m_uMouseButtons,
 	m_uMouseButtons = SDL_GetMouseState(&m_iMPosX, &m_iMPosY);
 }
+//-------------------------------------
 
+//-------------------------------------
+// Internal method to get the state of a requested key
+//    but only for keyboard buttons
+// rv - KeyState, the state of the key
 KeyState CInputSDL::InternalGetKeyState(FKey k) const
 {
 	Uint8 sdlK( m_mapKeys.at(k) );
@@ -233,6 +272,10 @@ KeyState CInputSDL::InternalGetKeyState(FKey k) const
 
 	return UP;
 }
+//-------------------------------------
+// Internal method to get the state of a requested key
+//    but only for mouse buttons
+// rv - KeyState, the state of the key
 KeyState CInputSDL::InternalGetMouseState(FKey k) const
 {
 	Uint8 sdlK( m_mapMouse.at(k) );
@@ -245,5 +288,6 @@ KeyState CInputSDL::InternalGetMouseState(FKey k) const
 	
 	return UP;
 }
+//-------------------------------------
 
 
