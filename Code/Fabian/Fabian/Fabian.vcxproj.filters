@@ -99,6 +99,9 @@
     <ClInclude Include="CServiceTimer.h">
       <Filter>Engine Files\Services</Filter>
     </ClInclude>
+    <ClInclude Include="CShaderOpenGL.h">
+      <Filter>Engine Files\Video</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CKernel.cpp">
@@ -163,6 +166,9 @@
     </ClCompile>
     <ClCompile Include="CServiceTimer.cpp">
       <Filter>Engine Files\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="CShaderOpenGL.cpp">
+      <Filter>Engine Files\Video</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

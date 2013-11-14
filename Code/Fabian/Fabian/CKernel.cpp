@@ -25,7 +25,6 @@ CKernel* CKernel::Get()
 //-------------------------------------
 // Constructor
 CKernel::CKernel()
-	:m_pServiceInit(nullptr)
 {
 	SDL_Init(0);
 }
@@ -90,15 +89,13 @@ int CKernel::Execute()
 // Planned : 
 //           Return service IDs for acces (-1 on fail)
 // p1 in - a pointer to the service to add (can't be 0)
-// rv - returns true on succes
-bool CKernel::AddService(IService* s)
+// rv - returns pointer to the service on succes and a nullptr when it fails
+IService* CKernel::AddService(IService* s)
 {
-	m_pServiceInit = s;
 	if(!s->Start())
 	{
 		delete s;
-		m_pServiceInit = nullptr;
-		return false;
+		return nullptr;
 	}
 
 	//keep the order of priorities straight
@@ -108,8 +105,7 @@ bool CKernel::AddService(IService* s)
 			break;
 
 	m_pServiceList.insert(it, s);
-	m_pServiceInit = nullptr;
-	return true;
+	return s;
 }
 //-------------------------------------
 	
@@ -181,9 +177,6 @@ void CKernel::SendMessage(SMsg* msg)
 
 	for(std::list<IService*>::iterator it( m_pServiceList.begin() ); it != m_pServiceList.end(); ++it)
 		(*it)->MsgProc(msg);
-
-	if( m_pServiceInit != nullptr )
-		m_pServiceInit->MsgProc(msg);
 }
 //-------------------------------------
 

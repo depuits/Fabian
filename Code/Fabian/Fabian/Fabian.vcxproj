@@ -98,6 +98,7 @@
     <ClInclude Include="CServiceMessageLoop.h" />
     <ClInclude Include="CServiceTimer.h" />
     <ClInclude Include="CServiceVideoUpdate.h" />
+    <ClInclude Include="CShaderOpenGL.h" />
     <ClInclude Include="IGameObject.h" />
     <ClInclude Include="IInput.h" />
     <ClInclude Include="IMesh.h" />
@@ -124,6 +125,7 @@
     <ClCompile Include="CServiceMessageLoop.cpp" />
     <ClCompile Include="CServiceTimer.cpp" />
     <ClCompile Include="CServiceVideoUpdate.cpp" />
+    <ClCompile Include="CShaderOpenGL.cpp" />
     <ClCompile Include="IGameObject.cpp" />
     <ClCompile Include="IInput.cpp" />
     <ClCompile Include="IRenderer.cpp" />

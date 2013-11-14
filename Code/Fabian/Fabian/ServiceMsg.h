@@ -20,6 +20,7 @@
 // ------------------------
 
 // --forward declarations--
+class IService;
 class IInput;
 class IRenderer;
 // ------------------------
@@ -64,6 +65,19 @@ typedef struct SMsg
 // Derived Struct SMsg:
 // structs derived from SMsg for extra info
 //******************************************
+struct SMsgRequest : public SMsg
+{
+	SMsgRequest(int id, IService *pServ)
+		:SMsg(id + SM_H_REQUEST)
+		,pService(pServ)
+	{
+	}
+	//-------------------------------------
+	DISALLOW_COPY_AND_ASSIGN(SMsgRequest);
+
+	IService *pService;
+};
+
 struct SMsgTimerDT : public SMsg
 {
 	SMsgTimerDT(float pDt)

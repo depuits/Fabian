@@ -4,6 +4,16 @@
 #include "IShader.h"
 #include "CTransform.h"
 
+//******************************************
+// Class CCamera:
+// A basic camera for drawing scenes, including
+// the most simple settings.
+//******************************************
+
+//-------------------------------------
+// Constructor
+// p1 in* - pointer to parent object, this causes
+//            the object to be linked to the parent
 CCamera::CCamera(IObject *pPar)
 	:IObject(pPar)
 	,m_fFOV(45.0f)
@@ -13,14 +23,24 @@ CCamera::CCamera(IObject *pPar)
 	,m_bProjectionChanged(true)
 {
 }
+//-------------------------------------
+// Destructor
 CCamera::~CCamera()
 {
 }
+//-------------------------------------
 	
+//-------------------------------------
+// Initializes the object, should be called before any other
+//    method of the object.
+// rv - bool, false if something failed	
 bool CCamera::Init()
 {
 	return true;
 }
+//-------------------------------------
+// Sets this camera to the current one
+// p1 in - pointer to the shader the object should "draw" with
 void CCamera::Draw(IShader* pShader)
 {
 	if( m_bProjectionChanged )
@@ -41,8 +61,14 @@ void CCamera::Draw(IShader* pShader)
 		pShader->SetView( mView );
 	}
 }
-
-// FOV, AspectRatio, Near, Far
+//-------------------------------------
+	
+//-------------------------------------
+// Sets/Creates the projection matrix of the camera
+// p1 in - float, FOV (Filed Of View)
+// p2 in - float, AspectRatio (4/3, 16/9, 16/10)
+// p3 in - float, Near plane
+// p4 in - float, Far plane
 void CCamera::SetProjectionParams(float fFOV, float fAspectRatio, float fNear, float fFar)
 {
 	m_fFOV = fFOV;
@@ -52,4 +78,5 @@ void CCamera::SetProjectionParams(float fFOV, float fAspectRatio, float fNear, f
 
 	m_bProjectionChanged = true;
 }
+//-------------------------------------
 

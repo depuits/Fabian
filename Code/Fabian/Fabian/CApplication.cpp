@@ -53,9 +53,8 @@ int CApplication::Run(int argc, char *argv[])
 	pKernel->AddService( new CServiceInput(50) ); // must be called before msg loop to copy the keyboard state
 	pKernel->AddService( new CServiceMessageLoop(100) );
 	pKernel->AddService( new CServiceTimer(110) );
-	CServiceVideoUpdate *pServiceVideo = new CServiceVideoUpdate(10000);
+	CServiceVideoUpdate *pServiceVideo = dynamic_cast<CServiceVideoUpdate*>( pKernel->AddService( new CServiceVideoUpdate(10000) ) );
 	//pServiceVideo->SetScreenResolution(800, 600);
-	pKernel->AddService( pServiceVideo );
 	pServiceVideo->SetWindowName("Test");
 
 	pKernel->AddService( new CServiceGame(500) ); // graphic nee to be initialized before the game because of opengl initialization

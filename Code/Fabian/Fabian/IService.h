@@ -16,7 +16,7 @@ class IService
 public:
 	//-------------------------------------
 	// Constructor
-	// p1 in - int, the priorety of the service 
+	// p1 in* - int, the priorety of the service 
 	//            ( the lower the higher the priorety )
 	IService(int priorety = 5000)
 		:m_bCanKill(false)

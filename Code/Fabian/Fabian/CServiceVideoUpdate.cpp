@@ -4,6 +4,16 @@
 #include "CKernel.h"
 #include "CRendererOpenGL.h"
 
+//******************************************
+// Class CServiceVideoUpdate:
+// service responsable for creating and updating 
+// the video output
+//******************************************
+
+//-------------------------------------
+// Constructor
+// p1 in* - int, the priorety of the service 
+//            ( the lower the higher the priorety )
 CServiceVideoUpdate::CServiceVideoUpdate(int priorety)
 	:IService(priorety)
 
@@ -16,10 +26,17 @@ CServiceVideoUpdate::CServiceVideoUpdate(int priorety)
 	,m_pRenderer(nullptr)
 {
 }
+//-------------------------------------
+// Destructor
 CServiceVideoUpdate::~CServiceVideoUpdate()
 {
 }
+//-------------------------------------
 	
+//-------------------------------------
+// Called when the service is registered in the kernel
+// rv - return true on succes, 
+//         when false is returned then the service gets deleted	
 bool CServiceVideoUpdate::Start()
 {
 	if( SDL_InitSubSystem(SDL_INIT_VIDEO) == -1 )
@@ -68,18 +85,19 @@ bool CServiceVideoUpdate::Start()
 	// Accept fragment if it closer to the camera than the former one
 	glDepthFunc(GL_LESS);
 
-	//hide the mouse cursor
-	//SDL_ShowCursor(SDL_DISABLE);
-
 	m_pRenderer = new CRendererOpenGL(this);
 
 	return true;
 }
+//-------------------------------------
+// Called every time the service has to update
 void CServiceVideoUpdate::Update()
 {
 	// swap the buffers
 	SDL_GL_SwapWindow(m_pWindow);
 }
+//-------------------------------------
+// Called when the service will be deleted
 void CServiceVideoUpdate::Stop()
 {
 	SMsgRenderer msg(m_pRenderer, SM_H_REMOVE);
@@ -91,16 +109,25 @@ void CServiceVideoUpdate::Stop()
 	m_pWindow = nullptr;
 	SDL_QuitSubSystem(SDL_INIT_VIDEO);
 }
-
+//-------------------------------------
+	
+//-------------------------------------
+// Called when there are messages send somewhere
+// p1 in - pointer to SMsg object
 void CServiceVideoUpdate::MsgProc(SMsg* sm)
 {
 	if( sm->id == SM_RENDERER + SM_H_REQUEST )
 	{
 		SMsgRenderer msg(m_pRenderer, SM_H_RECEIVE);
-		CKernel::Get()->SendMessage(&msg);
+		SMsg::Cast<SMsgRequest*>(sm)->pService->MsgProc(&msg);
 	}
 }
-
+//-------------------------------------
+	
+//-------------------------------------
+// Sets the name of the window
+// p1 in - string, name of the window
+// rv - bool, true when succeeds
 bool CServiceVideoUpdate::SetWindowName(const std::string& sName)
 {
 	if( m_pWindow == nullptr )
@@ -109,7 +136,25 @@ bool CServiceVideoUpdate::SetWindowName(const std::string& sName)
 	SDL_SetWindowTitle( m_pWindow, sName.c_str() );
 	return true;
 }
-
+//-------------------------------------
+// Sets the visibility of the OS cursor
+// p1 in - bool, true to show it, false to hide it
+void CServiceVideoUpdate::ShowCursor(bool bShow)
+{
+	//hide the mouse cursor
+	if( bShow )
+		SDL_ShowCursor(SDL_ENABLE);
+	else
+		SDL_ShowCursor(SDL_DISABLE);
+}
+//-------------------------------------
+	
+//-------------------------------------
+// Helper method for the IRenderer
+//-------------------------------------
+// Sets the window to fullscreen or back to windowed
+// p1 in - bool, goes to fullscreen if true
+// rv - bool, true when succeeds
 bool CServiceVideoUpdate::SetFullScreen(bool bFullscreen)
 {
 	if( m_pWindow == nullptr )
@@ -120,6 +165,11 @@ bool CServiceVideoUpdate::SetFullScreen(bool bFullscreen)
 	else
 		return ( SDL_SetWindowFullscreen( m_pWindow, 0) == 0 );
 }
+//-------------------------------------
+// Sets the screen resolution of this game
+// p1 in - int, screen width
+// p2 in - int, screen height
+// rv - bool, true when succeeds
 bool CServiceVideoUpdate::SetScreenResolution(int w, int h)
 {
 	m_iScreenWidth = w;
@@ -140,5 +190,6 @@ bool CServiceVideoUpdate::SetScreenResolution(int w, int h)
 	SDL_SetWindowSize( m_pWindow, w, h );
 	return ( SDL_SetWindowDisplayMode(m_pWindow, &closest) == 0 );
 }
+//-------------------------------------
 
 

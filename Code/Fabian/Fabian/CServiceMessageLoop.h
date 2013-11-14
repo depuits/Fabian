@@ -13,7 +13,7 @@ class CServiceMessageLoop : public IService
 public:
 	//-------------------------------------
 	// Constructor
-	// p1 in - int, the priorety of the service 
+	// p1 in* - int, the priorety of the service 
 	//            ( the lower the higher the priorety )
 	CServiceMessageLoop(int priorety = 100);
 	//-------------------------------------

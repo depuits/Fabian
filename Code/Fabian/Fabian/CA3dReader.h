@@ -6,6 +6,11 @@
 class ContentManager;
 class Mesh;
 
+//******************************************
+// Class CA3dReader:
+// temp class for reading in models
+// ( created by Kevin Aelterman )
+//******************************************
 class CA3dReader
 {
 public:

@@ -11,7 +11,7 @@
 
 //-------------------------------------
 // Constructor
-// p1 in - int, the priorety of the service 
+// p1 in* - int, the priorety of the service 
 //            ( the lower the higher the priorety )
 CServiceInput::CServiceInput(int priorety)
 	:IService(priorety)
@@ -58,7 +58,7 @@ void CServiceInput::MsgProc(SMsg* sm)
 	if( sm->id == SM_INPUT + SM_H_REQUEST )
 	{
 		SMsgInput msg(m_pInput, SM_H_RECEIVE);
-		CKernel::Get()->SendMessage(&msg);
+		SMsg::Cast<SMsgRequest*>(sm)->pService->MsgProc(&msg);
 	}
 }
 //-------------------------------------

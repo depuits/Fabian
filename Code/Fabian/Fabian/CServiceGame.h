@@ -17,7 +17,7 @@ class CServiceGame : public IService
 public:
 	//-------------------------------------
 	// Constructor
-	// p1 in - int, the priorety of the service 
+	// p1 in* - int, the priorety of the service 
 	//            ( the lower the higher the priorety )
 	CServiceGame(int priorety = 500);
 	//-------------------------------------

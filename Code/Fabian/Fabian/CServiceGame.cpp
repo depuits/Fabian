@@ -1,7 +1,5 @@
 #include "CServiceGame.h"
 
-#include <gl/glew.h>
-
 #include "CKernel.h"
 
 #include "IInput.h"
@@ -28,7 +26,7 @@ CModel *g_Model2;
 
 //-------------------------------------
 // Constructor
-// p1 in - int, the priorety of the service 
+// p1 in* - int, the priorety of the service 
 //            ( the lower the higher the priorety )
 CServiceGame::CServiceGame(int priorety)
 	:IService(priorety)
@@ -49,9 +47,9 @@ CServiceGame::~CServiceGame()
 //-------------------------------------
 // !!! temp !!!
 // gloabal helper class to send SMsg's
-void SendMsg(int id)
+void SendMsg(int id, IService *pServ)
 {
-	SMsg msg(id);
+	SMsgRequest msg(id, pServ);
 	CKernel::Get()->SendMessage(&msg);
 }
 //-------------------------------------
@@ -62,8 +60,8 @@ void SendMsg(int id)
 //         when false is returned then the service gets deleted	
 bool CServiceGame::Start()
 {
-	SendMsg(SM_INPUT + SM_H_REQUEST);
-	SendMsg(SM_RENDERER + SM_H_REQUEST);
+	SendMsg(SM_INPUT, this);
+	SendMsg(SM_RENDERER, this);
 	//m_pInput->LockMouse(true);
 	
 	// just quit when the renderer or input wasn't filled in
@@ -89,10 +87,7 @@ bool CServiceGame::Start()
 	g_Model2->Transform()->SetRot( glm::vec3(0, -glm::quarter_pi<float>(),0) );
 	g_Model2->Transform()->SetPos( glm::vec3(0,-10,0) );
 	g_Model2->Transform()->SetScale( 2 );
-
-	//hide the mouse cursor
-	//SDL_ShowCursor(SDL_DISABLE);
-
+	
 	return true;
 }
 //-------------------------------------
@@ -112,7 +107,8 @@ void CServiceGame::Update()
 		g_Camera->Transform()->Rotate( glm::vec3(0,0.1f * -x * m_fDtime,0) );
 		g_Camera->Transform()->LocalRotate( glm::vec3(0,0,0.1f * y * m_fDtime) ); // change this to locale rotation
 
-		m_pInput->LockMouse(300, 300);
+		//m_pInput->LockMouse(300, 300);
+		m_pInput->LockMouse(true);
 	}
 	else
 		m_pInput->LockMouse(false);

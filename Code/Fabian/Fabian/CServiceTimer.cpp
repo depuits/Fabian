@@ -10,7 +10,7 @@
 
 //-------------------------------------
 // Constructor
-// p1 in - int, the priorety of the service 
+// p1 in* - int, the priorety of the service 
 //            ( the lower the higher the priorety )
 CServiceTimer::CServiceTimer(int priorety)
 	:IService(priorety)

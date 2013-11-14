@@ -15,7 +15,7 @@ class CServiceInput : public IService
 public:
 	//-------------------------------------
 	// Constructor
-	// p1 in - int, the priorety of the service 
+	// p1 in* - int, the priorety of the service 
 	//            ( the lower the higher the priorety )
 	CServiceInput(int priorety = 90);
 	//-------------------------------------

@@ -2,6 +2,14 @@
 
 #include "CA3dReader.h"
 
+//******************************************
+// Class CMeshOpenGL:
+// this class is an OpenGL implementation of 
+// the IMesh interface
+//******************************************
+
+//-------------------------------------
+// Constructor
 CMeshOpenGL::CMeshOpenGL()
 	:IMesh()
 	,m_VertexArrayID(0)
@@ -10,16 +18,26 @@ CMeshOpenGL::CMeshOpenGL()
 	,m_iIndicesCount(-1)
 {
 }
+//-------------------------------------
+// Destructor
 CMeshOpenGL::~CMeshOpenGL()
 {
+	// release the buffers
 	glDeleteBuffers(1, &m_VertexBuffer);
 	glDeleteBuffers(1, &m_IndexBuffer);
 
 	glDeleteVertexArrays(1, &m_VertexArrayID);
 }
+//-------------------------------------
 	
+//-------------------------------------
+// Loads and initializes the mesh by loading any needed buffers, etc.
+// p1 in - string, path to the mesh file
+//            ! this is going to be a meshLoaderData
+// rv - bool, return false if something failed
 bool CMeshOpenGL::Load(const std::string& file)
 {
+	// read in the model data for later use
 	CA3dReader reader;
 	if( !reader.Read(file) )
 		return false;
@@ -62,12 +80,17 @@ bool CMeshOpenGL::Load(const std::string& file)
 
 	return true;
 }
+//-------------------------------------
+// Calls the internal draw methods
 void CMeshOpenGL::Draw()
 {
 	glBindVertexArray(m_VertexArrayID); // Bind VAO
 	glDrawElements( GL_TRIANGLES, m_iIndicesCount, GL_UNSIGNED_INT, (void*)0 ); // Draw
 	glBindVertexArray(0); // Unbind VAO
 }
+//-------------------------------------
+
+
 
 
 

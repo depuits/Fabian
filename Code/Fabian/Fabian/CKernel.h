@@ -39,8 +39,8 @@ public:
 	// Planned : 
 	//           Return service IDs for acces (-1 on fail)
 	// p1 in - a pointer to the service to add (can't be 0)
-	// rv - returns true on succes
-	bool AddService(IService*); 
+	// rv - returns pointer to the service on succes and a nullptr when it fails
+	IService* AddService(IService*); 
 	//-------------------------------------
 	
 	//-------------------------------------
@@ -83,7 +83,6 @@ private:
 	static CKernel *m_pInstance;
 	//-------------------------------------
 
-	IService *m_pServiceInit;
 	std::list<IService*> m_pServiceList;
 	std::list<IService*> m_pPausedServiceList;
 
