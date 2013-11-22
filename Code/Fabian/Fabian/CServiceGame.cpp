@@ -23,6 +23,7 @@ CModel *g_Model2;
 // Class CServiceGame:
 // game specific service which defines the actual game
 //******************************************
+float CServiceGame::s_fDtime = 0;
 
 //-------------------------------------
 // Constructor
@@ -33,7 +34,6 @@ CServiceGame::CServiceGame(int priorety)
 
 	,m_pInput(nullptr)
 	,m_pRenderer(nullptr)
-	,m_fDtime(0)
 	,m_dTimer(0)
 {
 }
@@ -62,7 +62,9 @@ bool CServiceGame::Start()
 {
 	SendMsg(SM_INPUT, this);
 	SendMsg(SM_RENDERER, this);
-	//m_pInput->LockMouse(true);
+
+	SMsgTimer msg(TimerCallback);
+	CKernel::Get()->SendMessage(&msg);
 	
 	// just quit when the renderer or input wasn't filled in
 	FASSERTR(m_pInput != nullptr);
@@ -95,17 +97,17 @@ bool CServiceGame::Start()
 void CServiceGame::Update()
 {
 	// temp for clearing window	and drawing object
-	m_pRenderer->Clear(0.0f, 0.0f, 0.4f, 1.0f);
+	m_pRenderer->Clear(0.01f, 0.1f, 0.4f, 1.0f);
 	
-	g_Model1->Transform()->Rotate( glm::vec3(0,  0.1f * m_fDtime,0) );
-	g_Model2->Transform()->Rotate( glm::vec3(0, -0.1f * m_fDtime,0) );
+	g_Model1->Transform()->Rotate( glm::vec3(0,  0.1f * s_fDtime,0) );
+	g_Model2->Transform()->Rotate( glm::vec3(0, -0.1f * s_fDtime,0) );
 
 	if ( (m_pInput->GetKeyState(FKEY_MRBUTTON) & DOWN) == DOWN )
 	{
 		int x(0), y(0);
 		m_pInput->GetMouseMovement(x, y);
-		g_Camera->Transform()->Rotate( glm::vec3(0,0.1f * -x * m_fDtime,0) );
-		g_Camera->Transform()->LocalRotate( glm::vec3(0,0,0.1f * y * m_fDtime) ); // change this to locale rotation
+		g_Camera->Transform()->Rotate( glm::vec3(0,0.1f * -x * s_fDtime,0) );
+		g_Camera->Transform()->LocalRotate( glm::vec3(0,0,0.1f * y * s_fDtime) ); // change this to locale rotation
 
 		//m_pInput->LockMouse(300, 300);
 		m_pInput->LockMouse(true);
@@ -116,20 +118,20 @@ void CServiceGame::Update()
 	//move forward and backward
 	if ( m_pInput->GetKeyState(FKEY_UP) & DOWN )
 	{
-		g_Camera->Transform()->LocalMove( glm::vec3(-20 * m_fDtime, 0, 0) );
+		g_Camera->Transform()->LocalMove( glm::vec3(-20 * s_fDtime, 0, 0) );
 	}
 	else if ( m_pInput->GetKeyState(FKEY_DOWN) & DOWN )
 	{
-		g_Camera->Transform()->LocalMove( glm::vec3(20 * m_fDtime, 0, 0) );
+		g_Camera->Transform()->LocalMove( glm::vec3(20 * s_fDtime, 0, 0) );
 	}
 	//move left and right
 	if ( m_pInput->GetKeyState(FKEY_LEFT) & DOWN )
 	{
-		g_Camera->Transform()->LocalMove( glm::vec3(0, 0, 20 * m_fDtime) );
+		g_Camera->Transform()->LocalMove( glm::vec3(0, 0, 20 * s_fDtime) );
 	}
 	if ( m_pInput->GetKeyState(FKEY_RIGHT) & DOWN )
 	{
-		g_Camera->Transform()->LocalMove( glm::vec3(0, 0, -20 * m_fDtime) );
+		g_Camera->Transform()->LocalMove( glm::vec3(0, 0, -20 * s_fDtime) );
 	}
 	/*if ( (m_pInput->GetKeyState(FKEY_Z) & DOWN_NEW) == DOWN_NEW )
 	{
@@ -143,7 +145,7 @@ void CServiceGame::Update()
 	//glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 	g_Model2->Draw(g_Shader);
 
-	m_dTimer += m_fDtime;
+	m_dTimer += s_fDtime;
 	if( (int)m_dTimer % 10 == 0 )
 	{
 		//m_pRenderer->SetVSync(true);
@@ -168,9 +170,6 @@ void CServiceGame::MsgProc(SMsg* sm)
 {
 	switch( sm->id )
 	{
-	case SM_TIMER_DT:
-		m_fDtime = SMsg::Cast<SMsgTimerDT*>(sm)->dt;
-		break;
 	case SM_INPUT + SM_H_RECEIVE:
 		m_pInput = SMsg::Cast<SMsgInput*>(sm)->pInput;
 		break;
@@ -178,6 +177,15 @@ void CServiceGame::MsgProc(SMsg* sm)
 		m_pRenderer = SMsg::Cast<SMsgRenderer*>(sm)->pRenderer;
 		break;
 	}
+}
+//-------------------------------------
+
+//-------------------------------------
+// Function used for timer callback
+// p1 in - float, delta time
+void CServiceGame::TimerCallback(float fDt)
+{
+	s_fDtime = fDt;
 }
 //-------------------------------------
 

@@ -8,13 +8,13 @@
 #define SM_INVALID				-1
 #define SM_QUIT					 0
 
-#define SM_TIMER_DT				10
 
 #define SM_H_DEFAULT			 0
 #define SM_H_REQUEST			 1
 #define SM_H_RECEIVE			 2
 #define SM_H_REMOVE				 3
 
+#define SM_TIMER				10
 #define SM_INPUT				20
 #define SM_RENDERER				40
 // ------------------------
@@ -78,17 +78,17 @@ struct SMsgRequest : public SMsg
 	IService *pService;
 };
 
-struct SMsgTimerDT : public SMsg
+struct SMsgTimer : public SMsg
 {
-	SMsgTimerDT(float pDt)
-		:SMsg(SM_TIMER_DT)
-		,dt(pDt)
+	SMsgTimer( void (*pCallFunc)(float) )
+		:SMsg(SM_TIMER)
+		,pCallbackFunc(pCallFunc)
 	{
 	}
 	//-------------------------------------
-	DISALLOW_COPY_AND_ASSIGN(SMsgTimerDT);
+	DISALLOW_COPY_AND_ASSIGN(SMsgTimer);
 
-	const float dt;
+	void (*pCallbackFunc)(float);
 };
 
 struct SMsgInput : public SMsg

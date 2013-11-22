@@ -37,24 +37,30 @@ public:
 	//    the given value
 	// p1 in - int, variable id
 	// p2 in - int, variable value
-	virtual void SetVar(int, int) { };
+	// p# in - variable value(s)
+	virtual void SetVarI1(int, int);
+	virtual void SetVarI2(int, int, int);
+	virtual void SetVarI3(int, int, int, int);
+	virtual void SetVarI4(int, int, int, int, int);
+
+	virtual void SetVarF1(int, float);
+	virtual void SetVarF2(int, float, float);
+	virtual void SetVarF3(int, float, float, float);
+	virtual void SetVarF4(int, float, float, float, float);
+
+	virtual void SetVarVec2(int, const glm::vec2&);
+	virtual void SetVarVec3(int, const glm::vec3&);
+	virtual void SetVarVec4(int, const glm::vec4&);
+	
+	virtual void SetVarMat2(int, const glm::mat2&);
+	virtual void SetVarMat3(int, const glm::mat3&);
+	virtual void SetVarMat4(int, const glm::mat4&);
 	//-------------------------------------
 	// Gets a shader variable id from the name
 	// p1 in - string, variable name
 	// rv - int, the id of the variable, -1 when failed
-	virtual int GetVarId(const std::string&) { return -1; };
+	virtual int GetVarId(const std::string&);
 	//-------------------------------------
-	
-	//-------------------------------------
-	// Sets the world, view or projection matrix
-	// !!! - these methods will probebly go when 
-	//          the VarIds are implemented
-	// p1 in - mat4, the matrix variable
-	virtual void SetProjection(const glm::mat4&);
-	virtual void SetView(const glm::mat4&);
-	virtual void SetWorld(const glm::mat4&);
-	//-------------------------------------
-
 
 protected:
 	//-------------------------------------

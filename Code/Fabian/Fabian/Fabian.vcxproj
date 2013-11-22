@@ -91,6 +91,7 @@
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CInputSDL.h" />
     <ClInclude Include="CKernel.h" />
+    <ClInclude Include="CLibrary.h" />
     <ClInclude Include="CMeshOpenGL.h" />
     <ClInclude Include="CRendererOpenGL.h" />
     <ClInclude Include="CServiceGame.h" />
@@ -110,6 +111,7 @@
     <ClInclude Include="IService.h" />
     <ClInclude Include="CModel.h" />
     <ClInclude Include="CTransform.h" />
+    <ClInclude Include="CLibraryLoader.h" />
     <ClInclude Include="ServiceMsg.h" />
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +120,7 @@
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CInputSDL.cpp" />
     <ClCompile Include="CKernel.cpp" />
+    <ClCompile Include="CLibrary.cpp" />
     <ClCompile Include="CMeshOpenGL.cpp" />
     <ClCompile Include="CRendererOpenGL.cpp" />
     <ClCompile Include="CServiceGame.cpp" />
@@ -133,6 +136,7 @@
     <ClCompile Include="CTransform.cpp" />
     <ClCompile Include="IObject.cpp" />
     <ClCompile Include="IService.cpp" />
+    <ClCompile Include="CLibraryLoader.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="CModel.cpp" />
   </ItemGroup>

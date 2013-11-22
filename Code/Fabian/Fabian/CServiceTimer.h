@@ -2,6 +2,9 @@
 #define FABIAN_CSERVICETIMER_H_
 
 #include "IService.h"
+#include <vector>
+
+typedef void (*TimerCallbackFunc)(float);
 
 //******************************************
 // Class CServiceTimer:
@@ -33,9 +36,17 @@ public:
 	virtual void Stop();
 	//-------------------------------------
 	
+	//-------------------------------------
+	// Called when there are messages send somewhere
+	// p1 in - pointer to SMsg object
+	virtual void MsgProc(SMsg*);
+	//-------------------------------------
+
 protected:
 	unsigned long	m_ulLastFrameIndex,
 					m_ulThisFrameIndex;
+
+	std::vector< TimerCallbackFunc > m_vCallbackFuncs;
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(CServiceTimer);

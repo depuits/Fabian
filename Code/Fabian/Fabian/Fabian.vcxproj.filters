@@ -25,6 +25,9 @@
     <Filter Include="Engine Files\Services">
       <UniqueIdentifier>{0c9e9e67-d1c2-4c42-b07e-8e8f1ce2450f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine Files\LibraryLoader">
+      <UniqueIdentifier>{5b5e2cb1-999e-4a89-87c2-9d299f1c1a6c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CKernel.h">
@@ -102,6 +105,12 @@
     <ClInclude Include="CShaderOpenGL.h">
       <Filter>Engine Files\Video</Filter>
     </ClInclude>
+    <ClInclude Include="CLibraryLoader.h">
+      <Filter>Engine Files\LibraryLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="CLibrary.h">
+      <Filter>Engine Files\LibraryLoader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CKernel.cpp">
@@ -169,6 +178,12 @@
     </ClCompile>
     <ClCompile Include="CShaderOpenGL.cpp">
       <Filter>Engine Files\Video</Filter>
+    </ClCompile>
+    <ClCompile Include="CLibraryLoader.cpp">
+      <Filter>Engine Files\LibraryLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="CLibrary.cpp">
+      <Filter>Engine Files\LibraryLoader</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

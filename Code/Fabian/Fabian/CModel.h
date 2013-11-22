@@ -37,9 +37,12 @@ public:
 	virtual void Draw(IShader*);
 	//-------------------------------------
 
-private:
+protected:
 	IMesh* m_pMesh;
 
+	static int s_iIdWorld;
+
+private:
 	DISALLOW_COPY_AND_ASSIGN(CModel);
 };
 

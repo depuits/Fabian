@@ -8,6 +8,7 @@
 // Class CModel:
 // Wrapper class to draw a meshes with a transform
 //******************************************
+int CModel::s_iIdWorld = -1;
 
 //-------------------------------------
 // Constructor
@@ -39,7 +40,10 @@ bool CModel::Init()
 // p1 in - pointer to the shader the object should draw with
 void CModel::Draw(IShader* pShader)
 {
-	pShader->SetWorld( Transform()->GetWorld() );
+	if( s_iIdWorld == -1 )
+		s_iIdWorld = pShader->GetVarId("Model");
+
+	pShader->SetVarMat4( s_iIdWorld, Transform()->GetWorld() );
 	m_pMesh->Draw();
 }
 //-------------------------------------

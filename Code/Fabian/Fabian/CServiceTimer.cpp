@@ -45,8 +45,10 @@ void CServiceTimer::Update()
 	m_ulThisFrameIndex = SDL_GetTicks();
 	float dt = ((float)(m_ulThisFrameIndex - m_ulLastFrameIndex)) / 1000.0f;
 
-	SMsgTimerDT msg(dt);
-	CKernel::Get()->SendMessage(&msg);
+	for each (TimerCallbackFunc func in m_vCallbackFuncs)
+	{
+		func(dt);
+	}
 }
 //-------------------------------------
 // Called when the service will be deleted
@@ -54,4 +56,19 @@ void CServiceTimer::Stop()
 {
 }
 //-------------------------------------
+
+//-------------------------------------
+// Called when there are messages send somewhere
+// p1 in - pointer to SMsg object
+void CServiceTimer::MsgProc(SMsg* sm)
+{
+	if( sm->id == SM_TIMER )
+	{
+		TimerCallbackFunc f = SMsg::Cast<SMsgTimer*>(sm)->pCallbackFunc;
+		if( f != nullptr)
+			m_vCallbackFuncs.push_back(f);
+	}
+}
+//-------------------------------------
+
 

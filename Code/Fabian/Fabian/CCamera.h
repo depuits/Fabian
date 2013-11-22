@@ -56,6 +56,7 @@ protected:
 	bool m_bProjectionChanged;
 
 	glm::mat4 m_mProjection;
+	static int s_iIdView, s_iIdProj;
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(CCamera);

@@ -9,6 +9,8 @@
 // A basic camera for drawing scenes, including
 // the most simple settings.
 //******************************************
+int CCamera::s_iIdView = -1;
+int CCamera::s_iIdProj = -1;
 
 //-------------------------------------
 // Constructor
@@ -20,6 +22,7 @@ CCamera::CCamera(IObject *pPar)
 	,m_fAspectRatio(16.0f/10.0f)
 	,m_fNear(0.1f)
 	,m_fFar(1000.0f)
+
 	,m_bProjectionChanged(true)
 {
 }
@@ -43,10 +46,16 @@ bool CCamera::Init()
 // p1 in - pointer to the shader the object should "draw" with
 void CCamera::Draw(IShader* pShader)
 {
+	if( s_iIdView == -1 || s_iIdProj == -1 )
+	{
+		s_iIdView = pShader->GetVarId("View");
+		s_iIdProj = pShader->GetVarId("Projection");
+	}
+
 	if( m_bProjectionChanged )
 	{
 		m_mProjection = glm::perspective(m_fFOV, m_fAspectRatio, m_fNear, m_fFar);
-		pShader->SetProjection(m_mProjection);
+		pShader->SetVarMat4(s_iIdProj, m_mProjection);
 	}
 
 	if( Transform()->IsChanged() )
@@ -57,8 +66,8 @@ void CCamera::Draw(IShader* pShader)
 			Transform()->GetPos() + (Transform()->GetRot() * glm::vec3(-1,0,0)), // and looks at the origin
 			Transform()->GetRot() * glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
 		);
-
-		pShader->SetView( mView );
+		
+		pShader->SetVarMat4(s_iIdView, mView);
 	}
 }
 //-------------------------------------

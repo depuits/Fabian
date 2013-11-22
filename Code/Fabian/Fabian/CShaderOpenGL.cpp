@@ -1,6 +1,7 @@
 #include "CShaderOpenGL.h"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <fstream>
 #include <vector>
 
@@ -42,24 +43,77 @@ void CShaderOpenGL::Apply()
 //-------------------------------------
 
 //-------------------------------------
-// Sets the world, view or projection matrix
-// !!! - these methods will probebly go when 
-//          the VarIds are implemented
-// p1 in - mat4, the matrix variable
-void CShaderOpenGL::SetProjection(const glm::mat4& mProj)
+// Sets the shader variable from the id with
+//    the given value
+// p1 in - int, variable id
+// p2 in - int, variable value
+// p# in - variable value(s)
+void CShaderOpenGL::SetVarI1(int id, int v1)
 {
-	GLint MIDProj = glGetUniformLocation(m_uProgramID, "Projection");
-	glUniformMatrix4fv(MIDProj, 1, GL_FALSE, &mProj[0][0]);
+	glUniform1i(id, v1);
 }
-void CShaderOpenGL::SetView(const glm::mat4& mView)
+void CShaderOpenGL::SetVarI2(int id, int v1, int v2)
 {
-	GLint MIDView = glGetUniformLocation(m_uProgramID, "View");
-	glUniformMatrix4fv(MIDView, 1, GL_FALSE, &mView[0][0]);
+	glUniform2i(id, v1, v2);
 }
-void CShaderOpenGL::SetWorld(const glm::mat4& mWorld)
+void CShaderOpenGL::SetVarI3(int id, int v1, int v2, int v3)
 {
-	GLint MIDModel = glGetUniformLocation(m_uProgramID, "Model");
-	glUniformMatrix4fv(MIDModel, 1, GL_FALSE, &mWorld[0][0]);
+	glUniform3i(id, v1, v2, v3);
+}
+void CShaderOpenGL::SetVarI4(int id, int v1, int v2, int v3, int v4)
+{
+	glUniform4i(id, v1, v2, v3, v4);
+}
+
+void CShaderOpenGL::SetVarF1(int id, float v1)
+{
+	glUniform1f(id, v1);
+}
+void CShaderOpenGL::SetVarF2(int id, float v1, float v2)
+{
+	glUniform2f(id, v1, v2);
+}
+void CShaderOpenGL::SetVarF3(int id, float v1, float v2, float v3)
+{
+	glUniform3f(id, v1, v2, v3);
+}
+void CShaderOpenGL::SetVarF4(int id, float v1, float v2, float v3, float v4)
+{
+	glUniform4f(id, v1, v2, v3, v4);
+}
+
+void CShaderOpenGL::SetVarVec2(int id, const glm::vec2& v2)
+{
+	glUniform2fv(id, 1, glm::value_ptr(v2));
+}
+void CShaderOpenGL::SetVarVec3(int id, const glm::vec3& v3)
+{
+	glUniform3fv(id, 1, glm::value_ptr(v3));
+}
+void CShaderOpenGL::SetVarVec4(int id, const glm::vec4& v4)
+{
+	glUniform4fv(id, 1, glm::value_ptr(v4));
+}
+
+void CShaderOpenGL::SetVarMat2(int id, const glm::mat2& m2)
+{
+	glUniformMatrix2fv(id, 1, GL_FALSE, glm::value_ptr(m2));
+}
+void CShaderOpenGL::SetVarMat3(int id, const glm::mat3& m3)
+{
+	glUniformMatrix3fv(id, 1, GL_FALSE, glm::value_ptr(m3));
+}
+void CShaderOpenGL::SetVarMat4(int id, const glm::mat4& m4)
+{
+	glUniformMatrix4fv(id, 1, GL_FALSE, glm::value_ptr(m4));
+}
+//-------------------------------------
+// Gets a shader variable id from the name
+// p1 in - string, variable name
+// rv - int, the id of the variable, -1 when failed
+int CShaderOpenGL::GetVarId(const std::string& sVName) 
+{ 
+	return glGetUniformLocation(m_uProgramID, sVName.c_str());
 }
 //-------------------------------------
 

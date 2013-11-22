@@ -43,11 +43,17 @@ public:
 	// p1 in - pointer to SMsg object
 	virtual void MsgProc(SMsg*);
 	//-------------------------------------
+	
+	//-------------------------------------
+	// Function used for timer callback
+	// p1 in - float, delta time
+	static void TimerCallback(float);
+	//-------------------------------------
 
 protected:
 	IInput *m_pInput;
 	IRenderer *m_pRenderer;
-	float m_fDtime;
+	static float s_fDtime;
 
 	double m_dTimer;
 
