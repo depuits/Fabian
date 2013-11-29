@@ -42,6 +42,9 @@ bool CMeshOpenGL::Load(const std::string& file)
 	if( !reader.Read(file) )
 		return false;
 
+	if( !reader.m_type[0] || !reader.m_type[1] )
+		return false; // return because there where no normals or uvs
+
 	glGenVertexArrays(1, &m_VertexArrayID);	// create VAO for object
 
 	// ------------------------------------ creater buffers ---------------------------------------------------------------------
@@ -61,14 +64,34 @@ bool CMeshOpenGL::Load(const std::string& file)
 	
 	// 1rst attribute buffer : vertices
 	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);	// bind VBO
+
+	int stride = 8 * sizeof(GL_FLOAT);
 	glVertexAttribPointer(
 	   0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
 	   3,                  // size
 	   GL_FLOAT,           // type
 	   GL_FALSE,           // normalized?
-	   0,                  // stride
+	   stride,             // stride
 	   (void*)0            // array buffer offset
+	);
+	glVertexAttribPointer(
+	   1,								// attribute 0. No particular reason for 0, but must match the layout in the shader.
+	   3,								// size
+	   GL_FLOAT,						// type
+	   GL_TRUE,							// normalized?
+	   stride,							// stride
+	   (void*)(3  * sizeof(GL_FLOAT))	// array buffer offset
+	);
+	glVertexAttribPointer(
+	   2,								// attribute 0. No particular reason for 0, but must match the layout in the shader.
+	   2,								// size
+	   GL_FLOAT,						// type
+	   GL_FALSE,						// normalized?
+	   stride,							// stride
+	   (void*)(6  * sizeof(GL_FLOAT))	// array buffer offset
 	);
 		
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
