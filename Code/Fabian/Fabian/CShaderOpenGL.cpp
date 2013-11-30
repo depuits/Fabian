@@ -4,6 +4,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <fstream>
 #include <vector>
+#include "CLog.h"
 
 //******************************************
 // Class CShaderOpenGL:
@@ -153,7 +154,7 @@ GLuint CShaderOpenGL::LoadShaders(const char * vertex_file_path,const char * fra
 	int InfoLogLength;
  
 	// Compile Vertex Shader
-	printf("Compiling shader : %s\n", vertex_file_path);
+	CLog::Get()->Write(CLog::FLOG_LVL_INFO, CLog::FLOG_ID_APP, "Compiling shader : %s\n", vertex_file_path);
 	char const * VertexSourcePointer = VertexShaderCode.c_str();
 	glShaderSource(VertexShaderID, 1, &VertexSourcePointer , NULL);
 	glCompileShader(VertexShaderID);
@@ -166,7 +167,7 @@ GLuint CShaderOpenGL::LoadShaders(const char * vertex_file_path,const char * fra
 	fprintf(stdout, "%s\n", VertexShaderErrorMessage.data() );
  
 	// Compile Fragment Shader
-	printf("Compiling shader : %s\n", fragment_file_path);
+	CLog::Get()->Write(CLog::FLOG_LVL_INFO, CLog::FLOG_ID_APP, "Compiling shader : %s\n", fragment_file_path);
 	char const * FragmentSourcePointer = FragmentShaderCode.c_str();
 	glShaderSource(FragmentShaderID, 1, &FragmentSourcePointer , NULL);
 	glCompileShader(FragmentShaderID);

@@ -28,6 +28,9 @@
     <Filter Include="Engine Files\LibraryLoader">
       <UniqueIdentifier>{5b5e2cb1-999e-4a89-87c2-9d299f1c1a6c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine Files\Logging">
+      <UniqueIdentifier>{5cfb219e-e933-45b8-9dec-f4b5defe39f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CKernel.h">
@@ -111,6 +114,15 @@
     <ClInclude Include="CLibrary.h">
       <Filter>Engine Files\LibraryLoader</Filter>
     </ClInclude>
+    <ClInclude Include="CLog.h">
+      <Filter>Engine Files\Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="ILogger.h">
+      <Filter>Engine Files\Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="CLoggerToFiles.h">
+      <Filter>Engine Files\Logging</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CKernel.cpp">
@@ -184,6 +196,12 @@
     </ClCompile>
     <ClCompile Include="CLibrary.cpp">
       <Filter>Engine Files\LibraryLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="CLog.cpp">
+      <Filter>Engine Files\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="CLoggerToFiles.cpp">
+      <Filter>Engine Files\Logging</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 #include "CMeshOpenGL.h"
 
 #include "CA3dReader.h"
+#include "CLog.h"
 
 //******************************************
 // Class CMeshOpenGL:
@@ -43,7 +44,13 @@ bool CMeshOpenGL::Load(const std::string& file)
 		return false;
 
 	if( !reader.m_type[0] || !reader.m_type[1] )
+	{
+		CLog::Get()->Write(CLog::FLOG_LVL_ERROR, CLog::FLOG_ID_APP | CLog::FLOG_ID_USER, "Normals or UVs missing from mesh");
 		return false; // return because there where no normals or uvs
+	}
+	
+	CLog::Get()->Write(CLog::FLOG_LVL_INFO, CLog::FLOG_ID_APP | CLog::FLOG_ID_USER, "Vertices: %u", reader.m_vertices.size() );
+	CLog::Get()->Write(CLog::FLOG_LVL_WARNING, CLog::FLOG_ID_APP | CLog::FLOG_ID_USER, "Indices: %u", reader.m_indices.size() );
 
 	glGenVertexArrays(1, &m_VertexArrayID);	// create VAO for object
 

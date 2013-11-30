@@ -85,7 +85,7 @@ bool CServiceGame::Start()
 	g_Model1->Init();
 	g_Model1->Transform()->SetRot( glm::vec3(0, glm::quarter_pi<float>(),0) );
 	g_Model1->Transform()->SetPos( glm::vec3(0,-5,0) );
-	//g_Model1->Transform()->SetScale( 0.1f );
+	g_Model1->Transform()->SetScale( 0.1f );
 	
 	return true;
 }

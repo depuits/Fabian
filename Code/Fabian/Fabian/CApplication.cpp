@@ -9,6 +9,9 @@
 #include "CServiceGame.h"
 #include "CServiceInput.h"
 
+#include "CLog.h"
+#include "CLoggerToFiles.h"
+
 //******************************************
 // Class CApplication:
 // the entry point where the OO starts and where
@@ -35,6 +38,9 @@ CApplication::~CApplication()
 int CApplication::Run(int argc, char *argv[])
 {
 	//initiate the log for the app
+	CLoggerToFiles* pLogger = new CLoggerToFiles();
+	pLogger->Init();
+	CLog::Get()->AssignLogger(pLogger);
 
 	//create kernel
 	CKernel *pKernel = CKernel::Get();
@@ -43,8 +49,8 @@ int CApplication::Run(int argc, char *argv[])
   
 	//parse command-line arguments
 	//skip the first argument, which is always the program name
-	if(argc>1)
-		for(int i=1;i<argc;i++)
+	if(argc > 1)
+		for(int i(1); i < argc; ++i)
 			std::cout << argv[i] << "\n"; // for now just show them in output
   
 	//set up the profiler output
