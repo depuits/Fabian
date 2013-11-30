@@ -47,7 +47,7 @@ public:
 	int RegisterMsg(const std::string&);
 
 	void Write(char, char, unsigned msgId, ...);
-	void Write(char, char, const std::string&, ...);
+	void Write(char, char, const char*, ...);
 
 private:
 	//-------------------------------------

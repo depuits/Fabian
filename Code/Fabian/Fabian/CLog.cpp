@@ -58,14 +58,14 @@ void CLog::Write(char lvl, char id, unsigned msgId, ...)
 
 	Write(lvl, id, szBuf);
 }
-void CLog::Write(char lvl, char id, const std::string& sMsg, ...)
+void CLog::Write(char lvl, char id, const char* msg, ...)
 {
 	FASSERT(m_pLogger != nullptr);
 	
 	va_list args;
-	va_start(args, sMsg);
+	va_start(args, msg);
 	char szBuf[1024];
-	vsprintf(szBuf, sMsg.c_str(), args);
+	vsprintf(szBuf, msg, args);
 	va_end(args);
 
 	m_pLogger->Write(lvl, id, szBuf);
