@@ -46,6 +46,7 @@ protected:
 	unsigned long	m_ulLastFrameIndex,
 					m_ulThisFrameIndex;
 
+	double m_dTimer;
 	std::vector< TimerCallbackFunc > m_vCallbackFuncs;
 
 private:

@@ -9,6 +9,9 @@ in vec3 LightDirection_cameraspace;
 // Values that stay constant for the whole mesh.
 uniform sampler2D TextureSampler;
 
+uniform vec3 LightColor;
+uniform float LightPower;
+
 void main()
 {
 	// Normal of the computed fragment, in camera space
@@ -23,8 +26,14 @@ void main()
 	//  - light is behind the triangle -> 0
 	float cosTheta = clamp( dot( n, l), 0, 1 );
 	
-	color = vec3(1, 0, 0) * cosTheta;
-	//color = MaterialDiffuseColor * LightColor * LightPower * cosTheta / (distance*distance);
+	vec3 MaterialDiffuseColor = vec3(0.8, 0.1, 0.1);
+	vec3 MaterialAmbientColor = vec3(0.1, 0.1, 0.1) * MaterialDiffuseColor;
+	
+	color =  
+		// Ambient : simulates indirect lighting
+		MaterialAmbientColor +
+		// Diffuse : "color" of the object
+		MaterialDiffuseColor * LightColor * LightPower * cosTheta;// / (distance*distance);
 	
 	
 	

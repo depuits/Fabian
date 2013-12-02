@@ -17,6 +17,8 @@ CServiceTimer::CServiceTimer(int priorety)
 	
 	,m_ulLastFrameIndex(0)
 	,m_ulThisFrameIndex(0)
+
+	,m_dTimer(0)
 {
 }
 //-------------------------------------
@@ -41,10 +43,27 @@ bool CServiceTimer::Start()
 // Called every time the service has to update
 void CServiceTimer::Update()
 {
-	m_ulLastFrameIndex = m_ulThisFrameIndex;
-	m_ulThisFrameIndex = SDL_GetTicks();
-	float dt = ((float)(m_ulThisFrameIndex - m_ulLastFrameIndex)) / 1000.0f;
+	// fix ratio update
+	double interval = 1.0 / 60.0;
 
+	do
+	{
+		m_ulLastFrameIndex = m_ulThisFrameIndex;
+		m_ulThisFrameIndex = SDL_GetTicks();
+		float dt = ((float)(m_ulThisFrameIndex - m_ulLastFrameIndex)) / 1000.0f;
+		m_dTimer += dt;
+	}
+	while ( m_dTimer < interval );
+
+	m_dTimer -= interval ;
+	float dt = (float)interval;
+	
+	// lose update (unlimited)
+	/*m_ulLastFrameIndex = m_ulThisFrameIndex;
+	m_ulThisFrameIndex = SDL_GetTicks();
+	float dt = ((float)(m_ulThisFrameIndex - m_ulLastFrameIndex)) / 1000.0f;*/
+
+	// dt callback
 	for each (TimerCallbackFunc func in m_vCallbackFuncs)
 	{
 		func(dt);

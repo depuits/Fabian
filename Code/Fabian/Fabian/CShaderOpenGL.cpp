@@ -21,6 +21,7 @@ CShaderOpenGL::CShaderOpenGL()
 // Destructor
 CShaderOpenGL::~CShaderOpenGL()
 {
+	glDeleteShader(m_uProgramID);
 }
 //-------------------------------------
 	

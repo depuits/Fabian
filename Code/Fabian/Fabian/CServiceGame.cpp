@@ -11,6 +11,8 @@
 #include "CCamera.h"
 #include "CTransform.h"
 
+#include "CLog.h"
+
 CCamera *g_Camera;
 IShader *g_Shader;
 
@@ -18,7 +20,9 @@ IMesh* g_Mesh;
 
 CModel *g_Model1;
 
-int g_iIdLightPos;
+int g_iIdLightPos,
+	g_iIdLightPower,
+	g_iIdLightColor;
 
 //******************************************
 // Class CServiceGame:
@@ -78,6 +82,8 @@ bool CServiceGame::Start()
 	
 	g_Shader = m_pRenderer->LoadShader("SimpleShader");
 	g_iIdLightPos = g_Shader->GetVarId("LightPosition_worldspace");
+	g_iIdLightPower = g_Shader->GetVarId("LightPower");
+	g_iIdLightColor = g_Shader->GetVarId("LightColor");
 	//g_Mesh = m_pRenderer->LoadMesh("tegels-hi", ".a3d");
 	g_Mesh = m_pRenderer->LoadMesh("teapot", ".a3d");
 
@@ -103,9 +109,11 @@ void CServiceGame::Update()
 		int x(0), y(0);
 		m_pInput->LockMouse(true);
 		m_pInput->GetMouseMovement(x, y);
-		g_Camera->Transform()->Rotate( glm::vec3(0,1.0f * -x * s_fDtime,0) );
-		g_Camera->Transform()->LocalRotate( glm::vec3(0,0,1.0f * y * s_fDtime) ); // change this to locale rotation
-
+		if( x != 0 )
+			int kbreak = 0;
+		g_Camera->Transform()->Rotate( glm::vec3(0,0.01f * -x * s_fDtime,0) );
+		g_Camera->Transform()->LocalRotate( glm::vec3(0,0,0.01f * y * s_fDtime) ); // change this to locale rotation
+		
 		//m_pInput->LockMouse(300, 300);
 	}
 	else
@@ -114,20 +122,20 @@ void CServiceGame::Update()
 	//move forward and backward
 	if ( m_pInput->GetKeyState(FKEY_UP) & DOWN )
 	{
-		g_Camera->Transform()->LocalMove( glm::vec3(-200 * s_fDtime, 0, 0) );
+		g_Camera->Transform()->LocalMove( glm::vec3(-20 * s_fDtime, 0, 0) );
 	}
 	else if ( m_pInput->GetKeyState(FKEY_DOWN) & DOWN )
 	{
-		g_Camera->Transform()->LocalMove( glm::vec3(200 * s_fDtime, 0, 0) );
+		g_Camera->Transform()->LocalMove( glm::vec3(20 * s_fDtime, 0, 0) );
 	}
 	//move left and right
 	if ( m_pInput->GetKeyState(FKEY_LEFT) & DOWN )
 	{
-		g_Camera->Transform()->LocalMove( glm::vec3(0, 0, 200 * s_fDtime) );
+		g_Camera->Transform()->LocalMove( glm::vec3(0, 0, 20 * s_fDtime) );
 	}
 	if ( m_pInput->GetKeyState(FKEY_RIGHT) & DOWN )
 	{
-		g_Camera->Transform()->LocalMove( glm::vec3(0, 0, -200 * s_fDtime) );
+		g_Camera->Transform()->LocalMove( glm::vec3(0, 0, -20 * s_fDtime) );
 	}
 	/*if ( (m_pInput->GetKeyState(FKEY_Z) & DOWN_NEW) == DOWN_NEW )
 	{
@@ -136,6 +144,8 @@ void CServiceGame::Update()
 
 	g_Shader->Apply();
 	g_Shader->SetVarVec3(g_iIdLightPos, glm::vec3(200, 0, 0));
+	g_Shader->SetVarF1(g_iIdLightPower, 1.0f);
+	g_Shader->SetVarVec3(g_iIdLightColor, glm::vec3(1.0f, 1.0f, 1.0f));
 	g_Camera->Draw(g_Shader);
 	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 	g_Model1->Draw(g_Shader);
@@ -180,7 +190,10 @@ void CServiceGame::MsgProc(SMsg* sm)
 // p1 in - float, delta time
 void CServiceGame::TimerCallback(float fDt)
 {
-	s_fDtime = fDt;
+	//if( fDt > 0.000000001f )
+		s_fDtime = fDt;
+		//__debugbreak();
+
 }
 //-------------------------------------
 
