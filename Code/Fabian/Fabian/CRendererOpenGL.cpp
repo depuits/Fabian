@@ -4,7 +4,7 @@
 #include <GL\glew.h>
 #include "CServiceVideoUpdate.h"
 
-#include "CShaderOpenGL.h" // has to change to opengl shader
+#include "CShaderOpenGL.h"
 #include "CMeshOpenGL.h"
 
 //******************************************
@@ -25,12 +25,6 @@ CRendererOpenGL::CRendererOpenGL(CServiceVideoUpdate *pServiceParent)
 // Destructor
 CRendererOpenGL::~CRendererOpenGL()
 {
-	for (std::map<std::string, IShader*>::iterator it = m_mShaderMap.begin(); it != m_mShaderMap.end(); ++it)
-		delete it->second;
-	m_mShaderMap.clear();
-	for (std::map<std::string, IMesh*>::iterator it = m_mMeshMap.begin(); it != m_mMeshMap.end(); ++it)
-		delete it->second;
-	m_mMeshMap.clear();
 }
 //-------------------------------------
 	
@@ -93,51 +87,30 @@ void CRendererOpenGL::Clear(float r, float g, float b, float a)
 // rv - pointer IShader object and nullptr if failed
 IShader *CRendererOpenGL::LoadShader(const std::string& sName)
 {
-	if ( !IsShaderPresent(sName))
+	IShader *pShader = new CShaderOpenGL();
+	if( !pShader->Load(sName) )
 	{
-		IShader *pShader = new CShaderOpenGL();
-		if( !pShader->Load(sName) )
-		{
-			delete pShader;
-			return nullptr;
-		}
-		
-		m_mShaderMap[sName] = pShader;
+		delete pShader;
+		return nullptr;
 	}
-	return m_mShaderMap[sName];
+		
+	return pShader;
 }
 //-------------------------------------
 // Loads in a mesh from a file and returns it 
 // p1 in - string, name of the mesh file (without extension)
 // p2 in - string, extension of the file
 // rv - pointer IMesh object and nullptr if failed
-IMesh *CRendererOpenGL::LoadMesh(const std::string& sName, const std::string& sExt)
+IMesh *CRendererOpenGL::LoadMesh(MeshData* md)
 {
-	if ( !IsMeshPresent(sName))
+	CMeshOpenGL *pMesh = new CMeshOpenGL();
+	if( !pMesh->Load(md) )
 	{
-		CMeshOpenGL *pMesh = new CMeshOpenGL();
-		if( !pMesh->Load(sName + sExt) )
-		{
-			delete pMesh;
-			return nullptr;
-		}
-		
-		m_mMeshMap[sName] = pMesh;
+		delete pMesh;
+		return nullptr;
 	}
-	return m_mMeshMap[sName];
+
+	return pMesh;
 }
 //-------------------------------------
 
-//-------------------------------------
-// Checks weither or not the shader or mesh has already been loaded.
-// p1 in - string, name of the object file (without extension)
-// rv - bool, true if the object is already loaded
-bool CRendererOpenGL::IsShaderPresent(const std::string& sKey) const
-{
-	return  m_mShaderMap.find(sKey) != m_mShaderMap.end();
-}
-bool CRendererOpenGL::IsMeshPresent(const std::string& sKey) const
-{
-	return  m_mMeshMap.find(sKey) != m_mMeshMap.end();
-}
-//-------------------------------------

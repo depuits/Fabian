@@ -31,6 +31,9 @@
     <Filter Include="Engine Files\Logging">
       <UniqueIdentifier>{5cfb219e-e933-45b8-9dec-f4b5defe39f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine Files\Content">
+      <UniqueIdentifier>{a0674aa9-b863-4e30-844e-b316a6ec93bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CKernel.h">
@@ -123,6 +126,12 @@
     <ClInclude Include="CLoggerToFiles.h">
       <Filter>Engine Files\Logging</Filter>
     </ClInclude>
+    <ClInclude Include="DataStructures.h">
+      <Filter>Engine Files\Video</Filter>
+    </ClInclude>
+    <ClInclude Include="CContentManager.h">
+      <Filter>Engine Files\Content</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CKernel.cpp">
@@ -152,9 +161,6 @@
     <ClCompile Include="CServiceVideoUpdate.cpp">
       <Filter>Engine Files\Video</Filter>
     </ClCompile>
-    <ClCompile Include="IShader.cpp">
-      <Filter>Engine Files\Video</Filter>
-    </ClCompile>
     <ClCompile Include="CMeshOpenGL.cpp">
       <Filter>Engine Files\Video</Filter>
     </ClCompile>
@@ -174,9 +180,6 @@
       <Filter>Engine Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="CA3dReader.cpp">
-      <Filter>Engine Files\Video</Filter>
-    </ClCompile>
-    <ClCompile Include="IRenderer.cpp">
       <Filter>Engine Files\Video</Filter>
     </ClCompile>
     <ClCompile Include="CRendererOpenGL.cpp">
@@ -202,6 +205,9 @@
     </ClCompile>
     <ClCompile Include="CLoggerToFiles.cpp">
       <Filter>Engine Files\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="CContentManager.cpp">
+      <Filter>Engine Files\Content</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

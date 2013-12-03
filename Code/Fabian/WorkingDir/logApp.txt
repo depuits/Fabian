@@ -103,3 +103,187 @@
 2013-12-02 - 11:30:07 -  INFO   - Linking shader program
 2013-12-02 - 11:30:07 -  INFO   - Vertices: 7408
 2013-12-02 - 11:30:07 -  INFO   - Indices: 2976
+2013-12-03 - 13:02:08 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 13:02:08 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 13:02:08 -  INFO   - Linking shader program
+2013-12-03 - 13:02:08 -  INFO   - Vertices: 7408
+2013-12-03 - 13:02:08 -  INFO   - Indices: 2976
+2013-12-03 - 13:26:18 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 13:26:18 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 13:26:18 -  INFO   - Linking shader program
+2013-12-03 - 13:26:18 -  INFO   - Vertices: 7408
+2013-12-03 - 13:26:18 -  INFO   - Indices: 2976
+2013-12-03 - 13:31:26 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 13:31:26 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 13:31:26 -  INFO   - Linking shader program
+2013-12-03 - 13:31:26 -  INFO   - Vertices: 7408
+2013-12-03 - 13:31:26 -  INFO   - Indices: 2976
+2013-12-03 - 14:24:59 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 14:24:59 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 14:24:59 -  INFO   - Linking shader program
+2013-12-03 - 14:24:59 -  INFO   - Vertices: 7408
+2013-12-03 - 14:24:59 -  INFO   - Indices: 2976
+2013-12-03 - 14:28:54 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 14:28:54 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 14:28:54 -  INFO   - Linking shader program
+2013-12-03 - 14:28:54 -  INFO   - Vertices: 7408
+2013-12-03 - 14:28:54 -  INFO   - Indices: 2976
+2013-12-03 - 14:29:36 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 14:29:36 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 14:29:36 -  INFO   - Linking shader program
+2013-12-03 - 14:29:36 -  INFO   - Vertices: 7408
+2013-12-03 - 14:29:36 -  INFO   - Indices: 2976
+2013-12-03 - 14:29:58 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 14:29:58 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 14:29:58 -  INFO   - Linking shader program
+2013-12-03 - 14:29:58 -  INFO   - Vertices: 7408
+2013-12-03 - 14:29:58 -  INFO   - Indices: 2976
+2013-12-03 - 14:30:13 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 14:30:13 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 14:30:13 -  INFO   - Linking shader program
+2013-12-03 - 14:30:13 -  INFO   - Vertices: 7408
+2013-12-03 - 14:30:13 -  INFO   - Indices: 2976
+2013-12-03 - 14:30:27 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 14:30:27 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 14:30:27 -  INFO   - Linking shader program
+2013-12-03 - 14:30:27 -  INFO   - Vertices: 7408
+2013-12-03 - 14:30:27 -  INFO   - Indices: 2976
+2013-12-03 - 14:31:00 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 14:31:00 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 14:31:00 -  INFO   - Linking shader program
+2013-12-03 - 14:31:00 -  INFO   - Vertices: 7408
+2013-12-03 - 14:31:00 -  INFO   - Indices: 2976
+2013-12-03 - 14:34:32 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 14:34:32 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 14:34:32 -  INFO   - Linking shader program
+2013-12-03 - 14:34:32 -  INFO   - Vertices: 7408
+2013-12-03 - 14:34:32 -  INFO   - Indices: 2976
+2013-12-03 - 14:34:48 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 14:34:48 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 14:34:48 -  INFO   - Linking shader program
+2013-12-03 - 14:34:48 -  INFO   - Vertices: 7408
+2013-12-03 - 14:34:48 -  INFO   - Indices: 2976
+2013-12-03 - 14:35:18 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 14:35:18 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 14:35:19 -  INFO   - Linking shader program
+2013-12-03 - 14:35:19 -  INFO   - Vertices: 7408
+2013-12-03 - 14:35:19 -  INFO   - Indices: 2976
+2013-12-03 - 14:35:43 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 14:35:43 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 14:35:43 -  INFO   - Linking shader program
+2013-12-03 - 14:35:43 -  INFO   - Vertices: 7408
+2013-12-03 - 14:35:43 -  INFO   - Indices: 2976
+2013-12-03 - 16:24:18 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 16:24:18 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 16:24:18 -  INFO   - Linking shader program
+2013-12-03 - 16:24:18 -  INFO   - Vertices: 7408
+2013-12-03 - 16:24:18 -  INFO   - Indices: 2976
+2013-12-03 - 16:25:07 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 16:25:07 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 16:25:07 -  INFO   - Linking shader program
+2013-12-03 - 16:25:07 -  INFO   - Vertices: 7408
+2013-12-03 - 16:25:07 -  INFO   - Indices: 2976
+2013-12-03 - 16:25:45 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 16:25:45 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 16:25:45 -  INFO   - Linking shader program
+2013-12-03 - 16:25:45 -  INFO   - Vertices: 7408
+2013-12-03 - 16:25:45 -  INFO   - Indices: 2976
+2013-12-03 - 16:26:20 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 16:26:20 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 16:26:20 -  INFO   - Linking shader program
+2013-12-03 - 16:26:20 -  INFO   - Vertices: 7408
+2013-12-03 - 16:26:20 -  INFO   - Indices: 2976
+2013-12-03 - 16:27:43 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 16:27:43 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 16:27:43 -  INFO   - Linking shader program
+2013-12-03 - 16:27:43 -  INFO   - Vertices: 7408
+2013-12-03 - 16:27:43 -  INFO   - Indices: 2976
+2013-12-03 - 16:28:00 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 16:28:00 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 16:28:00 -  INFO   - Linking shader program
+2013-12-03 - 16:28:00 -  INFO   - Vertices: 7408
+2013-12-03 - 16:28:00 -  INFO   - Indices: 2976
+2013-12-03 - 16:28:13 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 16:28:13 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 16:28:13 -  INFO   - Linking shader program
+2013-12-03 - 16:28:13 -  INFO   - Vertices: 7408
+2013-12-03 - 16:28:13 -  INFO   - Indices: 2976
+2013-12-03 - 16:28:28 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 16:28:28 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 16:28:28 -  INFO   - Linking shader program
+2013-12-03 - 16:28:28 -  INFO   - Vertices: 7408
+2013-12-03 - 16:28:28 -  INFO   - Indices: 2976
+2013-12-03 - 16:28:42 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 16:28:42 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 16:28:42 -  INFO   - Linking shader program
+2013-12-03 - 16:28:42 -  INFO   - Vertices: 7408
+2013-12-03 - 16:28:42 -  INFO   - Indices: 2976
+2013-12-03 - 16:30:28 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 16:30:28 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 16:30:28 -  INFO   - Linking shader program
+2013-12-03 - 16:30:28 -  INFO   - Vertices: 7408
+2013-12-03 - 16:30:28 -  INFO   - Indices: 2976
+2013-12-03 - 16:30:43 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 16:30:43 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 16:30:43 -  ERROR  - WARNING: 0:55: warning(#402) Implicit truncation of vector from size: 4 to size: 3
+
+2013-12-03 - 16:30:43 -  INFO   - Linking shader program
+2013-12-03 - 16:30:43 -  INFO   - Vertices: 7408
+2013-12-03 - 16:30:43 -  INFO   - Indices: 2976
+2013-12-03 - 16:31:17 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 16:31:17 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 16:31:17 -  ERROR  - Fragment shader failed to compile with the following errors:
+ERROR: 0:46: error(#160) Cannot convert from: "3-component vector of vec3" to: "out 4-component vector of vec4"
+ERROR: error(#273) 1 compilation errors.  No code generated
+
+
+2013-12-03 - 16:31:17 -  INFO   - Linking shader program
+2013-12-03 - 16:31:17 -  ERROR  - Fragment shader(s) were not successfully compiled before glLinkProgram() was called.  Link failed. 
+
+2013-12-03 - 16:31:17 -  INFO   - Vertices: 7408
+2013-12-03 - 16:31:17 -  INFO   - Indices: 2976
+2013-12-03 - 16:33:36 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 16:33:36 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 16:33:36 -  INFO   - Linking shader program
+2013-12-03 - 16:33:36 -  INFO   - Vertices: 7408
+2013-12-03 - 16:33:36 -  INFO   - Indices: 2976
+2013-12-03 - 16:33:48 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 16:33:48 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 16:33:48 -  INFO   - Linking shader program
+2013-12-03 - 16:33:48 -  INFO   - Vertices: 7408
+2013-12-03 - 16:33:48 -  INFO   - Indices: 2976
+2013-12-03 - 16:34:27 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 16:34:27 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 16:34:27 -  INFO   - Linking shader program
+2013-12-03 - 16:34:27 -  INFO   - Vertices: 7408
+2013-12-03 - 16:34:27 -  INFO   - Indices: 2976
+2013-12-03 - 16:36:23 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 16:36:23 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 16:36:23 -  INFO   - Linking shader program
+2013-12-03 - 16:36:23 -  INFO   - Vertices: 7408
+2013-12-03 - 16:36:23 -  INFO   - Indices: 2976
+2013-12-03 - 16:36:53 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 16:36:53 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 16:36:53 -  INFO   - Linking shader program
+2013-12-03 - 16:36:53 -  INFO   - Vertices: 7408
+2013-12-03 - 16:36:53 -  INFO   - Indices: 2976
+2013-12-03 - 16:37:03 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 16:37:03 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 16:37:03 -  INFO   - Linking shader program
+2013-12-03 - 16:37:03 -  INFO   - Vertices: 7408
+2013-12-03 - 16:37:03 -  INFO   - Indices: 2976
+2013-12-03 - 17:07:58 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 17:07:58 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 17:07:58 -  INFO   - Linking shader program
+2013-12-03 - 17:08:08 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 17:08:08 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 17:08:08 -  INFO   - Linking shader program
+2013-12-03 - 17:09:18 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 17:09:18 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 17:09:18 -  INFO   - Linking shader program
+2013-12-03 - 17:11:11 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 17:11:12 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 17:11:12 -  INFO   - Linking shader program
+2013-12-03 - 17:13:52 -  INFO   - Compiling vertex shader : SimpleShader.vsh
+2013-12-03 - 17:13:52 -  INFO   - Compiling fragment shader : SimpleShader.fsh
+2013-12-03 - 17:13:52 -  INFO   - Linking shader program

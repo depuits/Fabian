@@ -4,6 +4,7 @@
 
 #include "IInput.h"
 #include "IRenderer.h"
+#include "CContentManager.h"
 
 #include "IShader.h"
 
@@ -39,6 +40,7 @@ CServiceGame::CServiceGame(int priorety)
 
 	,m_pInput(nullptr)
 	,m_pRenderer(nullptr)
+	,m_pContent(nullptr)
 	,m_dTimer(0)
 {
 }
@@ -74,10 +76,12 @@ bool CServiceGame::Start()
 	// just quit when the renderer or input wasn't filled in
 	FASSERTR(m_pInput != nullptr);
 	FASSERTR(m_pRenderer != nullptr);
+	
+	m_pRenderer->SetVSync(true);
 
 	g_Camera = new CCamera();
 	g_Camera->Init();
-	g_Camera->Transform()->SetPos( glm::vec3(80,10,0) );
+	g_Camera->Transform()->SetPos( glm::vec3(20,10,0) );
 	//g_Camera->Transform()->SetRot( glm::vec3(0,0,0.3f) );
 	
 	g_Shader = m_pRenderer->LoadShader("SimpleShader");
@@ -85,12 +89,14 @@ bool CServiceGame::Start()
 	g_iIdLightPower = g_Shader->GetVarId("LightPower");
 	g_iIdLightColor = g_Shader->GetVarId("LightColor");
 	//g_Mesh = m_pRenderer->LoadMesh("tegels-hi", ".a3d");
-	g_Mesh = m_pRenderer->LoadMesh("teapot", ".a3d");
+
+	m_pContent = new CContentManager(m_pRenderer);
+	g_Mesh = m_pContent->LoadMesh("teapot", ".a3d");
 
 	g_Model1 = new CModel(g_Mesh);
 	g_Model1->Init();
 	g_Model1->Transform()->SetRot( glm::vec3(0, glm::quarter_pi<float>(),0) );
-	g_Model1->Transform()->SetPos( glm::vec3(0,-5,0) );
+	g_Model1->Transform()->SetPos( glm::vec3(0,0,0) );
 	g_Model1->Transform()->SetScale( 0.1f );
 	
 	return true;
@@ -109,8 +115,6 @@ void CServiceGame::Update()
 		int x(0), y(0);
 		m_pInput->LockMouse(true);
 		m_pInput->GetMouseMovement(x, y);
-		if( x != 0 )
-			int kbreak = 0;
 		g_Camera->Transform()->Rotate( glm::vec3(0,0.01f * -x * s_fDtime,0) );
 		g_Camera->Transform()->LocalRotate( glm::vec3(0,0,0.01f * y * s_fDtime) ); // change this to locale rotation
 		
@@ -143,9 +147,9 @@ void CServiceGame::Update()
 	}*/
 
 	g_Shader->Apply();
-	g_Shader->SetVarVec3(g_iIdLightPos, glm::vec3(200, 0, 0));
+	g_Shader->SetVarVec3(g_iIdLightPos, glm::vec3(20, 0, 0));
 	g_Shader->SetVarF1(g_iIdLightPower, 1.0f);
-	g_Shader->SetVarVec3(g_iIdLightColor, glm::vec3(1.0f, 1.0f, 1.0f));
+	g_Shader->SetVarVec4(g_iIdLightColor, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 	g_Camera->Draw(g_Shader);
 	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 	g_Model1->Draw(g_Shader);
@@ -165,6 +169,9 @@ void CServiceGame::Stop()
 {
 	delete g_Model1;
 	delete g_Camera;
+
+	delete g_Shader;
+	delete m_pContent;
 }
 //-------------------------------------
 	

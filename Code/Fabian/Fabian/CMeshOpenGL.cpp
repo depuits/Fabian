@@ -1,8 +1,5 @@
 #include "CMeshOpenGL.h"
 
-#include "CA3dReader.h"
-#include "CLog.h"
-
 //******************************************
 // Class CMeshOpenGL:
 // this class is an OpenGL implementation of 
@@ -33,38 +30,24 @@ CMeshOpenGL::~CMeshOpenGL()
 	
 //-------------------------------------
 // Loads and initializes the mesh by loading any needed buffers, etc.
-// p1 in - string, path to the mesh file
-//            ! this is going to be a meshLoaderData
+// p1 in - pointer to the meshdata for the mesh
 // rv - bool, return false if something failed
-bool CMeshOpenGL::Load(const std::string& file)
+//bool CMeshOpenGL::Load(const std::string& file)
+bool CMeshOpenGL::Load(MeshData* md)
 {
-	// read in the model data for later use
-	CA3dReader reader;
-	if( !reader.Read(file) )
-		return false;
-
-	if( !reader.m_type[0] || !reader.m_type[1] )
-	{
-		CLog::Get()->Write(CLog::FLOG_LVL_ERROR, CLog::FLOG_ID_APP | CLog::FLOG_ID_USER, "Normals or UVs missing from mesh");
-		return false; // return because there where no normals or uvs
-	}
-	
-	CLog::Get()->Write(CLog::FLOG_LVL_INFO, CLog::FLOG_ID_APP, "Vertices: %u", reader.m_vertices.size() );
-	CLog::Get()->Write(CLog::FLOG_LVL_INFO, CLog::FLOG_ID_APP, "Indices: %u", reader.m_indices.size() );
-
 	glGenVertexArrays(1, &m_VertexArrayID);	// create VAO for object
 
 	// ------------------------------------ creater buffers ---------------------------------------------------------------------
 	// Generate 1 vertex buffer
 	glGenBuffers(1, &m_VertexBuffer);				// create VBO for object
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);	// bind VBO
-	glBufferData(GL_ARRAY_BUFFER, reader.m_vertices.size() * sizeof(float), reader.m_vertices.data(), GL_STATIC_DRAW); // Give our vertices to OpenGL.
+	glBufferData(GL_ARRAY_BUFFER, md->vCount * sizeof(float), md->vData, GL_STATIC_DRAW); // Give our vertices to OpenGL.
 
 	// Generate a buffer for the indices
 	 glGenBuffers(1, &m_IndexBuffer);
 	 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
-	 glBufferData(GL_ELEMENT_ARRAY_BUFFER, reader.m_indices.size() * sizeof(unsigned int), reader.m_indices.data(), GL_STATIC_DRAW);
-	 m_iIndicesCount = reader.m_indices.size();
+	 glBufferData(GL_ELEMENT_ARRAY_BUFFER, md->iCount * sizeof(unsigned int), md->iData, GL_STATIC_DRAW);
+	 m_iIndicesCount = md->iCount;
 	// ------------------------------------ creater buffers end ---------------------------------------------------------------------
 
 	glBindVertexArray(m_VertexArrayID);		// bind the VAO

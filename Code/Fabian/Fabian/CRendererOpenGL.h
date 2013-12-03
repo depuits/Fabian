@@ -2,7 +2,6 @@
 #define FABIAN_CRENDEREROPENGL_H_
 
 #include "IRenderer.h"
-#include <map>
 
 // --forward declarations--
 class CServiceVideoUpdate;
@@ -64,27 +63,14 @@ public:
 	virtual IShader *LoadShader(const std::string&);
 	//-------------------------------------
 	// Loads in a mesh from a file and returns it 
-	// p1 in - string, name of the mesh file (without extension)
-	// p2 in - string, extension of the file
+	// p1 in - pointer to the meshdata for the mesh
 	// rv - pointer IMesh object and nullptr if failed
-	virtual IMesh *LoadMesh(const std::string&, const std::string& ext);
+	virtual IMesh *LoadMesh(MeshData*);
 	//-------------------------------------
 	
 protected:
 	CServiceVideoUpdate *m_pServiceParent;
 	bool m_bFullScreen;
-	
-	//-------------------------------------
-	// Checks weither or not the shader or mesh has already been loaded.
-	// p1 in - string, name of the object file (without extension)
-	// rv - bool, true if the object is already loaded
-	bool IsShaderPresent(const std::string&) const;
-	bool IsMeshPresent(const std::string&) const;
-	//-------------------------------------
-
-	std::map<std::string, IShader*> m_mShaderMap;
-	std::map<std::string, IMesh*> m_mMeshMap;
-
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(CRendererOpenGL);

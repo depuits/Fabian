@@ -6,6 +6,7 @@
 // --forward declarations--
 class IInput;
 class IRenderer;
+class CContentManager;
 // ------------------------
 
 //******************************************
@@ -53,6 +54,7 @@ public:
 protected:
 	IInput *m_pInput;
 	IRenderer *m_pRenderer;
+	CContentManager *m_pContent;
 	static float s_fDtime;
 
 	double m_dTimer;

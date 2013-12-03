@@ -29,7 +29,7 @@ public:
 	//-------------------------------------
 	// gets the pointer to a function 
 	// p1 in - name of the function
-	void *GetFunction(const std::string&) const;
+	void *GetFunction(const std::string&);
 	//-------------------------------------
 
 private:

@@ -2,6 +2,7 @@
 #define FABIAN_IRENDERER_H_
 
 #include "FabianDef.h"
+#include "DataStructures.h"
 #include <string>
 
 // --forward declarations--
@@ -64,10 +65,9 @@ public:
 	virtual IShader *LoadShader(const std::string&) = 0;
 	//-------------------------------------
 	// Loads in a mesh from a file and returns it 
-	// p1 in - string, name of the mesh file (without extension)
-	// p2 in - string, extension of the file
+	// p1 in - pointer to the meshdata for the mesh
 	// rv - pointer IMesh object and nullptr if failed
-	virtual IMesh *LoadMesh(const std::string&, const std::string&) = 0;
+	virtual IMesh *LoadMesh(MeshData*) = 0;
 	//-------------------------------------
 	
 protected:

@@ -22,5 +22,16 @@
 	SDL_assert_release(condition);	\
 	__pragma(warning(pop))
 
+// dll export define
+#ifdef WIN32
+	#ifdef DLL_EXPORT
+		#define DECLDIR __declspec(dllexport)
+	#else
+		#define DECLDIR __declspec(dllimport)
+	#endif
+#else
+	#define DECLDIR
+#endif
+
 
 #endif //FABIAN_FABIANDEF_H_

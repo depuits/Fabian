@@ -39,6 +39,8 @@ int CLibraryLoader::LoadLib(const std::string& sFile)
 	LoadLibraryA(sFile.c_str());
 #elif defined UNIX /*unix*/
 	dlopen(filename.c_str(), RTLD_LAZY);
+#else
+#error PLATFORM NOT IMPLENTED
 #endif
 
 	if( pLib == nullptr )
@@ -73,6 +75,8 @@ bool CLibraryLoader::UnLoadLib(int id)
 	FreeLibrary((HMODULE)m_vLibs[id]);
 #elif defined UNIX /*unix*/
 	dlclose(m_vLibs[id]);
+#else
+#error PLATFORM NOT IMPLENTED
 #endif
 
 	m_vLibs[id] = nullptr;
@@ -98,6 +102,8 @@ void *CLibraryLoader::GetFunction(int id, const std::string& sFunc) const
 		(void *)GetProcAddress((HMODULE)m_vLibs[id], sFunc.c_str());
 #elif defined UNIX /*unix*/
 		dlsym(m_vLibs[id], sFunc.c_str());
+#else
+#error PLATFORM NOT IMPLENTED
 #endif
 
 	return ret;

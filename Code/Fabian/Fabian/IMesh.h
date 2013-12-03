@@ -2,7 +2,7 @@
 #define FABIAN_IMESH_H_
 
 #include "FabianDef.h"
-#include <string>
+#include "DataStructures.h"
 
 //******************************************
 // Interface IMesh:
@@ -23,10 +23,9 @@ public:
 	
 	//-------------------------------------
 	// Loads and initializes the mesh by loading any needed buffers, etc.
-	// p1 in - string, path to the mesh file
-	//            ! this is going to be a meshLoaderData
+	// p1 in - pointer to the meshdata for the mesh
 	// rv - bool, return false if something failed
-	virtual bool Load(const std::string&) = 0;
+	virtual bool Load(MeshData*) = 0;
 	//-------------------------------------
 	// Calls the internal draw methods
 	virtual void Draw() = 0;
