@@ -2,14 +2,15 @@
 #include "IRenderer.h"
 
 #include "IMesh.h"
-
-#include "CA3dReader.h"
+#include "IImage.h"
+#include "CLibrary.h"
 #include "CLog.h"
 
-#include "CLibrary.h"
-
-typedef MeshData* (*LOAD_MESHDATA)(const char*, const char*);
+typedef MeshData* (*LOAD_MESHDATA)(const char*);
 typedef void (*RELEASE_MESHDATA)(MeshData*);
+
+typedef ImageData* (*LOAD_IMAGEDATA)(const char*);
+typedef void (*RELEASE_IMAGEDATA)(ImageData*);
 
 //-------------------------------------
 // Constructor
@@ -21,9 +22,13 @@ CContentManager::CContentManager(IRenderer* pRend)
 // Destructor
 CContentManager::~CContentManager()
 {
-	for (std::map<std::string, IMesh*>::iterator it = m_mMeshMap.begin(); it != m_mMeshMap.end(); ++it)
+	for (std::map<std::string, IMesh*>::iterator it( m_mMeshMap.begin() ); it != m_mMeshMap.end(); ++it)
 		delete it->second;
 	m_mMeshMap.clear();
+
+	for (std::map<std::string, IImage*>::iterator it( m_mImageMap.begin() ); it != m_mImageMap.end(); ++it)
+		delete it->second;
+	m_mImageMap.clear();
 }
 //-------------------------------------
 	
@@ -32,12 +37,12 @@ CContentManager::~CContentManager()
 // p1 in - string, name of the mesh file (without extension)
 // p2 in - string, extension of the file
 // rv - pointer IMesh object and nullptr if failed
-IMesh *CContentManager::LoadMesh(const std::string& sName, const std::string& sExt)
+IMesh *CContentManager::LoadMesh(const std::string& sFile)
 {
-	if ( !IsMeshLoaded(sName))
+	if ( !IsMeshLoaded(sFile))
 	{
 		CLibrary lib;
-		if( !lib.Load("FPM_A3DLoader.fpm") )
+		if( !lib.Load(/*"../debug/FPM_A3DLoader.dll") )*/"plugins/A3DLoader.fpm") )
 			return nullptr;
 		LOAD_MESHDATA fLoadMD = (LOAD_MESHDATA)lib.GetFunction("LoadData"); // meshData Loading function
 		RELEASE_MESHDATA fReleaseMD = (RELEASE_MESHDATA)lib.GetFunction("ReleaseData"); // meshData Release function
@@ -46,7 +51,7 @@ IMesh *CContentManager::LoadMesh(const std::string& sName, const std::string& sE
 			return nullptr;
 		
 		// load from dll
-		MeshData *md = fLoadMD(sName.c_str(), sExt.c_str() );
+		MeshData *md = fLoadMD(sFile.c_str());
 
 		IMesh *pMesh = m_pRenderer->LoadMesh(md);
 		// release dll data
@@ -55,10 +60,38 @@ IMesh *CContentManager::LoadMesh(const std::string& sName, const std::string& sE
 		if( pMesh == nullptr )
 			return nullptr;
 		
-		m_mMeshMap[sName] = pMesh;
+		m_mMeshMap[sFile] = pMesh;
 	}
 
-	return m_mMeshMap[sName];
+	return m_mMeshMap[sFile];
+}
+IImage *CContentManager::LoadImage(const std::string& sFile)
+{
+	if ( !IsImageLoaded(sFile))
+	{
+		CLibrary lib;
+		if( !lib.Load("plugins/SOILLoader.fpi") )
+			return nullptr;
+		LOAD_IMAGEDATA fLoadID = (LOAD_IMAGEDATA)lib.GetFunction("LoadData"); // meshData Loading function
+		RELEASE_IMAGEDATA fReleaseID = (RELEASE_IMAGEDATA)lib.GetFunction("ReleaseData"); // meshData Release function
+
+		if( fLoadID == nullptr || fReleaseID == nullptr )
+			return nullptr;
+		
+		// load from dll
+		ImageData *id = fLoadID(sFile.c_str());
+
+		IImage *pImage = m_pRenderer->LoadImage(id);
+		// release dll data
+		fReleaseID(id);
+
+		if( pImage == nullptr )
+			return nullptr;
+		
+		m_mImageMap[sFile] = pImage;
+	}
+
+	return m_mImageMap[sFile];
 }
 //-------------------------------------
 
@@ -69,5 +102,9 @@ IMesh *CContentManager::LoadMesh(const std::string& sName, const std::string& sE
 bool CContentManager::IsMeshLoaded(const std::string& sKey) const
 {
 	return  m_mMeshMap.find(sKey) != m_mMeshMap.end();
+}
+bool CContentManager::IsImageLoaded(const std::string& sKey) const
+{
+	return  m_mImageMap.find(sKey) != m_mImageMap.end();
 }
 //-------------------------------------

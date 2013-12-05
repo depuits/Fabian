@@ -8,10 +8,10 @@ extern "C"
 	std::map<MeshData*, CA3dReader*> g_map;
 
 	// Plugin factory function
-	__declspec(dllexport) MeshData* LoadData(const char* sName, const char* sExt)
+	__declspec(dllexport) MeshData* LoadData(const char* sFile)
 	{
 		CA3dReader *reader = new CA3dReader();
-		if( !reader->Read(std::string(sName) + std::string(sExt) ) )
+		if( !reader->Read(sFile) )
 		{
 			delete reader;
 			return false;

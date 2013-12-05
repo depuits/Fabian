@@ -67,6 +67,11 @@ public:
 	// rv - pointer IMesh object and nullptr if failed
 	virtual IMesh *LoadMesh(MeshData*);
 	//-------------------------------------
+	// Loads in a image from a file and returns it 
+	// p1 in - pointer to the imagedata for the mesh
+	// rv - pointer IImage object and nullptr if failed
+	virtual IImage *LoadImage(ImageData*);
+	//-------------------------------------
 	
 protected:
 	CServiceVideoUpdate *m_pServiceParent;

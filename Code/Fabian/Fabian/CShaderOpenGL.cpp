@@ -6,6 +6,8 @@
 #include <vector>
 #include "CLog.h"
 
+#include "CImageOpenGL.h"
+
 //******************************************
 // Class CShaderOpenGL:
 // OpenGL implementation of IShader interface
@@ -108,6 +110,20 @@ void CShaderOpenGL::SetVarMat3(int id, const glm::mat3& m3)
 void CShaderOpenGL::SetVarMat4(int id, const glm::mat4& m4)
 {
 	glUniformMatrix4fv(id, 1, GL_FALSE, glm::value_ptr(m4));
+}
+
+void CShaderOpenGL::SetVarImage(int id, IImage* pImg)
+{
+	CImageOpenGL* pOpenGLImg = dynamic_cast<CImageOpenGL*>(pImg);
+	if( pOpenGLImg != nullptr)
+		glBindTexture(GL_TEXTURE_2D, pOpenGLImg->GetImageId() );
+	else
+		glBindTexture(GL_TEXTURE_2D, 0); // unbind
+	
+	// for using multiple textures
+	//glActiveTexture(GL_TEXTURE1);
+	//glBindTexture
+	//glUniform1i(id, texPos -> GL_TEXTURE1 -> 1);
 }
 //-------------------------------------
 // Gets a shader variable id from the name

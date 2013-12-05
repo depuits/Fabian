@@ -9,6 +9,10 @@
 #include <glm/glm.hpp>
 #pragma warning( pop )
 
+// --forward declarations--
+class IImage;
+// ------------------------
+
 //******************************************
 // Interface IShader:
 // interface for applying shaders and setting 
@@ -56,6 +60,8 @@ public:
 	virtual void SetVarMat2(int, const glm::mat2&) = 0;
 	virtual void SetVarMat3(int, const glm::mat3&) = 0;
 	virtual void SetVarMat4(int, const glm::mat4&) = 0;
+
+	virtual void SetVarImage(int, IImage*) = 0;
 	//-------------------------------------
 	// Gets a shader variable id from the name
 	// p1 in - string, variable name

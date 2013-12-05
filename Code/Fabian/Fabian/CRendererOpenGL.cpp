@@ -6,6 +6,7 @@
 
 #include "CShaderOpenGL.h"
 #include "CMeshOpenGL.h"
+#include "CImageOpenGL.h"
 
 //******************************************
 // Class CRendererOpenGL:
@@ -103,7 +104,7 @@ IShader *CRendererOpenGL::LoadShader(const std::string& sName)
 // rv - pointer IMesh object and nullptr if failed
 IMesh *CRendererOpenGL::LoadMesh(MeshData* md)
 {
-	CMeshOpenGL *pMesh = new CMeshOpenGL();
+	IMesh *pMesh = new CMeshOpenGL();
 	if( !pMesh->Load(md) )
 	{
 		delete pMesh;
@@ -111,6 +112,21 @@ IMesh *CRendererOpenGL::LoadMesh(MeshData* md)
 	}
 
 	return pMesh;
+}
+//-------------------------------------
+// Loads in a image from a file and returns it 
+// p1 in - pointer to the imagedata for the mesh
+// rv - pointer IImage object and nullptr if failed
+IImage *CRendererOpenGL::LoadImage(ImageData* id)
+{
+	IImage *pImage = new CImageOpenGL();
+	if( !pImage->Load(id) )
+	{
+		delete pImage;
+		return nullptr;
+	}
+
+	return pImage;
 }
 //-------------------------------------
 

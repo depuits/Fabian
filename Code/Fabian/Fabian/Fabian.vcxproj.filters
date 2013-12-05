@@ -34,6 +34,9 @@
     <Filter Include="Engine Files\Content">
       <UniqueIdentifier>{a0674aa9-b863-4e30-844e-b316a6ec93bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine Files\Video\OpenFL">
+      <UniqueIdentifier>{bd5a0a9d-30eb-435b-9e18-212e626d5a99}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CKernel.h">
@@ -72,9 +75,6 @@
     <ClInclude Include="IMesh.h">
       <Filter>Engine Files\Video</Filter>
     </ClInclude>
-    <ClInclude Include="CMeshOpenGL.h">
-      <Filter>Engine Files\Video</Filter>
-    </ClInclude>
     <ClInclude Include="IObject.h">
       <Filter>Engine Files\Objects</Filter>
     </ClInclude>
@@ -90,16 +90,10 @@
     <ClInclude Include="CCamera.h">
       <Filter>Engine Files\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="CA3dReader.h">
-      <Filter>Engine Files\Video</Filter>
-    </ClInclude>
     <ClInclude Include="ServiceMsg.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
     <ClInclude Include="IRenderer.h">
-      <Filter>Engine Files\Video</Filter>
-    </ClInclude>
-    <ClInclude Include="CRendererOpenGL.h">
       <Filter>Engine Files\Video</Filter>
     </ClInclude>
     <ClInclude Include="CServiceMessageLoop.h">
@@ -107,9 +101,6 @@
     </ClInclude>
     <ClInclude Include="CServiceTimer.h">
       <Filter>Engine Files\Services</Filter>
-    </ClInclude>
-    <ClInclude Include="CShaderOpenGL.h">
-      <Filter>Engine Files\Video</Filter>
     </ClInclude>
     <ClInclude Include="CLibraryLoader.h">
       <Filter>Engine Files\LibraryLoader</Filter>
@@ -131,6 +122,21 @@
     </ClInclude>
     <ClInclude Include="CContentManager.h">
       <Filter>Engine Files\Content</Filter>
+    </ClInclude>
+    <ClInclude Include="IImage.h">
+      <Filter>Engine Files\Video</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeshOpenGL.h">
+      <Filter>Engine Files\Video\OpenFL</Filter>
+    </ClInclude>
+    <ClInclude Include="CRendererOpenGL.h">
+      <Filter>Engine Files\Video\OpenFL</Filter>
+    </ClInclude>
+    <ClInclude Include="CShaderOpenGL.h">
+      <Filter>Engine Files\Video\OpenFL</Filter>
+    </ClInclude>
+    <ClInclude Include="CImageOpenGL.h">
+      <Filter>Engine Files\Video\OpenFL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -161,9 +167,6 @@
     <ClCompile Include="CServiceVideoUpdate.cpp">
       <Filter>Engine Files\Video</Filter>
     </ClCompile>
-    <ClCompile Include="CMeshOpenGL.cpp">
-      <Filter>Engine Files\Video</Filter>
-    </ClCompile>
     <ClCompile Include="IObject.cpp">
       <Filter>Engine Files\Objects</Filter>
     </ClCompile>
@@ -179,20 +182,11 @@
     <ClCompile Include="CCamera.cpp">
       <Filter>Engine Files\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="CA3dReader.cpp">
-      <Filter>Engine Files\Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CRendererOpenGL.cpp">
-      <Filter>Engine Files\Video</Filter>
-    </ClCompile>
     <ClCompile Include="CServiceMessageLoop.cpp">
       <Filter>Engine Files\Services</Filter>
     </ClCompile>
     <ClCompile Include="CServiceTimer.cpp">
       <Filter>Engine Files\Services</Filter>
-    </ClCompile>
-    <ClCompile Include="CShaderOpenGL.cpp">
-      <Filter>Engine Files\Video</Filter>
     </ClCompile>
     <ClCompile Include="CLibraryLoader.cpp">
       <Filter>Engine Files\LibraryLoader</Filter>
@@ -208,6 +202,18 @@
     </ClCompile>
     <ClCompile Include="CContentManager.cpp">
       <Filter>Engine Files\Content</Filter>
+    </ClCompile>
+    <ClCompile Include="CMeshOpenGL.cpp">
+      <Filter>Engine Files\Video\OpenFL</Filter>
+    </ClCompile>
+    <ClCompile Include="CRendererOpenGL.cpp">
+      <Filter>Engine Files\Video\OpenFL</Filter>
+    </ClCompile>
+    <ClCompile Include="CShaderOpenGL.cpp">
+      <Filter>Engine Files\Video\OpenFL</Filter>
+    </ClCompile>
+    <ClCompile Include="CImageOpenGL.cpp">
+      <Filter>Engine Files\Video\OpenFL</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

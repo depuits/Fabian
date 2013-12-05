@@ -86,10 +86,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CA3dReader.h" />
     <ClInclude Include="CApplication.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CContentManager.h" />
+    <ClInclude Include="CImageOpenGL.h" />
     <ClInclude Include="CInputSDL.h" />
     <ClInclude Include="CKernel.h" />
     <ClInclude Include="CLibrary.h" />
@@ -105,6 +105,7 @@
     <ClInclude Include="CServiceVideoUpdate.h" />
     <ClInclude Include="CShaderOpenGL.h" />
     <ClInclude Include="IGameObject.h" />
+    <ClInclude Include="IImage.h" />
     <ClInclude Include="IInput.h" />
     <ClInclude Include="ILogger.h" />
     <ClInclude Include="IMesh.h" />
@@ -120,10 +121,10 @@
     <ClInclude Include="ServiceMsg.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CA3dReader.cpp" />
     <ClCompile Include="CApplication.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CContentManager.cpp" />
+    <ClCompile Include="CImageOpenGL.cpp" />
     <ClCompile Include="CInputSDL.cpp" />
     <ClCompile Include="CKernel.cpp" />
     <ClCompile Include="CLibrary.cpp" />

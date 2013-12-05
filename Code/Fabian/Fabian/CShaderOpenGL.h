@@ -55,6 +55,8 @@ public:
 	virtual void SetVarMat2(int, const glm::mat2&);
 	virtual void SetVarMat3(int, const glm::mat3&);
 	virtual void SetVarMat4(int, const glm::mat4&);
+
+	virtual void SetVarImage(int, IImage*);
 	//-------------------------------------
 	// Gets a shader variable id from the name
 	// p1 in - string, variable name
