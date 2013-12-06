@@ -34,7 +34,7 @@
     <Filter Include="Engine Files\Content">
       <UniqueIdentifier>{a0674aa9-b863-4e30-844e-b316a6ec93bf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine Files\Video\OpenFL">
+    <Filter Include="Engine Files\Video\OpenGL">
       <UniqueIdentifier>{bd5a0a9d-30eb-435b-9e18-212e626d5a99}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -127,16 +127,16 @@
       <Filter>Engine Files\Video</Filter>
     </ClInclude>
     <ClInclude Include="CMeshOpenGL.h">
-      <Filter>Engine Files\Video\OpenFL</Filter>
+      <Filter>Engine Files\Video\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="CRendererOpenGL.h">
-      <Filter>Engine Files\Video\OpenFL</Filter>
+      <Filter>Engine Files\Video\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="CShaderOpenGL.h">
-      <Filter>Engine Files\Video\OpenFL</Filter>
+      <Filter>Engine Files\Video\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="CImageOpenGL.h">
-      <Filter>Engine Files\Video\OpenFL</Filter>
+      <Filter>Engine Files\Video\OpenGL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -204,16 +204,16 @@
       <Filter>Engine Files\Content</Filter>
     </ClCompile>
     <ClCompile Include="CMeshOpenGL.cpp">
-      <Filter>Engine Files\Video\OpenFL</Filter>
+      <Filter>Engine Files\Video\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="CRendererOpenGL.cpp">
-      <Filter>Engine Files\Video\OpenFL</Filter>
+      <Filter>Engine Files\Video\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="CShaderOpenGL.cpp">
-      <Filter>Engine Files\Video\OpenFL</Filter>
+      <Filter>Engine Files\Video\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="CImageOpenGL.cpp">
-      <Filter>Engine Files\Video\OpenFL</Filter>
+      <Filter>Engine Files\Video\OpenGL</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

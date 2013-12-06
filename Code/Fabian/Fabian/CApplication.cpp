@@ -41,6 +41,8 @@ int CApplication::Run(int argc, char *argv[])
 	CLoggerToFiles* pLogger = new CLoggerToFiles();
 	pLogger->Init();
 	CLog::Get()->AssignLogger(pLogger);
+	
+	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "----------------- Application Starting -----------------");
 
 	//create kernel
 	CKernel *pKernel = CKernel::Get();
@@ -59,17 +61,19 @@ int CApplication::Run(int argc, char *argv[])
 	pKernel->AddService( new CServiceInput(50) ); // must be called before msg loop to copy the keyboard state
 	pKernel->AddService( new CServiceMessageLoop(100) );
 	pKernel->AddService( new CServiceTimer(110) );
-	CServiceVideoUpdate *pServiceVideo = dynamic_cast<CServiceVideoUpdate*>( pKernel->AddService( new CServiceVideoUpdate(10000) ) );
+	CServiceVideoUpdate *pServiceVideo = dynamic_cast<CServiceVideoUpdate*>( pKernel->AddService( new CServiceVideoUpdate(1000) ) );
 	//pServiceVideo->SetScreenResolution(800, 600);
-	pServiceVideo->SetWindowName("Test");
+	pServiceVideo->SetWindowName("Dimo's Quest");
 
-	pKernel->AddService( new CServiceGame(500) ); // graphic nee to be initialized before the game because of opengl initialization
+	pKernel->AddService( new CServiceGame(500) ); // graphic need to be initialized before the game because of opengl initialization
 
 	//main game loop
 	int rv = pKernel->Execute();
   
 	//clean up
+	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "----------------- Application Ended -----------------\n");
 	delete pKernel;
+	delete CLog::Get();
 
 	return rv;
 }

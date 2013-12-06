@@ -3,6 +3,8 @@
 #include "CKernel.h"
 #include <SDL.h>
 
+#include "CLog.h"
+
 //******************************************
 // Class CServiceMessageLoop:
 // service responsable for handling message from the system
@@ -30,6 +32,7 @@ CServiceMessageLoop::~CServiceMessageLoop()
 //         when false is returned then the service gets deleted	
 bool CServiceMessageLoop::Start()
 {
+	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Message Service: Started" );
 	return true;
 }
 //-------------------------------------
@@ -51,6 +54,7 @@ void CServiceMessageLoop::Update()
 // Called when the service will be deleted
 void CServiceMessageLoop::Stop()
 {
+	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Message Service: Stopping" );
 }
 //-------------------------------------
 

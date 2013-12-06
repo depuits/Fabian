@@ -3,6 +3,8 @@
 #include "CKernel.h"
 #include "CInputSDL.h"
 
+#include "CLog.h"
+
 //******************************************
 // Class CServiceInput:
 // service responsable giving the input object
@@ -31,7 +33,9 @@ CServiceInput::~CServiceInput()
 //         when false is returned then the service gets deleted	
 bool CServiceInput::Start()
 {
+	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Input Service: Starting" );
 	m_pInput = new CInputSDL();
+	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Input Service: Started" );
 	return true;
 }
 //-------------------------------------
@@ -44,6 +48,7 @@ void CServiceInput::Update()
 // Called when the service will be deleted
 void CServiceInput::Stop()
 {
+	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Input Service: Stopping" );
 	SMsgInput msg(m_pInput, SM_H_REMOVE);
 	CKernel::Get()->SendMessage(&msg);
 	delete m_pInput;
@@ -57,6 +62,7 @@ void CServiceInput::MsgProc(SMsg* sm)
 {
 	if( sm->id == SM_INPUT + SM_H_REQUEST )
 	{
+		CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Input Service: Input requested" );
 		SMsgInput msg(m_pInput, SM_H_RECEIVE);
 		SMsg::Cast<SMsgRequest*>(sm)->pService->MsgProc(&msg);
 	}

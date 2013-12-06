@@ -116,14 +116,13 @@ void CShaderOpenGL::SetVarImage(int id, IImage* pImg)
 {
 	CImageOpenGL* pOpenGLImg = dynamic_cast<CImageOpenGL*>(pImg);
 	if( pOpenGLImg != nullptr)
+	{
+		glUniform1i(id, pOpenGLImg->GetPos());
+		glActiveTexture(GL_TEXTURE0 + pOpenGLImg->GetPos());
 		glBindTexture(GL_TEXTURE_2D, pOpenGLImg->GetImageId() );
+	}
 	else
 		glBindTexture(GL_TEXTURE_2D, 0); // unbind
-	
-	// for using multiple textures
-	//glActiveTexture(GL_TEXTURE1);
-	//glBindTexture
-	//glUniform1i(id, texPos -> GL_TEXTURE1 -> 1);
 }
 //-------------------------------------
 // Gets a shader variable id from the name
@@ -171,35 +170,39 @@ GLuint CShaderOpenGL::LoadShaders(const char *vertex_file_path, const char *frag
 	int InfoLogLength;
  
 	// Compile Vertex Shader
-	CLog::Get()->Write(CLog::FLOG_LVL_INFO, CLog::FLOG_ID_APP, "Compiling vertex shader : %s", vertex_file_path);
+	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Compiling vertex shader : %s", vertex_file_path);
 	char const * VertexSourcePointer = VertexShaderCode.c_str();
 	glShaderSource(VertexShaderID, 1, &VertexSourcePointer , NULL);
 	glCompileShader(VertexShaderID);
  
 	// Check Vertex Shader
 	glGetShaderiv(VertexShaderID, GL_COMPILE_STATUS, &Result);
-	glGetShaderiv(VertexShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
-	std::vector<char> VertexShaderErrorMessage(InfoLogLength);
-	glGetShaderInfoLog(VertexShaderID, InfoLogLength, NULL, VertexShaderErrorMessage.data() );
-	if( InfoLogLength > 0 )
-		CLog::Get()->Write(CLog::FLOG_LVL_ERROR, CLog::FLOG_ID_APP, "%s", VertexShaderErrorMessage.data());
+	if( Result == GL_FALSE )
+	{
+		glGetShaderiv(VertexShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
+		std::vector<char> VertexShaderErrorMessage(InfoLogLength);
+		glGetShaderInfoLog(VertexShaderID, InfoLogLength, NULL, VertexShaderErrorMessage.data() );
+		CLog::Get()->Write(FLOG_LVL_ERROR, FLOG_ID_APP, "%s", VertexShaderErrorMessage.data());
+	}
  
 	// Compile Fragment Shader
-	CLog::Get()->Write(CLog::FLOG_LVL_INFO, CLog::FLOG_ID_APP, "Compiling fragment shader : %s", fragment_file_path);
+	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Compiling fragment shader : %s", fragment_file_path);
 	char const * FragmentSourcePointer = FragmentShaderCode.c_str();
 	glShaderSource(FragmentShaderID, 1, &FragmentSourcePointer , NULL);
 	glCompileShader(FragmentShaderID);
  
 	// Check Fragment Shader
 	glGetShaderiv(FragmentShaderID, GL_COMPILE_STATUS, &Result);
-	glGetShaderiv(FragmentShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
-	std::vector<char> FragmentShaderErrorMessage(InfoLogLength);
-	glGetShaderInfoLog(FragmentShaderID, InfoLogLength, NULL, FragmentShaderErrorMessage.data() );
-	if( InfoLogLength > 0 )
-		CLog::Get()->Write(CLog::FLOG_LVL_ERROR, CLog::FLOG_ID_APP, "%s", FragmentShaderErrorMessage.data());
+	if( Result == GL_FALSE )
+	{
+		glGetShaderiv(FragmentShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
+		std::vector<char> FragmentShaderErrorMessage(InfoLogLength);
+		glGetShaderInfoLog(FragmentShaderID, InfoLogLength, NULL, FragmentShaderErrorMessage.data() );
+		CLog::Get()->Write(FLOG_LVL_ERROR, FLOG_ID_APP, "%s", FragmentShaderErrorMessage.data());
+	}
  
 	// Link the program
-	CLog::Get()->Write(CLog::FLOG_LVL_INFO, CLog::FLOG_ID_APP, "Linking shader program");
+	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Linking shader program");
 	GLuint ProgramID = glCreateProgram();
 	glAttachShader(ProgramID, VertexShaderID);
 	glAttachShader(ProgramID, FragmentShaderID);
@@ -207,11 +210,13 @@ GLuint CShaderOpenGL::LoadShaders(const char *vertex_file_path, const char *frag
  
 	// Check the program
 	glGetProgramiv(ProgramID, GL_LINK_STATUS, &Result);
-	glGetProgramiv(ProgramID, GL_INFO_LOG_LENGTH, &InfoLogLength);
-	std::vector<char> ProgramErrorMessage( glm::max(InfoLogLength, int(1)) );
-	glGetProgramInfoLog(ProgramID, InfoLogLength, NULL, ProgramErrorMessage.data() );
-	if( InfoLogLength > 0 )
-		CLog::Get()->Write(CLog::FLOG_LVL_ERROR, CLog::FLOG_ID_APP, "%s", ProgramErrorMessage.data());
+	if( Result == GL_FALSE )
+	{
+		glGetProgramiv(ProgramID, GL_INFO_LOG_LENGTH, &InfoLogLength);
+		std::vector<char> ProgramErrorMessage( glm::max(InfoLogLength, int(1)) );
+		glGetProgramInfoLog(ProgramID, InfoLogLength, NULL, ProgramErrorMessage.data() );
+		CLog::Get()->Write(FLOG_LVL_ERROR, FLOG_ID_APP, "%s", ProgramErrorMessage.data());
+	}
  
 	glDeleteShader(VertexShaderID);
 	glDeleteShader(FragmentShaderID);

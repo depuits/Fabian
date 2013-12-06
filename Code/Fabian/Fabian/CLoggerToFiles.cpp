@@ -46,15 +46,15 @@ void CLoggerToFiles::Write(char lvl, char id, const char* msg)
 
 	switch (lvl)
 	{
-	case CLog::FLOG_LVL_ERROR:
+	case FLOG_LVL_ERROR:
 		sLvl += "-  ERROR  - ";
 		flag = SDL_MESSAGEBOX_ERROR;
 		break;
-	case CLog::FLOG_LVL_WARNING:
+	case FLOG_LVL_WARNING:
 		sLvl += "- WARNING - ";
 		flag = SDL_MESSAGEBOX_WARNING;
 		break;
-	case CLog::FLOG_LVL_INFO:
+	case FLOG_LVL_INFO:
 		sLvl += "-  INFO   - ";
 		flag = SDL_MESSAGEBOX_INFORMATION;
 		break;
@@ -63,28 +63,28 @@ void CLoggerToFiles::Write(char lvl, char id, const char* msg)
 		break;
 	}
 
-	if( (id & CLog::FLOG_ID_APP) != 0 )
+	if( (id & FLOG_ID_APP) != 0 )
 	{
 		m_osAppLog << sLvl.c_str() << msg << "\n";
 		#ifdef _DEBUG
 		m_osAppLog.flush();
 		#endif
 	}
-	if( (id & CLog::FLOG_ID_CLIENT) != 0 )
+	if( (id & FLOG_ID_CLIENT) != 0 )
 	{
 		m_osClientLog << sLvl.c_str() << msg << "\n";
 		#ifdef _DEBUG
 		m_osClientLog.flush();
 		#endif
 	}
-	if( (id & CLog::FLOG_ID_SERVER) != 0 )
+	if( (id & FLOG_ID_SERVER) != 0 )
 	{
 		m_osServerLog << sLvl.c_str() << msg << "\n";
 		#ifdef _DEBUG
 		m_osServerLog.flush();
 		#endif
 	}
-	if( (id & CLog::FLOG_ID_USER) != 0 )
+	if( (id & FLOG_ID_USER) != 0 )
 	{	
 		SDL_ShowSimpleMessageBox(flag, sLvl.c_str(), msg, NULL);
 	}

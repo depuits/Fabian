@@ -32,6 +32,9 @@ int g_iIdLightPos,
 	
 	g_iIdTexture;
 
+float	g_fMouseSens = 0.05f,
+		g_fCamSpeed = 200.0f;
+
 //******************************************
 // Class CServiceGame:
 // game specific service which defines the actual game
@@ -74,6 +77,7 @@ void SendMsg(int id, IService *pServ)
 //         when false is returned then the service gets deleted	
 bool CServiceGame::Start()
 {
+	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Starting" );
 	SendMsg(SM_INPUT, this);
 	SendMsg(SM_RENDERER, this);
 
@@ -84,7 +88,7 @@ bool CServiceGame::Start()
 	FASSERTR(m_pInput != nullptr);
 	FASSERTR(m_pRenderer != nullptr);
 	
-	m_pRenderer->SetVSync(true);
+	m_pRenderer->SetVSync(true); // using fix time in timer vs only vSync because movement feels smoother
 
 	g_pCamera = new CCamera();
 	g_pCamera->Init();
@@ -120,6 +124,7 @@ bool CServiceGame::Start()
 	g_pModel3->Transform()->SetPos( glm::vec3(-30,0,0) );
 	g_pModel3->Transform()->SetScale( 0.5f );
 	
+	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Started" );
 	return true;
 }
 //-------------------------------------
@@ -136,8 +141,8 @@ void CServiceGame::Update()
 		int x(0), y(0);
 		m_pInput->LockMouse(true);
 		m_pInput->GetMouseMovement(x, y);
-		g_pCamera->Transform()->Rotate( glm::vec3(0,0.01f * -x * s_fDtime,0) );
-		g_pCamera->Transform()->LocalRotate( glm::vec3(0,0,0.01f * y * s_fDtime) ); // change this to locale rotation
+		g_pCamera->Transform()->Rotate( glm::vec3(0,g_fMouseSens * -x * s_fDtime,0) );
+		g_pCamera->Transform()->LocalRotate( glm::vec3(0,0,g_fMouseSens * y * s_fDtime) ); // change this to locale rotation
 		
 		//m_pInput->LockMouse(300, 300);
 	}
@@ -146,26 +151,14 @@ void CServiceGame::Update()
 	
 	//move forward and backward
 	if ( m_pInput->GetKeyState(FKEY_UP) & DOWN )
-	{
-		g_pCamera->Transform()->LocalMove( glm::vec3(-20 * s_fDtime, 0, 0) );
-	}
+		g_pCamera->Transform()->LocalMove( glm::vec3(-g_fCamSpeed * s_fDtime, 0, 0) );
 	else if ( m_pInput->GetKeyState(FKEY_DOWN) & DOWN )
-	{
-		g_pCamera->Transform()->LocalMove( glm::vec3(20 * s_fDtime, 0, 0) );
-	}
+		g_pCamera->Transform()->LocalMove( glm::vec3(g_fCamSpeed * s_fDtime, 0, 0) );
 	//move left and right
 	if ( m_pInput->GetKeyState(FKEY_LEFT) & DOWN )
-	{
-		g_pCamera->Transform()->LocalMove( glm::vec3(0, 0, 20 * s_fDtime) );
-	}
-	if ( m_pInput->GetKeyState(FKEY_RIGHT) & DOWN )
-	{
-		g_pCamera->Transform()->LocalMove( glm::vec3(0, 0, -20 * s_fDtime) );
-	}
-	/*if ( (m_pInput->GetKeyState(FKEY_Z) & DOWN_NEW) == DOWN_NEW )
-	{
-		g_Camera->Transform()->Move( glm::vec3(200 * m_fDtime, 0, 0) );
-	}*/
+		g_pCamera->Transform()->LocalMove( glm::vec3(0, 0, g_fCamSpeed * s_fDtime) );
+	else if ( m_pInput->GetKeyState(FKEY_RIGHT) & DOWN )
+		g_pCamera->Transform()->LocalMove( glm::vec3(0, 0, -g_fCamSpeed * s_fDtime) );
 
 	g_pShader->Apply();
 
@@ -175,7 +168,7 @@ void CServiceGame::Update()
 
 	g_pCamera->Draw(g_pShader);
 
-	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ); Sorting and camera culling
 	g_pShader->SetVarImage(g_iIdTexture, g_pImage1);
 	g_pModel1->Draw(g_pShader);
 	g_pShader->SetVarImage(g_iIdTexture, g_pImage2);
@@ -196,6 +189,7 @@ void CServiceGame::Update()
 // Called when the service will be deleted
 void CServiceGame::Stop()
 {
+	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Stopping" );
 	// we don't delete the mesh and image because it was loaded by de contentloader and it will destroy it for use
 
 	delete g_pModel1;
@@ -221,6 +215,12 @@ void CServiceGame::MsgProc(SMsg* sm)
 		break;
 	case SM_RENDERER + SM_H_RECEIVE:
 		m_pRenderer = SMsg::Cast<SMsgRenderer*>(sm)->pRenderer;
+		break;
+		
+	case SM_INPUT + SM_H_REMOVE:
+	case SM_RENDERER + SM_H_REMOVE:
+		CLog::Get()->Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Game Service: Stopping (Renderer or Input removed)" );
+		this->SetCanKill(true);
 		break;
 	}
 }

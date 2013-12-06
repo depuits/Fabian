@@ -22,10 +22,12 @@ CContentManager::CContentManager(IRenderer* pRend)
 // Destructor
 CContentManager::~CContentManager()
 {
+	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Unloading Meshes: %d", m_mMeshMap.size());
 	for (std::map<std::string, IMesh*>::iterator it( m_mMeshMap.begin() ); it != m_mMeshMap.end(); ++it)
 		delete it->second;
 	m_mMeshMap.clear();
-
+	
+	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Unloading Textures: %d", m_mImageMap.size());
 	for (std::map<std::string, IImage*>::iterator it( m_mImageMap.begin() ); it != m_mImageMap.end(); ++it)
 		delete it->second;
 	m_mImageMap.clear();
@@ -39,6 +41,7 @@ CContentManager::~CContentManager()
 // rv - pointer IMesh object and nullptr if failed
 IMesh *CContentManager::LoadMesh(const std::string& sFile)
 {
+	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Mesh: %s", sFile.c_str());
 	if ( !IsMeshLoaded(sFile))
 	{
 		CLibrary lib;
@@ -67,6 +70,7 @@ IMesh *CContentManager::LoadMesh(const std::string& sFile)
 }
 IImage *CContentManager::LoadImage(const std::string& sFile)
 {
+	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Texture: %s", sFile.c_str());
 	if ( !IsImageLoaded(sFile))
 	{
 		CLibrary lib;

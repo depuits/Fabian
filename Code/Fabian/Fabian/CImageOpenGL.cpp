@@ -4,6 +4,7 @@
 // Constructor
 CImageOpenGL::CImageOpenGL()
 	:m_uImageId(0)
+	,m_iPos(0)
 {
 }
 //-------------------------------------

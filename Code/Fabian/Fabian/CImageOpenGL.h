@@ -33,9 +33,13 @@ public:
 	// rv - GLuint, returns the id of the image
 	GLuint GetImageId() const;
 	//-------------------------------------
+	
+	int SetPos(int pos) { m_iPos = pos; };
+	int GetPos() const { return m_iPos; };
 
 private:
 	GLuint m_uImageId;
+	int m_iPos;
 
 	DISALLOW_COPY_AND_ASSIGN(CImageOpenGL);
 };

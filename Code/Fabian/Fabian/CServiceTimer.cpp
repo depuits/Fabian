@@ -1,7 +1,8 @@
 #include "CServiceTimer.h"
 
-#include "CKernel.h"
 #include <SDL.h>
+
+#include "CLog.h"
 
 //******************************************
 // Class CServiceTimer:
@@ -34,9 +35,11 @@ CServiceTimer::~CServiceTimer()
 //         when false is returned then the service gets deleted	
 bool CServiceTimer::Start()
 {
+	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Time Service: Starting" );
 	m_ulThisFrameIndex = SDL_GetTicks();
 	m_ulLastFrameIndex = m_ulThisFrameIndex;
-
+	
+	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Time Service: Started" );
 	return true;
 }
 //-------------------------------------
@@ -73,6 +76,7 @@ void CServiceTimer::Update()
 // Called when the service will be deleted
 void CServiceTimer::Stop()
 {
+	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Time Service: Stopping" );
 }
 //-------------------------------------
 
@@ -83,6 +87,7 @@ void CServiceTimer::MsgProc(SMsg* sm)
 {
 	if( sm->id == SM_TIMER )
 	{
+		CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Time Service: Registering Time Callback" );
 		TimerCallbackFunc f = SMsg::Cast<SMsgTimer*>(sm)->pCallbackFunc;
 		if( f != nullptr)
 			m_vCallbackFuncs.push_back(f);
