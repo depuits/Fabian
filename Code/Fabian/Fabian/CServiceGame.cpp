@@ -107,18 +107,18 @@ bool CServiceGame::Start()
 	g_pImage2 = m_pContent->LoadImage("Textures/img_cheryl.jpg");
 	g_pImage3 = m_pContent->LoadImage("Textures/CarDiffuseMap.png");
 
-	g_pModel1 = new CModel( m_pContent->LoadMesh("Meshes/teapot.a3d") );
+	g_pModel1 = new CModel( m_pContent->LoadMesh("Meshes/teapot.obj") );
 	g_pModel1->Init();
 	g_pModel1->Transform()->SetRot( glm::vec3(0, glm::quarter_pi<float>(),0) );
 	g_pModel1->Transform()->SetPos( glm::vec3(0,0,2.5f) );
 	g_pModel1->Transform()->SetScale( 0.1f );
 	
-	g_pModel2 = new CModel( m_pContent->LoadMesh("Meshes/cube.a3d") );
+	g_pModel2 = new CModel( m_pContent->LoadMesh("Meshes/cube.obj") );
 	g_pModel2->Init();
 	g_pModel2->Transform()->SetPos( glm::vec3(0,0,-2.5f) );
 	g_pModel2->Transform()->SetScale( 0.1f );
 
-	g_pModel3 = new CModel( m_pContent->LoadMesh("Meshes/car.a3d") );
+	g_pModel3 = new CModel( m_pContent->LoadMesh("Meshes/car.obj") );
 	g_pModel3->Init();
 	g_pModel3->Transform()->SetRot( glm::vec3(0, glm::quarter_pi<float>(),0) );
 	g_pModel3->Transform()->SetPos( glm::vec3(-30,0,0) );
