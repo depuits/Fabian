@@ -46,7 +46,7 @@ IMesh *CContentManager::LoadMesh(const std::string& sFile)
 	{
 		CLibrary lib;
 		CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new mesh using \"%s\"", "plugins/A3DLoader.fpm");
-		if( !lib.Load("../debug/FPM_OBJLoader.dll") )//"plugins/A3DLoader.fpm") )
+		if( !lib.Load("../debug/FPM_A3DLoader.dll") )//"plugins/A3DLoader.fpm") )
 			return nullptr;
 		LOAD_MESHDATA fLoadMD = (LOAD_MESHDATA)lib.GetFunction("LoadData"); // meshData Loading function
 		RELEASE_MESHDATA fReleaseMD = (RELEASE_MESHDATA)lib.GetFunction("ReleaseData"); // meshData Release function
