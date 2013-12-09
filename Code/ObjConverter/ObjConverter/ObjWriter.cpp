@@ -51,7 +51,7 @@ void ObjWriter::Write(wstring& filename)
 			file << _T("\n");
 			for (unsigned int i = 0; i < m_texCoords.size(); ++i)
 			{
-				file << _T("vt ") << m_texCoords[i].X << _T(" ") << m_texCoords[i].Y << _T(" 0 \n") ;
+				file << _T("vt ") << m_texCoords[i].X << _T(" ") << (1 - m_texCoords[i].Y) << _T(" 0 \n") ;
 				
 				tempProgress = (int)((i+m_vertices.size()+m_texCoords.size()) / ((float)(m_vertices.size()+m_normals.size()+m_texCoords.size()+m_faces.size()) / 50.0f));
 				for (; currentProgress < tempProgress; ++ currentProgress) wcout << wchar_t(223);

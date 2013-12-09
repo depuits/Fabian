@@ -11,7 +11,7 @@ extern "C"
 		std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
 		std::vector< glm::vec3 > temp_vertices;
 		std::vector< glm::vec3 > temp_normals;
-		std::vector< glm::vec2 > temp_uvs;
+		std::vector< glm::vec3 > temp_uvs;
 		
 		FILE *file = fopen(sFile, "r");
 		if( file == NULL ){
@@ -42,9 +42,9 @@ extern "C"
 			}
 			else if ( strcmp( lineHeader, "vt" ) == 0 )
 			{
-				glm::vec2 uv;
-				fscanf(file, "%f %f\n", &uv.x, &uv.y );
-				temp_uvs.push_back(uv);
+				glm::vec3 uvw;
+				fscanf(file, "%f %f %f\n", &uvw.x, &uvw.y, &uvw.z );
+				temp_uvs.push_back(uvw);
 			}
 			else if ( strcmp( lineHeader, "f" ) == 0 )
 			{
@@ -68,13 +68,13 @@ extern "C"
 			}
 		}
 		
-		if( vertexIndices.size() != uvIndices.size() != normalIndices.size() ) // incorrect
+		if( vertexIndices.size() != uvIndices.size() && uvIndices.size() != normalIndices.size() ) // incorrect
 					printf("File can't be read by our simple parser : ( Not the same ammount of indices of all elements\n");
 		
 		std::vector<float> vertices;
-		std::vector<int> indices;
-		vertices.reserve( vertexIndices.size() * 8 ); // its not enough but its closer to it then 0
-		indices.reserve( vertexIndices.size() ); // its not enough but its closer to it then 0
+		std::vector<unsigned int> indices;
+		vertices.reserve( vertexIndices.size() * 8 );
+		indices.reserve( vertexIndices.size() );
 		
 		// For each vertex of each triangle
 		for( unsigned int i(0); i < vertexIndices.size(); ++i )
@@ -88,19 +88,19 @@ extern "C"
 			vertices.push_back(normal.x); vertices.push_back(normal.y); vertices.push_back(normal.z);
 
 			unsigned int uvIndex = uvIndices[i];
-			glm::vec2 uv = temp_uvs[ uvIndex-1 ];
-			vertices.push_back(uv.x); vertices.push_back(uv.y);
+			glm::vec3 uvw = temp_uvs[ uvIndex-1 ];
+			vertices.push_back(uvw.x); vertices.push_back(1 - uvw.y); //convert UV coord: in obj the origin is  top left but the engine uses bottom left
 
 			indices.push_back(i);
 		}
 
 		//copy index and vertex buffer
 		float *copiedVertices = new float[vertices.size()];
-		for (int i(0); i < vertices.size(); ++i)
+		for (unsigned int i(0); i < vertices.size(); ++i)
 			copiedVertices[i] = vertices[i];
 		
-		int *copiedIndices = new int[indices.size()];
-		for (int i(0); i < indices.size(); ++i)
+		unsigned int *copiedIndices = new unsigned int[indices.size()];
+		for (unsigned int i(0); i < indices.size(); ++i)
 			copiedIndices[i] = indices[i];
 
 		MeshData *pMD = new MeshData();

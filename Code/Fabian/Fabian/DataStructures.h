@@ -11,7 +11,7 @@ extern "C"
 	{
 		float *vData;
 		int vCount;
-		int *iData;
+		unsigned int *iData;
 		int iCount;
 	} MeshData;
 

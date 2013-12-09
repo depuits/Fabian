@@ -103,7 +103,7 @@ bool CServiceGame::Start()
 	g_iIdTexture = g_pShader->GetVarId("TextureSampler");
 	//g_Mesh = m_pRenderer->LoadMesh("tegels-hi", ".a3d");
 	m_pContent = new CContentManager(m_pRenderer);
-	g_pImage1 = m_pContent->LoadImage("Textures/img_test.png");
+	g_pImage1 = m_pContent->LoadImage("Textures/uv.jpg");
 	g_pImage2 = m_pContent->LoadImage("Textures/img_cheryl.jpg");
 	g_pImage3 = m_pContent->LoadImage("Textures/CarDiffuseMap.png");
 

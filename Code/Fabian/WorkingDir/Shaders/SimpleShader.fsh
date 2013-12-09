@@ -53,4 +53,5 @@ void main()
 
 	// Output color = color of the texture at the specified UV
     //color = texture( TextureSampler, UV ).rgba;
+	//color.a = 1;
 }

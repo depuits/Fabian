@@ -153,7 +153,7 @@ void ObjReader::ReadTexCoord(wstring& texCoord)
 
 	Point2D point;
 	point.X = (float) _wtof(strX.c_str());
-	point.Y = (float) _wtof(strY.c_str());
+	point.Y = 1 - (float) _wtof(strY.c_str());
 
 	m_texCoords.push_back(point);
 }

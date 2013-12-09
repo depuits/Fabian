@@ -20,6 +20,6 @@ public:
 	bool Read(const std::string& filename);
 	
 	std::vector<float> m_vertices;
-	std::vector<int> m_indices;
+	std::vector<unsigned int> m_indices;
 	bool m_type[8];
 };
