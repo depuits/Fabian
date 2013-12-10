@@ -2738,3 +2738,59 @@
 2013-12-10 - 11:27:33 -  INFO   - Message Service: Stopping
 2013-12-10 - 11:27:33 -  INFO   - ----------------- Application Ended -----------------
 
+2013-12-10 - 22:50:56 -  INFO   - ----------------- Application Starting -----------------
+2013-12-10 - 22:50:56 -  INFO   - Kernel: Adding Service
+2013-12-10 - 22:50:56 -  INFO   - Input Service: Starting
+2013-12-10 - 22:50:56 -  INFO   - Input Service: Started
+2013-12-10 - 22:50:56 -  INFO   - Kernel: Adding Service
+2013-12-10 - 22:50:56 -  INFO   - Message Service: Started
+2013-12-10 - 22:50:56 -  INFO   - Kernel: Adding Service
+2013-12-10 - 22:50:56 -  INFO   - Time Service: Starting
+2013-12-10 - 22:50:56 -  INFO   - Time Service: Started
+2013-12-10 - 22:50:56 -  INFO   - Kernel: Adding Service
+2013-12-10 - 22:50:56 -  INFO   - Video Service: Starting
+2013-12-10 - 22:50:57 -  INFO   - Video Service: Started
+2013-12-10 - 22:50:57 -  INFO   - Kernel: Adding Service
+2013-12-10 - 22:50:57 -  INFO   - Game Service: Starting
+2013-12-10 - 22:50:57 -  INFO   - Kernel: Message Broadcast: 21
+2013-12-10 - 22:50:57 -  INFO   - Input Service: Input requested
+2013-12-10 - 22:50:57 -  INFO   - Kernel: Message Broadcast: 41
+2013-12-10 - 22:50:57 -  INFO   - Video Service: Renderer requested
+2013-12-10 - 22:50:57 -  INFO   - Kernel: Message Broadcast: 10
+2013-12-10 - 22:50:57 -  INFO   - Time Service: Registering Time Callback
+2013-12-10 - 22:50:57 -  INFO   - Compiling vertex shader : Shaders/SimpleShader.vsh
+2013-12-10 - 22:50:57 -  INFO   - Compiling fragment shader : Shaders/SimpleShader.fsh
+2013-12-10 - 22:50:57 -  INFO   - Linking shader program
+2013-12-10 - 22:50:57 -  INFO   - Content: Loading Texture: Textures/uv.jpg
+2013-12-10 - 22:50:57 -  INFO   - Content: Loading new Texture using "plugins/SOILLoader.fpi"
+2013-12-10 - 22:50:57 -  INFO   - Content: Loaded ImageData ( w: 1024 - h: 1024 )
+2013-12-10 - 22:50:57 -  INFO   - Content: Loading Texture: Textures/img_cheryl.jpg
+2013-12-10 - 22:50:57 -  INFO   - Content: Loading new Texture using "plugins/SOILLoader.fpi"
+2013-12-10 - 22:50:57 -  INFO   - Content: Loaded ImageData ( w: 256 - h: 256 )
+2013-12-10 - 22:50:57 -  INFO   - Content: Loading Texture: Textures/CarDiffuseMap.png
+2013-12-10 - 22:50:57 -  INFO   - Content: Loading new Texture using "plugins/SOILLoader.fpi"
+2013-12-10 - 22:50:57 -  INFO   - Content: Loaded ImageData ( w: 1024 - h: 1024 )
+2013-12-10 - 22:50:57 -  INFO   - Content: Loading Mesh: Meshes/teapot.obj
+2013-12-10 - 22:50:57 -  INFO   - Content: Loading new mesh using "plugins/A3DLoader.fpm"
+2013-12-10 - 22:50:57 -  INFO   - Content: Loaded MeshData ( v: 2976 - i: 2976 )
+2013-12-10 - 22:50:57 -  INFO   - Content: Loading Mesh: Meshes/cube.obj
+2013-12-10 - 22:50:57 -  INFO   - Content: Loading new mesh using "plugins/A3DLoader.fpm"
+2013-12-10 - 22:50:57 -  INFO   - Content: Loaded MeshData ( v: 36 - i: 36 )
+2013-12-10 - 22:50:57 -  INFO   - Content: Loading Mesh: Meshes/car.obj
+2013-12-10 - 22:50:57 -  INFO   - Content: Loading new mesh using "plugins/A3DLoader.fpm"
+2013-12-10 - 22:50:58 -  INFO   - Content: Loaded MeshData ( v: 17628 - i: 17628 )
+2013-12-10 - 22:50:58 -  INFO   - Game Service: Started
+2013-12-10 - 22:50:58 -  INFO   - Executing Kernel
+2013-12-10 - 22:51:01 -  INFO   - Kernel: Message Broadcast: 0
+2013-12-10 - 22:51:01 -  INFO   - Kernel: Killing All Services
+2013-12-10 - 22:51:01 -  INFO   - Time Service: Stopping
+2013-12-10 - 22:51:01 -  INFO   - Game Service: Stopping
+2013-12-10 - 22:51:01 -  INFO   - Content: Unloading Meshes: 3
+2013-12-10 - 22:51:01 -  INFO   - Content: Unloading Textures: 3
+2013-12-10 - 22:51:01 -  INFO   - Video Service: Stopping
+2013-12-10 - 22:51:01 -  INFO   - Kernel: Message Broadcast: 43
+2013-12-10 - 22:51:01 -  INFO   - Input Service: Stopping
+2013-12-10 - 22:51:01 -  INFO   - Kernel: Message Broadcast: 23
+2013-12-10 - 22:51:01 -  INFO   - Message Service: Stopping
+2013-12-10 - 22:51:01 -  INFO   - ----------------- Application Ended -----------------
+

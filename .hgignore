@@ -17,5 +17,9 @@ syntax: glob
 
 *.ipch
 
-*/Debug/
-*/Release/
+*/Fabian/*/Debug/
+*/Fabian/*/Release/
+*/Fabian/Debug/
+*/Fabian/Release/
+*/ObjConverter/Debug/
+*/ObjConverter/Release/
