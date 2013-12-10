@@ -32,7 +32,7 @@ CServiceMessageLoop::~CServiceMessageLoop()
 //         when false is returned then the service gets deleted	
 bool CServiceMessageLoop::Start()
 {
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Message Service: Started" );
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Message Service: Started" );
 	return true;
 }
 //-------------------------------------
@@ -46,7 +46,7 @@ void CServiceMessageLoop::Update()
 		if( e.type == SDL_QUIT )
 		{	
 			SMsg msg(SM_QUIT);
-			CKernel::Get()->SendMessage( &msg );
+			CKernel::Get().SendMessage( &msg );
 		}
 	}
 }
@@ -54,7 +54,7 @@ void CServiceMessageLoop::Update()
 // Called when the service will be deleted
 void CServiceMessageLoop::Stop()
 {
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Message Service: Stopping" );
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Message Service: Stopping" );
 }
 //-------------------------------------
 

@@ -19,7 +19,7 @@ class CKernel
 public:
 	//-------------------------------------
 	// Singleton accessor
-	static CKernel* Get();
+	static CKernel& Get();
 	//-------------------------------------
 	// Destructor
 	virtual ~CKernel();
@@ -78,9 +78,6 @@ private:
 	//-------------------------------------
 	// Constructor
 	CKernel();
-	//-------------------------------------
-	// Singleton variable
-	static CKernel *m_pInstance;
 	//-------------------------------------
 
 	std::list<IService*> m_pServiceList;

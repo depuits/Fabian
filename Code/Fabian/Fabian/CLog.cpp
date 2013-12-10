@@ -9,16 +9,11 @@
 //******************************************
 
 //-------------------------------------
-// Singleton variable
-CLog* CLog::m_pInstance = nullptr;
-//------------------------------------
-
-//-------------------------------------
 // Singleton accessor
-CLog* CLog::Get()
+CLog& CLog::Get()
 {
-	if( m_pInstance == nullptr ) m_pInstance = new CLog();
-	return m_pInstance;
+	static CLog log;
+	return log;
 }
 
 //-------------------------------------
@@ -32,12 +27,14 @@ CLog::CLog()
 CLog::~CLog()
 {
 	delete m_pLogger;
-	m_pInstance = nullptr;
 }
 //-------------------------------------
 
 bool CLog::AssignLogger(ILogger* pLogger)
 {
+	if( m_pLogger != nullptr )
+		delete m_pLogger;
+
 	m_pLogger = pLogger;
 	return true;
 }

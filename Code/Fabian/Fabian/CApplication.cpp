@@ -40,12 +40,12 @@ int CApplication::Run(int argc, char *argv[])
 	//initiate the log for the app
 	CLoggerToFiles* pLogger = new CLoggerToFiles();
 	pLogger->Init();
-	CLog::Get()->AssignLogger(pLogger);
+	CLog::Get().AssignLogger(pLogger);
 	
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "----------------- Application Starting -----------------");
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "----------------- Application Starting -----------------");
 
 	//create kernel
-	CKernel *pKernel = CKernel::Get();
+	CKernel *pKernel = &CKernel::Get();
 
 	//load and set potential settings
   
@@ -71,9 +71,7 @@ int CApplication::Run(int argc, char *argv[])
 	int rv = pKernel->Execute();
   
 	//clean up
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "----------------- Application Ended -----------------\n");
-	delete pKernel;
-	delete CLog::Get();
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "----------------- Application Ended -----------------\n");
 
 	return rv;
 }

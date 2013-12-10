@@ -40,10 +40,10 @@ CServiceVideoUpdate::~CServiceVideoUpdate()
 //         when false is returned then the service gets deleted	
 bool CServiceVideoUpdate::Start()
 {
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Video Service: Starting" );
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Video Service: Starting" );
 	if( SDL_InitSubSystem(SDL_INIT_VIDEO) == -1 )
 	{
-		CLog::Get()->Write(FLOG_LVL_ERROR, FLOG_ID_APP | FLOG_ID_USER, "SDL subInit failed (video): %s", SDL_GetError() );
+		CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP | FLOG_ID_USER, "SDL subInit failed (video): %s", SDL_GetError() );
 		return false;
 	}
 
@@ -62,14 +62,14 @@ bool CServiceVideoUpdate::Start()
 	m_pWindow = SDL_CreateWindow("Fabian", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_iScreenWidth, m_iScreenHeight, flags);
 	if( m_pWindow == nullptr )
 	{
-		CLog::Get()->Write(FLOG_LVL_ERROR, FLOG_ID_APP | FLOG_ID_USER, "Failed to create window: (w: %d, h: %d) - %s", m_iScreenWidth, m_iScreenHeight, SDL_GetError() );
+		CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP | FLOG_ID_USER, "Failed to create window: (w: %d, h: %d) - %s", m_iScreenWidth, m_iScreenHeight, SDL_GetError() );
 		return false;
 	}
 
 	m_GLContext = SDL_GL_CreateContext(m_pWindow);
 	if( m_GLContext == NULL )
 	{
-		CLog::Get()->Write(FLOG_LVL_ERROR, FLOG_ID_APP | FLOG_ID_USER, "Failed to create opengl context: %s", SDL_GetError() );
+		CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP | FLOG_ID_USER, "Failed to create opengl context: %s", SDL_GetError() );
 		SDL_DestroyWindow(m_pWindow);
 		m_pWindow = nullptr;
 		return false;
@@ -78,7 +78,7 @@ bool CServiceVideoUpdate::Start()
 	GLenum err = glewInit();
 	if (err != GLEW_OK) 
 	{
-		CLog::Get()->Write(FLOG_LVL_ERROR, FLOG_ID_APP | FLOG_ID_USER, "Failed to init GLEW: %s", glewGetErrorString(err) );
+		CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP | FLOG_ID_USER, "Failed to init GLEW: %s", glewGetErrorString(err) );
 		SDL_DestroyWindow(m_pWindow);
 		m_pWindow = nullptr;
 		return false;
@@ -102,7 +102,7 @@ bool CServiceVideoUpdate::Start()
 
 	m_pRenderer = new CRendererOpenGL(this);
 	
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Video Service: Started" );
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Video Service: Started" );
 	return true;
 }
 //-------------------------------------
@@ -116,9 +116,9 @@ void CServiceVideoUpdate::Update()
 // Called when the service will be deleted
 void CServiceVideoUpdate::Stop()
 {
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Video Service: Stopping" );
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Video Service: Stopping" );
 	SMsgRenderer msg(m_pRenderer, SM_H_REMOVE);
-	CKernel::Get()->SendMessage(&msg);
+	CKernel::Get().SendMessage(&msg);
 	delete m_pRenderer;
 
     // Close and destroy the window
@@ -135,7 +135,7 @@ void CServiceVideoUpdate::MsgProc(SMsg* sm)
 {
 	if( sm->id == SM_RENDERER + SM_H_REQUEST )
 	{
-		CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Video Service: Renderer requested" );
+		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Video Service: Renderer requested" );
 		SMsgRenderer msg(m_pRenderer, SM_H_RECEIVE);
 		SMsg::Cast<SMsgRequest*>(sm)->pService->MsgProc(&msg);
 	}

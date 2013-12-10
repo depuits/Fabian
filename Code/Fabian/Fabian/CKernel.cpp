@@ -12,16 +12,11 @@
 //******************************************
 
 //-------------------------------------
-// Singleton variable
-CKernel* CKernel::m_pInstance = nullptr;
-//------------------------------------
-
-//-------------------------------------
 // Singleton accessor
-CKernel* CKernel::Get()
+CKernel& CKernel::Get()
 {
-	if( m_pInstance == nullptr ) m_pInstance = new CKernel();
-	return m_pInstance;
+	static CKernel kernel;
+	return kernel;
 }
 
 //-------------------------------------
@@ -34,7 +29,6 @@ CKernel::CKernel()
 CKernel::~CKernel()
 {
 	FASSERT(m_pServiceList.size() <= 0);
-	m_pInstance = nullptr;
 }
 //-------------------------------------
 	
@@ -44,7 +38,7 @@ CKernel::~CKernel()
 // rv - returns 0
 int CKernel::Execute()
 {	
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Executing Kernel" );
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Executing Kernel" );
 
 	SDL_Init(0);
 
@@ -99,7 +93,7 @@ IService* CKernel::AddService(IService* s)
 {
 	FASSERT(s != nullptr);
 
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Adding Service" );
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Adding Service" );
 	if(!s->Start())
 	{
 		delete s;
@@ -128,7 +122,7 @@ IService* CKernel::AddService(IService* s)
 // rv - returns true on succes
 void CKernel::SuspendService(IService* s)
 {
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Suspend Service" );
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Suspend Service" );
 	//check that this task is in our list - we don't want to suspend
 	//a task that isn't running
 	if( std::find(m_pServiceList.begin(), m_pServiceList.end(), s) != m_pServiceList.end() )
@@ -140,7 +134,7 @@ void CKernel::SuspendService(IService* s)
 }
 void CKernel::ResumeService(IService* s)
 {
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Resume Service" );
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Resume Service" );
 	if( std::find(m_pPausedServiceList.begin(), m_pPausedServiceList.end(), s) != m_pPausedServiceList.end() )
 	{
 		s->OnResume();
@@ -161,7 +155,7 @@ void CKernel::ResumeService(IService* s)
 // p1 in - a pointer to the service to remove
 void CKernel::RemoveService(IService* s)
 {
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Removing Service" );
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Removing Service" );
 	if( std::find(m_pServiceList.begin(), m_pServiceList.end(), s) != m_pServiceList.end() )
 		s->SetCanKill(true);
 }
@@ -172,7 +166,7 @@ void CKernel::RemoveService(IService* s)
 //    application by doing so
 void CKernel::KillAllServices()
 {
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Killing All Services" );
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Killing All Services" );
 	for(std::list<IService*>::iterator it( m_pServiceList.begin() ); it != m_pServiceList.end(); ++it)
 		(*it)->SetCanKill(true);
 }
@@ -184,7 +178,7 @@ void CKernel::KillAllServices()
 // p1 in - pointer to SMsg object
 void CKernel::SendMessage(SMsg* msg)
 {
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Message Broadcast: %d", msg->id );
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Message Broadcast: %d", msg->id );
 	if( msg->id == SM_QUIT )
 		KillAllServices();
 

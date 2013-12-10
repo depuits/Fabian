@@ -37,7 +37,7 @@ public:
 
 	//-------------------------------------
 	// Singleton accessor
-	static CLog* Get();
+	static CLog& Get();
 	//-------------------------------------
 	// Destructor
 	virtual ~CLog();
@@ -54,9 +54,6 @@ private:
 	//-------------------------------------
 	// Constructor
 	CLog();
-	//-------------------------------------
-	// Singleton variable
-	static CLog *m_pInstance;
 	//-------------------------------------
 
 	ILogger *m_pLogger;

@@ -22,12 +22,12 @@ CContentManager::CContentManager(IRenderer* pRend)
 // Destructor
 CContentManager::~CContentManager()
 {
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Unloading Meshes: %d", m_mMeshMap.size());
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Unloading Meshes: %d", m_mMeshMap.size());
 	for (std::map<std::string, IMesh*>::iterator it( m_mMeshMap.begin() ); it != m_mMeshMap.end(); ++it)
 		delete it->second;
 	m_mMeshMap.clear();
 	
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Unloading Textures: %d", m_mImageMap.size());
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Unloading Textures: %d", m_mImageMap.size());
 	for (std::map<std::string, IImage*>::iterator it( m_mImageMap.begin() ); it != m_mImageMap.end(); ++it)
 		delete it->second;
 	m_mImageMap.clear();
@@ -41,12 +41,12 @@ CContentManager::~CContentManager()
 // rv - pointer IMesh object and nullptr if failed
 IMesh *CContentManager::LoadMesh(const std::string& sFile)
 {
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Mesh: %s", sFile.c_str());
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Mesh: %s", sFile.c_str());
 	if ( !IsMeshLoaded(sFile))
 	{
 		CLibrary lib;
-		CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new mesh using \"%s\"", "plugins/A3DLoader.fpm");
-		if( !lib.Load("../debug/FPM_A3DLoader.dll") )//"plugins/A3DLoader.fpm") )
+		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new mesh using \"%s\"", "plugins/A3DLoader.fpm");
+		if( !lib.Load("../debug/FPM_OBJLoader.dll") )//"plugins/A3DLoader.fpm") )
 			return nullptr;
 		LOAD_MESHDATA fLoadMD = (LOAD_MESHDATA)lib.GetFunction("LoadData"); // meshData Loading function
 		RELEASE_MESHDATA fReleaseMD = (RELEASE_MESHDATA)lib.GetFunction("ReleaseData"); // meshData Release function
@@ -57,14 +57,14 @@ IMesh *CContentManager::LoadMesh(const std::string& sFile)
 		// load from dll
 		MeshData *md = fLoadMD(sFile.c_str());
 
-		CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loaded MeshData ( v: %d - i: %d )", md->vCount / 8 /* divided by 8 becaus the vcount is x,y,z,nx,ny,nz,u,v*/, md->iCount);
+		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loaded MeshData ( v: %d - i: %d )", md->vCount / 8 /* divided by 8 becaus the vcount is x,y,z,nx,ny,nz,u,v*/, md->iCount);
 		IMesh *pMesh = m_pRenderer->LoadMesh(md);
 		// release dll data
 		fReleaseMD(md);
 
 		if( pMesh == nullptr )
 		{
-			CLog::Get()->Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading mesh failed");
+			CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading mesh failed");
 			return nullptr;
 		}
 		
@@ -75,11 +75,11 @@ IMesh *CContentManager::LoadMesh(const std::string& sFile)
 }
 IImage *CContentManager::LoadImage(const std::string& sFile)
 {
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Texture: %s", sFile.c_str());
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Texture: %s", sFile.c_str());
 	if ( !IsImageLoaded(sFile))
 	{
 		CLibrary lib;
-		CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new Texture using \"%s\"", "plugins/SOILLoader.fpi");
+		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new Texture using \"%s\"", "plugins/SOILLoader.fpi");
 		if( !lib.Load("plugins/SOILLoader.fpi") )
 			return nullptr;
 		LOAD_IMAGEDATA fLoadID = (LOAD_IMAGEDATA)lib.GetFunction("LoadData"); // meshData Loading function
@@ -92,13 +92,13 @@ IImage *CContentManager::LoadImage(const std::string& sFile)
 		ImageData *id = fLoadID(sFile.c_str());
 
 		IImage *pImage = m_pRenderer->LoadImage(id);
-		CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loaded ImageData ( w: %d - h: %d )", id->w, id->h);
+		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loaded ImageData ( w: %d - h: %d )", id->w, id->h);
 		// release dll data
 		fReleaseID(id);
 
 		if( pImage == nullptr )
 		{
-			CLog::Get()->Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading texture failed");
+			CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading texture failed");
 			return nullptr;
 		}
 		

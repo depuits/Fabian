@@ -67,7 +67,7 @@ CServiceGame::~CServiceGame()
 void SendMsg(int id, IService *pServ)
 {
 	SMsgRequest msg(id, pServ);
-	CKernel::Get()->SendMessage(&msg);
+	CKernel::Get().SendMessage(&msg);
 }
 //-------------------------------------
 	
@@ -77,12 +77,12 @@ void SendMsg(int id, IService *pServ)
 //         when false is returned then the service gets deleted	
 bool CServiceGame::Start()
 {
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Starting" );
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Starting" );
 	SendMsg(SM_INPUT, this);
 	SendMsg(SM_RENDERER, this);
 
 	SMsgTimer msg(TimerCallback);
-	CKernel::Get()->SendMessage(&msg);
+	CKernel::Get().SendMessage(&msg);
 	
 	// just quit when the renderer or input wasn't filled in
 	FASSERTR(m_pInput != nullptr);
@@ -107,24 +107,24 @@ bool CServiceGame::Start()
 	g_pImage2 = m_pContent->LoadImage("Textures/img_cheryl.jpg");
 	g_pImage3 = m_pContent->LoadImage("Textures/CarDiffuseMap.png");
 
-	g_pModel1 = new CModel( m_pContent->LoadMesh("Meshes/teapot.a3d") );
+	g_pModel1 = new CModel( m_pContent->LoadMesh("Meshes/teapot.obj") );
 	g_pModel1->Init();
 	g_pModel1->Transform()->SetRot( glm::vec3(0, glm::quarter_pi<float>(),0) );
 	g_pModel1->Transform()->SetPos( glm::vec3(0,0,2.5f) );
 	g_pModel1->Transform()->SetScale( 0.1f );
 	
-	g_pModel2 = new CModel( m_pContent->LoadMesh("Meshes/cube.a3d") );
+	g_pModel2 = new CModel( m_pContent->LoadMesh("Meshes/cube.obj") );
 	g_pModel2->Init();
 	g_pModel2->Transform()->SetPos( glm::vec3(0,0,-2.5f) );
 	g_pModel2->Transform()->SetScale( 0.1f );
 
-	g_pModel3 = new CModel( m_pContent->LoadMesh("Meshes/car.a3d") );
+	g_pModel3 = new CModel( m_pContent->LoadMesh("Meshes/car.obj") );
 	g_pModel3->Init();
 	g_pModel3->Transform()->SetRot( glm::vec3(0, glm::quarter_pi<float>(),0) );
 	g_pModel3->Transform()->SetPos( glm::vec3(-30,0,0) );
 	g_pModel3->Transform()->SetScale( 0.5f );
 	
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Started" );
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Started" );
 	return true;
 }
 //-------------------------------------
@@ -189,7 +189,7 @@ void CServiceGame::Update()
 // Called when the service will be deleted
 void CServiceGame::Stop()
 {
-	CLog::Get()->Write(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Stopping" );
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Stopping" );
 	// we don't delete the mesh and image because it was loaded by de contentloader and it will destroy it for use
 
 	delete g_pModel1;
@@ -219,7 +219,7 @@ void CServiceGame::MsgProc(SMsg* sm)
 		
 	case SM_INPUT + SM_H_REMOVE:
 	case SM_RENDERER + SM_H_REMOVE:
-		CLog::Get()->Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Game Service: Stopping (Renderer or Input removed)" );
+		CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Game Service: Stopping (Renderer or Input removed)" );
 		this->SetCanKill(true);
 		break;
 	}

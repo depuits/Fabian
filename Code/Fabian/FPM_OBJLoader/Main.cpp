@@ -11,7 +11,7 @@ extern "C"
 		std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
 		std::vector< glm::vec3 > temp_vertices;
 		std::vector< glm::vec3 > temp_normals;
-		std::vector< glm::vec3 > temp_uvs;
+		std::vector< glm::vec2 > temp_uvs;
 		
 		FILE *file = fopen(sFile, "r");
 		if( file == NULL ){
@@ -42,9 +42,9 @@ extern "C"
 			}
 			else if ( strcmp( lineHeader, "vt" ) == 0 )
 			{
-				glm::vec3 uvw;
-				fscanf(file, "%f %f %f\n", &uvw.x, &uvw.y, &uvw.z );
-				temp_uvs.push_back(uvw);
+				glm::vec2 uv;
+				fscanf(file, "%f %f %f\n", &uv.x, &uv.y );
+				temp_uvs.push_back(uv);
 			}
 			else if ( strcmp( lineHeader, "f" ) == 0 )
 			{
@@ -88,8 +88,8 @@ extern "C"
 			vertices.push_back(normal.x); vertices.push_back(normal.y); vertices.push_back(normal.z);
 
 			unsigned int uvIndex = uvIndices[i];
-			glm::vec3 uvw = temp_uvs[ uvIndex-1 ];
-			vertices.push_back(uvw.x); vertices.push_back(1 - uvw.y); //convert UV coord: in obj the origin is  top left but the engine uses bottom left
+			glm::vec2 uv = temp_uvs[ uvIndex-1 ];
+			vertices.push_back(uv.x); vertices.push_back(1 - uv.y); //convert UV coord: in obj the origin is  top left but the engine uses bottom left
 
 			indices.push_back(i);
 		}
