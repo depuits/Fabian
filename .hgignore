@@ -1,5 +1,6 @@
 syntax: glob
 *.sdf
+*.suo
 *.opensdf
 
 *.pdb
@@ -11,6 +12,10 @@ syntax: glob
 
 *.log
 *.tlog
-*.obj
 *.ilk
 *.cache
+
+*.ipch
+
+*/Debug/
+*/Release/
