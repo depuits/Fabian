@@ -1,0 +1,25 @@
+#pragma once
+
+#include <vector>
+#include <string>
+#include "Point2D.h"
+#include "Point3D.h"
+
+class ObjWriter
+{
+public:
+	ObjWriter();
+	~ObjWriter();
+
+	void Write(std::wstring& filename);
+
+	void SetVertices(std::vector<Point3D>& vertices);
+	void SetNormals(std::vector<Point3D>& normals);
+	void SetTexCoords(std::vector<Point2D>& texCoords);
+	void SetFaces(std::vector<std::vector<Point3D>>& faces);
+
+private:
+	std::vector<Point3D> m_vertices, m_normals;
+	std::vector<Point2D> m_texCoords;
+	std::vector<std::vector<Point3D>> m_faces;
+};
