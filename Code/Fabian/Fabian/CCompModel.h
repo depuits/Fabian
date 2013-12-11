@@ -1,18 +1,18 @@
-#ifndef FABIAN_CMODEL_H_
-#define FABIAN_CMODEL_H_
+#ifndef FABIAN_CCOMPMODEL_H_
+#define FABIAN_CCOMPMODEL_H_
 
 #include "FabianDef.h"
-#include "IObject.h"
+#include "IComponent.h"
 
 // --forward declarations--
 class IMesh;
 // ------------------------
 
 //******************************************
-// Class CModel:
+// Class CCompModel:
 // Wrapper class to draw a meshes with a transform
 //******************************************
-class CModel : public IObject
+class CCompModel : public IComponent
 {
 public:
 	//-------------------------------------
@@ -20,17 +20,17 @@ public:
 	// p1 in - pointer to Mesh object to draw
 	// p2 in* - pointer to parent object, this causes
 	//            the object to be linked to the parent
-	CModel(IMesh*, IObject* = nullptr);
+	CCompModel(IMesh*);
 	//-------------------------------------
 	// Destructor
-	virtual ~CModel();
+	virtual ~CCompModel();
 	//-------------------------------------
 	
 	//-------------------------------------
 	// Initializes the object, should be called before any other
 	//    method of the object.
 	// rv - bool, false if something failed	
-	virtual bool Init();
+	virtual bool Start();
 	//-------------------------------------
 	// Draws the object on the screen ussing the given shader
 	// p1 in - pointer to the shader the object should draw with
@@ -43,7 +43,7 @@ protected:
 	static int s_iIdWorld;
 
 private:
-	DISALLOW_COPY_AND_ASSIGN(CModel);
+	DISALLOW_COPY_AND_ASSIGN(CCompModel);
 };
 
-#endif //FABIAN_CMODEL_H_
+#endif //FABIAN_CCOMPMODEL_H_

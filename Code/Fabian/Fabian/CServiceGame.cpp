@@ -9,22 +9,25 @@
 #include "IShader.h"
 #include "IImage.h"
 
-#include "CModel.h"
-#include "CCamera.h"
+#include "CCompModel.h"
+#include "CCompCamera.h"
+#include "CCompPlayer.h"
+
 #include "CTransform.h"
+#include "CGameObject.h"
 
 #include "CLog.h"
 
-CCamera *g_pCamera;
+CGameObject *g_pGoCamera,
+			*g_pGoModel1,
+			*g_pGoModel2,
+			*g_pGoModel3;
+
 IShader *g_pShader;
 
 IImage	*g_pImage1,
 		*g_pImage2,
 		*g_pImage3;
-
-CModel	*g_pModel1,
-		*g_pModel2,
-		*g_pModel3;
 
 int g_iIdLightPos,
 	g_iIdLightPower,
@@ -89,12 +92,7 @@ bool CServiceGame::Start()
 	FASSERTR(m_pRenderer != nullptr);
 	
 	m_pRenderer->SetVSync(true); // using fix time in timer vs only vSync because movement feels smoother
-
-	g_pCamera = new CCamera();
-	g_pCamera->Init();
-	g_pCamera->Transform()->SetPos( glm::vec3(20,10,0) );
-	//g_pCamera->Transform()->SetRot( glm::vec3(0,0,0.3f) );
-	
+		
 	g_pShader = m_pRenderer->LoadShader("Shaders/SimpleShader");
 	g_iIdLightPos = g_pShader->GetVarId("LightPosition_worldspace");
 	g_iIdLightPower = g_pShader->GetVarId("LightPower");
@@ -106,23 +104,37 @@ bool CServiceGame::Start()
 	g_pImage1 = m_pContent->LoadImage("Textures/uv.jpg");
 	g_pImage2 = m_pContent->LoadImage("Textures/img_cheryl.jpg");
 	g_pImage3 = m_pContent->LoadImage("Textures/CarDiffuseMap.png");
-
-	g_pModel1 = new CModel( m_pContent->LoadMesh("Meshes/teapot.obj") );
-	g_pModel1->Init();
-	g_pModel1->Transform()->SetRot( glm::vec3(0, glm::quarter_pi<float>(),0) );
-	g_pModel1->Transform()->SetPos( glm::vec3(0,0,2.5f) );
-	g_pModel1->Transform()->SetScale( 0.1f );
 	
-	g_pModel2 = new CModel( m_pContent->LoadMesh("Meshes/cube.obj") );
-	g_pModel2->Init();
-	g_pModel2->Transform()->SetPos( glm::vec3(0,0,-2.5f) );
-	g_pModel2->Transform()->SetScale( 0.1f );
+	g_pGoCamera = new CGameObject();
+	g_pGoCamera->Init();
+	g_pGoCamera->AddComponent( new CCompPlayer() );
+	g_pGoCamera->AddComponent( new CCompCamera() );
+	g_pGoCamera->AddComponent( new CCompModel( m_pContent->LoadMesh("Meshes/teapot.obj") ) );
+	g_pGoCamera->Transform()->SetPos( glm::vec3(20,10,0) );
+	//g_pCamera->Transform()->SetRot( glm::vec3(0,0,0.3f) );
 
-	g_pModel3 = new CModel( m_pContent->LoadMesh("Meshes/car.obj") );
-	g_pModel3->Init();
-	g_pModel3->Transform()->SetRot( glm::vec3(0, glm::quarter_pi<float>(),0) );
-	g_pModel3->Transform()->SetPos( glm::vec3(-30,0,0) );
-	g_pModel3->Transform()->SetScale( 0.5f );
+	g_pGoModel1 = new CGameObject();
+	g_pGoModel1->Init();
+	g_pGoModel1->AddComponent( new CCompModel( m_pContent->LoadMesh("Meshes/teapot.obj") ) );
+	g_pGoModel1->AddComponent( new CCompPlayer() );
+	g_pGoModel1->Transform()->SetRot( glm::vec3(0, glm::quarter_pi<float>(),0) );
+	g_pGoModel1->Transform()->SetPos( glm::vec3(0,0,2.5f) );
+	g_pGoModel1->Transform()->SetScale( 0.1f );
+	
+	g_pGoModel2 = new CGameObject();
+	g_pGoModel2->Init();
+	g_pGoModel2->AddComponent( new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+
+	g_pGoModel2->Transform()->SetPos( glm::vec3(0,0,-2.5f) );
+	g_pGoModel2->Transform()->SetScale( 0.1f );
+	
+	g_pGoModel3 = new CGameObject();
+	g_pGoModel3->Init();
+	g_pGoModel3->AddComponent( new CCompModel( m_pContent->LoadMesh("Meshes/car.obj") ) );
+
+	g_pGoModel3->Transform()->SetRot( glm::vec3(0, glm::quarter_pi<float>(),0) );
+	g_pGoModel3->Transform()->SetPos( glm::vec3(-30,0,0) );
+	g_pGoModel3->Transform()->SetScale( 0.5f );
 	
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Started" );
 	return true;
@@ -134,15 +146,13 @@ void CServiceGame::Update()
 	// temp for clearing window	and drawing object
 	m_pRenderer->Clear(0.01f, 0.1f, 0.4f, 1.0f);
 	
-	g_pModel1->Transform()->Rotate( glm::vec3(0,  0.1f * s_fDtime,0) );
-
 	if ( (m_pInput->GetKeyState(FKEY_MRBUTTON) & DOWN) == DOWN )
 	{
 		int x(0), y(0);
 		m_pInput->LockMouse(true);
 		m_pInput->GetMouseMovement(x, y);
-		g_pCamera->Transform()->Rotate( glm::vec3(0,g_fMouseSens * -x * s_fDtime,0) );
-		g_pCamera->Transform()->LocalRotate( glm::vec3(0,0,g_fMouseSens * y * s_fDtime) ); // change this to locale rotation
+		g_pGoCamera->Transform()->Rotate( glm::vec3(0,g_fMouseSens * -x * s_fDtime,0) );
+		g_pGoCamera->Transform()->LocalRotate( glm::vec3(0,0,g_fMouseSens * y * s_fDtime) ); // change this to locale rotation
 		
 		//m_pInput->LockMouse(300, 300);
 	}
@@ -151,35 +161,45 @@ void CServiceGame::Update()
 	
 	//move forward and backward
 	if ( m_pInput->GetKeyState(FKEY_UP) & DOWN )
-		g_pCamera->Transform()->LocalMove( glm::vec3(-g_fCamSpeed * s_fDtime, 0, 0) );
+		g_pGoCamera->Transform()->LocalMove( glm::vec3(-g_fCamSpeed * s_fDtime, 0, 0) );
 	else if ( m_pInput->GetKeyState(FKEY_DOWN) & DOWN )
-		g_pCamera->Transform()->LocalMove( glm::vec3(g_fCamSpeed * s_fDtime, 0, 0) );
+		g_pGoCamera->Transform()->LocalMove( glm::vec3(g_fCamSpeed * s_fDtime, 0, 0) );
 	//move left and right
 	if ( m_pInput->GetKeyState(FKEY_LEFT) & DOWN )
-		g_pCamera->Transform()->LocalMove( glm::vec3(0, 0, g_fCamSpeed * s_fDtime) );
+		g_pGoCamera->Transform()->LocalMove( glm::vec3(0, 0, g_fCamSpeed * s_fDtime) );
 	else if ( m_pInput->GetKeyState(FKEY_RIGHT) & DOWN )
-		g_pCamera->Transform()->LocalMove( glm::vec3(0, 0, -g_fCamSpeed * s_fDtime) );
+		g_pGoCamera->Transform()->LocalMove( glm::vec3(0, 0, -g_fCamSpeed * s_fDtime) );
 
+	// update
+	g_pGoCamera->Update(s_fDtime);
+	g_pGoModel1->Update(s_fDtime);
+	g_pGoModel2->Update(s_fDtime);
+	g_pGoModel3->Update(s_fDtime);
+
+	//draw
 	g_pShader->Apply();
 
 	g_pShader->SetVarVec3(g_iIdLightPos, glm::vec3(20, 0, 0));
 	g_pShader->SetVarF1(g_iIdLightPower, 1.0f);
 	g_pShader->SetVarVec4(g_iIdLightColor, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
-	g_pCamera->Draw(g_pShader);
+	g_pGoCamera->Draw(g_pShader);
 
 	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ); Sorting and camera culling
 	g_pShader->SetVarImage(g_iIdTexture, g_pImage1);
-	g_pModel1->Draw(g_pShader);
+	g_pGoModel1->Draw(g_pShader);
 	g_pShader->SetVarImage(g_iIdTexture, g_pImage2);
-	g_pModel2->Draw(g_pShader);
+	g_pGoModel2->Draw(g_pShader);
 	g_pShader->SetVarImage(g_iIdTexture, g_pImage3);
-	g_pModel3->Draw(g_pShader);
+	g_pGoModel3->Draw(g_pShader);
 	//glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 
 	m_dTimer += s_fDtime;
-	if( (int)m_dTimer % 10 == 0 )
+	if( (int)m_dTimer % 10 == 0 && (int)m_dTimer > 0 )
 	{
+		//g_pGoCamera->RemoveComponent(nullptr);
+		g_pGoCamera->GetComponentOfType<CCompCamera>()->SetProjectionParams(90, 4/3, 1, 100);
+		//g_pGoModel1->GetComponentOfType<CCompModel>()->
 		//m_pRenderer->SetVSync(true);
 		//m_pRenderer->SetScreenResolution(800, 600);
 		//m_pRenderer->SwitchFullScreen();
@@ -192,11 +212,11 @@ void CServiceGame::Stop()
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Stopping" );
 	// we don't delete the mesh and image because it was loaded by de contentloader and it will destroy it for use
 
-	delete g_pModel1;
-	delete g_pModel2;
-	delete g_pModel3;
+	delete g_pGoModel1;
+	delete g_pGoModel2;
+	delete g_pGoModel3;
 
-	delete g_pCamera;
+	delete g_pGoCamera;
 
 	delete g_pShader;
 	delete m_pContent;

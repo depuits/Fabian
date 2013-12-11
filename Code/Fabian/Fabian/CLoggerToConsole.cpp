@@ -8,8 +8,9 @@
 
 //-------------------------------------
 // Constructor
-CLoggerToConsole::CLoggerToConsole() 
+CLoggerToConsole::CLoggerToConsole(bool bWaitOnError) 
 	:ILogger()
+	,m_bWaitOnError(bWaitOnError)
 {
 }
 //-------------------------------------
@@ -59,5 +60,8 @@ void CLoggerToConsole::Write(char lvl, char id, const char* msg)
 
 	sLvl += msg;
 	Console::WriteLine( sLvl );
+	
+	if( lvl == FLOG_LVL_ERROR && m_bWaitOnError )
+		Console::ReadKey();
 }
 

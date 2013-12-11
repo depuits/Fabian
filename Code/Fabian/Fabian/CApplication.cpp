@@ -42,7 +42,7 @@ int CApplication::Run(int argc, char *argv[])
 	//initiate the log for the app
 	CLoggerMultiple* pLogger = new CLoggerMultiple();
 	
-	CLoggerToConsole* pLoggerConsole = new CLoggerToConsole();
+	CLoggerToConsole* pLoggerConsole = new CLoggerToConsole(true);
 	pLoggerConsole->Init();
 	CLoggerToFiles* pLoggerFiles = new CLoggerToFiles();
 	pLoggerFiles->Init();

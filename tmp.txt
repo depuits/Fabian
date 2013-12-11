@@ -5,10 +5,11 @@ http://stackoverflow.com/questions/1142103/how-do-i-load-a-shared-object-in-c
 ° create c compatible headers for extern use
 ° dll loading for services, waiting with this because of complexity (maybe load by strings)
 
-° rework console class
 ° create component base system for GameObjects
 ° creating 3d dimos quest
-° logging - multiple ILogger, to console logging
+
+° rework console class
+° clean up logging
 ° fix uvs in A3D
 ° testing advanced stuff (defered shadding, rendering, shadow maps, post processing, ...)
 ° multiple texture on 1 model

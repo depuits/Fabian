@@ -13,7 +13,7 @@ class CLoggerToConsole : public ILogger
 public:
 	//-------------------------------------
 	// Constructor
-	CLoggerToConsole();
+	CLoggerToConsole(bool = false);
 	//-------------------------------------
 	// Destructor
 	virtual ~CLoggerToConsole();
@@ -23,6 +23,8 @@ public:
 	virtual void Write(char, char, const char*);
 
 private:
+	bool m_bWaitOnError;
+
 	DISALLOW_COPY_AND_ASSIGN(CLoggerToConsole);
 };
 

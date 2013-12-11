@@ -1,23 +1,24 @@
-#include "CCamera.h"
+#include "CCompCamera.h"
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "IShader.h"
+#include "CGameObject.h"
 #include "CTransform.h"
 
 //******************************************
-// Class CCamera:
+// Class CCompCamera:
 // A basic camera for drawing scenes, including
 // the most simple settings.
 //******************************************
-int CCamera::s_iIdView = -1;
-int CCamera::s_iIdProj = -1;
+int CCompCamera::s_iIdView = -1;
+int CCompCamera::s_iIdProj = -1;
 
 //-------------------------------------
 // Constructor
 // p1 in* - pointer to parent object, this causes
 //            the object to be linked to the parent
-CCamera::CCamera(IObject *pPar)
-	:IObject(pPar)
+CCompCamera::CCompCamera()
+	:IComponent()
 	,m_fFOV(45.0f)
 	,m_fAspectRatio(16.0f/10.0f)
 	,m_fNear(0.1f)
@@ -28,7 +29,7 @@ CCamera::CCamera(IObject *pPar)
 }
 //-------------------------------------
 // Destructor
-CCamera::~CCamera()
+CCompCamera::~CCompCamera()
 {
 }
 //-------------------------------------
@@ -37,14 +38,14 @@ CCamera::~CCamera()
 // Initializes the object, should be called before any other
 //    method of the object.
 // rv - bool, false if something failed	
-bool CCamera::Init()
+bool CCompCamera::Start()
 {
 	return true;
 }
 //-------------------------------------
 // Sets this camera to the current one
 // p1 in - pointer to the shader the object should "draw" with
-void CCamera::Draw(IShader* pShader)
+void CCompCamera::Draw(IShader* pShader)
 {
 	if( s_iIdView == -1 || s_iIdProj == -1 )
 	{
@@ -58,13 +59,13 @@ void CCamera::Draw(IShader* pShader)
 		pShader->SetVarMat4(s_iIdProj, m_mProjection);
 	}
 
-	if( Transform()->IsChanged() )
+	if( m_pGameObject->Transform()->IsChanged() )
 	{
-		Transform()->ResetIsChanged();
+		//m_pGameObject->Transform()->ResetIsChanged();
 		glm::mat4 mView = glm::lookAt(
-			Transform()->GetPos(), // Camera is at (4,3,3), in World Space
-			Transform()->GetPos() + (Transform()->GetRot() * glm::vec3(-1,0,0)), // and looks at the origin
-			Transform()->GetRot() * glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
+			m_pGameObject->Transform()->GetPos(), // Camera is at (4,3,3), in World Space
+			m_pGameObject->Transform()->GetPos() + (m_pGameObject->Transform()->GetRot() * glm::vec3(-1,0,0)), // and looks at the origin
+			m_pGameObject->Transform()->GetRot() * glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
 		);
 		
 		pShader->SetVarMat4(s_iIdView, mView);
@@ -78,7 +79,7 @@ void CCamera::Draw(IShader* pShader)
 // p2 in - float, AspectRatio (4/3, 16/9, 16/10)
 // p3 in - float, Near plane
 // p4 in - float, Far plane
-void CCamera::SetProjectionParams(float fFOV, float fAspectRatio, float fNear, float fFar)
+void CCompCamera::SetProjectionParams(float fFOV, float fAspectRatio, float fNear, float fFar)
 {
 	m_fFOV = fFOV;
 	m_fAspectRatio = fAspectRatio;

@@ -1,8 +1,8 @@
-#ifndef FABIAN_CCAMERA_H_
-#define FABIAN_CCAMERA_H_
+#ifndef FABIAN_CCOMPCAMERA_H_
+#define FABIAN_CCOMPCAMERA_H_
 
 #include "FabianDef.h"
-#include "IObject.h"
+#include "IComponent.h"
 
 #pragma warning( push )
 #pragma warning( disable: 4201 )
@@ -10,28 +10,28 @@
 #pragma warning( pop )
 
 //******************************************
-// Class CCamera:
+// Class CCompCamera:
 // A basic camera for drawing scenes, including
 // the most simple settings.
 //******************************************
-class CCamera : public IObject
+class CCompCamera : public IComponent
 {
 public:
 	//-------------------------------------
 	// Constructor
 	// p1 in* - pointer to parent object, this causes
 	//            the object to be linked to the parent
-	CCamera(IObject* = nullptr);
+	CCompCamera();
 	//-------------------------------------
 	// Destructor
-	virtual ~CCamera();
+	virtual ~CCompCamera();
 	//-------------------------------------
 	
 	//-------------------------------------
 	// Initializes the object, should be called before any other
 	//    method of the object.
 	// rv - bool, false if something failed
-	virtual bool Init();
+	virtual bool Start();
 	//-------------------------------------
 	// Sets this camera to the current one
 	// p1 in - pointer to the shader the object should "draw" with
@@ -59,7 +59,7 @@ protected:
 	static int s_iIdView, s_iIdProj;
 
 private:
-	DISALLOW_COPY_AND_ASSIGN(CCamera);
+	DISALLOW_COPY_AND_ASSIGN(CCompCamera);
 };
 
-#endif //FABIAN_CCAMERA_H_
+#endif //FABIAN_CCOMPCAMERA_H_

@@ -87,7 +87,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h" />
-    <ClInclude Include="CCamera.h" />
+    <ClInclude Include="CCompCamera.h" />
+    <ClInclude Include="CCompPlayer.h" />
     <ClInclude Include="CContentManager.h" />
     <ClInclude Include="CImageOpenGL.h" />
     <ClInclude Include="CInputSDL.h" />
@@ -109,7 +110,8 @@
     <ClInclude Include="CServiceTimer.h" />
     <ClInclude Include="CServiceVideoUpdate.h" />
     <ClInclude Include="CShaderOpenGL.h" />
-    <ClInclude Include="IGameObject.h" />
+    <ClInclude Include="IComponent.h" />
+    <ClInclude Include="CGameObject.h" />
     <ClInclude Include="IImage.h" />
     <ClInclude Include="IInput.h" />
     <ClInclude Include="ILogger.h" />
@@ -120,14 +122,15 @@
     <ClInclude Include="FabianDef.h" />
     <ClInclude Include="IObject.h" />
     <ClInclude Include="IService.h" />
-    <ClInclude Include="CModel.h" />
+    <ClInclude Include="CCompModel.h" />
     <ClInclude Include="CTransform.h" />
     <ClInclude Include="CLibraryLoader.h" />
     <ClInclude Include="ServiceMsg.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CApplication.cpp" />
-    <ClCompile Include="CCamera.cpp" />
+    <ClCompile Include="CCompCamera.cpp" />
+    <ClCompile Include="CCompPlayer.cpp" />
     <ClCompile Include="CContentManager.cpp" />
     <ClCompile Include="CImageOpenGL.cpp" />
     <ClCompile Include="CInputSDL.cpp" />
@@ -146,14 +149,15 @@
     <ClCompile Include="CServiceTimer.cpp" />
     <ClCompile Include="CServiceVideoUpdate.cpp" />
     <ClCompile Include="CShaderOpenGL.cpp" />
-    <ClCompile Include="IGameObject.cpp" />
+    <ClCompile Include="IComponent.cpp" />
+    <ClCompile Include="CGameObject.cpp" />
     <ClCompile Include="IInput.cpp" />
     <ClCompile Include="CTransform.cpp" />
     <ClCompile Include="IObject.cpp" />
     <ClCompile Include="IService.cpp" />
     <ClCompile Include="CLibraryLoader.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="CModel.cpp" />
+    <ClCompile Include="CCompModel.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

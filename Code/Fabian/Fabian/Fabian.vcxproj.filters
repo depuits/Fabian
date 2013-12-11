@@ -40,6 +40,9 @@
     <Filter Include="Engine Files\Logging\Console">
       <UniqueIdentifier>{1564ee3a-fbce-4488-b7b2-81212c77a018}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine Files\Objects\Components">
+      <UniqueIdentifier>{34462220-88f2-4523-b51e-b0974f2d5215}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CKernel.h">
@@ -81,16 +84,7 @@
     <ClInclude Include="IObject.h">
       <Filter>Engine Files\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="IGameObject.h">
-      <Filter>Engine Files\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="CTransform.h">
-      <Filter>Engine Files\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="CModel.h">
-      <Filter>Engine Files\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="CCamera.h">
       <Filter>Engine Files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="ServiceMsg.h">
@@ -156,6 +150,21 @@
     <ClInclude Include="CLoggerToConsole.h">
       <Filter>Engine Files\Logging</Filter>
     </ClInclude>
+    <ClInclude Include="IComponent.h">
+      <Filter>Engine Files\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameObject.h">
+      <Filter>Engine Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CCompPlayer.h">
+      <Filter>Game Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CCompCamera.h">
+      <Filter>Engine Files\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CCompModel.h">
+      <Filter>Engine Files\Objects\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CKernel.cpp">
@@ -188,16 +197,7 @@
     <ClCompile Include="IObject.cpp">
       <Filter>Engine Files\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="IGameObject.cpp">
-      <Filter>Engine Files\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="CTransform.cpp">
-      <Filter>Engine Files\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="CModel.cpp">
-      <Filter>Engine Files\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="CCamera.cpp">
       <Filter>Engine Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="CServiceMessageLoop.cpp">
@@ -241,6 +241,21 @@
     </ClCompile>
     <ClCompile Include="CLoggerToConsole.cpp">
       <Filter>Engine Files\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="IComponent.cpp">
+      <Filter>Engine Files\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameObject.cpp">
+      <Filter>Engine Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="CCompPlayer.cpp">
+      <Filter>Game Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CCompCamera.cpp">
+      <Filter>Engine Files\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CCompModel.cpp">
+      <Filter>Engine Files\Objects\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
