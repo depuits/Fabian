@@ -37,6 +37,9 @@
     <Filter Include="Engine Files\Video\OpenGL">
       <UniqueIdentifier>{bd5a0a9d-30eb-435b-9e18-212e626d5a99}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine Files\Logging\Console">
+      <UniqueIdentifier>{1564ee3a-fbce-4488-b7b2-81212c77a018}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CKernel.h">
@@ -138,6 +141,21 @@
     <ClInclude Include="CImageOpenGL.h">
       <Filter>Engine Files\Video\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="Console\console.h">
+      <Filter>Engine Files\Logging\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="Console\ConsoleColor.h">
+      <Filter>Engine Files\Logging\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="Console\keys.h">
+      <Filter>Engine Files\Logging\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="CLoggerMultiple.h">
+      <Filter>Engine Files\Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="CLoggerToConsole.h">
+      <Filter>Engine Files\Logging</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CKernel.cpp">
@@ -214,6 +232,15 @@
     </ClCompile>
     <ClCompile Include="CImageOpenGL.cpp">
       <Filter>Engine Files\Video\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Console\console.cpp">
+      <Filter>Engine Files\Logging\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="CLoggerMultiple.cpp">
+      <Filter>Engine Files\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="CLoggerToConsole.cpp">
+      <Filter>Engine Files\Logging</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

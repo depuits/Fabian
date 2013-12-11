@@ -94,8 +94,13 @@
     <ClInclude Include="CKernel.h" />
     <ClInclude Include="CLibrary.h" />
     <ClInclude Include="CLog.h" />
+    <ClInclude Include="CLoggerToConsole.h" />
+    <ClInclude Include="CLoggerMultiple.h" />
     <ClInclude Include="CLoggerToFiles.h" />
     <ClInclude Include="CMeshOpenGL.h" />
+    <ClInclude Include="Console\console.h" />
+    <ClInclude Include="Console\ConsoleColor.h" />
+    <ClInclude Include="Console\keys.h" />
     <ClInclude Include="DataStructures.h" />
     <ClInclude Include="CRendererOpenGL.h" />
     <ClInclude Include="CServiceGame.h" />
@@ -129,8 +134,11 @@
     <ClCompile Include="CKernel.cpp" />
     <ClCompile Include="CLibrary.cpp" />
     <ClCompile Include="CLog.cpp" />
+    <ClCompile Include="CLoggerToConsole.cpp" />
+    <ClCompile Include="CLoggerMultiple.cpp" />
     <ClCompile Include="CLoggerToFiles.cpp" />
     <ClCompile Include="CMeshOpenGL.cpp" />
+    <ClCompile Include="Console\console.cpp" />
     <ClCompile Include="CRendererOpenGL.cpp" />
     <ClCompile Include="CServiceGame.cpp" />
     <ClCompile Include="CServiceInput.cpp" />

@@ -10,6 +10,8 @@
 #include "CServiceInput.h"
 
 #include "CLog.h"
+#include "CLoggerMultiple.h"
+#include "CLoggerToConsole.h"
 #include "CLoggerToFiles.h"
 
 //******************************************
@@ -38,11 +40,26 @@ CApplication::~CApplication()
 int CApplication::Run(int argc, char *argv[])
 {
 	//initiate the log for the app
-	CLoggerToFiles* pLogger = new CLoggerToFiles();
-	pLogger->Init();
+	CLoggerMultiple* pLogger = new CLoggerMultiple();
+	
+	CLoggerToConsole* pLoggerConsole = new CLoggerToConsole();
+	pLoggerConsole->Init();
+	CLoggerToFiles* pLoggerFiles = new CLoggerToFiles();
+	pLoggerFiles->Init();
+	
+	pLogger->AddLogger(pLoggerConsole);
+	pLogger->AddLogger(pLoggerFiles);
+
 	CLog::Get().AssignLogger(pLogger);
 	
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "----------------- Application Starting -----------------");
+
+	//test log
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "this is info");
+	CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Oh no an error");
+	CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Watch out I warned ya");
+	CLog::Get().Write(FLOG_LVL_UNKNOWN, FLOG_ID_APP, "I have no clue what this is, could be anything");
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "some more info");
 
 	//create kernel
 	CKernel *pKernel = &CKernel::Get();
