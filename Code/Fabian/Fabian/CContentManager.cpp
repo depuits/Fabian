@@ -6,6 +6,12 @@
 #include "CLibrary.h"
 #include "CLog.h"
 
+//******************************************
+// Class CContentManager:
+// the content manager is responsible for loading
+// and unloading objects like meshes and textures.
+//******************************************
+
 typedef MeshData* (*LOAD_MESHDATA)(const char*);
 typedef void (*RELEASE_MESHDATA)(MeshData*);
 
@@ -35,10 +41,9 @@ CContentManager::~CContentManager()
 //-------------------------------------
 	
 //-------------------------------------
-// Loads in a mesh from a file and returns it 
-// p1 in - string, name of the mesh file (without extension)
-// p2 in - string, extension of the file
-// rv - pointer IMesh object and nullptr if failed
+// Loads in a mesh or texture from a file and returns it 
+// p1 in - string, name of the file to load
+// rv - pointer IMesh or IImage object and nullptr if failed
 IMesh *CContentManager::LoadMesh(const std::string& sFile)
 {
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Mesh: %s", sFile.c_str());
@@ -110,7 +115,7 @@ IImage *CContentManager::LoadImage(const std::string& sFile)
 //-------------------------------------
 
 //-------------------------------------
-// Checks weither or not the shader or mesh has already been loaded.
+// Checks weither or not the mesh or image has already been loaded.
 // p1 in - string, name of the object file (without extension)
 // rv - bool, true if the object is already loaded
 bool CContentManager::IsMeshLoaded(const std::string& sKey) const
@@ -122,3 +127,5 @@ bool CContentManager::IsImageLoaded(const std::string& sKey) const
 	return  m_mImageMap.find(sKey) != m_mImageMap.end();
 }
 //-------------------------------------
+
+

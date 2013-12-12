@@ -63,7 +63,8 @@ void Console::Open()
 }
 
 //Clears the console to the background color
-void Console::Clear(){
+void Console::Clear()
+{
     #ifdef _WIN32
         system("cls");
     #else
@@ -71,7 +72,8 @@ void Console::Clear(){
     #endif
 }
 //Sets the color(background and foreground)
-void Console::SetColor(){
+void Console::SetColor()
+{
     #ifdef _WIN32
         SetConsoleTextAttribute(hConsole, FGColor | BGColor);
     #else
@@ -84,7 +86,8 @@ void Console::SetColor(){
     #endif
 }
 //Print a string
-void Console::Write(string str){
+void Console::Write(string str)
+{
 	#ifdef _MSC_VER
 		cout << str.c_str();
 	#else
@@ -92,30 +95,37 @@ void Console::Write(string str){
 	#endif
 }
 //Print a int
-void Console::Write(int v) {
+void Console::Write(int v)
+{
     cout << v;
 }
 //Print a bool
-void Console::Write(bool v){
+void Console::Write(bool v)
+{
     cout << (v?"TRUE":"FALSE");
 }
 //Print a char array
-void Console::Write(char str[]){
+void Console::Write(char str[])
+{
     cout << str;
 }
 //Print a char
-void Console::Write(char c){
+void Console::Write(char c)
+{
     cout << c;
 }
-void Console::Write(double d){
+void Console::Write(double d)
+{
     cout << d;
 }
-void Console::Write(float f){
+void Console::Write(float f)
+{
     cout << f;
 }
 
 //Print a string and moves the cursor to the next line
-void Console::WriteLine(string str){
+void Console::WriteLine(string str)
+{
 	#ifdef _MSC_VER
 		cout << str.c_str() << endl;
 	#else
@@ -123,15 +133,18 @@ void Console::WriteLine(string str){
 	#endif
 }
 //Moves the cursor to the next line
-void Console::WriteLine(){
+void Console::WriteLine()
+{
     cout << endl;
 }
 //Print a char array and moves the cursor to the next line
-void Console::WriteLine(char str[]){
+void Console::WriteLine(char str[])
+{
     cout << str <<endl;
 }
 //Read the first key user presses
-int Console::ReadKey(){
+int Console::ReadKey()
+{
     int val = 0;
     #ifdef _WIN32
 		#ifdef _MSC_VER
@@ -152,7 +165,8 @@ int Console::ReadKey(){
         val += Console::ReadKey();
     return val;
 }
-bool Console::KeyDown(){
+bool Console::KeyDown()
+{
     #ifdef _WIN32
         #ifdef _MSC_VER
             return _kbhit();
@@ -174,7 +188,8 @@ bool Console::KeyDown(){
     #endif
 }
 //Wait for user input and saves the input in a string
-string Console::ReadLine(){
+string Console::ReadLine()
+{
     string str;
     char c = getchar();
     while(c != '\n'){
@@ -187,7 +202,8 @@ string Console::ReadLine(){
     return str;
 }
 //Set the background color
-void Console::SetBGColor(const short color){
+void Console::SetBGColor(const short color)
+{
     #ifdef _WIN32
     short val;
     switch(color){
@@ -252,8 +268,8 @@ void Console::SetBGColor(const short color){
     SetColor();
 }
 //Set the foreground color(or text color)
-void Console::SetFGColor(const short color){
-
+void Console::SetFGColor(const short color)
+{
     #ifdef _WIN32
     int val;
     switch(color){
@@ -318,21 +334,24 @@ void Console::SetFGColor(const short color){
     SetColor();
 }
 //Sets the console title
-void Console::SetTitle(const string str){
+void Console::SetTitle(const string str)
+{
     #ifdef _WIN32
         SetConsoleTitleA(str.c_str());
     #else
         cout << "\033]0;\0" << str << "\x07\0";
     #endif
 }
-void Console::SetTitle(const char str[]){
+void Console::SetTitle(const char str[])
+{
     #ifdef _WIN32
         SetConsoleTitleA(str);
     #else
         cout << "\033]0;\0" << str << "\x07\0";
     #endif
 }
-void Console::SetCursorPosition(int x,int y){
+void Console::SetCursorPosition(int x,int y)
+{
     #ifdef _WIN32
         COORD pos  = {x,y};
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),pos);
@@ -342,3 +361,4 @@ void Console::SetCursorPosition(int x,int y){
 		cout << str.str();
 	#endif
 }
+
