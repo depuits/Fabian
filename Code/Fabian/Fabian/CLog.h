@@ -43,12 +43,29 @@ public:
 	virtual ~CLog();
 	//-------------------------------------
 	
+	//-------------------------------------
+	// Assign a logger used to do th actual logging
+	// p1 in - pointer to ILogger object
+	// rv - bool, true when succesfully assigned
 	bool AssignLogger(ILogger*);
+	//-------------------------------------
 	
+	//-------------------------------------
+	// Registers a message to be re-used for logging
+	// p1 in - actuall message
+	// rv - int, id of the message
 	int RegisterMsg(const std::string&);
-
+	//-------------------------------------
+	
+	//-------------------------------------
+	// Write an message to the log
+	// p1 in -
+	// p2 in -
+	// p3 in - 
+	// Extra parameters, see sprintf in 
 	void Write(char, char, unsigned msgId, ...);
 	void Write(char, char, const char*, ...);
+	//-------------------------------------
 
 private:
 	//-------------------------------------
