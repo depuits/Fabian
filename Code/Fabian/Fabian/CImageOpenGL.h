@@ -34,8 +34,14 @@ public:
 	GLuint GetImageId() const;
 	//-------------------------------------
 	
+	//-------------------------------------
+	// Sets or gets the opengl position id of the image
+	//    this is usefull when using multiple image in 
+	//    one shader
+	// p1 in - rv - int, current position of the image
 	int SetPos(int pos) { m_iPos = pos; };
 	int GetPos() const { return m_iPos; };
+	//-------------------------------------
 
 private:
 	GLuint m_uImageId;

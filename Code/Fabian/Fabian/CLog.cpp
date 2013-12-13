@@ -3,9 +3,9 @@
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
 
 //******************************************
-// Class CKernel:
-// the kernel class is the heart of the engine
-// this class manages all services and the messaging between them
+// Class CLog:
+// singleton class used for message logging
+// and debugging the application
 //******************************************
 
 //-------------------------------------
@@ -30,6 +30,10 @@ CLog::~CLog()
 }
 //-------------------------------------
 
+//-------------------------------------
+// Assign a logger used to do the actual logging
+// p1 in - pointer to ILogger object
+// rv - bool, true when succesfully assigned
 bool CLog::AssignLogger(ILogger* pLogger)
 {
 	if( m_pLogger != nullptr )
@@ -38,13 +42,25 @@ bool CLog::AssignLogger(ILogger* pLogger)
 	m_pLogger = pLogger;
 	return true;
 }
+//-------------------------------------
 	
+//-------------------------------------
+// Registers a message to be re-used for logging
+// p1 in - actuall message
+// rv - int, id of the message
 int CLog::RegisterMsg(const std::string& sMsg)
 {
 	m_vLogStrings.push_back(sMsg);
 	return ( m_vLogStrings.size() - 1 );
 }
-
+//-------------------------------------
+	
+//-------------------------------------
+// Write an message to the log
+// p1 in - Log Level
+// p2 in - Log id
+// p3 in - Log message, registered id or string message
+// Extra parameters, see sprintf in 
 void CLog::Write(char lvl, char id, unsigned msgId, ...)
 {
 	va_list args; 
@@ -67,6 +83,7 @@ void CLog::Write(char lvl, char id, const char* msg, ...)
 
 	m_pLogger->Write(lvl, id, szBuf);
 }
+//-------------------------------------
 
 
 

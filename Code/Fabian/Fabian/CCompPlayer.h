@@ -5,18 +5,14 @@
 
 
 //******************************************
-// Interface IObject:
-// the base for all drawable or/and updateable objects
-// for the game. This includes a transfrom variable to
-// move the object arround.
+// Class CCompPlayer:
+// test component class
 //******************************************
 class CCompPlayer : public IComponent
 {
 public:
 	//-------------------------------------
 	// Constructor
-	// p1 in* - pointer to parent object, this causes
-	//            the object to be linked to the parent
 	CCompPlayer();
 	//-------------------------------------
 	// Destructor
@@ -24,8 +20,7 @@ public:
 	//-------------------------------------
 	
 	//-------------------------------------
-	// Initializes the object, should be called before any other
-	//    method of the object.
+	// Initializes the component
 	// rv - bool, return false if something failed
 	virtual bool Start();
 	//-------------------------------------

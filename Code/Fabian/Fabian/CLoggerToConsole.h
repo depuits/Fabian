@@ -4,23 +4,37 @@
 #include "ILogger.h"
 
 //******************************************
-// Class CKernel:
-// the kernel class is the heart of the engine
-// this class manages all services and the messaging between them
+// Class CLoggerToConsole:
+// ILogger class which writes out the log to 
+// a console using color codes
 //******************************************
 class CLoggerToConsole : public ILogger
 {
 public:
 	//-------------------------------------
 	// Constructor
+	// p1 in - bool, await user input on error
 	CLoggerToConsole(bool = false);
 	//-------------------------------------
 	// Destructor
 	virtual ~CLoggerToConsole();
 	//-------------------------------------
 	
+	//-------------------------------------
+	// Initializes the logger, should be called
+	//    before using or assigning the logger
+	// rv - returns false if it failed
 	bool Init();
+	//-------------------------------------
+
+	//-------------------------------------
+	// Gets called whenever the logs receives a message
+	//    and needs it to be actually logged
+	// p1 in - log level, useally ERROR, WARNING or INFO
+	// p2 in - log id, the place where to write to
+	// p3 in - log message
 	virtual void Write(char, char, const char*);
+	//-------------------------------------
 
 private:
 	bool m_bWaitOnError;

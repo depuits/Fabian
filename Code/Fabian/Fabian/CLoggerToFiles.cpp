@@ -6,6 +6,14 @@
 
 #include <SDL.h>
 
+//******************************************
+// Class CLoggerToFiles:
+// ILogger class which writes out the log to 
+// files, one file per log id. It uses only the
+// default log id's. The user log id get shown a
+// messagebox. 
+//******************************************
+
 //-------------------------------------
 // Constructor
 CLoggerToFiles::CLoggerToFiles() 
@@ -20,8 +28,12 @@ CLoggerToFiles::~CLoggerToFiles()
 	m_osClientLog.close();
 	m_osServerLog.close();
 }
-//-------------------------------------
+//------------------------------------
 	
+//-------------------------------------
+// Initializes the logger, should be called
+//    before using or assigning the logger
+// rv - returns false if it failed-
 bool CLoggerToFiles::Init()
 {
 	m_osAppLog.open("logApp.txt", std::ofstream::out | std::ofstream::app);
@@ -30,7 +42,14 @@ bool CLoggerToFiles::Init()
 
 	return (m_osAppLog.good() && m_osClientLog.good() && m_osServerLog.good() );
 }
+//-------------------------------------
 
+//-------------------------------------
+// Gets called whenever the logs receives a message
+//    and needs it to be actually logged
+// p1 in - log level, useally ERROR, WARNING or INFO
+// p2 in - log id, the place where to write to
+// p3 in - log message
 void CLoggerToFiles::Write(char lvl, char id, const char* msg)
 {
 	time_t rawtime;
@@ -89,4 +108,5 @@ void CLoggerToFiles::Write(char lvl, char id, const char* msg)
 		SDL_ShowSimpleMessageBox(flag, sLvl.c_str(), msg, NULL);
 	}
 }
+//-------------------------------------
 

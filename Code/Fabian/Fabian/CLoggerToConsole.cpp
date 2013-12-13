@@ -6,8 +6,15 @@
 
 #include "Console\console.h"
 
+//******************************************
+// Class CLoggerToConsole:
+// ILogger class which writes out the log to 
+// a console using color codes
+//******************************************
+
 //-------------------------------------
 // Constructor
+// p1 in - bool, await user input on error
 CLoggerToConsole::CLoggerToConsole(bool bWaitOnError) 
 	:ILogger()
 	,m_bWaitOnError(bWaitOnError)
@@ -20,12 +27,23 @@ CLoggerToConsole::~CLoggerToConsole()
 }
 //-------------------------------------
 	
+//-------------------------------------
+// Initializes the logger, should be called
+//    before using or assigning the logger
+// rv - returns false if it failed
 bool CLoggerToConsole::Init()
 {
 	Console::Open();
 	return true;
 }
+//-------------------------------------
 
+//-------------------------------------
+// Gets called whenever the logs receives a message
+//    and needs it to be actually logged
+// p1 in - log level, useally ERROR, WARNING or INFO
+// p2 in - log id, the place where to write to
+// p3 in - log message
 void CLoggerToConsole::Write(char lvl, char id, const char* msg)
 {
 	time_t rawtime;
@@ -64,4 +82,5 @@ void CLoggerToConsole::Write(char lvl, char id, const char* msg)
 	if( lvl == FLOG_LVL_ERROR && m_bWaitOnError )
 		Console::ReadKey();
 }
+//-------------------------------------
 

@@ -10,6 +10,7 @@
 class ILogger;
 // ------------------------
 
+// Log level iddentifiers
 enum FLOG_LVL : char
 {
 	FLOG_LVL_UNKNOWN	 = 0,
@@ -18,6 +19,9 @@ enum FLOG_LVL : char
 	FLOG_LVL_ERROR		 = 4
 };
 
+// Log id iddentifiers
+// You can extend on these if the ILogger supports it
+// keep in mind that these are bit flags
 enum FLOG_ID : char
 {
 	FLOG_ID_APP			 = 1,
@@ -27,9 +31,9 @@ enum FLOG_ID : char
 };
 
 //******************************************
-// Class CKernel:
-// the kernel class is the heart of the engine
-// this class manages all services and the messaging between them
+// Class CLog:
+// singleton class used for message logging
+// and debugging the application
 //******************************************
 class CLog
 {
@@ -44,7 +48,7 @@ public:
 	//-------------------------------------
 	
 	//-------------------------------------
-	// Assign a logger used to do th actual logging
+	// Assign a logger used to do the actual logging
 	// p1 in - pointer to ILogger object
 	// rv - bool, true when succesfully assigned
 	bool AssignLogger(ILogger*);
@@ -59,9 +63,9 @@ public:
 	
 	//-------------------------------------
 	// Write an message to the log
-	// p1 in -
-	// p2 in -
-	// p3 in - 
+	// p1 in - Log Level
+	// p2 in - Log id
+	// p3 in - Log message, registered id or string message
 	// Extra parameters, see sprintf in 
 	void Write(char, char, unsigned msgId, ...);
 	void Write(char, char, const char*, ...);
