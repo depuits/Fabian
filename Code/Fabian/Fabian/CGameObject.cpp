@@ -4,7 +4,7 @@
 #include "CLog.h"
 
 //******************************************
-// Interface IGameObject:
+// Class CGameObject:
 // this is an layer between the IObject and 
 // just the GameObjects. This can be used to 
 // differ between an object and gameobject.
@@ -17,7 +17,7 @@
 // p1 in* - pointer to parent object, this causes
 //            the object to be linked to the parent
 CGameObject::CGameObject()
-	:IObject()
+	:m_Transform()
 {
 }
 //-------------------------------------
@@ -55,6 +55,14 @@ void CGameObject::Draw(IShader *pShader)
 }
 //-------------------------------------
 
+//-------------------------------------
+// Gets the transform for this object
+// rv - pointer to the CTransform object
+CTransform *CGameObject::Transform()
+{
+	return (&m_Transform);
+}
+//-------------------------------------
 
 void CGameObject::AddComponent(IComponent* pComp)
 {

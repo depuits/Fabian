@@ -1,5 +1,5 @@
 #include "IObject.h"
-#include "CTransform.h"
+#include "CLog.h"
 
 //******************************************
 // Interface IObject:
@@ -12,29 +12,17 @@
 // Constructor
 // p1 in* - pointer to parent object, this causes
 //            the obbject to be linked to the parent
-IObject::IObject(IObject* pPar)
+IObject::IObject(IObject*)
 {
-	if( pPar != nullptr )
-		m_pTransform = new CTransform(pPar->Transform());
-	else
-		m_pTransform = new CTransform();
+	CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Instantiated depricated object: IObject");
 }
 //-------------------------------------
 // Destructor
 IObject::~IObject()
 {
-	delete m_pTransform;
 }
 //-------------------------------------
 	
-//-------------------------------------
-// Gets the transform for this object
-// rv - pointer to the CTransform object
-CTransform *IObject::Transform()
-{
-	return m_pTransform;
-}
-//-------------------------------------
 
 
 

@@ -13,7 +13,6 @@
 #include "CCompCamera.h"
 #include "CCompPlayer.h"
 
-#include "CTransform.h"
 #include "CGameObject.h"
 
 #include "CLog.h"

@@ -2,27 +2,23 @@
 #define FABIAN_CGAMEOBJECT_H_
 
 #include "FabianDef.h"
-#include "IObject.h"
-
+#include "CTransform.h"
 #include <vector>
 
+// --forward declarations--
+class IShader;
 class IComponent;
+// ------------------------
 
 //******************************************
-// Interface IGameObject:
-// this is an layer between the IObject and 
-// just the GameObjects. This can be used to 
-// differ between an object and gameobject.
-// All non standard objects should derive from
-// IGameObject instead of the IObject.
+// Class CGameObject:
+// 
 //******************************************
-class CGameObject : public IObject
+class CGameObject
 {
 public:
 	//-------------------------------------
 	// Constructor
-	// p1 in* - pointer to parent object, this causes
-	//            the object to be linked to the parent
 	CGameObject();
 	//-------------------------------------
 	// Destructor
@@ -43,29 +39,41 @@ public:
 	// p1 in - pointer to the shader the object should draw with
 	virtual void Draw(IShader*);
 	//-------------------------------------
-
+	
+	//-------------------------------------
+	// Gets the transform for this object
+	// rv - pointer to the CTransform object
+	CTransform *Transform();
+	//-------------------------------------
 
 	void AddComponent(IComponent*);
 	void RemoveComponent(IComponent*);
 
-	// must be in header because of template
 	template<typename T>
-	T *GetComponentOfType()
-	{
-		for(std::vector<IComponent*>::iterator it( m_vpComponents.begin() ); it != m_vpComponents.end(); ++it)
-		{
-			T* val = dynamic_cast<T*>(*it);
-			if (val != nullptr)
-				return val;
-		}
+	T *GetComponentOfType();
 
-		return nullptr;
-	}
+protected:
+	CTransform m_Transform;
 
 private:
 	std::vector<IComponent*> m_vpComponents;
 
 	DISALLOW_COPY_AND_ASSIGN(CGameObject);
 };
+
+
+// must be in header because of template
+template<typename T>
+T *CGameObject::GetComponentOfType()
+{
+	for(std::vector<IComponent*>::iterator it( m_vpComponents.begin() ); it != m_vpComponents.end(); ++it)
+	{
+		T* val = dynamic_cast<T*>(*it);
+		if (val != nullptr)
+			return val;
+	}
+
+	return nullptr;
+}
 
 #endif //FABIAN_CGAMEOBJECT_H_

@@ -3,7 +3,6 @@
 
 #include "IShader.h"
 #include "CGameObject.h"
-#include "CTransform.h"
 
 //******************************************
 // Class CCompCamera:

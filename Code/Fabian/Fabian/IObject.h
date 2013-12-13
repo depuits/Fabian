@@ -9,6 +9,7 @@ class CTransform;
 // ------------------------
 
 //******************************************
+// !!!! DEPRICATED !!!!
 // Interface IObject:
 // the base for all drawable or/and updateable objects
 // for the game. This includes a transfrom variable to
@@ -42,14 +43,7 @@ public:
 	virtual void Draw(IShader*) {}
 	//-------------------------------------
 	
-	//-------------------------------------
-	// Gets the transform for this object
-	// rv - pointer to the CTransform object
-	CTransform *Transform();
-	//-------------------------------------
 
-protected:
-	CTransform *m_pTransform;
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(IObject);

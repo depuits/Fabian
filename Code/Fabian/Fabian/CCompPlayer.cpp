@@ -1,7 +1,6 @@
 #include "CCompPlayer.h"
 
 #include "CGameObject.h"
-#include "CTransform.h"
 
 //******************************************
 // Interface IObject:
