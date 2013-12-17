@@ -60,7 +60,7 @@ int CLog::RegisterMsg(const std::string& sMsg)
 // p1 in - Log Level
 // p2 in - Log id
 // p3 in - Log message, registered id or string message
-// Extra parameters, see sprintf in 
+// ... - Extra parameters, see sprintf in 
 void CLog::Write(char lvl, char id, unsigned msgId, ...)
 {
 	va_list args; 

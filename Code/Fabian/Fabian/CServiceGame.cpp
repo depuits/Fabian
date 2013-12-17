@@ -106,7 +106,6 @@ bool CServiceGame::Start()
 	
 	g_pGoCamera = new CGameObject();
 	g_pGoCamera->Init();
-	g_pGoCamera->AddComponent( new CCompPlayer() );
 	g_pGoCamera->AddComponent( new CCompCamera() );
 	g_pGoCamera->AddComponent( new CCompModel( m_pContent->LoadMesh("Meshes/teapot.obj") ) );
 	g_pGoCamera->Transform()->SetPos( glm::vec3(20,10,0) );

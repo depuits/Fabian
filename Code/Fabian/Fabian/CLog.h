@@ -66,7 +66,7 @@ public:
 	// p1 in - Log Level
 	// p2 in - Log id
 	// p3 in - Log message, registered id or string message
-	// Extra parameters, see sprintf in 
+	// ... - Extra parameters, see sprintf in 
 	void Write(char, char, unsigned msgId, ...);
 	void Write(char, char, const char*, ...);
 	//-------------------------------------
