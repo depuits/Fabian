@@ -88,8 +88,9 @@
   <ItemGroup>
     <ClInclude Include="CApplication.h" />
     <ClInclude Include="CCompCamera.h" />
-    <ClInclude Include="CCompPlayer.h" />
+    <ClInclude Include="CCompControl.h" />
     <ClInclude Include="CContentManager.h" />
+    <ClInclude Include="CGlobalAccessor.h" />
     <ClInclude Include="CImageOpenGL.h" />
     <ClInclude Include="CInputSDL.h" />
     <ClInclude Include="CKernel.h" />
@@ -110,6 +111,21 @@
     <ClInclude Include="CServiceTimer.h" />
     <ClInclude Include="CServiceVideoUpdate.h" />
     <ClInclude Include="CShaderOpenGL.h" />
+    <ClInclude Include="Game\Bomb.h" />
+    <ClInclude Include="Game\Candy.h" />
+    <ClInclude Include="Game\CollapseFloor.h" />
+    <ClInclude Include="Game\Enemy.h" />
+    <ClInclude Include="Game\Enemy1D.h" />
+    <ClInclude Include="Game\EnemyRot.h" />
+    <ClInclude Include="Game\Entity.h" />
+    <ClInclude Include="Game\Exit.h" />
+    <ClInclude Include="Game\Floor.h" />
+    <ClInclude Include="Game\Grid.h" />
+    <ClInclude Include="Game\GridEntity.h" />
+    <ClInclude Include="Game\MovingFloor.h" />
+    <ClInclude Include="Game\Player.h" />
+    <ClInclude Include="Game\Wall.h" />
+    <ClInclude Include="Game\Water.h" />
     <ClInclude Include="IComponent.h" />
     <ClInclude Include="CGameObject.h" />
     <ClInclude Include="IImage.h" />
@@ -130,8 +146,9 @@
   <ItemGroup>
     <ClCompile Include="CApplication.cpp" />
     <ClCompile Include="CCompCamera.cpp" />
-    <ClCompile Include="CCompPlayer.cpp" />
+    <ClCompile Include="CCompControl.cpp" />
     <ClCompile Include="CContentManager.cpp" />
+    <ClCompile Include="CGlobalAccessor.cpp" />
     <ClCompile Include="CImageOpenGL.cpp" />
     <ClCompile Include="CInputSDL.cpp" />
     <ClCompile Include="CKernel.cpp" />
@@ -149,6 +166,21 @@
     <ClCompile Include="CServiceTimer.cpp" />
     <ClCompile Include="CServiceVideoUpdate.cpp" />
     <ClCompile Include="CShaderOpenGL.cpp" />
+    <ClCompile Include="Game\Bomb.cpp" />
+    <ClCompile Include="Game\Candy.cpp" />
+    <ClCompile Include="Game\CollapseFloor.cpp" />
+    <ClCompile Include="Game\Enemy.cpp" />
+    <ClCompile Include="Game\Enemy1D.cpp" />
+    <ClCompile Include="Game\EnemyRot.cpp" />
+    <ClCompile Include="Game\Entity.cpp" />
+    <ClCompile Include="Game\Exit.cpp" />
+    <ClCompile Include="Game\Floor.cpp" />
+    <ClCompile Include="Game\Grid.cpp" />
+    <ClCompile Include="Game\GridEntity.cpp" />
+    <ClCompile Include="Game\MovingFloor.cpp" />
+    <ClCompile Include="Game\Player.cpp" />
+    <ClCompile Include="Game\Wall.cpp" />
+    <ClCompile Include="Game\Water.cpp" />
     <ClCompile Include="IComponent.cpp" />
     <ClCompile Include="CGameObject.cpp" />
     <ClCompile Include="IInput.cpp" />

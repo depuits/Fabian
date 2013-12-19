@@ -29,7 +29,16 @@ CGlobalAccessor::~CGlobalAccessor()
 }
 //-------------------------------------
 
-
+void *CGlobalAccessor::GetObject(const std::string& sKey)
+{
+	FASSERT( m_mpObjects.find(sKey) != m_mpObjects.end() );
+	return m_mpObjects[sKey];
+}
+void CGlobalAccessor::AddObject(const std::string& sKey, void* pObject)
+{
+	FASSERT( m_mpObjects.find(sKey) == m_mpObjects.end() );
+	m_mpObjects[sKey] = pObject;
+}
 
 
 

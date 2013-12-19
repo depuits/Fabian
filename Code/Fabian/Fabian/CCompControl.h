@@ -1,22 +1,23 @@
-#ifndef FABIAN_CCOMPPLAYER_H_
-#define FABIAN_CCOMPPLAYER_H_
+#ifndef FABIAN_CCOMPCONTROL_H_
+#define FABIAN_CCOMPCONTROL_H_
 
 #include "IComponent.h"
 
+class IInput;
 
 //******************************************
 // Class CCompPlayer:
 // test component class
 //******************************************
-class CCompPlayer : public IComponent
+class CCompControl : public IComponent
 {
 public:
 	//-------------------------------------
 	// Constructor
-	CCompPlayer();
+	CCompControl();
 	//-------------------------------------
 	// Destructor
-	virtual ~CCompPlayer();
+	virtual ~CCompControl();
 	//-------------------------------------
 	
 	//-------------------------------------
@@ -30,9 +31,12 @@ public:
 	//-------------------------------------
 	
 protected:
+	float	m_fMouseSens,
+			m_fCamSpeed;
+	IInput* m_pInput;
 
 private:
-	DISALLOW_COPY_AND_ASSIGN(CCompPlayer);
+	DISALLOW_COPY_AND_ASSIGN(CCompControl);
 };
 
-#endif //FABIAN_CCOMPPLAYER_H_
+#endif //FABIAN_CCOMPCONTROL_H_

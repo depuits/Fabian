@@ -7,7 +7,17 @@
 class IInput;
 class IRenderer;
 class CContentManager;
+
+class Grid;
+class GridEntity;
+class IComponent;
 // ------------------------
+
+#pragma warning( push )
+#pragma warning( disable: 4201 )
+//#define GLM_SWIZZLE <- can be used for vec4.xyz() method
+#include <glm/glm.hpp>
+#pragma warning( pop )
 
 //******************************************
 // Class CServiceGame:
@@ -31,6 +41,7 @@ public:
 	// rv - return true on succes, 
 	//         when false is returned then the service gets deleted	
 	virtual bool Start();
+	void LoadLevel();
 	//-------------------------------------
 	// Called every time the service has to update
 	virtual void Update();
@@ -52,12 +63,12 @@ public:
 	//-------------------------------------
 
 protected:
+	void AddGridEntity(Grid*, glm::vec2&, GridEntity*, IComponent*);
+
 	IInput *m_pInput;
 	IRenderer *m_pRenderer;
 	CContentManager *m_pContent;
 	static float s_fDtime;
-
-	double m_dTimer;
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(CServiceGame);

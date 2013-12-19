@@ -43,6 +43,9 @@
     <Filter Include="Engine Files\Objects\Components">
       <UniqueIdentifier>{34462220-88f2-4523-b51e-b0974f2d5215}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Files\Game">
+      <UniqueIdentifier>{ae1aa867-c6d4-4946-bcc6-f746a78415e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CKernel.h">
@@ -156,14 +159,62 @@
     <ClInclude Include="CGameObject.h">
       <Filter>Engine Files\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="CCompPlayer.h">
-      <Filter>Game Files</Filter>
-    </ClInclude>
     <ClInclude Include="CCompCamera.h">
       <Filter>Engine Files\Objects\Components</Filter>
     </ClInclude>
     <ClInclude Include="CCompModel.h">
       <Filter>Engine Files\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CGlobalAccessor.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CCompControl.h">
+      <Filter>Engine Files\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Enemy.h">
+      <Filter>Game Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Enemy1D.h">
+      <Filter>Game Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\EnemyRot.h">
+      <Filter>Game Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Entity.h">
+      <Filter>Game Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player.h">
+      <Filter>Game Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Bomb.h">
+      <Filter>Game Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Candy.h">
+      <Filter>Game Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CollapseFloor.h">
+      <Filter>Game Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Exit.h">
+      <Filter>Game Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Floor.h">
+      <Filter>Game Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Grid.h">
+      <Filter>Game Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GridEntity.h">
+      <Filter>Game Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\MovingFloor.h">
+      <Filter>Game Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Wall.h">
+      <Filter>Game Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Water.h">
+      <Filter>Game Files\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -248,14 +299,62 @@
     <ClCompile Include="CGameObject.cpp">
       <Filter>Engine Files\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="CCompPlayer.cpp">
-      <Filter>Game Files</Filter>
-    </ClCompile>
     <ClCompile Include="CCompCamera.cpp">
       <Filter>Engine Files\Objects\Components</Filter>
     </ClCompile>
     <ClCompile Include="CCompModel.cpp">
       <Filter>Engine Files\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CGlobalAccessor.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CCompControl.cpp">
+      <Filter>Engine Files\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Enemy.cpp">
+      <Filter>Game Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Enemy1D.cpp">
+      <Filter>Game Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\EnemyRot.cpp">
+      <Filter>Game Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Entity.cpp">
+      <Filter>Game Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Player.cpp">
+      <Filter>Game Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Bomb.cpp">
+      <Filter>Game Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Candy.cpp">
+      <Filter>Game Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CollapseFloor.cpp">
+      <Filter>Game Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Exit.cpp">
+      <Filter>Game Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Floor.cpp">
+      <Filter>Game Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Grid.cpp">
+      <Filter>Game Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GridEntity.cpp">
+      <Filter>Game Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\MovingFloor.cpp">
+      <Filter>Game Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Wall.cpp">
+      <Filter>Game Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Water.cpp">
+      <Filter>Game Files\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

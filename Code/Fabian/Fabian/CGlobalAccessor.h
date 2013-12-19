@@ -2,6 +2,7 @@
 #define FABIAN_CGLOBALACCESSOR_H_
 
 #include "FabianDef.h"
+#include <map>
 
 //******************************************
 // Class CKernel:
@@ -19,13 +20,17 @@ public:
 	virtual ~CGlobalAccessor();
 	//-------------------------------------
 	
+	void *GetObject(const std::string&);
+	//overides old values
+	void AddObject(const std::string&, void*);
+
 private:
 	//-------------------------------------
 	// Constructor
 	CGlobalAccessor();
 	//-------------------------------------
 
-	pointer to data
+	std::map<std::string, void*> m_mpObjects;
 
 	DISALLOW_COPY_AND_ASSIGN(CGlobalAccessor);
 };

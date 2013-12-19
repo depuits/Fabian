@@ -11,16 +11,34 @@
 
 #include "CCompModel.h"
 #include "CCompCamera.h"
-#include "CCompPlayer.h"
+#include "CCompControl.h"
 
 #include "CGameObject.h"
 
+#include "CGlobalAccessor.h"
+
 #include "CLog.h"
 
-CGameObject *g_pGoCamera,
-			*g_pGoModel1,
-			*g_pGoModel2,
-			*g_pGoModel3;
+#include "Game\Grid.h"
+
+#include "Game\Entity.h"
+#include "Game\Player.h"
+#include "Game\Enemy1D.h"
+#include "Game\EnemyRot.h"
+
+#include "Game\Floor.h"
+#include "Game\Wall.h"
+#include "Game\Bomb.h"
+#include "Game\Candy.h"
+#include "Game\Exit.h"
+#include "Game\Water.h"
+#include "Game\MovingFloor.h"
+#include "Game\CollapseFloor.h"
+
+#include <iostream>
+#include <fstream>
+
+std::vector<CGameObject*> g_vpGameObjects;
 
 IShader *g_pShader;
 
@@ -34,8 +52,6 @@ int g_iIdLightPos,
 	
 	g_iIdTexture;
 
-float	g_fMouseSens = 0.05f,
-		g_fCamSpeed = 200.0f;
 
 //******************************************
 // Class CServiceGame:
@@ -53,7 +69,6 @@ CServiceGame::CServiceGame(int priorety)
 	,m_pInput(nullptr)
 	,m_pRenderer(nullptr)
 	,m_pContent(nullptr)
-	,m_dTimer(0)
 {
 }
 //-------------------------------------
@@ -89,8 +104,11 @@ bool CServiceGame::Start()
 	// just quit when the renderer or input wasn't filled in
 	FASSERTR(m_pInput != nullptr);
 	FASSERTR(m_pRenderer != nullptr);
+
+	m_pRenderer->SetVSync(true);
 	
-	m_pRenderer->SetVSync(true); // using fix time in timer vs only vSync because movement feels smoother
+	// make needed object accesable for user
+	CGlobalAccessor::Get().AddObject("Input", m_pInput);
 		
 	g_pShader = m_pRenderer->LoadShader("Shaders/SimpleShader");
 	g_iIdLightPos = g_pShader->GetVarId("LightPosition_worldspace");
@@ -98,44 +116,228 @@ bool CServiceGame::Start()
 	g_iIdLightColor = g_pShader->GetVarId("LightColor");
 
 	g_iIdTexture = g_pShader->GetVarId("TextureSampler");
-	//g_Mesh = m_pRenderer->LoadMesh("tegels-hi", ".a3d");
 	m_pContent = new CContentManager(m_pRenderer);
 	g_pImage1 = m_pContent->LoadImage("Textures/uv.jpg");
 	g_pImage2 = m_pContent->LoadImage("Textures/img_cheryl.jpg");
 	g_pImage3 = m_pContent->LoadImage("Textures/CarDiffuseMap.png");
 	
-	g_pGoCamera = new CGameObject();
-	g_pGoCamera->Init();
-	g_pGoCamera->AddComponent( new CCompCamera() );
-	g_pGoCamera->AddComponent( new CCompModel( m_pContent->LoadMesh("Meshes/teapot.obj") ) );
-	g_pGoCamera->Transform()->SetPos( glm::vec3(20,10,0) );
-	//g_pCamera->Transform()->SetRot( glm::vec3(0,0,0.3f) );
+	CGameObject *pGo = nullptr;
+	IComponent *pComp = nullptr;
 
-	g_pGoModel1 = new CGameObject();
-	g_pGoModel1->Init();
-	g_pGoModel1->AddComponent( new CCompModel( m_pContent->LoadMesh("Meshes/teapot.obj") ) );
-	g_pGoModel1->AddComponent( new CCompPlayer() );
-	g_pGoModel1->Transform()->SetRot( glm::vec3(0, glm::quarter_pi<float>(),0) );
-	g_pGoModel1->Transform()->SetPos( glm::vec3(0,0,2.5f) );
-	g_pGoModel1->Transform()->SetScale( 0.1f );
+	pGo = new CGameObject();
+	pGo->Init();
+	pGo->AddComponent( new CCompCamera() );
+	pGo->Transform()->SetPos( glm::vec3(0, 250, 0) );
+	pGo->Transform()->SetRot( glm::vec3(0, 0, glm::half_pi<float>()) );
+	pGo->Transform()->Rotate( glm::vec3(0, -glm::half_pi<float>(), 0));
+	g_vpGameObjects.push_back(pGo);
+	CGlobalAccessor::Get().AddObject("Camera", pGo);
 	
-	g_pGoModel2 = new CGameObject();
-	g_pGoModel2->Init();
-	g_pGoModel2->AddComponent( new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
-
-	g_pGoModel2->Transform()->SetPos( glm::vec3(0,0,-2.5f) );
-	g_pGoModel2->Transform()->SetScale( 0.1f );
-	
-	g_pGoModel3 = new CGameObject();
-	g_pGoModel3->Init();
-	g_pGoModel3->AddComponent( new CCompModel( m_pContent->LoadMesh("Meshes/car.obj") ) );
-
-	g_pGoModel3->Transform()->SetRot( glm::vec3(0, glm::quarter_pi<float>(),0) );
-	g_pGoModel3->Transform()->SetPos( glm::vec3(-30,0,0) );
-	g_pGoModel3->Transform()->SetScale( 0.5f );
+	LoadLevel();
 	
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Started" );
 	return true;
+}
+
+void CServiceGame::LoadLevel()
+{	
+	std::string file("level.lvl");
+
+	int w = 0,
+		h = 1; // start at 1 because last line doesn't need an \n
+	int tw = 0;
+
+	//read file twice
+	// 1. read and count the grid size
+	std::ifstream is(file);		// open file
+	while (is.good())				// loop while extraction from file is possible
+	{
+		wchar_t c = (wchar_t)is.get();       // get character from file
+		if (is.good())
+		{
+			// check which character i have
+			std::cout << c;
+			if ( c != '\n' )
+				++tw;
+			else
+			{
+				if( w < tw )
+					w = tw;
+				tw = 0;
+				++h;
+			}
+		}
+	}
+
+	std::wcout << L"\n\nw: " << w << L" - h: " << h << L"\n";
+
+	// return to start of the file and read again
+	is.clear();
+	is.seekg(0, std::ios::beg);
+
+	// 2. read and load in objects
+	Grid *pGrid = new Grid(w, h);
+	CGlobalAccessor::Get().AddObject("Grid", pGrid);
+	
+	int x = 0, 
+		y = 0;
+	Entity* e = nullptr;
+	while (is.good())				// loop while extraction from file is possible
+	{
+		wchar_t c = (wchar_t)is.get();       // get character from file
+		if (is.good())
+		{
+			// check which character i have
+			switch(c)
+			{
+			case 'g':
+				AddGridEntity(pGrid, glm::vec2(x, y), new Floor(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				break;
+			case 'm':
+				AddGridEntity(pGrid, glm::vec2(x, y), new MovingFloor(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				break;
+			case 'v':
+				AddGridEntity(pGrid, glm::vec2(x, y), new CollapseFloor(1), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				break;
+			case '~':
+				AddGridEntity(pGrid, glm::vec2(x, y), new Water(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				break;
+			case 'w':
+				AddGridEntity(pGrid, glm::vec2(x, y), new Wall(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				break;
+			case 'e':
+				AddGridEntity(pGrid, glm::vec2(x, y), new Exit(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				break;
+			case 'b':
+				AddGridEntity(pGrid, glm::vec2(x, y), new Bomb(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				break;
+			case 'c':
+				AddGridEntity(pGrid, glm::vec2(x, y), new Candy(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				break;
+			case 'p':
+				{
+					// first add a floor
+					AddGridEntity(pGrid, glm::vec2(x, y), new Floor(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+
+					//then add player
+					CGameObject *pGo = new CGameObject();
+					Entity *pEnt = new Player();
+					glm::vec2 pos(x, y);
+					pEnt->SetRespawn(pos);
+					pEnt->SetGridPos(pos);
+
+					pGo->Init();
+					pGo->AddComponent( pEnt );
+					pGo->AddComponent( new CCompModel( m_pContent->LoadMesh("Meshes/car.obj") ) );
+					pGo->Transform()->SetScale( 0.5f );
+					g_vpGameObjects.push_back(pGo);
+					CGlobalAccessor::Get().AddObject("Player", pEnt);
+					break;
+				}
+				
+				// 1D enemys
+			/*case '2':
+				m_pGrid->SetGObject(x, y, new Floor(this));
+				e = new Enemy1D(this, GMath::Vector2i(0, 1));
+				e->SetGridPos(GMath::Vector2i(x, y));
+				m_pEntitys.push_back(e);
+				break;
+			case '4':
+				m_pGrid->SetGObject(x, y, new Floor(this));
+				e = new Enemy1D(this, GMath::Vector2i(-1, 0));
+				e->SetGridPos(GMath::Vector2i(x, y));
+				m_pEntitys.push_back(e);
+				break;
+			case '6':
+				m_pGrid->SetGObject(x, y, new Floor(this));
+				e = new Enemy1D(this, GMath::Vector2i(1, 0));
+				e->SetGridPos(GMath::Vector2i(x, y));
+				m_pEntitys.push_back(e);
+				break;
+			case '8':
+				m_pGrid->SetGObject(x, y, new Floor(this));
+				e = new Enemy1D(this, GMath::Vector2i(0, -1));
+				e->SetGridPos(GMath::Vector2i(x, y));
+				m_pEntitys.push_back(e);
+				break;
+
+				// Rot enemys
+				// CW
+			case 's':
+				m_pGrid->SetGObject(x, y, new Floor(this));
+				e = new EnemyRot(this, GMath::Vector2i(0, 1));
+				e->SetGridPos(GMath::Vector2i(x, y));
+				m_pEntitys.push_back(e);
+				break;
+			case 'q':
+				m_pGrid->SetGObject(x, y, new Floor(this));
+				e = new EnemyRot(this, GMath::Vector2i(-1, 0));
+				e->SetGridPos(GMath::Vector2i(x, y));
+				m_pEntitys.push_back(e);
+				break;
+			case 'd':
+				m_pGrid->SetGObject(x, y, new Floor(this));
+				e = new EnemyRot(this, GMath::Vector2i(1, 0));
+				e->SetGridPos(GMath::Vector2i(x, y));
+				m_pEntitys.push_back(e);
+				break;
+			case 'z':
+				m_pGrid->SetGObject(x, y, new Floor(this));
+				e = new EnemyRot(this, GMath::Vector2i(0, -1));
+				e->SetGridPos(GMath::Vector2i(x, y));
+				m_pEntitys.push_back(e);
+				break;
+				// CCW
+			case 'k':
+				m_pGrid->SetGObject(x, y, new Floor(this));
+				e = new EnemyRot(this, GMath::Vector2i(0, 1), EnemyRot::CCW);
+				e->SetGridPos(GMath::Vector2i(x, y));
+				m_pEntitys.push_back(e);
+				break;
+			case 'j':
+				m_pGrid->SetGObject(x, y, new Floor(this));
+				e = new EnemyRot(this, GMath::Vector2i(-1, 0), EnemyRot::CCW);
+				e->SetGridPos(GMath::Vector2i(x, y));
+				m_pEntitys.push_back(e);
+				break;
+			case 'l':
+				m_pGrid->SetGObject(x, y, new Floor(this));
+				e = new EnemyRot(this, GMath::Vector2i(1, 0), EnemyRot::CCW);
+				e->SetGridPos(GMath::Vector2i(x, y));
+				m_pEntitys.push_back(e);
+				break;
+			case 'i':
+				m_pGrid->SetGObject(x, y, new Floor(this));
+				e = new EnemyRot(this, GMath::Vector2i(0, -1), EnemyRot::CCW);
+				e->SetGridPos(GMath::Vector2i(x, y));
+				m_pEntitys.push_back(e);
+				break;*/
+			}
+
+			//progress when filled
+			if ( c != '\n' )
+				++x;
+			else
+			{
+				x = 0;
+				++y;
+			}
+		}
+	}	
+	
+	is.close();                // close file
+}
+void CServiceGame::AddGridEntity(Grid* pGrid, glm::vec2& pos, GridEntity* pGEnt, IComponent* pComp)
+{
+	CGameObject *pGo = new CGameObject();
+	pGo->Init();
+	pGo->AddComponent( pGEnt );
+	pGo->AddComponent( pComp );
+	pGo->Transform()->SetPos( glm::vec3(pos.x * Grid::SCALE, -2, pos.y * Grid::SCALE) );
+	pGo->Transform()->SetScale( 0.5f );
+	g_vpGameObjects.push_back(pGo);
+
+	pGrid->SetGObject(pos.x, pos.y, pGEnt);
 }
 //-------------------------------------
 // Called every time the service has to update
@@ -144,64 +346,19 @@ void CServiceGame::Update()
 	// temp for clearing window	and drawing object
 	m_pRenderer->Clear(0.01f, 0.1f, 0.4f, 1.0f);
 	
-	if ( (m_pInput->GetKeyState(FKEY_MRBUTTON) & DOWN) == DOWN )
-	{
-		int x(0), y(0);
-		m_pInput->LockMouse(true);
-		m_pInput->GetMouseMovement(x, y);
-		g_pGoCamera->Transform()->Rotate( glm::vec3(0,g_fMouseSens * -x * s_fDtime,0) );
-		g_pGoCamera->Transform()->LocalRotate( glm::vec3(0,0,g_fMouseSens * y * s_fDtime) ); // change this to locale rotation
-		
-		//m_pInput->LockMouse(300, 300);
-	}
-	else
-		m_pInput->LockMouse(false);
-	
-	//move forward and backward
-	if ( m_pInput->GetKeyState(FKEY_UP) & DOWN )
-		g_pGoCamera->Transform()->LocalMove( glm::vec3(-g_fCamSpeed * s_fDtime, 0, 0) );
-	else if ( m_pInput->GetKeyState(FKEY_DOWN) & DOWN )
-		g_pGoCamera->Transform()->LocalMove( glm::vec3(g_fCamSpeed * s_fDtime, 0, 0) );
-	//move left and right
-	if ( m_pInput->GetKeyState(FKEY_LEFT) & DOWN )
-		g_pGoCamera->Transform()->LocalMove( glm::vec3(0, 0, g_fCamSpeed * s_fDtime) );
-	else if ( m_pInput->GetKeyState(FKEY_RIGHT) & DOWN )
-		g_pGoCamera->Transform()->LocalMove( glm::vec3(0, 0, -g_fCamSpeed * s_fDtime) );
-
 	// update
-	g_pGoCamera->Update(s_fDtime);
-	g_pGoModel1->Update(s_fDtime);
-	g_pGoModel2->Update(s_fDtime);
-	g_pGoModel3->Update(s_fDtime);
+	for each (CGameObject* go in g_vpGameObjects)
+		go->Update(s_fDtime);
 
 	//draw
 	g_pShader->Apply();
 
-	g_pShader->SetVarVec3(g_iIdLightPos, glm::vec3(20, 0, 0));
+	g_pShader->SetVarVec3(g_iIdLightPos, glm::vec3(100, 100, 100));
 	g_pShader->SetVarF1(g_iIdLightPower, 1.0f);
 	g_pShader->SetVarVec4(g_iIdLightColor, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-
-	g_pGoCamera->Draw(g_pShader);
-
-	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ); Sorting and camera culling
-	g_pShader->SetVarImage(g_iIdTexture, g_pImage1);
-	g_pGoModel1->Draw(g_pShader);
-	g_pShader->SetVarImage(g_iIdTexture, g_pImage2);
-	g_pGoModel2->Draw(g_pShader);
-	g_pShader->SetVarImage(g_iIdTexture, g_pImage3);
-	g_pGoModel3->Draw(g_pShader);
-	//glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-
-	m_dTimer += s_fDtime;
-	if( (int)m_dTimer % 10 == 0 && (int)m_dTimer > 0 )
-	{
-		//g_pGoCamera->RemoveComponent(nullptr);
-		g_pGoCamera->GetComponentOfType<CCompCamera>()->SetProjectionParams(90, 4/3, 1, 100);
-		//g_pGoModel1->GetComponentOfType<CCompModel>()->
-		//m_pRenderer->SetVSync(true);
-		//m_pRenderer->SetScreenResolution(800, 600);
-		//m_pRenderer->SwitchFullScreen();
-	}
+	
+	for each (CGameObject* go in g_vpGameObjects)
+		go->Draw(g_pShader);
 }
 //-------------------------------------
 // Called when the service will be deleted
@@ -210,11 +367,9 @@ void CServiceGame::Stop()
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Stopping" );
 	// we don't delete the mesh and image because it was loaded by de contentloader and it will destroy it for use
 
-	delete g_pGoModel1;
-	delete g_pGoModel2;
-	delete g_pGoModel3;
-
-	delete g_pGoCamera;
+	for each (CGameObject* go in g_vpGameObjects)
+		delete go;
+	g_vpGameObjects.clear();
 
 	delete g_pShader;
 	delete m_pContent;
