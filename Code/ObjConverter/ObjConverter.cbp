@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ObjConverter" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="Debug/bin/ObjConverter" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Debug/obj/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="Release/bin/ObjConverter" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Release/obj/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="ObjConverter/Converter.cpp" />
+		<Unit filename="ObjConverter/Converter.h" />
+		<Unit filename="ObjConverter/Main.cpp" />
+		<Unit filename="ObjConverter/ObjReader.cpp" />
+		<Unit filename="ObjConverter/ObjReader.h" />
+		<Unit filename="ObjConverter/ObjWriter.cpp" />
+		<Unit filename="ObjConverter/ObjWriter.h" />
+		<Unit filename="ObjConverter/Point2D.h" />
+		<Unit filename="ObjConverter/Point3D.h" />
+		<Unit filename="ObjConverter/a3dReader.cpp" />
+		<Unit filename="ObjConverter/a3dReader.h" />
+		<Unit filename="ObjConverter/a3dWriter.cpp" />
+		<Unit filename="ObjConverter/a3dWriter.h" />
+		<Unit filename="ObjConverter/mtVectorFunctions.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

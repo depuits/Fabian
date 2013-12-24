@@ -17,9 +17,6 @@ syntax: glob
 
 *.ipch
 
-*.depend
-*.layout
-
 *log*.txt
 
 */Fabian/*/Debug/

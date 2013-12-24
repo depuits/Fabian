@@ -6,7 +6,6 @@
 #include "a3dWriter.h"
 
 #include <iostream>
-#include <tchar.h>
 #include <fstream>
 
 using namespace std;
@@ -19,11 +18,11 @@ Converter::~Converter()
 {
 }
 
-void Converter::Convert(const vector<wstring>& files)
+void Converter::Convert(const vector<string>& files)
 {
 	for (unsigned int fileNo = 0; fileNo < files.size(); ++fileNo)
 	{
-		ifstream file(files[fileNo], ios::binary | ios::in);
+		ifstream file(files[fileNo].c_str(), ios::binary | ios::in);
 		if (file.is_open())
 		{
 			//Check if a3d file or obj
@@ -38,9 +37,9 @@ void Converter::Convert(const vector<wstring>& files)
 	}
 }
 
-void Converter::ConvertObj(const wstring& file)
+void Converter::ConvertObj(const string& file)
 {
-	wcout << _T("\n\nStart reading \"")+file+_T("\":\n\n");
+	cout << "\n\nStart reading \"" + file + "\":\n\n";
 	ObjReader* reader = new ObjReader();
 	reader -> Read(file);
 
@@ -51,47 +50,47 @@ void Converter::ConvertObj(const wstring& file)
 
 	delete reader;
 
-	wcout << _T("Vertices:  ") << m_vertices.size() << _T("\n");
-	wcout << _T("Normals:   ") << m_normals.size() << _T("\n");
-	wcout << _T("TexCoords: ") << m_texCoords.size() << _T("\n");
-	wcout << _T("Faces:     ") << m_faces.size() << _T("\n\n");
+	cout << "Vertices:  " << m_vertices.size() << "\n";
+	cout << "Normals:   " << m_normals.size() << "\n";
+	cout << "TexCoords: " << m_texCoords.size() << "\n";
+	cout << "Faces:     " << m_faces.size() << "\n\n";
 
 	if (!AreFacesReady())
 	{
-		wcout << _T("The faces are not ready to be exported yet.\n");
-		wcout << _T("Start optimising the mesh.\n");
+		cout << "The faces are not ready to be exported yet.\n";
+		cout << "Start optimising the mesh.\n";
 
 		if (Optimise())
 		{
-			wcout << _T("\nOptimising done: \n\n");
-			wcout << _T("Vertices:  ") << m_vertices.size() << _T("\n");
-			wcout << _T("Normals:   ") << m_normals.size() << _T("\n");
-			wcout << _T("TexCoords: ") << m_texCoords.size() << _T("\n");
-			wcout << _T("Faces:     ") << m_faces.size() << _T("\n\n");
+			cout << "\nOptimising done: \n\n";
+			cout << "Vertices:  " << m_vertices.size() << "\n";
+			cout << "Normals:   " << m_normals.size() << "\n";
+			cout << "TexCoords: " << m_texCoords.size() << "\n";
+			cout << "Faces:     " << m_faces.size() << "\n\n";
 		} else {
-			wcout << _T("\nCould not optimise the mesh any more.\n\n");
+			cout << "\nCould not optimise the mesh any more.\n\n";
 		}
 
 		if (!AreAllFacesTris())
 		{
-			wcout << _T("Converting to tris:   ");
+			cout << "Converting to tris:   ";
 			Triangulate();
-			wcout << _T(" Done.\n\n");
-			wcout << _T("New number of faces: ") << m_faces.size() << _T("\n\n");
+			cout << " Done.\n\n";
+			cout << "New number of faces: " << m_faces.size() << "\n\n";
 		} else {
-			wcout << _T("All faces are already triangles.\n");
+			cout << "All faces are already triangles.\n";
 		}
 
-		wcout << _T("Changing indices:     ");
+		cout << "Changing indices:     ";
 		IndicesEqualiser();
-		wcout << _T(" Done.\n\n");
-		wcout << _T("Vertices:  ") << m_vertices.size() << _T("\n");
-		wcout << _T("Normals:   ") << m_normals.size() << _T("\n");
-		wcout << _T("TexCoords: ") << m_texCoords.size() << _T("\n");
-		wcout << _T("Faces:     ") << m_faces.size() << _T("\n\n");
+		cout << " Done.\n\n";
+		cout << "Vertices:  " << m_vertices.size() << "\n";
+		cout << "Normals:   " << m_normals.size() << "\n";
+		cout << "TexCoords: " << m_texCoords.size() << "\n";
+		cout << "Faces:     " << m_faces.size() << "\n\n";
 	}
-		
-	wcout << _T("Preparing to write the file.\n");
+
+	cout << "Preparing to write the file.\n";
 
 	a3dWriter* writer = new a3dWriter();
 	writer -> SetVertices(m_vertices);
@@ -99,20 +98,20 @@ void Converter::ConvertObj(const wstring& file)
 	writer -> SetTexCoords(m_texCoords);
 	writer -> SetFaces(m_faces);
 
-	wstring newFileName = file.substr(0, file.length()-4);
-	newFileName.append(_T(".a3d"));
+	string newFileName = file.substr(0, file.length()-4);
+	newFileName.append(".a3d");
 
-	wcout << _T("Writing a3d file:     ");
+	cout << "Writing a3d file:     ";
 
 	writer -> Write(newFileName);
 	delete writer;
 
-	wcout << _T(" Done.\n");
+	cout << " Done.\n";
 }
 
-void Converter::ConvertA3d(const wstring& file)
+void Converter::ConvertA3d(const string& file)
 {
-	wcout << _T("\n\nStart reading \"")+file+_T("\":\n\n");
+	cout << "\n\nStart reading \"" + file + "\":\n\n";
 	a3dReader* reader = new a3dReader();
 	reader -> Read(file);
 
@@ -123,25 +122,25 @@ void Converter::ConvertA3d(const wstring& file)
 
 	delete reader;
 
-	wcout << _T("Vertices:  ") << m_vertices.size() << _T("\n");
-	wcout << _T("Normals:   ") << m_normals.size() << _T("\n");
-	wcout << _T("TexCoords: ") << m_texCoords.size() << _T("\n");
-	wcout << _T("Faces:     ") << m_faces.size() << _T("\n\n");
+	cout << "Vertices:  " << m_vertices.size() << "\n";
+	cout << "Normals:   " << m_normals.size() << "\n";
+	cout << "TexCoords: " << m_texCoords.size() << "\n";
+	cout << "Faces:     " << m_faces.size() << "\n\n";
 
-	wcout << _T("Start optimising the mesh.\n");
+	cout << "Start optimising the mesh.\n";
 
 	if (Optimise())
 	{
-		wcout << _T("\nOptimising done: \n\n");
-		wcout << _T("Vertices:  ") << m_vertices.size() << _T("\n");
-		wcout << _T("Normals:   ") << m_normals.size() << _T("\n");
-		wcout << _T("TexCoords: ") << m_texCoords.size() << _T("\n");
-		wcout << _T("Faces:     ") << m_faces.size() << _T("\n\n");
+		cout << "\nOptimising done: \n\n";
+		cout << "Vertices:  " << m_vertices.size() << "\n";
+		cout << "Normals:   " << m_normals.size() << "\n";
+		cout << "TexCoords: " << m_texCoords.size() << "\n";
+		cout << "Faces:     " << m_faces.size() << "\n\n";
 	} else {
-		wcout << _T("\nCould not optimise the mesh any more.\n\n");
+		cout << "\nCould not optimise the mesh any more.\n\n";
 	}
-		
-	wcout << _T("Preparing to write the file.\n");
+
+	cout << "Preparing to write the file.\n";
 
 	ObjWriter* writer = new ObjWriter();
 	writer -> SetVertices(m_vertices);
@@ -149,15 +148,15 @@ void Converter::ConvertA3d(const wstring& file)
 	writer -> SetTexCoords(m_texCoords);
 	writer -> SetFaces(m_faces);
 
-	wstring newFileName = file.substr(0, file.length()-4);
-	newFileName.append(_T(".obj"));
+	string newFileName = file.substr(0, file.length()-4);
+	newFileName.append(".obj");
 
-	wcout << _T("Writing obj file:     ");
+	cout << "Writing obj file:     ";
 
 	writer -> Write(newFileName);
 	delete writer;
 
-	wcout << _T(" Done.\n");
+	cout << " Done.\n";
 }
 
 bool Converter::AreFacesReady()
@@ -185,21 +184,21 @@ bool Converter::AreAllFacesTris()
 bool Converter::Optimise()
 {
 	bool changes = false;
-	wcout << _T("\n  Checking vertices:  ");
+	cout << "\n  Checking vertices:  ";
 	changes |= OptimiseVertices();
-	wcout << _T(" Done.\n");
-	wcout << _T("  Checking normals:   ");
+	cout << " Done.\n";
+	cout << "  Checking normals:   ";
 	changes |= OptimiseNormals();
-	wcout << _T(" Done.\n");
-	wcout << _T("  Checking texCoords: ");
+	cout << " Done.\n";
+	cout << "  Checking texCoords: ";
 	changes |= OptimiseTexCoords();
-	wcout << _T(" Done.\n");
+	cout << " Done.\n";
 
-	if (changes) 
+	if (changes)
 	{
-		wcout << _T("  Applying changes:   ");
+		cout << "  Applying changes:   ";
 		ApplyChangesToIndices();
-		wcout << _T(" Done.\n");
+		cout << " Done.\n";
 	}
 
 	return changes;
@@ -282,10 +281,10 @@ bool Converter::OptimiseNormals()
 		}
 
 		temp = (int)(i / (m_normals.size() / 50.0f));
-		for (; currentProgress < temp; ++ currentProgress) wcout << wchar_t(223);
+		for (; currentProgress < temp; ++ currentProgress) cout << char(223);
 	}
 	temp = 50;
-	for (; currentProgress < temp; ++ currentProgress) wcout << wchar_t(223);
+	for (; currentProgress < temp; ++ currentProgress) cout << char(223);
 
 	if (changes) m_normals = newNormals;
 	return changes;
@@ -325,10 +324,10 @@ bool Converter::OptimiseTexCoords()
 		}
 
 		temp = (int)(i / (m_texCoords.size() / 50.0f));
-		for (; currentProgress < temp; ++ currentProgress) wcout << wchar_t(223);
+		for (; currentProgress < temp; ++ currentProgress) cout << char(223);
 	}
 	temp = 50;
-	for (; currentProgress < temp; ++ currentProgress) wcout << wchar_t(223);
+	for (; currentProgress < temp; ++ currentProgress) cout << char(223);
 
 	if (changes) m_texCoords = newTexCoords;
 	return changes;
@@ -349,10 +348,10 @@ void Converter::ApplyChangesToIndices()
 		}
 
 		temp = (int)(i / (m_faces.size() / 50.0f));
-		for (; currentProgress < temp; ++ currentProgress) wcout << wchar_t(223);
+		for (; currentProgress < temp; ++ currentProgress) cout << char(223);
 	}
 	temp = 50;
-	for (; currentProgress < temp; ++ currentProgress) wcout << wchar_t(223);
+	for (; currentProgress < temp; ++ currentProgress) cout << char(223);
 }
 
 void Converter::IndicesEqualiser()
@@ -404,10 +403,10 @@ void Converter::IndicesEqualiser()
 		}
 
 		temp = (int)(i / (m_faces.size() / 50.0f));
-		for (; currentProgress < temp; ++currentProgress) wcout << wchar_t(223);
+		for (; currentProgress < temp; ++currentProgress) cout << char(223);
 	}
 	temp = 50;
-	for (; currentProgress < temp; ++currentProgress) wcout << wchar_t(223);
+	for (; currentProgress < temp; ++currentProgress) cout << char(223);
 
 	//Apply changes
 	m_vertices = newVertices;
@@ -434,7 +433,7 @@ void Converter::IndicesEqualiser()
 
 void Converter::Triangulate()
 {
-	vector<vector<Point3D>> newFaces;
+	vector<vector<Point3D> > newFaces;
 	int currentProgress = 0;
 	int temp = 0;
 
@@ -452,43 +451,43 @@ void Converter::Triangulate()
 		}
 
 		temp = (int)(i / (m_faces.size() / 50.0f));
-		for (; currentProgress < temp; ++ currentProgress) wcout << wchar_t(223);
+		for (; currentProgress < temp; ++ currentProgress) cout << char(223);
 	}
 	temp = 50;
-	for (; currentProgress < temp; ++ currentProgress) wcout << wchar_t(223);
+	for (; currentProgress < temp; ++ currentProgress) cout << char(223);
 
 	m_faces = newFaces;
 }
 
 void Converter::Debug()
 {
-	wcout << _T("\n\n\n");
+	cout << "\n\n\n";
 
 	for (unsigned int i = 0; i < m_vertices.size(); ++i)
 	{
-		wcout << _T("vertex ") << i+1 << _T(" (") << m_vertices[i].X << _T(", ") << m_vertices[i].Y << _T(", ") << m_vertices[i].Z << _T(")\n");
+		cout << "vertex " << i+1 << " (" << m_vertices[i].X << ", " << m_vertices[i].Y << ", " << m_vertices[i].Z << ")\n";
 	}
-	wcout << _T("\n");
+	cout << "\n";
 
 	for (unsigned int i = 0; i < m_normals.size(); ++i)
 	{
-		wcout << _T("normal ") << i+1 << _T(" (") << m_normals[i].X << _T(", ") << m_normals[i].Y << _T(", ") << m_normals[i].Z << _T(")\n");
+		cout << "normal " << i+1 << " (" << m_normals[i].X << ", " << m_normals[i].Y << ", " << m_normals[i].Z << ")\n";
 	}
-	wcout << _T("\n");
+	cout << "\n";
 
 	for (unsigned int i = 0; i < m_texCoords.size(); ++i)
 	{
-		wcout << _T("texcoord ") << i+1 << _T(" (") << m_texCoords[i].X << _T(", ") << m_texCoords[i].Y << _T(")\n");
-	}	
-	wcout << _T("\n");
+		cout << "texcoord " << i+1 << " (" << m_texCoords[i].X << ", " << m_texCoords[i].Y << ")\n";
+	}
+	cout << "\n";
 
 	for (unsigned int i = 0; i < m_faces.size(); ++i)
 	{
-		wcout << _T("face ") << i+1 << _T(" ");
+		cout << "face " << i+1 << " ";
 		for (unsigned int j = 0; j < m_faces[i].size(); ++j)
 		{
-			wcout << _T("(") << m_faces[i][j].X << _T(", ") << m_faces[i][j].Y << _T(", ") << m_faces[i][j].Z << _T(") ");
+			cout << "(" << m_faces[i][j].X << ", " << m_faces[i][j].Y << ", " << m_faces[i][j].Z << ") ";
 		}
-		wcout << _T("\n");
+		cout << "\n";
 	}
 }

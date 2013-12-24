@@ -1,6 +1,4 @@
-#include <Windows.h>
 #include <string>
-#include <tchar.h>
 #include <iostream>
 #include <vector>
 
@@ -8,10 +6,10 @@
 
 using namespace std;
 
-int _tmain(int argc, _TCHAR* argv[])
+int main(int argc, char* argv[])
 {
 	//Get the command line input
-	vector<wstring> files;
+	vector<string> files;
 	for (int i = 1; i < argc; ++i)
 	{
 		files.push_back(argv[i]);
@@ -20,18 +18,22 @@ int _tmain(int argc, _TCHAR* argv[])
 	if (files.size() > 0)
 	{
 		//Show files dropped onto the exe
-		wcout << _T("Files: \n");
+		cout << "Files: \n";
 		for (unsigned int i = 0; i < files.size(); ++i)
 		{
-			wcout << _T(" - ") << files[i] << _T("\n");
+			cout << " - " << files[i] << "\n";
 		}
 		Converter conv;
 		conv.Convert(files);
-		system("pause");
+		#ifdef WIN32
+            cin.get();
+		#endif
 	} else {
 		//Error: no files were dropped onto the exe
-		wcout << _T("You have to drop 1 or more obj or a3d files onto this exe.\n");
-		system("pause");
+		cout << "You have to drop 1 or more obj or a3d files onto this exe.\n";
+		#ifdef WIN32
+            cin.get();
+		#endif
 	}
 
 	return 0;

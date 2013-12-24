@@ -12,9 +12,9 @@ public:
 	Converter();
 	~Converter();
 
-	void Convert(const std::vector<std::wstring>& files);
-	void ConvertObj(const std::wstring& file);
-	void ConvertA3d(const std::wstring& file);
+	void Convert(const std::vector<std::string>& files);
+	void ConvertObj(const std::string& file);
+	void ConvertA3d(const std::string& file);
 
 	bool AreFacesReady();
 	bool AreAllFacesTris();
@@ -38,7 +38,7 @@ private:
 	//Normal data save
 	std::vector<Point3D> m_vertices, m_normals;
 	std::vector<Point2D> m_texCoords;
-	std::vector<std::vector<Point3D>> m_faces;
+	std::vector<std::vector<Point3D> > m_faces;
 
 	//Temporary save
 	std::vector<int> m_newVerticesIndex, m_newNormalsIndex, m_newTexCoordsIndex;

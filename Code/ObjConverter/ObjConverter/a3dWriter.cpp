@@ -13,9 +13,9 @@ a3dWriter::~a3dWriter()
 {
 }
 
-void a3dWriter::Write(wstring& filename)
+void a3dWriter::Write(string& filename)
 {
-	ofstream file(filename, ios::binary | ios::out);
+	ofstream file(filename.c_str(), ios::binary | ios::out);
 	if (file.is_open())
 	{
 		//Write identifier
@@ -102,7 +102,7 @@ void a3dWriter::SetTexCoords(vector<Point2D>& texCoords)
 	m_texCoords = texCoords;
 }
 
-void a3dWriter::SetFaces(vector<vector<Point3D>>& faces)
+void a3dWriter::SetFaces(vector<vector<Point3D> >& faces)
 {
 	m_faces = faces;
 }

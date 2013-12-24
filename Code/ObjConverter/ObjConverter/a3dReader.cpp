@@ -1,6 +1,5 @@
 #include "a3dReader.h"
 
-#include <tchar.h>
 #include <iostream>
 #include <fstream>
 
@@ -13,10 +12,10 @@ a3dReader::a3dReader()
 a3dReader::~a3dReader()
 {
 }
-	
-void a3dReader::Read(const wstring& filename)
+
+void a3dReader::Read(const string& filename)
 {
-	ifstream file(filename, ios::binary | ios::in);
+	ifstream file(filename.c_str(), ios::binary | ios::in);
 	if (file.is_open())
 	{
 		//Check if a3d file
@@ -112,7 +111,7 @@ bool a3dReader::GetTexCoords(vector<Point2D>& texCoords)
 	return false;
 }
 
-bool a3dReader::GetFaces(vector<vector<Point3D>>& faces)
+bool a3dReader::GetFaces(vector<vector<Point3D> >& faces)
 {
 	if (m_faces.size() > 0)
 	{

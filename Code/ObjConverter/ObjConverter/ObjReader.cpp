@@ -1,8 +1,8 @@
 #include "ObjReader.h"
 
-#include <tchar.h>
 #include <iostream>
 #include <fstream>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -13,29 +13,29 @@ ObjReader::ObjReader()
 ObjReader::~ObjReader()
 {
 }
-	
-void ObjReader::Read(const wstring& filename)
+
+void ObjReader::Read(const string& filename)
 {
-	wifstream file(filename);
-	wstring line;
+	ifstream file(filename.c_str());
+	string line;
 	if (file.is_open())
 	{
 		while(!file.eof())
 		{
 			getline(file, line);
 
-			std::wstring type = line.substr(0, line.find_first_of(_T(' ')));
+			std::string type = line.substr(0, line.find_first_of(' '));
 
-			if (type == _T("v"))
+			if (type == "v")
 			{
 				ReadVertex(line);
-			} else if (type == _T("vn"))
+			} else if (type == "vn")
 			{
 				ReadNormal(line);
-			} else if (type == _T("vt"))
+			} else if (type == "vt")
 			{
 				ReadTexCoord(line);
-			} else if (type == _T("f"))
+			} else if (type == "f")
 			{
 				ReadFace(line);
 			}
@@ -76,7 +76,7 @@ bool ObjReader::GetTexCoords(vector<Point2D>& texCoords)
 	return false;
 }
 
-bool ObjReader::GetFaces(vector<vector<Point3D>>& faces)
+bool ObjReader::GetFaces(vector<vector<Point3D> >& faces)
 {
 	if (m_faces.size() > 0)
 	{
@@ -86,106 +86,106 @@ bool ObjReader::GetFaces(vector<vector<Point3D>>& faces)
 	return false;
 }
 
-void ObjReader::ReadVertex(wstring& vertex)
+void ObjReader::ReadVertex(string& vertex)
 {
-	wstring strX, strY, strZ;
+	string strX, strY, strZ;
 
 	strZ = vertex.substr(1);
-	strZ = strZ.substr(strZ.find_first_not_of(_T(' ')));
+	strZ = strZ.substr(strZ.find_first_not_of(' '));
 
-	size_t pos = strZ.find_first_of(_T(' '));
+	size_t pos = strZ.find_first_of(' ');
 	strX = strZ.substr(0, pos);
 	strZ = strZ.substr(pos+1);
-	strZ = strZ.substr(strZ.find_first_not_of(_T(' ')));
+	strZ = strZ.substr(strZ.find_first_not_of(' '));
 
-	pos = strZ.find_first_of(_T(' '));
+	pos = strZ.find_first_of(' ');
 	strY = strZ.substr(0, pos);
 	strZ = strZ.substr(pos+1);
-	strZ = strZ.substr(strZ.find_first_not_of(_T(' ')));
+	strZ = strZ.substr(strZ.find_first_not_of(' '));
 
 	Point3D point;
-	point.X = (float) _wtof(strX.c_str());
-	point.Y = (float) _wtof(strY.c_str());
-	point.Z = (float) _wtof(strZ.c_str());
+	point.X = (float) atof(strX.c_str());
+	point.Y = (float) atof(strY.c_str());
+	point.Z = (float) atof(strZ.c_str());
 
 	m_vertices.push_back(point);
 }
 
-void ObjReader::ReadNormal(wstring& normal)
+void ObjReader::ReadNormal(string& normal)
 {
-	wstring strX, strY, strZ;
+	string strX, strY, strZ;
 
 	strZ = normal.substr(2);
-	strZ = strZ.substr(strZ.find_first_not_of(_T(' ')));
+	strZ = strZ.substr(strZ.find_first_not_of(' '));
 
-	size_t pos = strZ.find_first_of(_T(' '));
+	size_t pos = strZ.find_first_of(' ');
 	strX = strZ.substr(0, pos);
 	strZ = strZ.substr(pos+1);
-	strZ = strZ.substr(strZ.find_first_not_of(_T(' ')));
+	strZ = strZ.substr(strZ.find_first_not_of(' '));
 
-	pos = strZ.find_first_of(_T(' '));
+	pos = strZ.find_first_of(' ');
 	strY = strZ.substr(0, pos);
 	strZ = strZ.substr(pos+1);
-	strZ = strZ.substr(strZ.find_first_not_of(_T(' ')));
+	strZ = strZ.substr(strZ.find_first_not_of(' '));
 
 	Point3D point;
-	point.X = (float) _wtof(strX.c_str());
-	point.Y = (float) _wtof(strY.c_str());
-	point.Z = (float) _wtof(strZ.c_str());
+	point.X = (float) atof(strX.c_str());
+	point.Y = (float) atof(strY.c_str());
+	point.Z = (float) atof(strZ.c_str());
 
 	m_normals.push_back(point);
 }
 
-void ObjReader::ReadTexCoord(wstring& texCoord)
+void ObjReader::ReadTexCoord(string& texCoord)
 {
-	wstring strX, strY;
+	string strX, strY;
 
 	strY = texCoord.substr(2);
-	strY = strY.substr(strY.find_first_not_of(_T(' ')));
+	strY = strY.substr(strY.find_first_not_of(' '));
 
-	size_t pos = strY.find_first_of(_T(' '));
+	size_t pos = strY.find_first_of(' ');
 	strX = strY.substr(0, pos);
 	strY = strY.substr(pos+1);
-	strY = strY.substr(strY.find_first_not_of(_T(' ')));
+	strY = strY.substr(strY.find_first_not_of(' '));
 
-	pos = strY.find_first_of(_T(' '));
+	pos = strY.find_first_of(' ');
 	strY = strY.substr(0, pos);
 
 	Point2D point;
-	point.X = (float) _wtof(strX.c_str());
-	point.Y = 1 - (float) _wtof(strY.c_str());
+	point.X = (float) atof(strX.c_str());
+	point.Y = 1 - (float) atof(strY.c_str());
 
 	m_texCoords.push_back(point);
 }
 
-void ObjReader::ReadFace(wstring& face)
+void ObjReader::ReadFace(string& face)
 {
-	wstring strX, strY;
+	string strX, strY;
 
 	strY = face.substr(2);
-	strY = strY.substr(strY.find_first_not_of(_T(' ')));
+	strY = strY.substr(strY.find_first_not_of(' '));
 
 	vector<Point3D> tempFace;
 
 	while (strY.length())
 	{
 		//Get one chunk and prepare the next
-		size_t pos = strY.find_first_of(_T(' '));
+		size_t pos = strY.find_first_of(' ');
 		strX = strY.substr(0, pos);
-		if (pos == string::npos) strY = _T("");
+		if (pos == string::npos) strY = "";
 		else strY = strY.substr(pos+1);
-		pos = strY.find_first_not_of(_T(' '));
-		if (pos == string::npos) strY = _T("");
+		pos = strY.find_first_not_of(' ');
+		if (pos == string::npos) strY = "";
 		else strY = strY.substr(pos);
 
 		//Analyse the chunk
-		wstring temp1, temp2;
-		pos = strX.find_first_of(_T('/'));
+		string temp1, temp2;
+		pos = strX.find_first_of('/');
 		if (pos == string::npos)
 		{
 			//Only vertices were used
 			Point3D point;
-			point.X = (float) _wtof(strX.c_str());
+			point.X = (float) atof(strX.c_str());
 			point.Y = 0;
 			point.Z = 0;
 
@@ -195,14 +195,14 @@ void ObjReader::ReadFace(wstring& face)
 			temp1 = strX.substr(0, pos);
 			strX = strX.substr(pos+1);
 
-			pos = strX.find_first_of(_T('/'));
+			pos = strX.find_first_of('/');
 			temp2 = strX.substr(0, pos);
 			strX = strX.substr(pos+1);
 
 			Point3D point;
-			point.X = (float) _wtof(temp1.c_str());
-			point.Y = (float) _wtof(temp2.c_str());
-			point.Z = (float) _wtof(strX.c_str());
+			point.X = (float) atof(temp1.c_str());
+			point.Y = (float) atof(temp2.c_str());
+			point.Z = (float) atof(strX.c_str());
 
 			tempFace.push_back(point);
 		}
