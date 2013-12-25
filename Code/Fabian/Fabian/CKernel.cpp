@@ -2,6 +2,7 @@
 
 #include <SDL.h>
 #include "IService.h"
+#include <algorithm>
 
 #include "CLog.h"
 
@@ -31,13 +32,13 @@ CKernel::~CKernel()
 	FASSERT(m_pServiceList.size() <= 0);
 }
 //-------------------------------------
-	
+
 //-------------------------------------
-// Start running the engine, 
+// Start running the engine,
 //    should be called after the base services are added
 // rv - returns 0
 int CKernel::Execute()
-{	
+{
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Executing Kernel" );
 
 	SDL_Init(0);
@@ -48,7 +49,7 @@ int CKernel::Execute()
 		{
 			{
 				//PROFILE("Kernel task loop");
-			
+
 				std::list<IService*>::iterator it( m_pServiceList.begin() );
 				for( ; it != m_pServiceList.end(); )
 				{
@@ -70,7 +71,7 @@ int CKernel::Execute()
 			CProfileSample::Output();
 	#endif
 		}
-		
+
 		if ( m_pServiceList.size() <= 0 )
 			bRunning = false;
 	}
@@ -80,12 +81,12 @@ int CKernel::Execute()
 	return 0;
 }
 //-------------------------------------
-	
+
 //-------------------------------------
 // Adds a service to the kernel and takes ownership of it
-//    Because the kernel takes ownership of the service 
+//    Because the kernel takes ownership of the service
 //    you don't have to delete it yourself.
-// Planned : 
+// Planned :
 //           Return service IDs for acces (-1 on fail)
 // p1 in - a pointer to the service to add (can't be 0)
 // rv - returns pointer to the service on succes and a nullptr when it fails
@@ -110,9 +111,9 @@ IService* CKernel::AddService(IService* s)
 	return s;
 }
 //-------------------------------------
-	
+
 //-------------------------------------
-// Planned : 
+// Planned :
 //           Use service ID to interact with the services
 //              instead of pointers
 //-------------------------------------
@@ -139,7 +140,7 @@ void CKernel::ResumeService(IService* s)
 	{
 		s->OnResume();
 		m_pPausedServiceList.remove(s);
-	
+
 		//keep the order of priorities straight
 		std::list<IService*>::iterator it( m_pServiceList.begin() );
 		for( ; it != m_pServiceList.end(); ++it)
@@ -171,9 +172,9 @@ void CKernel::KillAllServices()
 		(*it)->SetCanKill(true);
 }
 //-------------------------------------
-	
+
 //-------------------------------------
-// Send a message to the services 
+// Send a message to the services
 //    (including the service who sends it)
 // p1 in - pointer to SMsg object
 void CKernel::SendMessage(SMsg* msg)

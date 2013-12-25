@@ -19,21 +19,21 @@
 
 #include "CLog.h"
 
-#include "Game\Grid.h"
+#include "Game/Grid.h"
 
-#include "Game\Entity.h"
-#include "Game\Player.h"
-#include "Game\Enemy1D.h"
-#include "Game\EnemyRot.h"
+#include "Game/Entity.h"
+#include "Game/Player.h"
+#include "Game/Enemy1D.h"
+#include "Game/EnemyRot.h"
 
-#include "Game\Floor.h"
-#include "Game\Wall.h"
-#include "Game\Bomb.h"
-#include "Game\Candy.h"
-#include "Game\Exit.h"
-#include "Game\Water.h"
-#include "Game\MovingFloor.h"
-#include "Game\CollapseFloor.h"
+#include "Game/Floor.h"
+#include "Game/Wall.h"
+#include "Game/Bomb.h"
+#include "Game/Candy.h"
+#include "Game/Exit.h"
+#include "Game/Water.h"
+#include "Game/MovingFloor.h"
+#include "Game/CollapseFloor.h"
 
 #include <iostream>
 #include <fstream>
@@ -49,7 +49,7 @@ IImage	*g_pImage1,
 int g_iIdLightPos,
 	g_iIdLightPower,
 	g_iIdLightColor,
-	
+
 	g_iIdTexture;
 
 
@@ -61,7 +61,7 @@ float CServiceGame::s_fDtime = 0;
 
 //-------------------------------------
 // Constructor
-// p1 in* - int, the priorety of the service 
+// p1 in* - int, the priorety of the service
 //            ( the lower the higher the priorety )
 CServiceGame::CServiceGame(int priorety)
 	:IService(priorety)
@@ -77,7 +77,7 @@ CServiceGame::~CServiceGame()
 {
 }
 //-------------------------------------
-	
+
 //-------------------------------------
 // !!! temp !!!
 // gloabal helper class to send SMsg's
@@ -87,11 +87,11 @@ void SendMsg(int id, IService *pServ)
 	CKernel::Get().SendMessage(&msg);
 }
 //-------------------------------------
-	
+
 //-------------------------------------
 // Called when the service is registered in the kernel
-// rv - return true on succes, 
-//         when false is returned then the service gets deleted	
+// rv - return true on succes,
+//         when false is returned then the service gets deleted
 bool CServiceGame::Start()
 {
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Starting" );
@@ -100,16 +100,16 @@ bool CServiceGame::Start()
 
 	SMsgTimer msg(TimerCallback);
 	CKernel::Get().SendMessage(&msg);
-	
+
 	// just quit when the renderer or input wasn't filled in
 	FASSERTR(m_pInput != nullptr);
 	FASSERTR(m_pRenderer != nullptr);
 
 	m_pRenderer->SetVSync(true);
-	
+
 	// make needed object accesable for user
 	CGlobalAccessor::Get().AddObject("Input", m_pInput);
-		
+
 	g_pShader = m_pRenderer->LoadShader("Shaders/SimpleShader");
 	g_iIdLightPos = g_pShader->GetVarId("LightPosition_worldspace");
 	g_iIdLightPower = g_pShader->GetVarId("LightPower");
@@ -120,11 +120,8 @@ bool CServiceGame::Start()
 	g_pImage1 = m_pContent->LoadImage("Textures/uv.jpg");
 	g_pImage2 = m_pContent->LoadImage("Textures/img_cheryl.jpg");
 	g_pImage3 = m_pContent->LoadImage("Textures/CarDiffuseMap.png");
-	
-	CGameObject *pGo = nullptr;
-	IComponent *pComp = nullptr;
 
-	pGo = new CGameObject();
+	CGameObject *pGo = new CGameObject();
 	pGo->Init();
 	pGo->AddComponent( new CCompCamera() );
 	pGo->Transform()->SetPos( glm::vec3(0, 250, 0) );
@@ -132,15 +129,15 @@ bool CServiceGame::Start()
 	pGo->Transform()->Rotate( glm::vec3(0, -glm::half_pi<float>(), 0));
 	g_vpGameObjects.push_back(pGo);
 	CGlobalAccessor::Get().AddObject("Camera", pGo);
-	
+
 	LoadLevel();
-	
+
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Started" );
 	return true;
 }
 
 void CServiceGame::LoadLevel()
-{	
+{
 	std::string file("level.lvl");
 
 	int w = 0,
@@ -178,10 +175,12 @@ void CServiceGame::LoadLevel()
 	// 2. read and load in objects
 	Grid *pGrid = new Grid(w, h);
 	CGlobalAccessor::Get().AddObject("Grid", pGrid);
-	
-	int x = 0, 
+
+	int x = 0,
 		y = 0;
-	Entity* e = nullptr;
+
+    glm::vec2 vPos(0, 0);
+
 	while (is.good())				// loop while extraction from file is possible
 	{
 		wchar_t c = (wchar_t)is.get();       // get character from file
@@ -191,40 +190,39 @@ void CServiceGame::LoadLevel()
 			switch(c)
 			{
 			case 'g':
-				AddGridEntity(pGrid, glm::vec2(x, y), new Floor(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				AddGridEntity(pGrid, vPos, new Floor(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
 				break;
 			case 'm':
-				AddGridEntity(pGrid, glm::vec2(x, y), new MovingFloor(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				AddGridEntity(pGrid, vPos, new MovingFloor(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
 				break;
 			case 'v':
-				AddGridEntity(pGrid, glm::vec2(x, y), new CollapseFloor(1), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				AddGridEntity(pGrid, vPos, new CollapseFloor(1), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
 				break;
 			case '~':
-				AddGridEntity(pGrid, glm::vec2(x, y), new Water(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				AddGridEntity(pGrid, vPos, new Water(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
 				break;
 			case 'w':
-				AddGridEntity(pGrid, glm::vec2(x, y), new Wall(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				AddGridEntity(pGrid, vPos, new Wall(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
 				break;
 			case 'e':
-				AddGridEntity(pGrid, glm::vec2(x, y), new Exit(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				AddGridEntity(pGrid, vPos, new Exit(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
 				break;
 			case 'b':
-				AddGridEntity(pGrid, glm::vec2(x, y), new Bomb(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				AddGridEntity(pGrid, vPos, new Bomb(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
 				break;
 			case 'c':
-				AddGridEntity(pGrid, glm::vec2(x, y), new Candy(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				AddGridEntity(pGrid, vPos, new Candy(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
 				break;
 			case 'p':
 				{
 					// first add a floor
-					AddGridEntity(pGrid, glm::vec2(x, y), new Floor(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+					AddGridEntity(pGrid, vPos, new Floor(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
 
 					//then add player
 					CGameObject *pGo = new CGameObject();
 					Entity *pEnt = new Player();
-					glm::vec2 pos(x, y);
-					pEnt->SetRespawn(pos);
-					pEnt->SetGridPos(pos);
+					pEnt->SetRespawn(vPos);
+					pEnt->SetGridPos(vPos);
 
 					pGo->Init();
 					pGo->AddComponent( pEnt );
@@ -234,7 +232,7 @@ void CServiceGame::LoadLevel()
 					CGlobalAccessor::Get().AddObject("Player", pEnt);
 					break;
 				}
-				
+
 				// 1D enemys
 			/*case '2':
 				m_pGrid->SetGObject(x, y, new Floor(this));
@@ -316,15 +314,15 @@ void CServiceGame::LoadLevel()
 
 			//progress when filled
 			if ( c != '\n' )
-				++x;
+				++vPos.x;
 			else
 			{
 				x = 0;
-				++y;
+				++vPos.y;
 			}
 		}
-	}	
-	
+	}
+
 	is.close();                // close file
 }
 void CServiceGame::AddGridEntity(Grid* pGrid, glm::vec2& pos, GridEntity* pGEnt, IComponent* pComp)
@@ -345,9 +343,9 @@ void CServiceGame::Update()
 {
 	// temp for clearing window	and drawing object
 	m_pRenderer->Clear(0.01f, 0.1f, 0.4f, 1.0f);
-	
+
 	// update
-	for each (CGameObject* go in g_vpGameObjects)
+	for (CGameObject* go : g_vpGameObjects)
 		go->Update(s_fDtime);
 
 	//draw
@@ -356,8 +354,8 @@ void CServiceGame::Update()
 	g_pShader->SetVarVec3(g_iIdLightPos, glm::vec3(100, 100, 100));
 	g_pShader->SetVarF1(g_iIdLightPower, 1.0f);
 	g_pShader->SetVarVec4(g_iIdLightColor, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-	
-	for each (CGameObject* go in g_vpGameObjects)
+
+	for (CGameObject* go : g_vpGameObjects)
 		go->Draw(g_pShader);
 }
 //-------------------------------------
@@ -367,7 +365,7 @@ void CServiceGame::Stop()
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Stopping" );
 	// we don't delete the mesh and image because it was loaded by de contentloader and it will destroy it for use
 
-	for each (CGameObject* go in g_vpGameObjects)
+	for (CGameObject* go : g_vpGameObjects)
 		delete go;
 	g_vpGameObjects.clear();
 
@@ -375,7 +373,7 @@ void CServiceGame::Stop()
 	delete m_pContent;
 }
 //-------------------------------------
-	
+
 //-------------------------------------
 // Called when there are messages send somewhere
 // p1 in - pointer to SMsg object
@@ -389,7 +387,7 @@ void CServiceGame::MsgProc(SMsg* sm)
 	case SM_RENDERER + SM_H_RECEIVE:
 		m_pRenderer = SMsg::Cast<SMsgRenderer*>(sm)->pRenderer;
 		break;
-		
+
 	case SM_INPUT + SM_H_REMOVE:
 	case SM_RENDERER + SM_H_REMOVE:
 		CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Game Service: Stopping (Renderer or Input removed)" );

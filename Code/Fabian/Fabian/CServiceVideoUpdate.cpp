@@ -1,19 +1,19 @@
 #include "CServiceVideoUpdate.h"
 
-#include <gl/glew.h>
+#include <GL/glew.h>
 #include "CKernel.h"
 #include "CRendererOpenGL.h"
 #include "CLog.h"
 
 //******************************************
 // Class CServiceVideoUpdate:
-// service responsable for creating and updating 
+// service responsable for creating and updating
 // the video output
 //******************************************
 
 //-------------------------------------
 // Constructor
-// p1 in* - int, the priorety of the service 
+// p1 in* - int, the priorety of the service
 //            ( the lower the higher the priorety )
 CServiceVideoUpdate::CServiceVideoUpdate(int priorety)
 	:IService(priorety)
@@ -33,11 +33,11 @@ CServiceVideoUpdate::~CServiceVideoUpdate()
 {
 }
 //-------------------------------------
-	
+
 //-------------------------------------
 // Called when the service is registered in the kernel
-// rv - return true on succes, 
-//         when false is returned then the service gets deleted	
+// rv - return true on succes,
+//         when false is returned then the service gets deleted
 bool CServiceVideoUpdate::Start()
 {
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Video Service: Starting" );
@@ -56,9 +56,10 @@ bool CServiceVideoUpdate::Start()
 	// request openGL 3.2
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
 	int flags = SDL_WINDOW_OPENGL;
-	
+
 	m_pWindow = SDL_CreateWindow("Fabian", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_iScreenWidth, m_iScreenHeight, flags);
 	if( m_pWindow == nullptr )
 	{
@@ -74,16 +75,16 @@ bool CServiceVideoUpdate::Start()
 		m_pWindow = nullptr;
 		return false;
 	}
-	
+
 	GLenum err = glewInit();
-	if (err != GLEW_OK) 
+	if (err != GLEW_OK)
 	{
 		CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP | FLOG_ID_USER, "Failed to init GLEW: %s", glewGetErrorString(err) );
 		SDL_DestroyWindow(m_pWindow);
 		m_pWindow = nullptr;
 		return false;
 	}
-	
+
 	glEnable(GL_CULL_FACE);
 	//glDisable(GL_CULL_FACE);
 	// Enable depth test
@@ -93,7 +94,7 @@ bool CServiceVideoUpdate::Start()
 
 	glEnable (GL_BLEND);
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	
+
 	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
@@ -101,7 +102,7 @@ bool CServiceVideoUpdate::Start()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
 	m_pRenderer = new CRendererOpenGL(this);
-	
+
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Video Service: Started" );
 	return true;
 }
@@ -127,7 +128,7 @@ void CServiceVideoUpdate::Stop()
 	SDL_QuitSubSystem(SDL_INIT_VIDEO);
 }
 //-------------------------------------
-	
+
 //-------------------------------------
 // Called when there are messages send somewhere
 // p1 in - pointer to SMsg object
@@ -141,7 +142,7 @@ void CServiceVideoUpdate::MsgProc(SMsg* sm)
 	}
 }
 //-------------------------------------
-	
+
 //-------------------------------------
 // Sets the name of the window
 // p1 in - string, name of the window
@@ -166,7 +167,7 @@ void CServiceVideoUpdate::ShowCursor(bool bShow)
 		SDL_ShowCursor(SDL_DISABLE);
 }
 //-------------------------------------
-	
+
 //-------------------------------------
 // Helper method for the IRenderer
 //-------------------------------------

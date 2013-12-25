@@ -3,7 +3,7 @@
 
 #include "FabianDef.h"
 #include "IShader.h"
-#include <gl/glew.h>
+#include <GL/glew.h>
 
 //******************************************
 // Class CShaderOpenGL:
@@ -19,10 +19,10 @@ public:
 	// Destructor
 	virtual ~CShaderOpenGL();
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Loads in the shader and set it up for use
-	// !!! - loads 2 files, 
+	// !!! - loads 2 files,
 	//          ".vsh" for the vertex shader
 	//          ".fsh" for the fragment(pixel) shader
 	// rv - bool, return false if something failed
@@ -31,7 +31,7 @@ public:
 	// Activates the shader as the current
 	virtual void Apply();
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Sets the shader variable from the id with
 	//    the given value
@@ -51,7 +51,7 @@ public:
 	virtual void SetVarVec2(int, const glm::vec2&);
 	virtual void SetVarVec3(int, const glm::vec3&);
 	virtual void SetVarVec4(int, const glm::vec4&);
-	
+
 	virtual void SetVarMat2(int, const glm::mat2&);
 	virtual void SetVarMat3(int, const glm::mat3&);
 	virtual void SetVarMat4(int, const glm::mat4&);

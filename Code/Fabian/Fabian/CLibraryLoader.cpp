@@ -27,25 +27,25 @@ CLibraryLoader::~CLibraryLoader()
 		UnLoadLib(i);
 }
 //-------------------------------------
-	
+
 //-------------------------------------
 // loads library into memory returning an acces id
 // p1 in - name and path of the library to load
 // rv - int, returns the id for the library (-1 on fail)
 int CLibraryLoader::LoadLib(const std::string& sFile)
 {
-	void *pLib = 
+	void *pLib =
 #if defined WIN32 /*windows*/
 	LoadLibraryA(sFile.c_str());
 #elif defined UNIX /*unix*/
-	dlopen(filename.c_str(), RTLD_LAZY);
+	dlopen(sFile.c_str(), RTLD_LAZY);
 #else
 #error PLATFORM NOT IMPLENTED
 #endif
 
 	if( pLib == nullptr )
 		return -1;
-	
+
 	for (unsigned i(0); i < m_vLibs.size(); ++i)
 	{
 		if( m_vLibs[i] == nullptr )
@@ -61,7 +61,7 @@ int CLibraryLoader::LoadLib(const std::string& sFile)
 //-------------------------------------
 // unloads a specific library from memory
 // p1 in - id of the library to unload
-// rv - bool, returns false if there was no lib 
+// rv - bool, returns false if there was no lib
 //         linked to the id
 bool CLibraryLoader::UnLoadLib(int id)
 {
@@ -84,7 +84,7 @@ bool CLibraryLoader::UnLoadLib(int id)
 	return true;
 }
 //-------------------------------------
-	
+
 //-------------------------------------
 // gets the pointer to a function from a specific library
 // p1 in - id of the library to load from

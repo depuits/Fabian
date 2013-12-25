@@ -30,18 +30,18 @@ CLibrary::~CLibrary()
 #endif
 }
 //-------------------------------------
-	
+
 //-------------------------------------
 // loads library into memory returning an acces id
 // p1 in - name and path of the library to load
 // rv - int, returns true if succeeds
 bool CLibrary::Load(const std::string& sFile)
 {
-	m_pLib = 
+	m_pLib =
 #if defined WIN32 /*windows*/
 	LoadLibraryA(sFile.c_str());
 #elif defined UNIX /*unix*/
-	dlopen(filename.c_str(), RTLD_LAZY);
+	dlopen(sFile.c_str(), RTLD_LAZY);
 #else
 #error PLATFORM NOT IMPLENTED
 #endif

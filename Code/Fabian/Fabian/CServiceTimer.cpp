@@ -11,11 +11,11 @@
 
 //-------------------------------------
 // Constructor
-// p1 in* - int, the priorety of the service 
+// p1 in* - int, the priorety of the service
 //            ( the lower the higher the priorety )
 CServiceTimer::CServiceTimer(int priorety)
 	:IService(priorety)
-	
+
 	,m_ulLastFrameIndex(0)
 	,m_ulThisFrameIndex(0)
 
@@ -28,17 +28,17 @@ CServiceTimer::~CServiceTimer()
 {
 }
 //-------------------------------------
-	
+
 //-------------------------------------
 // Called when the service is registered in the kernel
-// rv - return true on succes, 
-//         when false is returned then the service gets deleted	
+// rv - return true on succes,
+//         when false is returned then the service gets deleted
 bool CServiceTimer::Start()
 {
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Time Service: Starting" );
 	m_ulThisFrameIndex = SDL_GetTicks();
 	m_ulLastFrameIndex = m_ulThisFrameIndex;
-	
+
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Time Service: Started" );
 	return true;
 }
@@ -60,14 +60,14 @@ void CServiceTimer::Update()
 
 	m_dTimer -= interval ;
 	float dt = (float)interval;
-	
+
 	// lose update (unlimited)
 	/*m_ulLastFrameIndex = m_ulThisFrameIndex;
 	m_ulThisFrameIndex = SDL_GetTicks();
 	float dt = ((float)(m_ulThisFrameIndex - m_ulLastFrameIndex)) / 1000.0f;*/
 
 	// dt callback
-	for each (TimerCallbackFunc func in m_vCallbackFuncs)
+	for (TimerCallbackFunc func : m_vCallbackFuncs)
 	{
 		func(dt);
 	}

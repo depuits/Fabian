@@ -4,18 +4,18 @@
 #include <string>
 #include <time.h>       /* time_t, struct tm, difftime, time, mktime */
 
-#include "Console\console.h"
+#include "Console/console.h"
 
 //******************************************
 // Class CLoggerToConsole:
-// ILogger class which writes out the log to 
+// ILogger class which writes out the log to
 // a console using color codes
 //******************************************
 
 //-------------------------------------
 // Constructor
 // p1 in - bool, await user input on error
-CLoggerToConsole::CLoggerToConsole(bool bWaitOnError) 
+CLoggerToConsole::CLoggerToConsole(bool bWaitOnError)
 	:ILogger()
 	,m_bWaitOnError(bWaitOnError)
 {
@@ -26,7 +26,7 @@ CLoggerToConsole::~CLoggerToConsole()
 {
 }
 //-------------------------------------
-	
+
 //-------------------------------------
 // Initializes the logger, should be called
 //    before using or assigning the logger
@@ -50,7 +50,7 @@ void CLoggerToConsole::Write(char lvl, char id, const char* msg)
 	tm * timeinfo;
 	time(&rawtime);  /* get current time; same as: timer = time(NULL)  */
 	timeinfo = localtime(&rawtime);
-	
+
 	char buffer [80];
 	strftime (buffer, 80, "%Y-%m-%d - %H:%M:%S ", timeinfo);
 
@@ -78,7 +78,7 @@ void CLoggerToConsole::Write(char lvl, char id, const char* msg)
 
 	sLvl += msg;
 	Console::WriteLine( sLvl );
-	
+
 	if( lvl == FLOG_LVL_ERROR && m_bWaitOnError )
 		Console::ReadKey();
 }

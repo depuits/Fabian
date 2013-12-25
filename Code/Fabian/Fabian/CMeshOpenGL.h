@@ -4,11 +4,11 @@
 #include "FabianDef.h"
 #include "IMesh.h"
 
-#include <gl/glew.h>
+#include <GL/glew.h>
 
 //******************************************
 // Class CMeshOpenGL:
-// this class is an OpenGL implementation of 
+// this class is an OpenGL implementation of
 // the IMesh interface
 //******************************************
 class CMeshOpenGL : public IMesh
@@ -21,7 +21,7 @@ public:
 	// Destructor
 	virtual ~CMeshOpenGL();
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Loads and initializes the mesh by loading any needed buffers, etc.
 	// p1 in - pointer to the meshdata for the mesh

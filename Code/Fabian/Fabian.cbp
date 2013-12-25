@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Fabian" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="Debug/bin/Fabian" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Debug/obj/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-std=c++11" />
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+					<Add directory="../External/glew/include" />
+					<Add directory="../External/glm" />
+					<Add directory="../External/sdl2/include" />
+				</Compiler>
+				<Linker>
+					<Add option="-lSDL2" />
+					<Add option="-lSDL2main" />
+					<Add option="-lGL" />
+					<Add option="-lGLU" />
+					<Add option="-lGLEW" />
+					<Add option="-ldl" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="Release/bin/Fabian" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Release/obj/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="Fabian/CApplication.cpp" />
+		<Unit filename="Fabian/CApplication.h" />
+		<Unit filename="Fabian/CCompCamera.cpp" />
+		<Unit filename="Fabian/CCompCamera.h" />
+		<Unit filename="Fabian/CCompControl.cpp" />
+		<Unit filename="Fabian/CCompControl.h" />
+		<Unit filename="Fabian/CCompModel.cpp" />
+		<Unit filename="Fabian/CCompModel.h" />
+		<Unit filename="Fabian/CContentManager.cpp" />
+		<Unit filename="Fabian/CContentManager.h" />
+		<Unit filename="Fabian/CGameObject.cpp" />
+		<Unit filename="Fabian/CGameObject.h" />
+		<Unit filename="Fabian/CGlobalAccessor.cpp" />
+		<Unit filename="Fabian/CGlobalAccessor.h" />
+		<Unit filename="Fabian/CImageOpenGL.cpp" />
+		<Unit filename="Fabian/CImageOpenGL.h" />
+		<Unit filename="Fabian/CInputSDL.cpp" />
+		<Unit filename="Fabian/CInputSDL.h" />
+		<Unit filename="Fabian/CKernel.cpp" />
+		<Unit filename="Fabian/CKernel.h" />
+		<Unit filename="Fabian/CLibrary.cpp" />
+		<Unit filename="Fabian/CLibrary.h" />
+		<Unit filename="Fabian/CLibraryLoader.cpp" />
+		<Unit filename="Fabian/CLibraryLoader.h" />
+		<Unit filename="Fabian/CLog.cpp" />
+		<Unit filename="Fabian/CLog.h" />
+		<Unit filename="Fabian/CLoggerMultiple.cpp" />
+		<Unit filename="Fabian/CLoggerMultiple.h" />
+		<Unit filename="Fabian/CLoggerToConsole.cpp" />
+		<Unit filename="Fabian/CLoggerToConsole.h" />
+		<Unit filename="Fabian/CLoggerToFiles.cpp" />
+		<Unit filename="Fabian/CLoggerToFiles.h" />
+		<Unit filename="Fabian/CMeshOpenGL.cpp" />
+		<Unit filename="Fabian/CMeshOpenGL.h" />
+		<Unit filename="Fabian/CRendererOpenGL.cpp" />
+		<Unit filename="Fabian/CRendererOpenGL.h" />
+		<Unit filename="Fabian/CServiceGame.cpp" />
+		<Unit filename="Fabian/CServiceGame.h" />
+		<Unit filename="Fabian/CServiceInput.cpp" />
+		<Unit filename="Fabian/CServiceInput.h" />
+		<Unit filename="Fabian/CServiceMessageLoop.cpp" />
+		<Unit filename="Fabian/CServiceMessageLoop.h" />
+		<Unit filename="Fabian/CServiceTimer.cpp" />
+		<Unit filename="Fabian/CServiceTimer.h" />
+		<Unit filename="Fabian/CServiceVideoUpdate.cpp" />
+		<Unit filename="Fabian/CServiceVideoUpdate.h" />
+		<Unit filename="Fabian/CShaderOpenGL.cpp" />
+		<Unit filename="Fabian/CShaderOpenGL.h" />
+		<Unit filename="Fabian/CTransform.cpp" />
+		<Unit filename="Fabian/CTransform.h" />
+		<Unit filename="Fabian/Console/ConsoleColor.h" />
+		<Unit filename="Fabian/Console/console.cpp" />
+		<Unit filename="Fabian/Console/console.h" />
+		<Unit filename="Fabian/Console/keys.h" />
+		<Unit filename="Fabian/DataStructures.h" />
+		<Unit filename="Fabian/FabianDef.h" />
+		<Unit filename="Fabian/Game/Bomb.cpp" />
+		<Unit filename="Fabian/Game/Bomb.h" />
+		<Unit filename="Fabian/Game/Candy.cpp" />
+		<Unit filename="Fabian/Game/Candy.h" />
+		<Unit filename="Fabian/Game/CollapseFloor.cpp" />
+		<Unit filename="Fabian/Game/CollapseFloor.h" />
+		<Unit filename="Fabian/Game/Enemy.cpp" />
+		<Unit filename="Fabian/Game/Enemy.h" />
+		<Unit filename="Fabian/Game/Enemy1D.cpp" />
+		<Unit filename="Fabian/Game/Enemy1D.h" />
+		<Unit filename="Fabian/Game/EnemyRot.cpp" />
+		<Unit filename="Fabian/Game/EnemyRot.h" />
+		<Unit filename="Fabian/Game/Entity.cpp" />
+		<Unit filename="Fabian/Game/Entity.h" />
+		<Unit filename="Fabian/Game/Exit.cpp" />
+		<Unit filename="Fabian/Game/Exit.h" />
+		<Unit filename="Fabian/Game/Floor.cpp" />
+		<Unit filename="Fabian/Game/Floor.h" />
+		<Unit filename="Fabian/Game/Grid.cpp" />
+		<Unit filename="Fabian/Game/Grid.h" />
+		<Unit filename="Fabian/Game/GridEntity.cpp" />
+		<Unit filename="Fabian/Game/GridEntity.h" />
+		<Unit filename="Fabian/Game/MovingFloor.cpp" />
+		<Unit filename="Fabian/Game/MovingFloor.h" />
+		<Unit filename="Fabian/Game/Player.cpp" />
+		<Unit filename="Fabian/Game/Player.h" />
+		<Unit filename="Fabian/Game/Wall.cpp" />
+		<Unit filename="Fabian/Game/Wall.h" />
+		<Unit filename="Fabian/Game/Water.cpp" />
+		<Unit filename="Fabian/Game/Water.h" />
+		<Unit filename="Fabian/IComponent.cpp" />
+		<Unit filename="Fabian/IComponent.h" />
+		<Unit filename="Fabian/IImage.h" />
+		<Unit filename="Fabian/IInput.cpp" />
+		<Unit filename="Fabian/IInput.h" />
+		<Unit filename="Fabian/ILogger.h" />
+		<Unit filename="Fabian/IMesh.h" />
+		<Unit filename="Fabian/IObject.cpp" />
+		<Unit filename="Fabian/IObject.h" />
+		<Unit filename="Fabian/IRenderer.h" />
+		<Unit filename="Fabian/IService.cpp" />
+		<Unit filename="Fabian/IService.h" />
+		<Unit filename="Fabian/IShader.h" />
+		<Unit filename="Fabian/InputDef.h" />
+		<Unit filename="Fabian/Main.cpp" />
+		<Unit filename="Fabian/ServiceMsg.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

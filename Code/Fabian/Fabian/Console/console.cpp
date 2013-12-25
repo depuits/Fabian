@@ -54,11 +54,11 @@ void Console::Open()
 			// AllocConsole() returns zero if already present
 			freopen("CONOUT$", "w", stdout);
 			freopen("CONIN$", "r", stdin);
-		
+
 			hConsole =  GetStdHandle(STD_OUTPUT_HANDLE);
 		}
 	#else
-#error CONSOLE NOT IMPLEMENTED YET, might not be needed
+#warning CONSOLE NOT IMPLEMENTED YET, might not be needed
 	#endif
 }
 

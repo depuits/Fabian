@@ -10,17 +10,25 @@
 // sdl assertion within a macro because of compiler warnings
 #include <SDL_assert.h>
 
-#define FASSERT(condition)			\
-	__pragma(warning(push))			\
-	__pragma(warning(disable:4127))	\
-	SDL_assert(condition);			\
-	__pragma(warning(pop))
+#ifdef _MSC_VER
+    #define FASSERT(condition)			\
+        __pragma(warning(push))			\
+        __pragma(warning(disable:4127))	\
+        SDL_assert(condition);			\
+        __pragma(warning(pop))
 
-#define FASSERTR(condition)			\
-	__pragma(warning(push))			\
-	__pragma(warning(disable:4127))	\
-	SDL_assert_release(condition);	\
-	__pragma(warning(pop))
+    #define FASSERTR(condition)			\
+        __pragma(warning(push))			\
+        __pragma(warning(disable:4127))	\
+        SDL_assert_release(condition);	\
+        __pragma(warning(pop))
+#else
+    #define FASSERT(condition)			\
+        SDL_assert(condition);
+
+    #define FASSERTR(condition)			\
+        SDL_assert_release(condition);
+# endif
 
 // dll export define
 #ifdef WIN32
