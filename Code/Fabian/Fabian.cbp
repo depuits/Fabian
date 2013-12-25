@@ -8,6 +8,7 @@
 		<Build>
 			<Target title="Debug">
 				<Option output="Debug/bin/Fabian" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="WorkingDir" />
 				<Option object_output="Debug/obj/" />
 				<Option type="1" />
 				<Option compiler="gcc" />

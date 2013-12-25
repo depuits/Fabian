@@ -32,16 +32,16 @@ CContentManager::~CContentManager()
 	for (std::map<std::string, IMesh*>::iterator it( m_mMeshMap.begin() ); it != m_mMeshMap.end(); ++it)
 		delete it->second;
 	m_mMeshMap.clear();
-	
+
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Unloading Textures: %d", m_mImageMap.size());
 	for (std::map<std::string, IImage*>::iterator it( m_mImageMap.begin() ); it != m_mImageMap.end(); ++it)
 		delete it->second;
 	m_mImageMap.clear();
 }
 //-------------------------------------
-	
+
 //-------------------------------------
-// Loads in a mesh or texture from a file and returns it 
+// Loads in a mesh or texture from a file and returns it
 // p1 in - string, name of the file to load
 // rv - pointer IMesh or IImage object and nullptr if failed
 IMesh *CContentManager::LoadMesh(const std::string& sFile)
@@ -52,13 +52,19 @@ IMesh *CContentManager::LoadMesh(const std::string& sFile)
 		CLibrary lib;
 		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new mesh using \"%s\"", "plugins/A3DLoader.fpm");
 		if( !lib.Load("../debug/FPM_OBJLoader.dll") )//"plugins/A3DLoader.fpm") )
+		{
+            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of plugin failed: \"%s\"", "plugins/A3DLoader.fpm");
 			return nullptr;
+        }
 		LOAD_MESHDATA fLoadMD = (LOAD_MESHDATA)lib.GetFunction("LoadData"); // meshData Loading function
 		RELEASE_MESHDATA fReleaseMD = (RELEASE_MESHDATA)lib.GetFunction("ReleaseData"); // meshData Release function
 
 		if( fLoadMD == nullptr || fReleaseMD == nullptr )
+		{
+            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of LOADDATA(%d) or RELEASEDATA(%d) in \"%s\" failed.", fLoadMD, fReleaseMD, "plugins/A3DLoader.fpm");
 			return nullptr;
-		
+        }
+
 		// load from dll
 		MeshData *md = fLoadMD(sFile.c_str());
 
@@ -72,7 +78,7 @@ IMesh *CContentManager::LoadMesh(const std::string& sFile)
 			CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading mesh failed");
 			return nullptr;
 		}
-		
+
 		m_mMeshMap[sFile] = pMesh;
 	}
 
@@ -86,13 +92,19 @@ IImage *CContentManager::LoadImage(const std::string& sFile)
 		CLibrary lib;
 		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new Texture using \"%s\"", "plugins/SOILLoader.fpi");
 		if( !lib.Load("plugins/SOILLoader.fpi") )
+		{
+            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of plugin failed: \"%s\"", "plugins/SOILLoader.fpi");
 			return nullptr;
+        }
 		LOAD_IMAGEDATA fLoadID = (LOAD_IMAGEDATA)lib.GetFunction("LoadData"); // meshData Loading function
 		RELEASE_IMAGEDATA fReleaseID = (RELEASE_IMAGEDATA)lib.GetFunction("ReleaseData"); // meshData Release function
 
 		if( fLoadID == nullptr || fReleaseID == nullptr )
+		{
+            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of LOADDATA(%d) or RELEASEDATA(%d) in \"%s\" failed.", fLoadID, fReleaseID, "plugins/SOILLoader.fpi");
 			return nullptr;
-		
+        }
+
 		// load from dll
 		ImageData *id = fLoadID(sFile.c_str());
 
@@ -106,7 +118,7 @@ IImage *CContentManager::LoadImage(const std::string& sFile)
 			CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading texture failed");
 			return nullptr;
 		}
-		
+
 		m_mImageMap[sFile] = pImage;
 	}
 

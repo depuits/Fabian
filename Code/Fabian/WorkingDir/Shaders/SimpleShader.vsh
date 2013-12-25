@@ -1,8 +1,12 @@
-#version 330 core
+#version 130
 
-layout(location = 0) in vec3 in_vertexPosition_modelspace;
-layout(location = 1) in vec3 in_vertexNormal;
-layout(location = 2) in vec2 in_vertexUV;
+//layout(location = 0) in vec3 in_vertexPosition_modelspace;
+//layout(location = 1) in vec3 in_vertexNormal;
+//layout(location = 2) in vec2 in_vertexUV;
+
+in vec3 in_vertexPosition_modelspace;
+in vec3 in_vertexNormal;
+in vec2 in_vertexUV;
 
 // Output data ; will be interpolated for each fragment.
 out vec2 UV;
