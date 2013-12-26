@@ -36,6 +36,7 @@ CShaderOpenGL::~CShaderOpenGL()
 bool CShaderOpenGL::Load(const std::string& sName)
 {
 	m_uProgramID = LoadShaders( (sName + ".vsh").c_str(), (sName + ".fsh").c_str() );
+	
 	return true;
 }
 //-------------------------------------
@@ -184,7 +185,7 @@ GLuint CShaderOpenGL::LoadShaders(const char *vertex_file_path, const char *frag
 		glGetShaderInfoLog(VertexShaderID, InfoLogLength, NULL, VertexShaderErrorMessage.data() );
 		CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "%s", VertexShaderErrorMessage.data());
 	}
- 
+
 	// Compile Fragment Shader
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Compiling fragment shader : %s", fragment_file_path);
 	char const * FragmentSourcePointer = FragmentShaderCode.c_str();
@@ -204,6 +205,12 @@ GLuint CShaderOpenGL::LoadShaders(const char *vertex_file_path, const char *frag
 	// Link the program
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Linking shader program");
 	GLuint ProgramID = glCreateProgram();
+
+	// Define the Vertex attributes in the shader
+	glBindAttribLocation(ProgramID, 0, "in_vertexPos");
+	glBindAttribLocation(ProgramID, 1, "in_vertexNormal");
+	glBindAttribLocation(ProgramID, 2, "in_vertexUV");
+
 	glAttachShader(ProgramID, VertexShaderID);
 	glAttachShader(ProgramID, FragmentShaderID);
 	glLinkProgram(ProgramID);

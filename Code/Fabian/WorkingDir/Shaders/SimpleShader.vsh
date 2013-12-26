@@ -4,7 +4,7 @@
 //layout(location = 1) in vec3 in_vertexNormal;
 //layout(location = 2) in vec2 in_vertexUV;
 
-in vec3 in_vertexPosition_modelspace;
+in vec3 in_vertexPos;
 in vec3 in_vertexNormal;
 in vec2 in_vertexUV;
 
@@ -23,7 +23,7 @@ uniform mat4 Projection;
 void main()
 {
     // Output position of the vertex, in clip space : MVP * position
-    vec4 v = vec4(in_vertexPosition_modelspace, 1); // Transform an homogeneous 4D vector
+    vec4 v = vec4(in_vertexPos, 1); // Transform an homogeneous 4D vector
     gl_Position = (Projection * View * Model) * v;
 	 
 	// Vector that goes from the vertex to the camera, in camera space.

@@ -149,7 +149,7 @@ void CServiceGame::LoadLevel()
 	std::ifstream is(file);		// open file
 	while (is.good())				// loop while extraction from file is possible
 	{
-		wchar_t c = (wchar_t)is.get();       // get character from file
+		char c = is.get();       // get character from file
 		if (is.good())
 		{
 			// check which character i have
@@ -166,7 +166,7 @@ void CServiceGame::LoadLevel()
 		}
 	}
 
-	std::wcout << L"\n\nw: " << w << L" - h: " << h << L"\n";
+	std::cout << "\n\nw: " << w << " - h: " << h << "\n";
 
 	// return to start of the file and read again
 	is.clear();
@@ -176,14 +176,11 @@ void CServiceGame::LoadLevel()
 	Grid *pGrid = new Grid(w, h);
 	CGlobalAccessor::Get().AddObject("Grid", pGrid);
 
-	int x = 0,
-		y = 0;
-
     glm::vec2 vPos(0, 0);
 
 	while (is.good())				// loop while extraction from file is possible
 	{
-		wchar_t c = (wchar_t)is.get();       // get character from file
+		char c = is.get();       // get character from file
 		if (is.good())
 		{
 			// check which character i have
@@ -317,7 +314,7 @@ void CServiceGame::LoadLevel()
 				++vPos.x;
 			else
 			{
-				x = 0;
+				vPos.x = 0;
 				++vPos.y;
 			}
 		}
