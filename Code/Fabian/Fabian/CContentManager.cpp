@@ -49,11 +49,21 @@ IMesh *CContentManager::LoadMesh(const std::string& sFile)
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Mesh: %s", sFile.c_str());
 	if ( !IsMeshLoaded(sFile))
 	{
+        std::string sLib("plugins/FPM_OBJLoader");
+
+#if defined WIN32 /*windows*/
+        sLib += ".dll";
+#elif defined UNIX /*unix*/
+        sLib += ".so";
+#else
+#error PLATFORM NOT IMPLENTED
+#endif
+
 		CLibrary lib;
-		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new mesh using \"%s\"", "plugins/A3DLoader.fpm");
-		if( !lib.Load("../debug/FPM_OBJLoader.dll") )//"plugins/A3DLoader.fpm") )
+		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new mesh using \"%s\"", sLib.c_str());
+		if( !lib.Load(sLib) )
 		{
-            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of plugin failed: \"%s\"", "plugins/A3DLoader.fpm");
+            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of plugin failed: \"%s\"", sLib.c_str());
 			return nullptr;
         }
 		LOAD_MESHDATA fLoadMD = (LOAD_MESHDATA)lib.GetFunction("LoadData"); // meshData Loading function
@@ -61,7 +71,7 @@ IMesh *CContentManager::LoadMesh(const std::string& sFile)
 
 		if( fLoadMD == nullptr || fReleaseMD == nullptr )
 		{
-            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of LOADDATA(%d) or RELEASEDATA(%d) in \"%s\" failed.", fLoadMD, fReleaseMD, "plugins/A3DLoader.fpm");
+            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of LOADDATA(%d) or RELEASEDATA(%d) in \"%s\" failed.", fLoadMD, fReleaseMD, sLib.c_str());
 			return nullptr;
         }
 
@@ -89,11 +99,21 @@ IImage *CContentManager::LoadImage(const std::string& sFile)
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Texture: %s", sFile.c_str());
 	if ( !IsImageLoaded(sFile))
 	{
+        std::string sLib("plugins/FPI_SOILLoader");
+
+#if defined WIN32 /*windows*/
+        sLib += ".dll";
+#elif defined UNIX /*unix*/
+        sLib += ".so";
+#else
+#error PLATFORM NOT IMPLENTED
+#endif
+
 		CLibrary lib;
-		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new Texture using \"%s\"", "plugins/SOILLoader.fpi");
-		if( !lib.Load("plugins/SOILLoader.fpi") )
+		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new Texture using \"%s\"", sLib.c_str());
+		if( !lib.Load(sLib) )
 		{
-            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of plugin failed: \"%s\"", "plugins/SOILLoader.fpi");
+            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of plugin failed: \"%s\"", sLib.c_str());
 			return nullptr;
         }
 		LOAD_IMAGEDATA fLoadID = (LOAD_IMAGEDATA)lib.GetFunction("LoadData"); // meshData Loading function
@@ -101,7 +121,7 @@ IImage *CContentManager::LoadImage(const std::string& sFile)
 
 		if( fLoadID == nullptr || fReleaseID == nullptr )
 		{
-            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of LOADDATA(%d) or RELEASEDATA(%d) in \"%s\" failed.", fLoadID, fReleaseID, "plugins/SOILLoader.fpi");
+            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of LOADDATA(%d) or RELEASEDATA(%d) in \"%s\" failed.", fLoadID, fReleaseID, sLib.c_str());
 			return nullptr;
         }
 

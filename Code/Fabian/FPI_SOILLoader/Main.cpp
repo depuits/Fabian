@@ -3,10 +3,16 @@
 #include <DataStructures.h>
 #include <vector>
 
+#ifdef WIN32
+	#define DECLDIR __declspec(dllexport)
+#else
+	#define DECLDIR
+#endif
+
 extern "C"
 {
 	// Plugin factory function
-	__declspec(dllexport) ImageData* LoadData(const char* sFile)
+	DECLDIR ImageData* LoadData(const char* sFile)
 	{
 		int w, h;
 		ImageData *pID = new ImageData();
@@ -19,11 +25,11 @@ extern "C"
 	}
 
 	// Plugin cleanup function
-	__declspec(dllexport) void ReleaseData (ImageData* pID)
+	DECLDIR void ReleaseData (ImageData* pID)
 	{
 		//we allocated in the factory with new, delete the passed object
 		SOIL_free_image_data( pID->data );
-		delete pID;	
+		delete pID;
 	}
 }
 

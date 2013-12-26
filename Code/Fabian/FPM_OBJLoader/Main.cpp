@@ -1,24 +1,31 @@
 #include <DataStructures.h>
 #include <glm/glm.hpp>
 #include <string>
+#include <string.h> // needed on linux
 #include <vector>
+
+#ifdef WIN32
+	#define DECLDIR __declspec(dllexport)
+#else
+	#define DECLDIR
+#endif
 
 extern "C"
 {
 	// Plugin factory function
-	__declspec(dllexport) MeshData* LoadData(const char* sFile)
+	DECLDIR MeshData* LoadData(const char* sFile)
 	{
 		std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
 		std::vector< glm::vec3 > temp_vertices;
 		std::vector< glm::vec3 > temp_normals;
 		std::vector< glm::vec2 > temp_uvs;
-		
+
 		FILE *file = fopen(sFile, "r");
 		if( file == NULL ){
 			printf("Impossible to open the file !\n");
-			return false;
+			return nullptr;
 		}
-		
+
 		while( 1 )
 		{
 			char lineHeader[128];
@@ -26,7 +33,7 @@ extern "C"
 			int res = fscanf(file, "%s", lineHeader);
 			if (res == EOF)
 				break; // EOF = End Of File. Quit the loop.
- 
+
 			// else : parse lineHeader
 			if ( strcmp( lineHeader, "v" ) == 0 )
 			{
@@ -43,7 +50,7 @@ extern "C"
 			else if ( strcmp( lineHeader, "vt" ) == 0 )
 			{
 				glm::vec2 uv;
-				fscanf(file, "%f %f %f\n", &uv.x, &uv.y );
+				fscanf(file, "%f %f\n", &uv.x, &uv.y );
 				temp_uvs.push_back(uv);
 			}
 			else if ( strcmp( lineHeader, "f" ) == 0 )
@@ -54,7 +61,7 @@ extern "C"
 				if (matches != 9)
 				{
 					printf("File can't be read by our simple parser : ( Try exporting with other options\n");
-					return false;
+					return nullptr;
 				}
 				vertexIndices.push_back(vertexIndex[0]);
 				vertexIndices.push_back(vertexIndex[1]);
@@ -67,15 +74,15 @@ extern "C"
 				normalIndices.push_back(normalIndex[2]);
 			}
 		}
-		
+
 		if( vertexIndices.size() != uvIndices.size() && uvIndices.size() != normalIndices.size() ) // incorrect
 					printf("File can't be read by our simple parser : ( Not the same ammount of indices of all elements\n");
-		
+
 		std::vector<float> vertices;
 		std::vector<unsigned int> indices;
 		vertices.reserve( vertexIndices.size() * 8 );
 		indices.reserve( vertexIndices.size() );
-		
+
 		// For each vertex of each triangle
 		for( unsigned int i(0); i < vertexIndices.size(); ++i )
 		{
@@ -98,7 +105,7 @@ extern "C"
 		float *copiedVertices = new float[vertices.size()];
 		for (unsigned int i(0); i < vertices.size(); ++i)
 			copiedVertices[i] = vertices[i];
-		
+
 		unsigned int *copiedIndices = new unsigned int[indices.size()];
 		for (unsigned int i(0); i < indices.size(); ++i)
 			copiedIndices[i] = indices[i];
@@ -112,7 +119,7 @@ extern "C"
 	}
 
 	// Plugin cleanup function
-	__declspec(dllexport) void ReleaseData (MeshData* pMD)
+	DECLDIR void ReleaseData (MeshData* pMD)
 	{
 		delete[] pMD->iData;
 		delete[] pMD->vData;
