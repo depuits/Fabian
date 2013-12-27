@@ -1,12 +1,14 @@
 #include "MovingFloor.h"
 
 #include "Grid.h"
+#include "../CGameObject.h"
+
 #pragma warning( push )
 #pragma warning( disable: 4201 )
 //#define GLM_SWIZZLE <- can be used for vec4.xyz() method
 #include <glm/glm.hpp>
 #pragma warning( pop )
-	
+
 //-------------------------------------
 // constructor
 MovingFloor::MovingFloor(float s)
@@ -40,6 +42,7 @@ void MovingFloor::Update(float dt)
 			m_DelayCounter = m_Delay;
 
 		m_Currentpos = glm::clamp<float>(m_Currentpos, 0, 1);
+		m_pGameObject->Transform()->SetScale(m_Currentpos/2);
 	}
 	else
 	{

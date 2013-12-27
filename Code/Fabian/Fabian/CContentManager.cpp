@@ -75,6 +75,7 @@ IMesh *CContentManager::LoadMesh(const std::string& sFile)
         }
 
 		// load from dll
+		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new mesh: \"%s\"", sFile.c_str());
 		MeshData *md = fLoadMD(sFile.c_str());
 
 		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loaded MeshData ( v: %d - i: %d )", md->vCount / 8 /* divided by 8 becaus the vcount is x,y,z,nx,ny,nz,u,v*/, md->iCount);
@@ -125,6 +126,7 @@ IImage *CContentManager::LoadImage(const std::string& sFile)
         }
 
 		// load from dll
+		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new Texture: \"%s\"", sFile.c_str());
 		ImageData *id = fLoadID(sFile.c_str());
 
 		IImage *pImage = m_pRenderer->LoadImage(id);

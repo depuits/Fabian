@@ -208,7 +208,7 @@ void CServiceGame::LoadLevel()
 				AddGridEntity(pGrid, vPos, new Bomb(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
 				break;
 			case 'c':
-				AddGridEntity(pGrid, vPos, new Candy(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				AddGridEntity(pGrid, vPos, new Candy(), new CCompModel( m_pContent->LoadMesh("Meshes/candy.obj") ) );
 				break;
 			case 'p':
 				{
@@ -331,6 +331,10 @@ void CServiceGame::AddGridEntity(Grid* pGrid, glm::vec2& pos, GridEntity* pGEnt,
 	pGo->Transform()->SetPos( glm::vec3(pos.x * Grid::SCALE, -2, pos.y * Grid::SCALE) );
 	pGo->Transform()->SetScale( 0.5f );
 	g_vpGameObjects.push_back(pGo);
+
+	if( dynamic_cast<Candy*>(pGEnt) != nullptr)
+        pGo->Transform()->SetScale( 5.0f );
+
 
 	pGrid->SetGObject(pos.x, pos.y, pGEnt);
 }
