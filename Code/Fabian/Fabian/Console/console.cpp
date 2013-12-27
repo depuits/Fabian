@@ -58,7 +58,7 @@ void Console::Open()
 			hConsole =  GetStdHandle(STD_OUTPUT_HANDLE);
 		}
 	#else
-#warning CONSOLE NOT IMPLEMENTED YET, might not be needed
+#warning OPENING CONSOLE NOT IMPLEMENTED YET, might not be needed
 	#endif
 }
 

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Fabian" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="Debug/bin/Fabian" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../WorkingDir" />
+				<Option object_output="Debug/obj/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-std=c++11" />
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+					<Add directory="../../External/glew/include" />
+					<Add directory="../../External/glm" />
+					<Add directory="../../External/sdl2/include" />
+				</Compiler>
+				<Linker>
+					<Add option="-lSDL2" />
+					<Add option="-lSDL2main" />
+					<Add option="-lGL" />
+					<Add option="-lGLU" />
+					<Add option="-lGLEW" />
+					<Add option="-ldl" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="Release/bin/Fabian" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Release/obj/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="CApplication.cpp" />
+		<Unit filename="CApplication.h" />
+		<Unit filename="CCompCamera.cpp" />
+		<Unit filename="CCompCamera.h" />
+		<Unit filename="CCompControl.cpp" />
+		<Unit filename="CCompControl.h" />
+		<Unit filename="CCompModel.cpp" />
+		<Unit filename="CCompModel.h" />
+		<Unit filename="CContentManager.cpp" />
+		<Unit filename="CContentManager.h" />
+		<Unit filename="CGameObject.cpp" />
+		<Unit filename="CGameObject.h" />
+		<Unit filename="CGlobalAccessor.cpp" />
+		<Unit filename="CGlobalAccessor.h" />
+		<Unit filename="CImageOpenGL.cpp" />
+		<Unit filename="CImageOpenGL.h" />
+		<Unit filename="CInputSDL.cpp" />
+		<Unit filename="CInputSDL.h" />
+		<Unit filename="CKernel.cpp" />
+		<Unit filename="CKernel.h" />
+		<Unit filename="CLibrary.cpp" />
+		<Unit filename="CLibrary.h" />
+		<Unit filename="CLibraryLoader.cpp" />
+		<Unit filename="CLibraryLoader.h" />
+		<Unit filename="CLog.cpp" />
+		<Unit filename="CLog.h" />
+		<Unit filename="CLoggerMultiple.cpp" />
+		<Unit filename="CLoggerMultiple.h" />
+		<Unit filename="CLoggerToConsole.cpp" />
+		<Unit filename="CLoggerToConsole.h" />
+		<Unit filename="CLoggerToFiles.cpp" />
+		<Unit filename="CLoggerToFiles.h" />
+		<Unit filename="CMeshOpenGL.cpp" />
+		<Unit filename="CMeshOpenGL.h" />
+		<Unit filename="CRendererOpenGL.cpp" />
+		<Unit filename="CRendererOpenGL.h" />
+		<Unit filename="CServiceGame.cpp" />
+		<Unit filename="CServiceGame.h" />
+		<Unit filename="CServiceInput.cpp" />
+		<Unit filename="CServiceInput.h" />
+		<Unit filename="CServiceMessageLoop.cpp" />
+		<Unit filename="CServiceMessageLoop.h" />
+		<Unit filename="CServiceTimer.cpp" />
+		<Unit filename="CServiceTimer.h" />
+		<Unit filename="CServiceVideoUpdate.cpp" />
+		<Unit filename="CServiceVideoUpdate.h" />
+		<Unit filename="CShaderOpenGL.cpp" />
+		<Unit filename="CShaderOpenGL.h" />
+		<Unit filename="CTransform.cpp" />
+		<Unit filename="CTransform.h" />
+		<Unit filename="Console/ConsoleColor.h" />
+		<Unit filename="Console/console.cpp" />
+		<Unit filename="Console/console.h" />
+		<Unit filename="Console/keys.h" />
+		<Unit filename="DataStructures.h" />
+		<Unit filename="FabianDef.h" />
+		<Unit filename="Game/Bomb.cpp" />
+		<Unit filename="Game/Bomb.h" />
+		<Unit filename="Game/Candy.cpp" />
+		<Unit filename="Game/Candy.h" />
+		<Unit filename="Game/CollapseFloor.cpp" />
+		<Unit filename="Game/CollapseFloor.h" />
+		<Unit filename="Game/Enemy.cpp" />
+		<Unit filename="Game/Enemy.h" />
+		<Unit filename="Game/Enemy1D.cpp" />
+		<Unit filename="Game/Enemy1D.h" />
+		<Unit filename="Game/EnemyRot.cpp" />
+		<Unit filename="Game/EnemyRot.h" />
+		<Unit filename="Game/Entity.cpp" />
+		<Unit filename="Game/Entity.h" />
+		<Unit filename="Game/Exit.cpp" />
+		<Unit filename="Game/Exit.h" />
+		<Unit filename="Game/Floor.cpp" />
+		<Unit filename="Game/Floor.h" />
+		<Unit filename="Game/Grid.cpp" />
+		<Unit filename="Game/Grid.h" />
+		<Unit filename="Game/GridEntity.cpp" />
+		<Unit filename="Game/GridEntity.h" />
+		<Unit filename="Game/MovingFloor.cpp" />
+		<Unit filename="Game/MovingFloor.h" />
+		<Unit filename="Game/Player.cpp" />
+		<Unit filename="Game/Player.h" />
+		<Unit filename="Game/Wall.cpp" />
+		<Unit filename="Game/Wall.h" />
+		<Unit filename="Game/Water.cpp" />
+		<Unit filename="Game/Water.h" />
+		<Unit filename="IComponent.cpp" />
+		<Unit filename="IComponent.h" />
+		<Unit filename="IImage.h" />
+		<Unit filename="IInput.cpp" />
+		<Unit filename="IInput.h" />
+		<Unit filename="ILogger.h" />
+		<Unit filename="IMesh.h" />
+		<Unit filename="IObject.cpp" />
+		<Unit filename="IObject.h" />
+		<Unit filename="IRenderer.h" />
+		<Unit filename="IService.cpp" />
+		<Unit filename="IService.h" />
+		<Unit filename="IShader.h" />
+		<Unit filename="InputDef.h" />
+		<Unit filename="Main.cpp" />
+		<Unit filename="ServiceMsg.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

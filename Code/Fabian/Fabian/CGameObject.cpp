@@ -5,8 +5,8 @@
 
 //******************************************
 // Class CGameObject:
-// this is an layer between the IObject and 
-// just the GameObjects. This can be used to 
+// this is an layer between the IObject and
+// just the GameObjects. This can be used to
 // differ between an object and gameobject.
 // All non standard objects should derive from
 // IGameObject instead of the IObject.
@@ -66,10 +66,13 @@ CTransform *CGameObject::Transform()
 
 void CGameObject::AddComponent(IComponent* pComp)
 {
+    //check if component isn't alreay added
+	CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Function not FULLY implemented yet");
+
+    //add component when not added yet
 	pComp->SetParent(this);
 	pComp->Start();
 	m_vpComponents.push_back(pComp);
-	CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Function not FULLY implemented yet");
 }
 void CGameObject::RemoveComponent(IComponent*)
 {

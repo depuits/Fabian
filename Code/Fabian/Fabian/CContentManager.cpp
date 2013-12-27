@@ -46,7 +46,6 @@ CContentManager::~CContentManager()
 // rv - pointer IMesh or IImage object and nullptr if failed
 IMesh *CContentManager::LoadMesh(const std::string& sFile)
 {
-	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Mesh: %s", sFile.c_str());
 	if ( !IsMeshLoaded(sFile))
 	{
         std::string sLib("plugins/FPM_OBJLoader");
