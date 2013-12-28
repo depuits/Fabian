@@ -1,7 +1,9 @@
 #include "Exit.h"
 
 #include "Candy.h"
-	
+
+#include "../CLog.h"
+
 //-------------------------------------
 // constructor
 Exit::Exit()
@@ -22,10 +24,11 @@ Exit::~Exit()
 // p1 in - Entity standing here
 void Exit::Collision(Entity* e)
 {
-	if( /*m_pLevel->GetPlayer() == e &&*/ Candy::CandyLeft() <= 0)
+	if( /*m_pLevel->GetPlayer() == e &&*/ Candy::CandyLeft() <= 0 && !m_bFinished)
 	{
 		// go to next level
 		m_bFinished = true;
+		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_CLIENT | FLOG_ID_USER, "Congratz: You\'ve won");
 	}
 }
 //-------------------------------------

@@ -1,4 +1,6 @@
 #include "Candy.h"
+#include "../CGameObject.h"
+#include "../CCompModel.h"
 
 unsigned Candy::s_CandyCount = 0;
 
@@ -26,11 +28,22 @@ void Candy::Collision(Entity*)
 {
 	if( !m_bGathered )
 	{
+        m_pGameObject->GetComponentOfType<CCompModel>()->Disable();
 		m_bGathered = true;
 		--s_CandyCount;
 	}
 }
 //-------------------------------------
+
+void Candy::Reset()
+{
+    if( m_bGathered)
+    {
+        m_bGathered = false;
+        ++s_CandyCount;
+        m_pGameObject->GetComponentOfType<CCompModel>()->Enable();
+    }
+}
 
 unsigned Candy::CandyLeft()
 {

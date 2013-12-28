@@ -6,7 +6,7 @@
 class Candy : public Floor
 {
 public:
-	
+
 	//-------------------------------------
 	// constructor
 	Candy();
@@ -20,6 +20,8 @@ public:
 	// p1 in - Entity standing here
 	virtual void Collision(Entity*);
 	//-------------------------------------
+
+    virtual void Reset();
 
 	static unsigned CandyLeft();
 

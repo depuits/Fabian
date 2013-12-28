@@ -7,7 +7,7 @@
 class Floor : public GridEntity
 {
 public:
-	
+
 	//-------------------------------------
 	// constructor
 	Floor();
@@ -16,7 +16,9 @@ public:
 	virtual ~Floor();
 	//-------------------------------------
 
-protected:	
+	virtual void Reset();
+
+protected:
 	DISALLOW_COPY_AND_ASSIGN(Floor);
 };
 

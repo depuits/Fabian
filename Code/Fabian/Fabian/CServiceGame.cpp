@@ -124,7 +124,7 @@ bool CServiceGame::Start()
 	CGameObject *pGo = new CGameObject();
 	pGo->Init();
 	pGo->AddComponent( new CCompCamera() );
-	pGo->Transform()->SetPos( glm::vec3(0, 250, 0) );
+	pGo->Transform()->SetPos( glm::vec3(0, 10 * Grid::SCALE, 0) );
 	pGo->Transform()->SetRot( glm::vec3(0, 0, glm::half_pi<float>()) );
 	pGo->Transform()->Rotate( glm::vec3(0, -glm::half_pi<float>(), 0));
 	g_vpGameObjects.push_back(pGo);
@@ -187,33 +187,36 @@ void CServiceGame::LoadLevel()
 			switch(c)
 			{
 			case 'g':
-				AddGridEntity(pGrid, vPos, new Floor(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				AddGridEntity(pGrid, vPos, new Floor(), new CCompModel( m_pContent->LoadMesh("Meshes/floor.obj") ) );
 				break;
 			case 'm':
-				AddGridEntity(pGrid, vPos, new MovingFloor(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				AddGridEntity(pGrid, vPos, new MovingFloor(), new CCompModel( m_pContent->LoadMesh("Meshes/floor.obj") ) );
 				break;
 			case 'v':
-				AddGridEntity(pGrid, vPos, new CollapseFloor(1), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				AddGridEntity(pGrid, vPos, new CollapseFloor(1), new CCompModel( m_pContent->LoadMesh("Meshes/floor.obj") ) );
 				break;
 			case '~':
-				AddGridEntity(pGrid, vPos, new Water(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				//AddGridEntity(pGrid, vPos, new Water(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
 				break;
 			case 'w':
-				AddGridEntity(pGrid, vPos, new Wall(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				AddGridEntity(pGrid, vPos, new Wall(), new CCompModel( m_pContent->LoadMesh("Meshes/wall.obj") ) );
 				break;
 			case 'e':
-				AddGridEntity(pGrid, vPos, new Exit(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				AddGridEntity(pGrid, vPos, new Exit(), new CCompModel( m_pContent->LoadMesh("Meshes/floor.obj") ) );
 				break;
 			case 'b':
-				AddGridEntity(pGrid, vPos, new Bomb(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+				AddGridEntity(pGrid, vPos, new Bomb(), new CCompModel( m_pContent->LoadMesh("Meshes/floor.obj") ) );
 				break;
 			case 'c':
-				AddGridEntity(pGrid, vPos, new Candy(), new CCompModel( m_pContent->LoadMesh("Meshes/candy.obj") ) );
+			{
+				CGameObject *pGO = AddGridEntity(pGrid, vPos, new Candy(), new CCompModel( m_pContent->LoadMesh("Meshes/candy.obj") ) );
+				pGO->AddComponent(new CCompModel( m_pContent->LoadMesh("Meshes/floor.obj") ));
 				break;
+            }
 			case 'p':
 				{
 					// first add a floor
-					AddGridEntity(pGrid, vPos, new Floor(), new CCompModel( m_pContent->LoadMesh("Meshes/cube.obj") ) );
+					AddGridEntity(pGrid, vPos, new Floor(), new CCompModel( m_pContent->LoadMesh("Meshes/floor.obj") ) );
 
 					//then add player
 					CGameObject *pGo = new CGameObject();
@@ -322,21 +325,19 @@ void CServiceGame::LoadLevel()
 
 	is.close();                // close file
 }
-void CServiceGame::AddGridEntity(Grid* pGrid, glm::vec2& pos, GridEntity* pGEnt, IComponent* pComp)
+CGameObject *CServiceGame::AddGridEntity(Grid* pGrid, glm::vec2& pos, GridEntity* pGEnt, IComponent* pComp)
 {
 	CGameObject *pGo = new CGameObject();
 	pGo->Init();
 	pGo->AddComponent( pGEnt );
 	pGo->AddComponent( pComp );
-	pGo->Transform()->SetPos( glm::vec3(pos.x * Grid::SCALE, -2, pos.y * Grid::SCALE) );
-	pGo->Transform()->SetScale( 0.5f );
+	pGo->Transform()->SetPos( glm::vec3(pos.x * Grid::SCALE, 0, pos.y * Grid::SCALE) );
+	pGo->Transform()->SetScale( Grid::SCALE / 2 );
 	g_vpGameObjects.push_back(pGo);
 
-	if( dynamic_cast<Candy*>(pGEnt) != nullptr)
-        pGo->Transform()->SetScale( 5.0f );
-
-
 	pGrid->SetGObject(pos.x, pos.y, pGEnt);
+
+	return pGo;
 }
 //-------------------------------------
 // Called every time the service has to update

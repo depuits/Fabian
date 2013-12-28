@@ -1,7 +1,7 @@
 #include "Bomb.h"
 
 #include "Entity.h"
-	
+
 //-------------------------------------
 // constructor
 Bomb::Bomb()
@@ -29,4 +29,10 @@ void Bomb::Collision(Entity* e)
 	}
 }
 //-------------------------------------
+
+void Bomb::Reset()
+{
+    Floor::Reset();
+    m_bBlown = false;
+}
 

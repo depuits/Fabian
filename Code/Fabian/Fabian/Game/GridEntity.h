@@ -7,7 +7,7 @@ class Entity;
 class GridEntity : public IComponent
 {
 public:
-	
+
 	enum CollFlag {
 		CfVoid			= 0x00,
 		CfSolid			= 0x01,
@@ -25,8 +25,8 @@ public:
 	// destructor
 	virtual ~GridEntity();
 	//-------------------------------------
-	
-	
+
+
 	//-------------------------------------
 	// Initializes the object, should be called before any other
 	//    method of the object.
@@ -40,12 +40,14 @@ public:
 
 	CollFlag GetCollisionFlags() const;
 	void SetCollisionFlags(CollFlag);
-	
+
 	//-------------------------------------
 	// is called each tick an entity is on this gridentity
 	// p1 in - Entity standing here
 	virtual void Collision(Entity*);
 	//-------------------------------------
+
+	virtual void Reset() = 0;
 
 protected:
 	CollFlag m_CfCollision;

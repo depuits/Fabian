@@ -11,6 +11,7 @@ class CContentManager;
 class Grid;
 class GridEntity;
 class IComponent;
+class CGameObject;
 // ------------------------
 
 FDISABLE_WARNING_START(4201)
@@ -62,7 +63,7 @@ public:
 	//-------------------------------------
 
 protected:
-	void AddGridEntity(Grid*, glm::vec2&, GridEntity*, IComponent*);
+	CGameObject *AddGridEntity(Grid*, glm::vec2&, GridEntity*, IComponent*);
 
 	IInput *m_pInput;
 	IRenderer *m_pRenderer;

@@ -1,7 +1,8 @@
 #include "CollapseFloor.h"
 
 #include "Grid.h"
-	
+#include "../CGameObject.h"
+
 //-------------------------------------
 // constructor
 CollapseFloor::CollapseFloor(int pt)
@@ -32,7 +33,10 @@ void CollapseFloor::Update(float)
 	m_pNowOn = nullptr;
 
 	if( m_PassTimes <= 0 )
+	{
+        m_pGameObject->Transform()->SetScale(0);
 		SetCollisionFlags(CollFlag::CfVoid);
+    }
 }
 //-------------------------------------
 
@@ -44,4 +48,14 @@ void CollapseFloor::Collision(Entity* e)
 	m_pNowOn = e;
 }
 //-------------------------------------
+
+void CollapseFloor::Reset()
+{
+	,m_PassTimes(pt)
+	,m_pNowOn(nullptr)
+	,m_pLastOn(nullptr)
+
+	m_pGameObject->Transform()->SetScale(Grid::SCALE / 2);
+    SetCollisionFlags(CollFlag::CfGround);
+}
 

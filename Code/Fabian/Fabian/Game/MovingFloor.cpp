@@ -41,7 +41,7 @@ void MovingFloor::Update(float dt)
 			m_DelayCounter = m_Delay;
 
 		m_Currentpos = glm::clamp<float>(m_Currentpos, 0, 1);
-		m_pGameObject->Transform()->SetScale(m_Currentpos/2);
+		m_pGameObject->Transform()->SetScale(m_Currentpos/2 * Grid::SCALE);
 	}
 	else
 	{

@@ -1,10 +1,9 @@
 #include "Grid.h"
 
-#pragma warning( push )
-#pragma warning( disable: 4201 )
+FDISABLE_WARNING_START(4201)
 //#define GLM_SWIZZLE <- can be used for vec4.xyz() method
 #include <glm/glm.hpp>
-#pragma warning( pop )
+FDISABLE_WARNING_END(4201)
 
 //-------------------------------------
 // constructor
@@ -21,7 +20,7 @@ Grid::~Grid()
 			delete m_Grid[x][y];
 }
 //-------------------------------------
-	
+
 GridEntity* Grid::GetGObject(int x, int y) const
 {
 	if( IsInGrid(x, y) )
@@ -48,7 +47,7 @@ bool Grid::IsInGrid(int x, int y) const
 {
 	if( x < 0 || y < 0 )
 		return false;
-	
+
 	if( (unsigned)x >= m_Grid.size() )
 		return false;
 	if( (unsigned)y >= m_Grid[x].size() )

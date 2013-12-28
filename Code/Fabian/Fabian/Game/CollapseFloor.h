@@ -6,7 +6,7 @@
 class CollapseFloor : public GridEntity
 {
 public:
-	
+
 	//-------------------------------------
 	// constructor
 	// p1 in - level pointer
@@ -16,20 +16,22 @@ public:
 	// destructor
 	virtual ~CollapseFloor();
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Updates the object according to dTime
 	// p1 in - float, dTime since last update call
 	virtual void Update(float);
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// is called each tick an entity is on this gridentity
 	// p1 in - Entity standing here
 	virtual void Collision(Entity*);
 	//-------------------------------------
 
-protected:	
+	virtual void Reset();
+
+protected:
 	int m_PassTimes;
 
 	Entity* m_pNowOn, *m_pLastOn;

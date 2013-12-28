@@ -1,5 +1,5 @@
 #include "Floor.h"
-	
+
 //-------------------------------------
 // constructor
 Floor::Floor()
@@ -13,6 +13,10 @@ Floor::~Floor()
 {
 }
 //-------------------------------------
+
+void Floor::Reset()
+{
+}
 
 
 

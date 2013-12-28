@@ -1,4 +1,5 @@
 #include "IComponent.h"
+#include "CGameObject.h"
 
 //******************************************
 // Interface IObject:
@@ -21,10 +22,25 @@ IComponent::~IComponent()
 {
 }
 //-------------------------------------
-	
+
+
+//-------------------------------------
+// Enables the component in the gameobject
+void IComponent::Enable()
+{
+    m_pGameObject->EnableComponent(this);
+}
+//-------------------------------------
+// disables the component in the gameobject
+void IComponent::Disable()
+{
+    m_pGameObject->DisableComponent(this);
+}
+//-------------------------------------
+
 void IComponent::SetParent(CGameObject *pPar)
 {
-	FASSERT( pPar != nullptr );
+	FASSERT( pPar != nullptr && m_pGameObject == nullptr );
 	m_pGameObject = pPar;
 }
 

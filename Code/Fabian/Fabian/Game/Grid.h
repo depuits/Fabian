@@ -16,13 +16,13 @@ public:
 	// destructor
 	virtual ~Grid();
 	//-------------------------------------
-	
+
 	GridEntity* GetGObject(int x, int y) const;
 	bool SetGObject(int x, int y, GridEntity* o);
 
 	bool IsInGrid(int x, int y) const;
 	bool IsFlagRaised(int x, int y, GridEntity::CollFlag) const;
-	
+
 private:
 	std::vector<std::vector<GridEntity*>> m_Grid;
 

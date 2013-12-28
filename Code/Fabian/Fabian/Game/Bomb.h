@@ -6,7 +6,7 @@
 class Bomb : public Floor
 {
 public:
-	
+
 	//-------------------------------------
 	// constructor
 	Bomb();
@@ -20,6 +20,8 @@ public:
 	// p1 in - Entity standing here
 	virtual void Collision(Entity*);
 	//-------------------------------------
+
+    virtual void Reset();
 
 protected:
 	bool m_bBlown;

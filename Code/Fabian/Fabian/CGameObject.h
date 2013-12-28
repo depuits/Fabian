@@ -12,7 +12,7 @@ class IComponent;
 
 //******************************************
 // Class CGameObject:
-// 
+//
 //******************************************
 class CGameObject
 {
@@ -22,9 +22,9 @@ public:
 	CGameObject();
 	//-------------------------------------
 	// Destructor
-	virtual ~CGameObject();	
+	virtual ~CGameObject();
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Initializes the object, should be called before any other
 	//    method of the object.
@@ -39,15 +39,18 @@ public:
 	// p1 in - pointer to the shader the object should draw with
 	virtual void Draw(IShader*);
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Gets the transform for this object
 	// rv - pointer to the CTransform object
 	CTransform *Transform();
 	//-------------------------------------
 
-	void AddComponent(IComponent*);
-	void RemoveComponent(IComponent*);
+	bool AddComponent(IComponent*);
+	bool RemoveComponent(IComponent*);
+
+	bool DisableComponent(IComponent*);
+	bool EnableComponent(IComponent*);
 
 	template<typename T>
 	T *GetComponentOfType();
@@ -57,6 +60,7 @@ protected:
 
 private:
 	std::vector<IComponent*> m_vpComponents;
+	std::vector<IComponent*> m_vpDisabledComponents;
 
 	DISALLOW_COPY_AND_ASSIGN(CGameObject);
 };
