@@ -7,28 +7,33 @@
   TypeName(const TypeName&);               \
   void operator=(const TypeName&)
 
+// define for disabling warnings in MSV
+#ifdef _MSC_VER
+    #define FDISABLE_WARNING_START(warningc)		\
+        __pragma(warning(push))						\
+        __pragma(warning(disable:warningc))
+
+    #define FDISABLE_WARNING_END(warningc)		\
+        __pragma(warning(pop))
+
+#else
+    #define FDISABLE_WARNING_START(warningc)
+    #define FDISABLE_WARNING_END(warningc)
+#endif
+
 // sdl assertion within a macro because of compiler warnings
 #include <SDL_assert.h>
 
-#ifdef _MSC_VER
-    #define FASSERT(condition)			\
-        __pragma(warning(push))			\
-        __pragma(warning(disable:4127))	\
-        SDL_assert(condition);			\
-        __pragma(warning(pop))
+#define FASSERT(condition)			\
+	FDISABLE_WARNING_START(4127)	\
+    SDL_assert(condition);			\
+    FDISABLE_WARNING_END(4127)
 
-    #define FASSERTR(condition)			\
-        __pragma(warning(push))			\
-        __pragma(warning(disable:4127))	\
-        SDL_assert_release(condition);	\
-        __pragma(warning(pop))
-#else
-    #define FASSERT(condition)			\
-        SDL_assert(condition);
+#define FASSERTR(condition)			\
+	FDISABLE_WARNING_START(4127)	\
+    SDL_assert_release(condition);	\
+    FDISABLE_WARNING_END(4127)
 
-    #define FASSERTR(condition)			\
-        SDL_assert_release(condition);
-# endif
 
 // dll export define
 #ifdef WIN32
