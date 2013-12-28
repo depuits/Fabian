@@ -29,6 +29,8 @@ public:
 
 	virtual void EnemyMovement(float) = 0;
 
+	virtual void Die();
+
 protected:
 	Entity *m_pPlayer;
 

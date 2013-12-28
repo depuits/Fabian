@@ -132,6 +132,9 @@ bool CServiceGame::Start()
 
 	LoadLevel();
 
+	for (CGameObject* go : g_vpGameObjects)
+		go->Init();
+
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Started" );
 	return true;
 }
@@ -224,7 +227,6 @@ void CServiceGame::LoadLevel()
 					pEnt->SetRespawn(vPos);
 					pEnt->SetGridPos(vPos);
 
-					pGo->Init();
 					pGo->AddComponent( pEnt );
 					pGo->AddComponent( new CCompModel( m_pContent->LoadMesh("Meshes/car.obj") ) );
 					pGo->Transform()->SetScale( 0.5f );
@@ -234,82 +236,110 @@ void CServiceGame::LoadLevel()
 				}
 
 				// 1D enemys
-			/*case '2':
-				m_pGrid->SetGObject(x, y, new Floor(this));
-				e = new Enemy1D(this, GMath::Vector2i(0, 1));
-				e->SetGridPos(GMath::Vector2i(x, y));
-				m_pEntitys.push_back(e);
-				break;
+			case '2':
 			case '4':
-				m_pGrid->SetGObject(x, y, new Floor(this));
-				e = new Enemy1D(this, GMath::Vector2i(-1, 0));
-				e->SetGridPos(GMath::Vector2i(x, y));
-				m_pEntitys.push_back(e);
-				break;
 			case '6':
-				m_pGrid->SetGObject(x, y, new Floor(this));
-				e = new Enemy1D(this, GMath::Vector2i(1, 0));
-				e->SetGridPos(GMath::Vector2i(x, y));
-				m_pEntitys.push_back(e);
-				break;
 			case '8':
-				m_pGrid->SetGObject(x, y, new Floor(this));
-				e = new Enemy1D(this, GMath::Vector2i(0, -1));
-				e->SetGridPos(GMath::Vector2i(x, y));
-				m_pEntitys.push_back(e);
-				break;
+				{
+					glm::vec2 dir;
+					switch(c)
+					{
+					case '2':
+						dir = glm::vec2(0, 1);
+						break;
+					case '4':
+						dir = glm::vec2(-1, 0);
+						break;
+					case '6':
+						dir = glm::vec2(1, 0);
+						break;
+					case '8':
+						dir = glm::vec2(0, -1);
+						break;
+					}
+
+					// first add a floor
+					AddGridEntity(pGrid, vPos, new Floor(), new CCompModel( m_pContent->LoadMesh("Meshes/floor.obj") ) );
+				
+					//then add enemy
+					CGameObject *pGo = new CGameObject();
+					Entity *pEnt = new Enemy1D(dir);
+					pEnt->SetRespawn(vPos);
+					pEnt->SetGridPos(vPos);
+
+					pGo->AddComponent( pEnt );
+					pGo->AddComponent( new CCompModel( m_pContent->LoadMesh("Meshes/car.obj") ) );
+					pGo->Transform()->SetScale( 0.5f );
+					g_vpGameObjects.push_back(pGo);
+					break;
+				}
 
 				// Rot enemys
 				// CW
 			case 's':
-				m_pGrid->SetGObject(x, y, new Floor(this));
-				e = new EnemyRot(this, GMath::Vector2i(0, 1));
-				e->SetGridPos(GMath::Vector2i(x, y));
-				m_pEntitys.push_back(e);
-				break;
 			case 'q':
-				m_pGrid->SetGObject(x, y, new Floor(this));
-				e = new EnemyRot(this, GMath::Vector2i(-1, 0));
-				e->SetGridPos(GMath::Vector2i(x, y));
-				m_pEntitys.push_back(e);
-				break;
 			case 'd':
-				m_pGrid->SetGObject(x, y, new Floor(this));
-				e = new EnemyRot(this, GMath::Vector2i(1, 0));
-				e->SetGridPos(GMath::Vector2i(x, y));
-				m_pEntitys.push_back(e);
-				break;
 			case 'z':
-				m_pGrid->SetGObject(x, y, new Floor(this));
-				e = new EnemyRot(this, GMath::Vector2i(0, -1));
-				e->SetGridPos(GMath::Vector2i(x, y));
-				m_pEntitys.push_back(e);
-				break;
-				// CCW
+
 			case 'k':
-				m_pGrid->SetGObject(x, y, new Floor(this));
-				e = new EnemyRot(this, GMath::Vector2i(0, 1), EnemyRot::CCW);
-				e->SetGridPos(GMath::Vector2i(x, y));
-				m_pEntitys.push_back(e);
-				break;
 			case 'j':
-				m_pGrid->SetGObject(x, y, new Floor(this));
-				e = new EnemyRot(this, GMath::Vector2i(-1, 0), EnemyRot::CCW);
-				e->SetGridPos(GMath::Vector2i(x, y));
-				m_pEntitys.push_back(e);
-				break;
 			case 'l':
-				m_pGrid->SetGObject(x, y, new Floor(this));
-				e = new EnemyRot(this, GMath::Vector2i(1, 0), EnemyRot::CCW);
-				e->SetGridPos(GMath::Vector2i(x, y));
-				m_pEntitys.push_back(e);
-				break;
 			case 'i':
-				m_pGrid->SetGObject(x, y, new Floor(this));
-				e = new EnemyRot(this, GMath::Vector2i(0, -1), EnemyRot::CCW);
-				e->SetGridPos(GMath::Vector2i(x, y));
-				m_pEntitys.push_back(e);
-				break;*/
+				{
+					glm::vec2 dir;
+					char rotDir = 0;
+					switch(c)
+					{
+					case 's':
+						dir = glm::vec2(0, 1);
+						rotDir = EnemyRot::CW;
+						break;
+					case 'q':
+						dir = glm::vec2(-1, 0);
+						rotDir = EnemyRot::CW;
+						break;
+					case 'd':
+						dir = glm::vec2(1, 0);
+						rotDir = EnemyRot::CW;
+						break;
+					case 'z':
+						dir = glm::vec2(0, -1);
+						rotDir = EnemyRot::CW;
+						break;
+
+					case 'k':
+						dir = glm::vec2(0, 1);
+						rotDir = EnemyRot::CCW;
+						break;
+					case 'j':
+						dir = glm::vec2(-1, 0);
+						rotDir = EnemyRot::CCW;
+						break;
+					case 'l':
+						dir = glm::vec2(1, 0);
+						rotDir = EnemyRot::CCW;
+						break;
+					case 'i':
+						dir = glm::vec2(0, -1);
+						rotDir = EnemyRot::CCW;
+						break;
+					}
+
+					// first add a floor
+					AddGridEntity(pGrid, vPos, new Floor(), new CCompModel( m_pContent->LoadMesh("Meshes/floor.obj") ) );
+				
+					//then add enemy
+					CGameObject *pGo = new CGameObject();
+					Entity *pEnt = new EnemyRot(dir, rotDir);
+					pEnt->SetRespawn(vPos);
+					pEnt->SetGridPos(vPos);
+
+					pGo->AddComponent( pEnt );
+					pGo->AddComponent( new CCompModel( m_pContent->LoadMesh("Meshes/car.obj") ) );
+					pGo->Transform()->SetScale( 0.5f );
+					g_vpGameObjects.push_back(pGo);
+					break;
+				}
 			}
 
 			//progress when filled
@@ -328,7 +358,6 @@ void CServiceGame::LoadLevel()
 CGameObject *CServiceGame::AddGridEntity(Grid* pGrid, glm::vec2& pos, GridEntity* pGEnt, IComponent* pComp)
 {
 	CGameObject *pGo = new CGameObject();
-	pGo->Init();
 	pGo->AddComponent( pComp );
 	pGo->AddComponent( pGEnt );
 	pGo->Transform()->SetPos( glm::vec3(pos.x * Grid::SCALE, 0, pos.y * Grid::SCALE) );

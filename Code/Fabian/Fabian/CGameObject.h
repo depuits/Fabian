@@ -58,6 +58,8 @@ public:
 protected:
 	CTransform m_Transform;
 
+	bool m_bInitialized;
+
 private:
 	std::vector<IComponent*> m_vpComponents;
 	std::vector<IComponent*> m_vpDisabledComponents;

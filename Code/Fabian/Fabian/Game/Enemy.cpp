@@ -1,6 +1,7 @@
 #include "Enemy.h"
 
 #include "../CGlobalAccessor.h"
+#include "../CLog.h"
 
 //-------------------------------------
 // constructor
@@ -45,4 +46,10 @@ void Enemy::DerivedUpdate(float dt)
 }
 //-------------------------------------
 
+void Enemy::Die()
+{
+	//delete the enemy instead of the default respawn behavior
+	CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_CLIENT, "Enemy destroying not implemented yet (respawning for now)");
+	Entity::Die();
+}
 

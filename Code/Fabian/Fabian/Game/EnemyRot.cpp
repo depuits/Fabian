@@ -30,7 +30,7 @@ void EnemyRot::EnemyMovement(float)
 	glm::vec2 gpos;
 	GetGridPos(gpos);
 
-	if( m_pGrid->IsFlagRaised(gpos.x + m_Movement.x, gpos.y + m_Movement.y, GridEntity::CfGround) )
+	if( m_pGrid->IsFlagRaised((int)(gpos.x + m_Movement.x), (int)(gpos.y + m_Movement.y), GridEntity::CfGround) )
 		Move(m_Movement);
 	else // rotate CW or CCW
 	{

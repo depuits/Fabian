@@ -19,6 +19,7 @@
 //            the object to be linked to the parent
 CGameObject::CGameObject()
 	:m_Transform()
+	,m_bInitialized(false)
 {
 }
 //-------------------------------------
@@ -39,6 +40,13 @@ CGameObject::~CGameObject()
 // rv - bool, return false if something failed
 bool CGameObject::Init()
 {
+	m_bInitialized = true;
+	// start all components, enabled and disabled
+	for(std::vector<IComponent*>::iterator it( m_vpComponents.begin() ); it != m_vpComponents.end(); ++it)
+		(*it)->Start();
+	for(std::vector<IComponent*>::iterator it( m_vpDisabledComponents.begin() ); it != m_vpDisabledComponents.end(); ++it)
+		(*it)->Start();
+
 	return true;
 }
 //-------------------------------------
@@ -84,7 +92,8 @@ bool CGameObject::AddComponent(IComponent *pComp)
 
     //add component when not added yet
 	pComp->SetParent(this);
-	pComp->Start();
+	if( m_bInitialized )
+		pComp->Start();
 	pComp->UpdateState(FCOMP_STATE_ENABLE);
 	m_vpComponents.push_back(pComp);
 
