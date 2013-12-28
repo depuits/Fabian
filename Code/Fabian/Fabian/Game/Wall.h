@@ -16,6 +16,7 @@ public:
 	virtual ~Wall();
 	//-------------------------------------
 
+	virtual void Reset();
 
 protected:	
 	DISALLOW_COPY_AND_ASSIGN(Wall);

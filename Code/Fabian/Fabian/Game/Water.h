@@ -16,6 +16,8 @@ public:
 	virtual ~Water();
 	//-------------------------------------
 
+	virtual void Reset();
+
 protected:	
 	DISALLOW_COPY_AND_ASSIGN(Water);
 };

@@ -23,6 +23,8 @@ public:
 	bool IsInGrid(int x, int y) const;
 	bool IsFlagRaised(int x, int y, GridEntity::CollFlag) const;
 
+	void Reset();
+
 private:
 	std::vector<std::vector<GridEntity*>> m_Grid;
 

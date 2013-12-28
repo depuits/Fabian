@@ -15,9 +15,10 @@ Grid::Grid(int w, int h)
 // destructor
 Grid::~Grid()
 {
-	for (unsigned x(0); x < m_Grid.size(); ++x)
+	// no deletion here because the components get deleted in the gameobjects
+	/*for (unsigned x(0); x < m_Grid.size(); ++x)
 		for (unsigned y(0); y < m_Grid[x].size(); ++y)
-			delete m_Grid[x][y];
+			delete m_Grid[x][y]; // might cause problems look over it again : gridentity component get delete in gameobject so maybe not here*/
 }
 //-------------------------------------
 
@@ -61,6 +62,14 @@ bool Grid::IsFlagRaised(int x, int y, GridEntity::CollFlag cf) const
 		return false;
 
 	return ( (m_Grid[x][y]->GetCollisionFlags() & cf) == cf);
+}
+
+void Grid::Reset()
+{
+	for (unsigned x(0); x < m_Grid.size(); ++x)
+		for (unsigned y(0); y < m_Grid[x].size(); ++y)
+			if( m_Grid[x][y] != nullptr)
+				m_Grid[x][y]->Reset();
 }
 
 

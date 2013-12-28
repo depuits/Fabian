@@ -149,7 +149,7 @@ void CServiceGame::LoadLevel()
 	std::ifstream is(file);		// open file
 	while (is.good())				// loop while extraction from file is possible
 	{
-		char c = is.get();       // get character from file
+		char c = (char)is.get();       // get character from file
 		if (is.good())
 		{
 			// check which character i have
@@ -180,7 +180,7 @@ void CServiceGame::LoadLevel()
 
 	while (is.good())				// loop while extraction from file is possible
 	{
-		char c = is.get();       // get character from file
+		char c = (char)is.get();       // get character from file
 		if (is.good())
 		{
 			// check which character i have
@@ -329,13 +329,13 @@ CGameObject *CServiceGame::AddGridEntity(Grid* pGrid, glm::vec2& pos, GridEntity
 {
 	CGameObject *pGo = new CGameObject();
 	pGo->Init();
-	pGo->AddComponent( pGEnt );
 	pGo->AddComponent( pComp );
+	pGo->AddComponent( pGEnt );
 	pGo->Transform()->SetPos( glm::vec3(pos.x * Grid::SCALE, 0, pos.y * Grid::SCALE) );
 	pGo->Transform()->SetScale( Grid::SCALE / 2 );
 	g_vpGameObjects.push_back(pGo);
 
-	pGrid->SetGObject(pos.x, pos.y, pGEnt);
+	pGrid->SetGObject((int)pos.x, (int)pos.y, pGEnt);
 
 	return pGo;
 }
@@ -370,6 +370,8 @@ void CServiceGame::Stop()
 	for (CGameObject* go : g_vpGameObjects)
 		delete go;
 	g_vpGameObjects.clear();
+
+	delete static_cast<Grid*>( CGlobalAccessor::Get().GetObject("Grid") );
 
 	delete g_pShader;
 	delete m_pContent;

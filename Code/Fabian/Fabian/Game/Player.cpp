@@ -74,5 +74,10 @@ void Player::DerivedUpdate(float)
 }
 //-------------------------------------
 
+void Player::Die()
+{
+	Entity::Die();
+	m_pGrid->Reset();
+}
 
 

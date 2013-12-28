@@ -32,7 +32,7 @@ public:
 	virtual void Reset();
 
 protected:
-	int m_PassTimes;
+	int m_PassTimes, m_PassTimesOri;
 
 	Entity* m_pNowOn, *m_pLastOn;
 

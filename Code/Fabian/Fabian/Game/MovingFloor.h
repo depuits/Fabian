@@ -23,6 +23,8 @@ public:
 	// p2 in - the grid position of the object
 	virtual void Update(float);
 	//-------------------------------------
+	
+	virtual void Reset();
 
 protected:	
 	float m_Currentpos, m_Delay, m_DelayCounter, m_Speed;

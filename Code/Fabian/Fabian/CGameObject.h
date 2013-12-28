@@ -70,7 +70,16 @@ private:
 template<typename T>
 T *CGameObject::GetComponentOfType()
 {
+	// check for activated components
 	for(std::vector<IComponent*>::iterator it( m_vpComponents.begin() ); it != m_vpComponents.end(); ++it)
+	{
+		T* val = dynamic_cast<T*>(*it);
+		if (val != nullptr)
+			return val;
+	}
+
+	// check for deactivated components
+	for(std::vector<IComponent*>::iterator it( m_vpDisabledComponents.begin() ); it != m_vpDisabledComponents.end(); ++it)
 	{
 		T* val = dynamic_cast<T*>(*it);
 		if (val != nullptr)

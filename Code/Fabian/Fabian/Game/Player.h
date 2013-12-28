@@ -29,6 +29,7 @@ public:
 	virtual void DerivedUpdate(float);
 	//-------------------------------------
 
+	virtual void Die();
 
 protected:
 	IInput *m_pInput;

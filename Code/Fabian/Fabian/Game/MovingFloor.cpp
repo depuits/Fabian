@@ -62,4 +62,12 @@ void MovingFloor::Update(float dt)
 }
 //-------------------------------------
 
+void MovingFloor::Reset()
+{
+	m_Currentpos = 1;
+	m_DelayCounter = 0;
+	m_Dir = -1;
+
+	SetCollisionFlags(CollFlag::CfGround);
+}
 

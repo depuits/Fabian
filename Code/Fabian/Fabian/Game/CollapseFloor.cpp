@@ -8,6 +8,7 @@
 CollapseFloor::CollapseFloor(int pt)
 	:GridEntity()
 	,m_PassTimes(pt)
+	,m_PassTimesOri(pt)
 	,m_pNowOn(nullptr)
 	,m_pLastOn(nullptr)
 {
@@ -51,9 +52,9 @@ void CollapseFloor::Collision(Entity* e)
 
 void CollapseFloor::Reset()
 {
-	,m_PassTimes(pt)
-	,m_pNowOn(nullptr)
-	,m_pLastOn(nullptr)
+	m_PassTimes =m_PassTimesOri;
+	m_pNowOn = nullptr;
+	m_pLastOn = nullptr;
 
 	m_pGameObject->Transform()->SetScale(Grid::SCALE / 2);
     SetCollisionFlags(CollFlag::CfGround);

@@ -33,3 +33,8 @@ void Exit::Collision(Entity* e)
 }
 //-------------------------------------
 
+void Exit::Reset()
+{
+	Floor::Reset();
+	m_bFinished = false;
+}
