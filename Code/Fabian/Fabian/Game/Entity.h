@@ -3,11 +3,10 @@
 
 #include "../IComponent.h"
 
-#pragma warning( push )
-#pragma warning( disable: 4201 )
+FDISABLE_WARNING_START(4201)
 //#define GLM_SWIZZLE <- can be used for vec4.xyz() method
 #include <glm/glm.hpp>
-#pragma warning( pop )
+FDISABLE_WARNING_END(4201)
 
 class Grid;
 
@@ -21,7 +20,7 @@ public:
 	// destructor
 	virtual ~Entity();
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Initializes the object, should be called before any other
 	//    method of the object.
@@ -36,21 +35,21 @@ public:
 	virtual void DerivedUpdate(float);
 
 	virtual bool Move(const glm::vec2& dir);
-	
+
 	virtual void SetPos(const glm::vec2&);
 	virtual void GetPos(glm::vec2&) const;
 	virtual void SetGridPos(const glm::vec2&);
 	virtual void GetGridPos(glm::vec2&) const;
 
 	virtual void Die();
-	
+
 	virtual void SetRespawn(const glm::vec2&);
 
 protected:
 	virtual bool DoMovement(float);
 
 	Grid* m_pGrid;
-	
+
 	glm::vec2 m_Pos,
 					m_PosOld,
 					m_MoveDir,

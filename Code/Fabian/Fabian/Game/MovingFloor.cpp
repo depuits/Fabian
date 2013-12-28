@@ -3,11 +3,10 @@
 #include "Grid.h"
 #include "../CGameObject.h"
 
-#pragma warning( push )
-#pragma warning( disable: 4201 )
+FDISABLE_WARNING_START(4201)
 //#define GLM_SWIZZLE <- can be used for vec4.xyz() method
 #include <glm/glm.hpp>
-#pragma warning( pop )
+FDISABLE_WARNING_END(4201)
 
 //-------------------------------------
 // constructor

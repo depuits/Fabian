@@ -4,10 +4,9 @@
 #include "FabianDef.h"
 #include "IComponent.h"
 
-#pragma warning( push )
-#pragma warning( disable: 4201 )
+FDISABLE_WARNING_START(4201)
 #include <glm/glm.hpp>
-#pragma warning( pop )
+FDISABLE_WARNING_END(4201)
 
 //******************************************
 // Class CCompCamera:
@@ -26,7 +25,7 @@ public:
 	// Destructor
 	virtual ~CCompCamera();
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Initializes the object, should be called before any other
 	//    method of the object.
@@ -37,7 +36,7 @@ public:
 	// p1 in - pointer to the shader the object should "draw" with
 	virtual void Draw(IShader*);
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Sets/Creates the projection matrix of the camera
 	// p1 in - float, FOV (Filed Of View)

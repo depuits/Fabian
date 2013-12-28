@@ -4,10 +4,9 @@
 #include "FabianDef.h"
 #include <string>
 
-#pragma warning( push )
-#pragma warning( disable: 4201 )
+FDISABLE_WARNING_START(4201)
 #include <glm/glm.hpp>
-#pragma warning( pop )
+FDISABLE_WARNING_END(4201)
 
 // --forward declarations--
 class IImage;
@@ -15,7 +14,7 @@ class IImage;
 
 //******************************************
 // Interface IShader:
-// interface for applying shaders and setting 
+// interface for applying shaders and setting
 // their values
 //******************************************
 class IShader
@@ -28,7 +27,7 @@ public:
 	// Destructor
 	virtual ~IShader() { };
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Loads in the shader and set it up for use
 	// rv - bool, return false if something failed
@@ -37,7 +36,7 @@ public:
 	// Activates the shader as the current
 	virtual void Apply() = 0;
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Sets the shader variable from the id with
 	//    the given value
@@ -56,7 +55,7 @@ public:
 	virtual void SetVarVec2(int, const glm::vec2&) = 0;
 	virtual void SetVarVec3(int, const glm::vec3&) = 0;
 	virtual void SetVarVec4(int, const glm::vec4&) = 0;
-	
+
 	virtual void SetVarMat2(int, const glm::mat2&) = 0;
 	virtual void SetVarMat3(int, const glm::mat3&) = 0;
 	virtual void SetVarMat4(int, const glm::mat4&) = 0;
