@@ -26,7 +26,7 @@ public:
 	// Destructor
 	virtual ~CTransform();
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Move a certain distance from the current position
 	// p1 in - vec3, distance
@@ -36,19 +36,19 @@ public:
 	// p1 in - vec3, rotation
 	void Rotate(const glm::vec3&);
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Move a certain distance from the current position
 	//    relative to its local axis, (so x == forward)
 	// p1 in - vec3, distance
-	void LocalMove(const glm::vec3&); 
+	void LocalMove(const glm::vec3&);
 	//-------------------------------------
 	// Rotates the object allong its local axis
 	// !!! - not sure if working correct
 	// p1 in - vec3, rotation
 	void LocalRotate(const glm::vec3&);
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Sets the position
 	// p1 in - vec3, new position
@@ -66,7 +66,7 @@ public:
 	void SetRot(const glm::vec3&);
 	void SetRot(const glm::quat&);
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Gets the position
 	// rv - vec3, position
@@ -80,7 +80,7 @@ public:
 	// rv - quat, rotation
 	const glm::quat& GetRot() const;
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Gets the world matrix
 	// rv - mat4, world matrix
@@ -90,7 +90,7 @@ public:
 	// rv - mat4, world matrix
 	const glm::mat4& GetWorldNP();
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Check weither any variables got changed
 	// rv - bool, return true if something changed
@@ -102,14 +102,14 @@ public:
 
 protected:
 	CTransform *m_pParent;
-	
+
+	bool m_bIsChanged;
+
 	glm::vec3 m_v3Pos;
 	glm::vec3 m_v3Scale;
 	glm::quat m_qRot;
 
 	glm::mat4 m_mWorld;
-
-	bool m_bIsChanged;
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(CTransform);

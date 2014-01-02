@@ -17,6 +17,10 @@
 // Constructor
 CShaderOpenGL::CShaderOpenGL()
 	:m_uProgramID(0)
+
+	,m_iIdWorld(-1)
+	,m_iIdView(-1)
+	,m_iIdProjection(-1)
 {
 }
 //-------------------------------------
@@ -26,17 +30,24 @@ CShaderOpenGL::~CShaderOpenGL()
 	glDeleteShader(m_uProgramID);
 }
 //-------------------------------------
-	
+
 //-------------------------------------
 // Loads in the shader and set it up for use
-// !!! - loads 2 files, 
+// !!! - loads 2 files,
 //          ".vsh" for the vertex shader
 //          ".fsh" for the fragment(pixel) shader
 // rv - bool, return false if something failed
 bool CShaderOpenGL::Load(const std::string& sName)
 {
 	m_uProgramID = LoadShaders( (sName + ".vsh").c_str(), (sName + ".fsh").c_str() );
-	
+
+    // these names must be used inside the shaders
+    m_iIdWorld = GetVarId("World");
+    m_iIdView = GetVarId("View");
+    m_iIdProjection = GetVarId("Projection");
+
+    FASSERT( m_iIdWorld != -1 && m_iIdView != -1 && m_iIdProjection != -1 );
+
 	return true;
 }
 //-------------------------------------
@@ -129,9 +140,30 @@ void CShaderOpenGL::SetVarImage(int id, IImage* pImg)
 // Gets a shader variable id from the name
 // p1 in - string, variable name
 // rv - int, the id of the variable, -1 when failed
-int CShaderOpenGL::GetVarId(const std::string& sVName) 
-{ 
+int CShaderOpenGL::GetVarId(const std::string& sVName)
+{
 	return glGetUniformLocation(m_uProgramID, sVName.c_str());
+}
+//-------------------------------------
+
+//-------------------------------------
+// Sets the shader World, View or Projection
+//    variable with the given value
+// p1 in - variable value
+void CShaderOpenGL::SetWorld(const glm::mat4& m)
+{
+    FASSERT( m_iIdWorld != -1 );
+    SetVarMat4(m_iIdWorld, m);
+}
+void CShaderOpenGL::SetView(const glm::mat4& m)
+{
+    FASSERT( m_iIdView != -1 );
+    SetVarMat4(m_iIdView, m);
+}
+void CShaderOpenGL::SetProjection(const glm::mat4& m)
+{
+    FASSERT( m_iIdProjection != -1 );
+    SetVarMat4(m_iIdProjection, m);
 }
 //-------------------------------------
 
@@ -144,7 +176,7 @@ GLuint CShaderOpenGL::LoadShaders(const char *vertex_file_path, const char *frag
 	// Create the shaders
 	GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
- 
+
 	// Read the Vertex Shader code from the file
 	std::string VertexShaderCode;
 	std::ifstream VertexShaderStream(vertex_file_path, std::ios::in);
@@ -155,7 +187,7 @@ GLuint CShaderOpenGL::LoadShaders(const char *vertex_file_path, const char *frag
 		VertexShaderCode += "\n" + Line;
 		VertexShaderStream.close();
 	}
- 
+
 	// Read the Fragment Shader code from the file
 	std::string FragmentShaderCode;
 	std::ifstream FragmentShaderStream(fragment_file_path, std::ios::in);
@@ -166,16 +198,16 @@ GLuint CShaderOpenGL::LoadShaders(const char *vertex_file_path, const char *frag
 			FragmentShaderCode += "\n" + Line;
 		FragmentShaderStream.close();
 	}
- 
+
 	GLint Result = GL_FALSE;
 	int InfoLogLength;
- 
+
 	// Compile Vertex Shader
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Compiling vertex shader : %s", vertex_file_path);
 	char const * VertexSourcePointer = VertexShaderCode.c_str();
 	glShaderSource(VertexShaderID, 1, &VertexSourcePointer , NULL);
 	glCompileShader(VertexShaderID);
- 
+
 	// Check Vertex Shader
 	glGetShaderiv(VertexShaderID, GL_COMPILE_STATUS, &Result);
 	if( Result == GL_FALSE )
@@ -191,7 +223,7 @@ GLuint CShaderOpenGL::LoadShaders(const char *vertex_file_path, const char *frag
 	char const * FragmentSourcePointer = FragmentShaderCode.c_str();
 	glShaderSource(FragmentShaderID, 1, &FragmentSourcePointer , NULL);
 	glCompileShader(FragmentShaderID);
- 
+
 	// Check Fragment Shader
 	glGetShaderiv(FragmentShaderID, GL_COMPILE_STATUS, &Result);
 	if( Result == GL_FALSE )
@@ -201,7 +233,7 @@ GLuint CShaderOpenGL::LoadShaders(const char *vertex_file_path, const char *frag
 		glGetShaderInfoLog(FragmentShaderID, InfoLogLength, NULL, FragmentShaderErrorMessage.data() );
 		CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "%s", FragmentShaderErrorMessage.data());
 	}
- 
+
 	// Link the program
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Linking shader program");
 	GLuint ProgramID = glCreateProgram();
@@ -214,7 +246,7 @@ GLuint CShaderOpenGL::LoadShaders(const char *vertex_file_path, const char *frag
 	glAttachShader(ProgramID, VertexShaderID);
 	glAttachShader(ProgramID, FragmentShaderID);
 	glLinkProgram(ProgramID);
- 
+
 	// Check the program
 	glGetProgramiv(ProgramID, GL_LINK_STATUS, &Result);
 	if( Result == GL_FALSE )
@@ -224,10 +256,10 @@ GLuint CShaderOpenGL::LoadShaders(const char *vertex_file_path, const char *frag
 		glGetProgramInfoLog(ProgramID, InfoLogLength, NULL, ProgramErrorMessage.data() );
 		CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "%s", ProgramErrorMessage.data());
 	}
- 
+
 	glDeleteShader(VertexShaderID);
 	glDeleteShader(FragmentShaderID);
- 
+
 	return ProgramID;
 }
 //-------------------------------------

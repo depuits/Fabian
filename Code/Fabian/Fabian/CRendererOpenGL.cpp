@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include "CServiceVideoUpdate.h"
 
+#include "ICamera.h"
 #include "CShaderOpenGL.h"
 #include "CMeshOpenGL.h"
 #include "CImageOpenGL.h"
@@ -20,12 +21,16 @@
 CRendererOpenGL::CRendererOpenGL(CServiceVideoUpdate *pServiceParent)
 	:m_pServiceParent(pServiceParent)
 	,m_bFullScreen(false)
+
+	,m_pActiveCam(nullptr)
 {
 }
 //-------------------------------------
 // Destructor
 CRendererOpenGL::~CRendererOpenGL()
 {
+    for ( IShader *pShader : m_vpShaders)
+        delete pShader;
 }
 //-------------------------------------
 
@@ -82,6 +87,29 @@ void CRendererOpenGL::Clear(float r, float g, float b, float a)
 }
 //-------------------------------------
 
+void CRendererOpenGL::StartDraw()
+{
+    // set all view and projection matrices for the shader
+    glm::mat4   &mView = m_pActiveCam->GetView(),
+                &mProj = m_pActiveCam->GetProjection();
+
+    for ( IShader *pShader : m_vpShaders)
+    {
+        pShader->SetView(mView);
+        pShader->SetProjection(mProj);
+    }
+}
+void CRendererOpenGL::EndDraw()
+{
+    // nothing to do to finish drawing
+}
+
+void CRendererOpenGL::SetActiveCamera(ICamera* pCam)
+{
+    FASSERT(pCam != nullptr);
+    m_pActiveCam = pCam;
+}
+
 //-------------------------------------
 // Loads in a shader from a file and returns it
 // p1 in - string, name of the shader file (without extension)
@@ -94,6 +122,9 @@ IShader *CRendererOpenGL::LoadShader(const std::string& sName)
 		delete pShader;
 		return nullptr;
 	}
+
+    m_vpShaders.push_back(pShader); // should change to content manager style something
+                                    // -> check if shader is loaded, if not load
 
 	return pShader;
 }

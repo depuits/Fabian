@@ -4,6 +4,8 @@
 #include "FabianDef.h"
 #include "IComponent.h"
 
+#include "ICamera.h"
+
 FDISABLE_WARNING_START(4201)
 #include <glm/glm.hpp>
 FDISABLE_WARNING_END(4201)
@@ -13,7 +15,7 @@ FDISABLE_WARNING_END(4201)
 // A basic camera for drawing scenes, including
 // the most simple settings.
 //******************************************
-class CCompCamera : public IComponent
+class CCompCamera : public IComponent, public ICamera
 {
 public:
 	//-------------------------------------
@@ -34,7 +36,7 @@ public:
 	//-------------------------------------
 	// Sets this camera to the current one
 	// p1 in - pointer to the shader the object should "draw" with
-	virtual void Draw(IShader*);
+	virtual void Draw();
 	//-------------------------------------
 
 	//-------------------------------------
@@ -46,6 +48,9 @@ public:
 	void SetProjectionParams(float, float, float, float);
 	//-------------------------------------
 
+	virtual glm::mat4& GetProjection();
+	virtual glm::mat4& GetView();
+
 protected:
 	float	m_fFOV,
 			m_fAspectRatio,
@@ -54,8 +59,8 @@ protected:
 
 	bool m_bProjectionChanged;
 
-	glm::mat4 m_mProjection;
-	static int s_iIdView, s_iIdProj;
+	glm::mat4   m_mProjection,
+                m_mView;
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(CCompCamera);

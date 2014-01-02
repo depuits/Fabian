@@ -64,15 +64,27 @@ public:
 	virtual int GetVarId(const std::string&);
 	//-------------------------------------
 
+	//-------------------------------------
+	// Sets the shader World, View or Projection
+	//    variable with the given value
+	// p1 in - variable value
+	virtual void SetWorld(const glm::mat4&);
+	virtual void SetView(const glm::mat4&);
+	virtual void SetProjection(const glm::mat4&);
+	//-------------------------------------
+
 protected:
 	//-------------------------------------
 	// The actual loading of the shader
 	// p1 in - vertex shader file
 	// p2 in - fragment shader file
+	// rv - uint, program id
 	GLuint LoadShaders(const char *,const char *);
 	//-------------------------------------
 
 	GLuint m_uProgramID;
+
+	int m_iIdWorld, m_iIdView, m_iIdProjection;
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(CShaderOpenGL);

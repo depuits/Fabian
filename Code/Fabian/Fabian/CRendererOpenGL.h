@@ -2,6 +2,7 @@
 #define FABIAN_CRENDEREROPENGL_H_
 
 #include "IRenderer.h"
+#include <vector>
 
 // --forward declarations--
 class CServiceVideoUpdate;
@@ -16,14 +17,14 @@ class CRendererOpenGL : public IRenderer
 public:
 	//-------------------------------------
 	// Constructor
-	// p1 in - pointer to the VideoUpdate service 
+	// p1 in - pointer to the VideoUpdate service
 	//            which created this renderer
 	CRendererOpenGL(CServiceVideoUpdate*);
 	//-------------------------------------
 	// Destructor
 	virtual ~CRendererOpenGL();
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Switches the window to fullscreen and back
 	// rv - bool, true if in fullscreen
@@ -33,20 +34,20 @@ public:
 	// p1 in - bool, goes to fullscreen if true
 	virtual void SetFullScreen(bool);
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Enable or disable VSync
 	// p1 in - bool, sets VSync on if true
 	virtual void SetVSync(bool);
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Sets the screen resolution of this game
 	// p1 in - int, screen width
 	// p2 in - int, screen height
 	virtual void SetScreenResolution(int, int);
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Clears the backbuffers to 1 color
 	// p1 in - float, R value
@@ -55,27 +56,36 @@ public:
 	// p4 in - float, A value
 	virtual void Clear(float, float, float, float);
 	//-------------------------------------
-	
+
+	virtual void StartDraw();
+	virtual void EndDraw();
+
+	virtual void SetActiveCamera(ICamera*);
+
 	//-------------------------------------
-	// Loads in a shader from a file and returns it 
+	// Loads in a shader from a file and returns it
 	// p1 in - string, name of the shader file (without extension)
 	// rv - pointer IShader object and nullptr if failed
 	virtual IShader *LoadShader(const std::string&);
 	//-------------------------------------
-	// Loads in a mesh from a file and returns it 
+	// Loads in a mesh from a file and returns it
 	// p1 in - pointer to the meshdata for the mesh
 	// rv - pointer IMesh object and nullptr if failed
 	virtual IMesh *LoadMesh(MeshData*);
 	//-------------------------------------
-	// Loads in a image from a file and returns it 
+	// Loads in a image from a file and returns it
 	// p1 in - pointer to the imagedata for the mesh
 	// rv - pointer IImage object and nullptr if failed
 	virtual IImage *LoadImage(ImageData*);
 	//-------------------------------------
-	
+
 protected:
 	CServiceVideoUpdate *m_pServiceParent;
 	bool m_bFullScreen;
+
+    ICamera *m_pActiveCam;
+
+    std::vector<IShader*> m_vpShaders;
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(CRendererOpenGL);

@@ -77,6 +77,8 @@
 		<Unit filename="CLoggerToConsole.h" />
 		<Unit filename="CLoggerToFiles.cpp" />
 		<Unit filename="CLoggerToFiles.h" />
+		<Unit filename="CMatDifTexture.cpp" />
+		<Unit filename="CMatDifTexture.h" />
 		<Unit filename="CMeshOpenGL.cpp" />
 		<Unit filename="CMeshOpenGL.h" />
 		<Unit filename="CRendererOpenGL.cpp" />
@@ -131,12 +133,15 @@
 		<Unit filename="Game/Wall.h" />
 		<Unit filename="Game/Water.cpp" />
 		<Unit filename="Game/Water.h" />
+		<Unit filename="ICamera.h" />
 		<Unit filename="IComponent.cpp" />
 		<Unit filename="IComponent.h" />
 		<Unit filename="IImage.h" />
 		<Unit filename="IInput.cpp" />
 		<Unit filename="IInput.h" />
 		<Unit filename="ILogger.h" />
+		<Unit filename="IMaterial.cpp" />
+		<Unit filename="IMaterial.h" />
 		<Unit filename="IMesh.h" />
 		<Unit filename="IObject.cpp" />
 		<Unit filename="IObject.h" />

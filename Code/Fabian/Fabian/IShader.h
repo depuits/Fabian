@@ -68,6 +68,16 @@ public:
 	virtual int GetVarId(const std::string&) = 0;
 	//-------------------------------------
 
+	//-------------------------------------
+	// Sets the shader World, View or Projection
+	//    variable with the given value
+	// p1 in - variable value
+	virtual void SetWorld(const glm::mat4&) = 0;
+	virtual void SetView(const glm::mat4&) = 0;
+	virtual void SetProjection(const glm::mat4&) = 0;
+	//-------------------------------------
+
+
 private:
 	DISALLOW_COPY_AND_ASSIGN(IShader);
 };

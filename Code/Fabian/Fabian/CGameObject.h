@@ -37,7 +37,7 @@ public:
 	//-------------------------------------
 	// Draws the object on the screen ussing the given shader
 	// p1 in - pointer to the shader the object should draw with
-	virtual void Draw(IShader*);
+	virtual void Draw();
 	//-------------------------------------
 
 	//-------------------------------------

@@ -60,10 +60,10 @@ void CGameObject::Update(float fDt)
 //-------------------------------------
 // Draws the object on the screen ussing the given shader
 // p1 in - pointer to the shader the object should draw with
-void CGameObject::Draw(IShader *pShader)
+void CGameObject::Draw()
 {
 	for(std::vector<IComponent*>::iterator it( m_vpComponents.begin() ); it != m_vpComponents.end(); ++it)
-		(*it)->Draw(pShader);
+		(*it)->Draw();
 }
 //-------------------------------------
 
