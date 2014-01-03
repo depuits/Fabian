@@ -47,14 +47,14 @@ void Entity::Update(float dt)
 	GetGridPos(gpos);
 
 	// respawn when on void or water
-	if( !m_pGrid->IsFlagRaised(gpos.x, gpos.y, GridEntity::CfGround) )
+	if( !m_pGrid->IsFlagRaised((int)gpos.x, (int)gpos.y, GridEntity::CfGround) )
 	{
 		Die();
 		return;
 	}
 
 	// notify the tile i'm on
-	GridEntity* e = m_pGrid->GetGObject(gpos.x, gpos.y);
+	GridEntity* e = m_pGrid->GetGObject((int)gpos.x, (int)gpos.y);
 	if( e != nullptr)
 		e->Collision(this);
 
@@ -80,7 +80,7 @@ bool Entity::Move(const glm::vec2& dir)
 	// Test high bit - if set, key was down when GetAsyncKeyState was called.
 	if( dir.x > 0 )
 	{
-		if( !m_pGrid->IsFlagRaised(gpos.x + 1, gpos.y, GridEntity::CfSolid) )
+		if( !m_pGrid->IsFlagRaised((int)gpos.x + 1, (int)gpos.y, GridEntity::CfSolid) )
 		{
 			m_MoveDir.x = 1;
 			return true;
@@ -88,7 +88,7 @@ bool Entity::Move(const glm::vec2& dir)
 	}
 	if( dir.x < 0 )
 	{
-		if( !m_pGrid->IsFlagRaised(gpos.x - 1, gpos.y, GridEntity::CfSolid) )
+		if( !m_pGrid->IsFlagRaised((int)gpos.x - 1, (int)gpos.y, GridEntity::CfSolid) )
 		{
 			m_MoveDir.x = -1;
 			return true;
@@ -96,7 +96,7 @@ bool Entity::Move(const glm::vec2& dir)
 	}	
 	if( dir.y < 0 )
 	{
-		if( !m_pGrid->IsFlagRaised(gpos.x, gpos.y - 1, GridEntity::CfSolid) )
+		if( !m_pGrid->IsFlagRaised((int)gpos.x, (int)gpos.y - 1, GridEntity::CfSolid) )
 		{
 			m_MoveDir.y = -1;
 			return true;
@@ -104,7 +104,7 @@ bool Entity::Move(const glm::vec2& dir)
 	}
 	if( dir.y > 0 )
 	{
-		if( !m_pGrid->IsFlagRaised(gpos.x, gpos.y + 1, GridEntity::CfSolid) )
+		if( !m_pGrid->IsFlagRaised((int)gpos.x, (int)gpos.y + 1, GridEntity::CfSolid) )
 		{
 			m_MoveDir.y = 1;
 			return true;

@@ -99,6 +99,7 @@
     <ClInclude Include="CLoggerToConsole.h" />
     <ClInclude Include="CLoggerMultiple.h" />
     <ClInclude Include="CLoggerToFiles.h" />
+    <ClInclude Include="CMatDifTexture.h" />
     <ClInclude Include="CMeshOpenGL.h" />
     <ClInclude Include="Console\console.h" />
     <ClInclude Include="Console\ConsoleColor.h" />
@@ -131,6 +132,7 @@
     <ClInclude Include="IImage.h" />
     <ClInclude Include="IInput.h" />
     <ClInclude Include="ILogger.h" />
+    <ClInclude Include="IMaterial.h" />
     <ClInclude Include="IMesh.h" />
     <ClInclude Include="InputDef.h" />
     <ClInclude Include="IRenderer.h" />
@@ -157,6 +159,7 @@
     <ClCompile Include="CLoggerToConsole.cpp" />
     <ClCompile Include="CLoggerMultiple.cpp" />
     <ClCompile Include="CLoggerToFiles.cpp" />
+    <ClCompile Include="CMatDifTexture.cpp" />
     <ClCompile Include="CMeshOpenGL.cpp" />
     <ClCompile Include="Console\console.cpp" />
     <ClCompile Include="CRendererOpenGL.cpp" />
@@ -185,6 +188,7 @@
     <ClCompile Include="CGameObject.cpp" />
     <ClCompile Include="IInput.cpp" />
     <ClCompile Include="CTransform.cpp" />
+    <ClCompile Include="IMaterial.cpp" />
     <ClCompile Include="IObject.cpp" />
     <ClCompile Include="IService.cpp" />
     <ClCompile Include="CLibraryLoader.cpp" />

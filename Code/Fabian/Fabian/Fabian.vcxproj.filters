@@ -216,6 +216,12 @@
     <ClInclude Include="Game\Water.h">
       <Filter>Game Files\Game</Filter>
     </ClInclude>
+    <ClInclude Include="CMatDifTexture.h">
+      <Filter>Engine Files\Video</Filter>
+    </ClInclude>
+    <ClInclude Include="IMaterial.h">
+      <Filter>Engine Files\Video</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CKernel.cpp">
@@ -355,6 +361,12 @@
     </ClCompile>
     <ClCompile Include="Game\Water.cpp">
       <Filter>Game Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CMatDifTexture.cpp">
+      <Filter>Engine Files\Video</Filter>
+    </ClCompile>
+    <ClCompile Include="IMaterial.cpp">
+      <Filter>Engine Files\Video</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

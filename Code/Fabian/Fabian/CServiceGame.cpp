@@ -43,6 +43,7 @@ std::vector<CGameObject*> g_vpGameObjects;
 
 IMaterial   *g_pMatDefault,
             *g_pMatGround,
+            *g_pMatPlayer,
             *g_pMatWater;
 
 //******************************************
@@ -111,10 +112,12 @@ bool CServiceGame::Start()
 	m_pContent = new CContentManager(m_pRenderer);
 	IImage  *pImage1 = m_pContent->LoadImage("Textures/uv.jpg"),
             *pImage2 = m_pContent->LoadImage("Textures/img_cheryl.jpg"),
-            *pImage3 = m_pContent->LoadImage("Textures/CarDiffuseMap.png");
+            *pImage3 = m_pContent->LoadImage("Textures/CarDiffuseMap.png"),
+            *pImagePlayer = m_pContent->LoadImage("Textures/PlayerDif.png");
 
     g_pMatDefault = new CMatDifTexture(pShader, pImage3);
     g_pMatGround = new CMatDifTexture(pShader, pImage2);
+	g_pMatPlayer = new CMatDifTexture(pShader, pImagePlayer);
     g_pMatWater = new CMatDifTexture(pShader, pImage1);
 
 	CGameObject *pGo = new CGameObject();
@@ -226,7 +229,7 @@ void CServiceGame::LoadLevel()
 					pEnt->SetGridPos(vPos);
 
 					pGo->AddComponent( pEnt );
-					pGo->AddComponent( new CCompModel( m_pContent->LoadMesh("Meshes/car.obj"),  g_pMatDefault ) );
+					pGo->AddComponent( new CCompModel( m_pContent->LoadMesh("Meshes/Player.obj"),  g_pMatPlayer ) );
 					pGo->Transform()->SetScale( 0.5f );
 					g_vpGameObjects.push_back(pGo);
 					CGlobalAccessor::Get().AddObject("Player", pEnt);
@@ -266,7 +269,7 @@ void CServiceGame::LoadLevel()
 					pEnt->SetGridPos(vPos);
 
 					pGo->AddComponent( pEnt );
-					pGo->AddComponent( new CCompModel( m_pContent->LoadMesh("Meshes/car.obj"),  g_pMatDefault ) );
+					pGo->AddComponent( new CCompModel( m_pContent->LoadMesh("Meshes/Bug01.obj"),  g_pMatDefault ) );
 					pGo->Transform()->SetScale( 0.5f );
 					g_vpGameObjects.push_back(pGo);
 					break;
@@ -397,6 +400,7 @@ void CServiceGame::Stop()
 
 	delete g_pMatDefault;
     delete g_pMatGround;
+	delete g_pMatPlayer;
     delete g_pMatWater;
 }
 //-------------------------------------
