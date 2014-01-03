@@ -42,7 +42,7 @@ void Player::Update(float dt)
 	Entity::Update(dt);
 	//update camera position
 	glm::vec3 pos, tpos;
-	tpos = glm::vec3(m_Pos.x, 20 * Grid::SCALE, m_Pos.y);
+	tpos = glm::vec3(m_Pos.x, 10 * Grid::SCALE, m_Pos.y);
 	pos = m_pCamera->Transform()->GetPos();
 	m_pCamera->Transform()->SetPos( pos + (tpos - pos) * 0.1f ); // using lerp
 }

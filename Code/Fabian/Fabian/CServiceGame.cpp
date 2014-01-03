@@ -43,8 +43,11 @@ std::vector<CGameObject*> g_vpGameObjects;
 
 IMaterial   *g_pMatDefault,
             *g_pMatGround,
+            *g_pMatWall,
+            *g_pMatFinish,
+            *g_pMatWater,
             *g_pMatPlayer,
-            *g_pMatWater;
+            *g_pMatBug01;
 
 //******************************************
 // Class CServiceGame:
@@ -110,21 +113,30 @@ bool CServiceGame::Start()
 	pShader->SetVarVec4(  pShader->GetVarId("LightColor"),                  glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
 	m_pContent = new CContentManager(m_pRenderer);
-	IImage  *pImage1 = m_pContent->LoadImage("Textures/uv.jpg"),
-            *pImage2 = m_pContent->LoadImage("Textures/img_cheryl.jpg"),
-            *pImage3 = m_pContent->LoadImage("Textures/CarDiffuseMap.png"),
-            *pImagePlayer = m_pContent->LoadImage("Textures/PlayerDif.png");
+	IImage  *pImage = m_pContent->LoadImage("Textures/CarDiffuseMap.png"),
 
-    g_pMatDefault = new CMatDifTexture(pShader, pImage3);
-    g_pMatGround = new CMatDifTexture(pShader, pImage2);
+            *pImageFloor = m_pContent->LoadImage("Textures/FloorDif.png"),
+            *pImageWall = m_pContent->LoadImage("Textures/WallDif.png"),
+            *pImageFinish = m_pContent->LoadImage("Textures/FinishDif.png"),
+            *pImageWater = m_pContent->LoadImage("Textures/WaterDif.png"),
+
+            *pImagePlayer = m_pContent->LoadImage("Textures/PlayerDif.png"),
+            *pImageBug01 = m_pContent->LoadImage("Textures/Bug01Dif.png");
+
+    g_pMatDefault = new CMatDifTexture(pShader, pImage);
+    g_pMatGround = new CMatDifTexture(pShader, pImageFloor);
+    g_pMatWall = new CMatDifTexture(pShader, pImageWall);
+    g_pMatFinish = new CMatDifTexture(pShader, pImageFinish);
+    g_pMatWater = new CMatDifTexture(pShader, pImageWater);
+
 	g_pMatPlayer = new CMatDifTexture(pShader, pImagePlayer);
-    g_pMatWater = new CMatDifTexture(pShader, pImage1);
+	g_pMatBug01 = new CMatDifTexture(pShader, pImageBug01);
 
 	CGameObject *pGo = new CGameObject();
 	pGo->Init();
 	CCompCamera* pCam = new CCompCamera();
 	pGo->AddComponent( pCam );
-	pGo->Transform()->SetPos( glm::vec3(0, 10 * Grid::SCALE, 0) );
+	pGo->Transform()->SetPos( glm::vec3(0, 1 * Grid::SCALE, 0) );
 	pGo->Transform()->SetRot( glm::vec3(0, 0, glm::half_pi<float>()) );
 	pGo->Transform()->Rotate( glm::vec3(0, -glm::half_pi<float>(), 0));
 	g_vpGameObjects.push_back(pGo);
@@ -194,7 +206,7 @@ void CServiceGame::LoadLevel()
 				AddGridEntity(pGrid, vPos, new Floor(), new CCompModel( m_pContent->LoadMesh("Meshes/floor.obj"),  g_pMatGround ) );
 				break;
 			case 'm':
-				AddGridEntity(pGrid, vPos, new MovingFloor(), new CCompModel( m_pContent->LoadMesh("Meshes/floor.obj"),  g_pMatDefault ) );
+				AddGridEntity(pGrid, vPos, new MovingFloor(), new CCompModel( m_pContent->LoadMesh("Meshes/floor.obj"),  g_pMatGround ) );
 				break;
 			case 'v':
 				AddGridEntity(pGrid, vPos, new CollapseFloor(1), new CCompModel( m_pContent->LoadMesh("Meshes/floor.obj"),  g_pMatDefault ) );
@@ -203,10 +215,10 @@ void CServiceGame::LoadLevel()
 				AddGridEntity(pGrid, vPos, new Water(), new CCompModel( m_pContent->LoadMesh("Meshes/floor.obj"),  g_pMatWater ) );
 				break;
 			case 'w':
-				AddGridEntity(pGrid, vPos, new Wall(), new CCompModel( m_pContent->LoadMesh("Meshes/wall.obj"),  g_pMatDefault ) );
+				AddGridEntity(pGrid, vPos, new Wall(), new CCompModel( m_pContent->LoadMesh("Meshes/wall.obj"),  g_pMatWall ) );
 				break;
 			case 'e':
-				AddGridEntity(pGrid, vPos, new Exit(), new CCompModel( m_pContent->LoadMesh("Meshes/floor.obj"),  g_pMatDefault ) );
+				AddGridEntity(pGrid, vPos, new Exit(), new CCompModel( m_pContent->LoadMesh("Meshes/floor.obj"),  g_pMatFinish ) );
 				break;
 			case 'b':
 				AddGridEntity(pGrid, vPos, new Bomb(), new CCompModel( m_pContent->LoadMesh("Meshes/floor.obj"),  g_pMatDefault ) );
@@ -269,7 +281,7 @@ void CServiceGame::LoadLevel()
 					pEnt->SetGridPos(vPos);
 
 					pGo->AddComponent( pEnt );
-					pGo->AddComponent( new CCompModel( m_pContent->LoadMesh("Meshes/Bug01.obj"),  g_pMatDefault ) );
+					pGo->AddComponent( new CCompModel( m_pContent->LoadMesh("Meshes/Bug01.obj"),  g_pMatBug01 ) );
 					pGo->Transform()->SetScale( 0.5f );
 					g_vpGameObjects.push_back(pGo);
 					break;
@@ -398,10 +410,13 @@ void CServiceGame::Stop()
 	delete static_cast<Grid*>( CGlobalAccessor::Get().GetObject("Grid") );
 	delete m_pContent;
 
-	delete g_pMatDefault;
+    delete g_pMatDefault;
     delete g_pMatGround;
-	delete g_pMatPlayer;
+    delete g_pMatWall;
+    delete g_pMatFinish;
     delete g_pMatWater;
+    delete g_pMatPlayer;
+    delete g_pMatBug01;
 }
 //-------------------------------------
 

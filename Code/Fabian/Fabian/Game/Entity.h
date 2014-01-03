@@ -56,6 +56,8 @@ protected:
 					m_Respawn;
 	int m_Speed;
 
+	float m_fTurnSmoothing;
+
 	DISALLOW_COPY_AND_ASSIGN(Entity);
 };
 

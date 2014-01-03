@@ -6,6 +6,9 @@
 #include "../CGlobalAccessor.h"
 #include "../CGameObject.h"
 
+#include <glm/gtx/quaternion.hpp>
+#include <glm/gtx/norm.hpp>
+
 //-------------------------------------
 // constructor
 Entity::Entity()
@@ -17,6 +20,8 @@ Entity::Entity()
 	,m_Respawn(0, 0)
 
 	,m_Speed(250)
+
+	,m_fTurnSmoothing(0.15f)
 {
 }
 //-------------------------------------
@@ -70,7 +75,7 @@ void Entity::DerivedUpdate(float)
 //-------------------------------------
 
 bool Entity::Move(const glm::vec2& dir)
-{	
+{
 	int gs = Grid::SCALE;
 	m_PosOld = (m_Pos / (float)gs) * (float)gs; // snap old pos to grid so the entity moves on the grid when it got of
 
@@ -93,7 +98,7 @@ bool Entity::Move(const glm::vec2& dir)
 			m_MoveDir.x = -1;
 			return true;
 		}
-	}	
+	}
 	if( dir.y < 0 )
 	{
 		if( !m_pGrid->IsFlagRaised((int)gpos.x, (int)gpos.y - 1, GridEntity::CfSolid) )
@@ -114,11 +119,49 @@ bool Entity::Move(const glm::vec2& dir)
 	return false;
 }
 
+glm::quat RotationBetweenVectors(glm::vec3 start, glm::vec3 dest)
+{
+	start = glm::normalize(start);
+	dest = glm::normalize(dest);
+
+	float cosTheta = glm::dot(start, dest);
+	glm::vec3 rotationAxis;
+
+	if (cosTheta < -1 + 0.001f){
+		// special case when vectors in opposite directions:
+		// there is no "ideal" rotation axis
+		// So guess one; any will do as long as it's perpendicular to start
+		rotationAxis = glm::cross(glm::vec3(0.0f, 0.0f, 1.0f), start);
+		if (glm::length2(rotationAxis) < 0.01 ) // bad luck, they were parallel, try again!
+			rotationAxis = glm::cross(glm::vec3(1.0f, 0.0f, 0.0f), start);
+
+		rotationAxis = glm::normalize(rotationAxis);
+		return glm::angleAxis(180.0f, rotationAxis);
+	}
+
+	rotationAxis = glm::cross(start, dest);
+
+	float s = glm::sqrt( (1+cosTheta)*2 );
+	float invs = 1 / s;
+
+	return glm::quat(
+		s * 0.5f,
+		rotationAxis.x * invs,
+		rotationAxis.y * invs,
+		rotationAxis.z * invs
+	);
+
+}
+
 bool Entity::DoMovement(float dt)
 {
 	//when moving check if you moved a square
 	if( m_MoveDir != glm::vec2(0, 0) )
 	{
+        glm::quat tRot = RotationBetweenVectors(glm::vec3(-m_MoveDir.x, 0, m_MoveDir.y), glm::vec3(0, 0, 1));
+        glm::quat nRot = glm::mix(m_pGameObject->Transform()->GetRot(), tRot, m_fTurnSmoothing);
+        m_pGameObject->Transform()->SetRot(nRot);
+
 		int gs = Grid::SCALE;
 
 		m_Pos += m_MoveDir * (dt * (float)m_Speed);
