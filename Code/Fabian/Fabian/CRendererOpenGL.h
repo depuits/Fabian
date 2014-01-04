@@ -86,6 +86,8 @@ protected:
     ICamera *m_pActiveCam;
 
     std::vector<IShader*> m_vpShaders;
+    std::vector<IMesh*> m_vpMeshes;
+    std::vector<IImage*> m_vpImages;
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(CRendererOpenGL);

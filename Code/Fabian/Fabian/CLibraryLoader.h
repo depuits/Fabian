@@ -26,7 +26,7 @@ public:
 	// loads library into memory returning an acces id
 	// p1 in - name and path of the library to load
 	// rv - int, returns the id for the library (-1 on fail)
-	int LoadLib(const std::string&);
+	int LoadLib(const char*);
 	//-------------------------------------
 	// unloads a specific library from memory
 	// p1 in - id of the library to unload
@@ -39,7 +39,7 @@ public:
 	// gets the pointer to a function from a specific library
 	// p1 in - id of the library to load from
 	// p2 in - name of the function
-	void *GetFunction(int, const std::string&) const;
+	void *GetFunction(int, const char*) const;
 	//-------------------------------------
 
 private:

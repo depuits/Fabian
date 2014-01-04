@@ -23,13 +23,13 @@ public:
 	// loads library into memory returning an acces id
 	// p1 in - name and path of the library to load
 	// rv - int, returns true if succeeds
-	bool Load(const std::string&);
+	bool Load(const char*);
 	//-------------------------------------
 	
 	//-------------------------------------
 	// gets the pointer to a function 
 	// p1 in - name of the function
-	void *GetFunction(const std::string&);
+	void *GetFunction(const char*);
 	//-------------------------------------
 
 private:

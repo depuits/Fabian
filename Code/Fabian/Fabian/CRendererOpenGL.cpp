@@ -9,6 +9,8 @@
 #include "CMeshOpenGL.h"
 #include "CImageOpenGL.h"
 
+#include "CLog.h"
+
 //******************************************
 // Class CRendererOpenGL:
 // IRenderer implementation for OpenGL.
@@ -29,8 +31,18 @@ CRendererOpenGL::CRendererOpenGL(CServiceVideoUpdate *pServiceParent)
 // Destructor
 CRendererOpenGL::~CRendererOpenGL()
 {
+	//clear all resources
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Renderer: Unloading Shaders: %d", m_vpShaders.size());
     for ( IShader *pShader : m_vpShaders)
         delete pShader;
+
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Renderer: Unloading Meshes: %d", m_vpMeshes.size());
+    for ( IMesh *pMesh : m_vpMeshes)
+        delete pMesh;
+
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Renderer: Unloading Images: %d", m_vpImages.size());
+    for ( IImage *pImage : m_vpImages)
+        delete pImage;
 }
 //-------------------------------------
 
@@ -125,6 +137,8 @@ IShader *CRendererOpenGL::LoadShader(const std::string& sName)
 
     m_vpShaders.push_back(pShader); // should change to content manager style something
                                     // -> check if shader is loaded, if not load
+									
+									// changing is not needed if a loader like a content manager is used
 
 	return pShader;
 }
@@ -141,7 +155,8 @@ IMesh *CRendererOpenGL::LoadMesh(MeshData* md)
 		delete pMesh;
 		return nullptr;
 	}
-
+	
+	m_vpMeshes.push_back(pMesh);
 	return pMesh;
 }
 //-------------------------------------
@@ -156,7 +171,8 @@ IImage *CRendererOpenGL::LoadImage(ImageData* id)
 		delete pImage;
 		return nullptr;
 	}
-
+	
+	m_vpImages.push_back(pImage);
 	return pImage;
 }
 //-------------------------------------

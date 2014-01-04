@@ -43,7 +43,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "keys.h"
 #include "ConsoleColor.h"
 
-using namespace std;
 
 class Console{
     private:
@@ -60,23 +59,23 @@ class Console{
 		static void Open();
 
         static void Clear();
-        static void Write(string str);
+        static void Write(const std::string& str);
         static void Write(int v);
         static void Write(bool v);
-        static void Write(char str[]);
+        static void Write(const char* str);
         static void Write(char c);
         static void Write(double d);
         static void Write(float f);
         static void WriteLine();
-        static void WriteLine(string str);
-        static void WriteLine(char str[]);
+        static void WriteLine(const std::string& str);
+        static void WriteLine(const char* str);
         static int ReadKey();
         static bool KeyDown();
-        static string ReadLine();
+        static std::string ReadLine();
         static void SetBGColor(const short color);
         static void SetFGColor(const short color);
-        static void SetTitle(const string str);
-        static void SetTitle(const char str[]);
+        static void SetTitle(const std::string& str);
+        static void SetTitle(const char* str);
         static void SetCursorPosition(int x,int y);
 };
 #endif

@@ -26,6 +26,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #include "console.h"
 
+using namespace std;
+
 //Setting the default color
 //if platform is Windows
 #ifdef _WIN32
@@ -33,10 +35,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <io.h>
 #include <fcntl.h>
 
-    //set default values
-    int Console::BGColor = 0;
-    int Console::FGColor = FOREGROUND_BLUE|FOREGROUND_GREEN|FOREGROUND_RED;
-    HANDLE Console::hConsole =  GetStdHandle(STD_OUTPUT_HANDLE);
+//set default values
+int Console::BGColor = 0;
+int Console::FGColor = FOREGROUND_BLUE|FOREGROUND_GREEN|FOREGROUND_RED;
+HANDLE Console::hConsole =  GetStdHandle(STD_OUTPUT_HANDLE);
+
 //if the plaform is other than Windows
 #else
     string Console::BGColor = "30";
@@ -86,7 +89,7 @@ void Console::SetColor()
     #endif
 }
 //Print a string
-void Console::Write(string str)
+void Console::Write(const string& str)
 {
 	#ifdef _MSC_VER
 		cout << str.c_str();
@@ -105,7 +108,7 @@ void Console::Write(bool v)
     cout << (v?"TRUE":"FALSE");
 }
 //Print a char array
-void Console::Write(char str[])
+void Console::Write(const char* str)
 {
     cout << str;
 }
@@ -124,7 +127,7 @@ void Console::Write(float f)
 }
 
 //Print a string and moves the cursor to the next line
-void Console::WriteLine(string str)
+void Console::WriteLine(const string& str)
 {
 	#ifdef _MSC_VER
 		cout << str.c_str() << endl;
@@ -138,7 +141,7 @@ void Console::WriteLine()
     cout << endl;
 }
 //Print a char array and moves the cursor to the next line
-void Console::WriteLine(char str[])
+void Console::WriteLine(const char* str)
 {
     cout << str <<endl;
 }
@@ -334,7 +337,7 @@ void Console::SetFGColor(const short color)
     SetColor();
 }
 //Sets the console title
-void Console::SetTitle(const string str)
+void Console::SetTitle(const string& str)
 {
     #ifdef _WIN32
         SetConsoleTitleA(str.c_str());
@@ -342,7 +345,7 @@ void Console::SetTitle(const string str)
         cout << "\033]0;\0" << str << "\x07\0";
     #endif
 }
-void Console::SetTitle(const char str[])
+void Console::SetTitle(const char* str)
 {
     #ifdef _WIN32
         SetConsoleTitleA(str);

@@ -64,7 +64,7 @@ void CServiceInput::MsgProc(SMsg* sm)
 	{
 		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Input Service: Input requested" );
 		SMsgInput msg(m_pInput, SM_H_RECEIVE);
-		SMsg::Cast<SMsgRequest*>(sm)->pService->MsgProc(&msg);
+		SMsg::Cast<SMsgRequest*>(sm)->pService->MsgProc(&msg); // call the caller's msg callback
 	}
 }
 //-------------------------------------

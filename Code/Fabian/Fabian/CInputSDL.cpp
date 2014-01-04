@@ -238,7 +238,7 @@ void CInputSDL::LockMouse(int x, int y)
 //    called each frame, unless the input isn't used
 void CInputSDL::Update()
 {	
-	//update keyboard
+	//update keyboard (copy keyboard to check previous states)
 	memcpy( m_pKeyboardStateOld, m_pKeyboardState, sizeof(Uint8)*m_iKeyCount );
 
 	//update mouse
@@ -251,7 +251,7 @@ void CInputSDL::Update()
 		m_iMPosYLast = m_iMPosY;
 	}
 
-	m_uMouseButtonsOld = m_uMouseButtons,
+	m_uMouseButtonsOld = m_uMouseButtons;
 	m_uMouseButtons = SDL_GetMouseState(&m_iMPosX, &m_iMPosY);
 }
 //-------------------------------------

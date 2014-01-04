@@ -28,7 +28,8 @@ CContentManager::CContentManager(IRenderer* pRend)
 // Destructor
 CContentManager::~CContentManager()
 {
-	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Unloading Meshes: %d", m_mMeshMap.size());
+	// do not delete resources here because they belong to the renderer
+	/*CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Unloading Meshes: %d", m_mMeshMap.size());
 	for (std::map<std::string, IMesh*>::iterator it( m_mMeshMap.begin() ); it != m_mMeshMap.end(); ++it)
 		delete it->second;
 	m_mMeshMap.clear();
@@ -36,7 +37,7 @@ CContentManager::~CContentManager()
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Unloading Textures: %d", m_mImageMap.size());
 	for (std::map<std::string, IImage*>::iterator it( m_mImageMap.begin() ); it != m_mImageMap.end(); ++it)
 		delete it->second;
-	m_mImageMap.clear();
+	m_mImageMap.clear();*/
 }
 //-------------------------------------
 
@@ -60,7 +61,7 @@ IMesh *CContentManager::LoadMesh(const std::string& sFile)
 
 		CLibrary lib;
 		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new mesh using \"%s\"", sLib.c_str());
-		if( !lib.Load(sLib) )
+		if( !lib.Load(sLib.c_str()) )
 		{
             CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of plugin failed: \"%s\"", sLib.c_str());
 			return nullptr;
@@ -111,7 +112,7 @@ IImage *CContentManager::LoadImage(const std::string& sFile)
 
 		CLibrary lib;
 		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new Texture using \"%s\"", sLib.c_str());
-		if( !lib.Load(sLib) )
+		if( !lib.Load(sLib.c_str()) )
 		{
             CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of plugin failed: \"%s\"", sLib.c_str());
 			return nullptr;

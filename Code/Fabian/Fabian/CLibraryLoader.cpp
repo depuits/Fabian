@@ -32,15 +32,15 @@ CLibraryLoader::~CLibraryLoader()
 // loads library into memory returning an acces id
 // p1 in - name and path of the library to load
 // rv - int, returns the id for the library (-1 on fail)
-int CLibraryLoader::LoadLib(const std::string& sFile)
+int CLibraryLoader::LoadLib(const char* sFile)
 {
 	void *pLib =
 #if defined WIN32 /*windows*/
-	LoadLibraryA(sFile.c_str());
+	LoadLibraryA(sFile);
 #elif defined UNIX /*unix*/
-	dlopen(sFile.c_str(), RTLD_LAZY);
+	dlopen(sFile, RTLD_LAZY);
 #else
-#error PLATFORM NOT IMPLENTED
+#error PLATFORM NOT IMPLEMENTED
 #endif
 
 	if( pLib == nullptr )
@@ -76,7 +76,7 @@ bool CLibraryLoader::UnLoadLib(int id)
 #elif defined UNIX /*unix*/
 	dlclose(m_vLibs[id]);
 #else
-#error PLATFORM NOT IMPLENTED
+#error PLATFORM NOT IMPLEMENTED
 #endif
 
 	m_vLibs[id] = nullptr;
@@ -89,7 +89,7 @@ bool CLibraryLoader::UnLoadLib(int id)
 // gets the pointer to a function from a specific library
 // p1 in - id of the library to load from
 // p2 in - name of the function
-void *CLibraryLoader::GetFunction(int id, const std::string& sFunc) const
+void *CLibraryLoader::GetFunction(int id, const char* sFunc) const
 {
 	if( id < 0 || id >= (int)m_vLibs.size() )
 		return nullptr;
@@ -99,11 +99,11 @@ void *CLibraryLoader::GetFunction(int id, const std::string& sFunc) const
 
 	void *ret=
 #if defined WIN32 /*windows*/
-		(void *)GetProcAddress((HMODULE)m_vLibs[id], sFunc.c_str());
+		(void *)GetProcAddress((HMODULE)m_vLibs[id], sFunc);
 #elif defined UNIX /*unix*/
-		dlsym(m_vLibs[id], sFunc.c_str());
+		dlsym(m_vLibs[id], sFunc);
 #else
-#error PLATFORM NOT IMPLENTED
+#error PLATFORM NOT IMPLEMENTED
 #endif
 
 	return ret;

@@ -26,7 +26,7 @@ CLibrary::~CLibrary()
 #elif defined UNIX /*unix*/
 	dlclose(m_pLib);
 #else
-#error PLATFORM NOT IMPLENTED
+#error PLATFORM NOT IMPLEMENTED
 #endif
 }
 //-------------------------------------
@@ -35,15 +35,15 @@ CLibrary::~CLibrary()
 // loads library into memory returning an acces id
 // p1 in - name and path of the library to load
 // rv - int, returns true if succeeds
-bool CLibrary::Load(const std::string& sFile)
+bool CLibrary::Load(const  char* sFile)
 {
 	m_pLib =
 #if defined WIN32 /*windows*/
-	LoadLibraryA(sFile.c_str());
+	LoadLibraryA(sFile);
 #elif defined UNIX /*unix*/
-	dlopen(sFile.c_str(), RTLD_LAZY);
+	dlopen(sFile, RTLD_LAZY);
 #else
-#error PLATFORM NOT IMPLENTED
+#error PLATFORM NOT IMPLEMENTED
 #endif
 
 	if( m_pLib == nullptr )
@@ -56,18 +56,18 @@ bool CLibrary::Load(const std::string& sFile)
 // gets the pointer to a function from a specific library
 // p1 in - id of the library to load from
 // p2 in - name of the function
-void *CLibrary::GetFunction(const std::string& sFunc)
+void *CLibrary::GetFunction(const  char* sFunc)
 {
 	if( m_pLib == nullptr )
 		return nullptr;
 
 	void *ret=
 #if defined WIN32 /*windows*/
-		(void *)GetProcAddress((HMODULE)m_pLib, sFunc.c_str());
+		(void *)GetProcAddress((HMODULE)m_pLib, sFunc);
 #elif defined UNIX /*unix*/
-		dlsym(m_pLib, sFunc.c_str());
+		dlsym(m_pLib, sFunc);
 #else
-#error PLATFORM NOT IMPLENTED
+#error PLATFORM NOT IMPLEMENTED
 #endif
 
 	return ret;
