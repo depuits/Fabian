@@ -20,14 +20,13 @@ public:
 	// Destructor
 	virtual ~CLoggerMultiple();
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Adds an new ILogger to log to
-	//    This accepts the same logger multiple times
-	// p1 in - pointer to ILogger
+	// p1 in - pointer to ILogger (takes over ownership)
 	void AddLogger(ILogger*);
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Gets called whenever the logs receives a message
 	//    and needs it to be actually logged

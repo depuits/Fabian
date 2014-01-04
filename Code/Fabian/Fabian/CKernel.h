@@ -24,27 +24,23 @@ public:
 	// Destructor
 	virtual ~CKernel();
 	//-------------------------------------
-	
+
 	//-------------------------------------
-	// Start running the engine, 
+	// Start running the engine,
 	//    should be called after the base services are added
 	// rv - returns 0
 	int Execute();
 	//-------------------------------------
-	
+
 	//-------------------------------------
 	// Adds a service to the kernel and takes ownership of it
-	//    Because the kernel takes ownership of the service 
-	//    you don't have to delete it yourself.
-	// Planned : 
-	//           Return service IDs for acces (-1 on fail)
-	// p1 in - a pointer to the service to add (can't be 0)
+	// p1 in - a pointer to the service to add (can't be 0)(takes over ownership)
 	// rv - returns pointer to the service on succes and a nullptr when it fails
-	IService* AddService(IService*); 
+	IService* AddService(IService*);
 	//-------------------------------------
-	
+
 	//-------------------------------------
-	// Planned : 
+	// Planned :
 	//           Use service ID to interact with the services
 	//              instead of pointers
 	//-------------------------------------
@@ -66,9 +62,9 @@ public:
 	//    application by doing so
 	void KillAllServices();
 	//-------------------------------------
-	
+
 	//-------------------------------------
-	// Send a message to the services 
+	// Send a message to the services
 	//    (including the service who sends it)
 	// p1 in - pointer to SMsg object
 	void SendMessage(SMsg*);

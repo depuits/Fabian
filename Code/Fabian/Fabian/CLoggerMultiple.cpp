@@ -9,7 +9,7 @@
 
 //-------------------------------------
 // Constructor
-CLoggerMultiple::CLoggerMultiple() 
+CLoggerMultiple::CLoggerMultiple()
 	:ILogger()
 {
 }
@@ -19,20 +19,22 @@ CLoggerMultiple::~CLoggerMultiple()
 {
 	for(std::vector<ILogger*>::iterator it( m_vLoggers.begin() ); it != m_vLoggers.end(); ++it)
 		delete (*it);
-
 }
 //-------------------------------------
-	
+
 //-------------------------------------
 // Adds an new ILogger to log to
 //    This accepts the same logger multiple times
 // p1 in - pointer to ILogger
 void CLoggerMultiple::AddLogger(ILogger *pLogger)
 {
+    // check if the logger isn't already added
+    //    This is important for when the class deletes them
+    //    Can't be this
 	m_vLoggers.push_back(pLogger);
 }
 //-------------------------------------
-	
+
 //-------------------------------------
 // Gets called whenever the logs receives a message
 //    and needs it to be actually logged

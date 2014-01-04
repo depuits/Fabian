@@ -1,8 +1,6 @@
 #include "CContentManager.h"
 #include "IRenderer.h"
 
-#include "IMesh.h"
-#include "IImage.h"
 #include "CLibrary.h"
 #include "CLog.h"
 
@@ -45,6 +43,25 @@ CContentManager::~CContentManager()
 // Loads in a mesh or texture from a file and returns it
 // p1 in - string, name of the file to load
 // rv - pointer IMesh or IImage object and nullptr if failed
+IShader *CContentManager::LoadShader(const std::string& sFile)
+{
+	if ( !IsShaderLoaded(sFile))
+	{
+		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new Shader: \"%s\"", sFile.c_str());
+
+		IShader *pShader = m_pRenderer->LoadShader(sFile);
+
+		if( pShader == nullptr )
+		{
+			CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading shader failed");
+			return nullptr;
+		}
+
+		m_mShaderMap[sFile] = pShader;
+	}
+
+	return m_mShaderMap[sFile];
+}
 IMesh *CContentManager::LoadMesh(const std::string& sFile)
 {
 	if ( !IsMeshLoaded(sFile))
@@ -152,6 +169,10 @@ IImage *CContentManager::LoadImage(const std::string& sFile)
 // Checks weither or not the mesh or image has already been loaded.
 // p1 in - string, name of the object file (without extension)
 // rv - bool, true if the object is already loaded
+bool CContentManager::IsShaderLoaded(const std::string& sKey) const
+{
+	return  m_mShaderMap.find(sKey) != m_mShaderMap.end();
+}
 bool CContentManager::IsMeshLoaded(const std::string& sKey) const
 {
 	return  m_mMeshMap.find(sKey) != m_mMeshMap.end();

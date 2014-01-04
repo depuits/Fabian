@@ -51,8 +51,8 @@ class Console{
             static int FGColor;
             static HANDLE hConsole;
         #else
-            static string BGColor;
-            static string FGColor;
+            static std::string BGColor;
+            static std::string FGColor;
         #endif
         static void SetColor();
     public:

@@ -106,13 +106,14 @@ bool CServiceGame::Start()
 	// make needed object accesable for user
 	CGlobalAccessor::Get().AddObject("Input", m_pInput);
 
-	IShader *pShader = m_pRenderer->LoadShader("Shaders/SimpleShader");
+	m_pContent = new CContentManager(m_pRenderer);
+
+	IShader *pShader = m_pContent->LoadShader("Shaders/SimpleShader");
 	pShader->Apply();
 	pShader->SetVarVec3(  pShader->GetVarId("LightPosition_worldspace"),    glm::vec3(0, 100, 0));
 	pShader->SetVarF1(    pShader->GetVarId("LightPower"),                  1.0f);
 	pShader->SetVarVec4(  pShader->GetVarId("LightColor"),                  glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
-	m_pContent = new CContentManager(m_pRenderer);
 	IImage  *pImage = m_pContent->LoadImage("Textures/CarDiffuseMap.png"),
 
             *pImageFloor = m_pContent->LoadImage("Textures/FloorDif.png"),

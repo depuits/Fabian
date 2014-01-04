@@ -46,6 +46,7 @@ public:
 	CTransform *Transform();
 	//-------------------------------------
 
+    // (takes over ownership)
 	bool AddComponent(IComponent*);
 	bool RemoveComponent(IComponent*);
 
