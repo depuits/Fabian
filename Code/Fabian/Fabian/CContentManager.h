@@ -37,6 +37,13 @@ public:
 	virtual IMesh *LoadMesh(const std::string&);
 	virtual IImage *LoadImage(const std::string&);
 	//-------------------------------------
+	// Loads in a mesh or texture from a file and returns it
+	// p1 in - string, name of lib used to load
+	// p2 in - string, name of the file to load
+	// rv - pointer IMesh or IImage object and nullptr if failed
+	virtual IMesh *LoadMeshUsing(const std::string&, const std::string&);
+	virtual IImage *LoadImageUsing(const std::string&, const std::string&);
+	//-------------------------------------
 
 	//-------------------------------------
 	// Checks weither or not the mesh or image has already been loaded.

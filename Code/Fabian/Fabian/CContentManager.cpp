@@ -4,6 +4,8 @@
 #include "CLibrary.h"
 #include "CLog.h"
 
+#include <dirent.h>
+
 //******************************************
 // Class CContentManager:
 // the content manager is responsible for loading
@@ -114,21 +116,67 @@ IMesh *CContentManager::LoadMesh(const std::string& sFile)
 }
 IImage *CContentManager::LoadImage(const std::string& sFile)
 {
-	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Texture: %s", sFile.c_str());
-	if ( !IsImageLoaded(sFile))
-	{
-        std::string sLib("plugins/FPI_SOILLoader");
-
+    std::string sExt =
 #if defined WIN32 /*windows*/
-        sLib += ".dll";
+        ".dll";
 #elif defined UNIX /*unix*/
-        sLib += ".so";
+        ".so";
 #else
 #error PLATFORM NOT IMPLENTED
 #endif
 
+    CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Texture");
+	if ( !IsImageLoaded(sFile))
+	{
+        CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Searching lib to load Texture");
+        DIR *dir;
+        struct dirent *ent;
+        if ( (dir = opendir ("plugins")) != NULL )
+        {
+            /* print all the files and directories within directory */
+            while ((ent = readdir (dir)) != NULL)
+            {
+                if( ent->d_type == DT_REG ) // if entry is a regular file
+                {
+                    std::string fname(ent->d_name);
+                    if( fname.find(sExt, (fname.length() - sExt.length()) ) != std::string::npos )
+                    {
+                        printf("%s\n", fname.c_str());
+                        IImage *pImg = LoadImageUsing("plugins/" + fname, sFile);
+                        if( pImg != nullptr )
+                            return pImg;
+                    }
+                }
+            }
+            closedir (dir);
+        }
+        else
+        {
+            /* could not open directory */
+            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Failed to open plugin directory");
+            return nullptr;
+        }
+        CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: No plugin found to load image");
+        return nullptr;
+    }
+
+    return m_mImageMap[sFile];
+}
+//-------------------------------------
+// Loads in a mesh or texture from a file and returns it
+// p1 in - string, name of lib used to load
+// p2 in - string, name of the file to load
+// rv - pointer IMesh or IImage object and nullptr if failed
+IMesh *CContentManager::LoadMeshUsing(const std::string& sLib, const std::string& sFile)
+{
+    return nullptr;
+}
+IImage *CContentManager::LoadImageUsing(const std::string& sLib, const std::string& sFile)
+{
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Texture (\"%s\") using \"%s\"", sFile.c_str(), sLib.c_str());
+	if ( !IsImageLoaded(sFile))
+	{
 		CLibrary lib;
-		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new Texture using \"%s\"", sLib.c_str());
 		if( !lib.Load(sLib.c_str()) )
 		{
             CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of plugin failed: \"%s\"", sLib.c_str());
@@ -147,18 +195,24 @@ IImage *CContentManager::LoadImage(const std::string& sFile)
 		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new Texture: \"%s\"", sFile.c_str());
 		ImageData *id = fLoadID(sFile.c_str());
 
-		IImage *pImage = m_pRenderer->LoadImage(id);
-		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loaded ImageData ( w: %d - h: %d )", id->w, id->h);
-		// release dll data
-		fReleaseID(id);
-
-		if( pImage == nullptr )
+		if( id == nullptr ) // dll failed to load
 		{
-			CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading texture failed");
-			return nullptr;
+			CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: Loading texture failed");
+            return nullptr;
 		}
 
-		m_mImageMap[sFile] = pImage;
+        CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loaded ImageData ( w: %d - h: %d )", id->w, id->h);
+        IImage *pImage = m_pRenderer->LoadImage(id);
+        // release dll data
+        fReleaseID(id);
+
+        if( pImage == nullptr )
+        {
+            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading texture failed");
+            return nullptr;
+        }
+
+        m_mImageMap[sFile] = pImage;
 	}
 
 	return m_mImageMap[sFile];

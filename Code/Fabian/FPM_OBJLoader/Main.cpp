@@ -15,6 +15,10 @@ extern "C"
 	// Plugin factory function
 	DECLDIR MeshData* LoadData(const char* sFile)
 	{
+        std::string fname(sFile), sExt(".obj");
+        if( fname.find(sExt, (fname.length() - sExt.length()) ) == std::string::npos )
+            return nullptr;
+
 		std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
 		std::vector< glm::vec3 > temp_vertices;
 		std::vector< glm::vec3 > temp_normals;
