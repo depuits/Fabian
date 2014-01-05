@@ -66,51 +66,49 @@ IShader *CContentManager::LoadShader(const std::string& sFile)
 }
 IMesh *CContentManager::LoadMesh(const std::string& sFile)
 {
-	if ( !IsMeshLoaded(sFile))
-	{
-        std::string sLib("plugins/FPM_OBJLoader");
-
+    std::string sExt =
 #if defined WIN32 /*windows*/
-        sLib += ".dll";
+        ".dll";
 #elif defined UNIX /*unix*/
-        sLib += ".so";
+        ".so";
 #else
 #error PLATFORM NOT IMPLENTED
 #endif
-
-		CLibrary lib;
-		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new mesh using \"%s\"", sLib.c_str());
-		if( !lib.Load(sLib.c_str()) )
-		{
-            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of plugin failed: \"%s\"", sLib.c_str());
-			return nullptr;
+		
+    //CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Mesh");
+	if ( !IsMeshLoaded(sFile))
+	{
+        CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Searching lib to load Mesh");
+        DIR *dir;
+        struct dirent *ent;
+        if ( (dir = opendir ("plugins")) != NULL )
+        {
+            /* print all the files and directories within directory */
+            while ((ent = readdir (dir)) != NULL)
+            {
+                if( ent->d_type == DT_REG ) // if entry is a regular file
+                {
+                    std::string fname(ent->d_name);
+                    if( fname.find(sExt, (fname.length() - sExt.length()) ) != std::string::npos )
+                    {
+                        printf("%s\n", fname.c_str());
+                        IMesh *pMesh = LoadMeshUsing("plugins/" + fname, sFile);
+                        if( pMesh != nullptr )
+                            return pMesh;
+                    }
+                }
+            }
+            closedir (dir);
         }
-		LOAD_MESHDATA fLoadMD = (LOAD_MESHDATA)lib.GetFunction("LoadData"); // meshData Loading function
-		RELEASE_MESHDATA fReleaseMD = (RELEASE_MESHDATA)lib.GetFunction("ReleaseData"); // meshData Release function
-
-		if( fLoadMD == nullptr || fReleaseMD == nullptr )
-		{
-            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of LOADDATA(%d) or RELEASEDATA(%d) in \"%s\" failed.", fLoadMD, fReleaseMD, sLib.c_str());
-			return nullptr;
+        else
+        {
+            /* could not open directory */
+            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Failed to open plugin directory");
+            return nullptr;
         }
-
-		// load from dll
-		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new mesh: \"%s\"", sFile.c_str());
-		MeshData *md = fLoadMD(sFile.c_str());
-
-		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loaded MeshData ( v: %d - i: %d )", md->vCount / 8 /* divided by 8 becaus the vcount is x,y,z,nx,ny,nz,u,v*/, md->iCount);
-		IMesh *pMesh = m_pRenderer->LoadMesh(md);
-		// release dll data
-		fReleaseMD(md);
-
-		if( pMesh == nullptr )
-		{
-			CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading mesh failed");
-			return nullptr;
-		}
-
-		m_mMeshMap[sFile] = pMesh;
-	}
+        CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: No plugin found to load mesh");
+        return nullptr;
+    }
 
 	return m_mMeshMap[sFile];
 }
@@ -125,7 +123,7 @@ IImage *CContentManager::LoadImage(const std::string& sFile)
 #error PLATFORM NOT IMPLENTED
 #endif
 
-    CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Texture");
+    //CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Texture");
 	if ( !IsImageLoaded(sFile))
 	{
         CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Searching lib to load Texture");
@@ -169,7 +167,47 @@ IImage *CContentManager::LoadImage(const std::string& sFile)
 // rv - pointer IMesh or IImage object and nullptr if failed
 IMesh *CContentManager::LoadMeshUsing(const std::string& sLib, const std::string& sFile)
 {
-    return nullptr;
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Mesh (\"%s\") using \"%s\"", sFile.c_str(), sLib.c_str());
+	if ( !IsMeshLoaded(sFile))
+	{
+		CLibrary lib;
+		if( !lib.Load(sLib.c_str()) )
+		{
+            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of plugin failed: \"%s\"", sLib.c_str());
+			return nullptr;
+        }
+		LOAD_MESHDATA fLoadMD = (LOAD_MESHDATA)lib.GetFunction("LoadData"); // meshData Loading function
+		RELEASE_MESHDATA fReleaseMD = (RELEASE_MESHDATA)lib.GetFunction("ReleaseData"); // meshData Release function
+
+		if( fLoadMD == nullptr || fReleaseMD == nullptr )
+		{
+            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of LOADDATA(%d) or RELEASEDATA(%d) in \"%s\" failed.", fLoadMD, fReleaseMD, sLib.c_str());
+			return nullptr;
+        }
+
+		// load from dll
+		MeshData *md = fLoadMD(sFile.c_str());
+		if( md == nullptr ) // dll failed to load
+		{
+			CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: Loading mesh failed");
+            return nullptr;
+		}
+
+		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loaded MeshData ( v: %d - i: %d )", md->vCount / 8 /* divided by 8 becaus the vcount is x,y,z,nx,ny,nz,u,v*/, md->iCount);
+		IMesh *pMesh = m_pRenderer->LoadMesh(md);
+		// release dll data
+		fReleaseMD(md);
+
+		if( pMesh == nullptr )
+		{
+			CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading mesh failed");
+			return nullptr;
+		}
+
+		m_mMeshMap[sFile] = pMesh;
+	}
+
+	return m_mMeshMap[sFile];
 }
 IImage *CContentManager::LoadImageUsing(const std::string& sLib, const std::string& sFile)
 {
@@ -192,7 +230,6 @@ IImage *CContentManager::LoadImageUsing(const std::string& sLib, const std::stri
         }
 
 		// load from dll
-		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new Texture: \"%s\"", sFile.c_str());
 		ImageData *id = fLoadID(sFile.c_str());
 
 		if( id == nullptr ) // dll failed to load

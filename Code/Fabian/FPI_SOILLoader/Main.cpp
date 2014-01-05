@@ -21,6 +21,13 @@ extern "C"
 		pID->w = w;
 		pID->h = h;
 
+		if( pID->data == nullptr )
+		{
+			printf("SOIL loading error: '%s'\n", SOIL_last_result());
+			delete pID;
+			return nullptr;
+		}
+
 		return pID;
 	}
 

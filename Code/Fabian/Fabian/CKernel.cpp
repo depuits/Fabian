@@ -121,7 +121,7 @@ IService* CKernel::AddService(IService* s)
 // !!! - these methods might be removed
 // p1 in - a pointer to the service to suspend or resume
 // rv - returns true on succes
-void CKernel::SuspendService(IService* s)
+void CKernel::SuspendService(IService*)
 {
 	CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Kernel: Suspend Service Disabled" );
 	//check that this task is in our list - we don't want to suspend
@@ -133,7 +133,7 @@ void CKernel::SuspendService(IService* s)
 		m_pPausedServiceList.push_back(s);
 	}*/
 }
-void CKernel::ResumeService(IService* s)
+void CKernel::ResumeService(IService*)
 {
 	CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Kernel: Resume Service Disabled" );
 	/*if( std::find(m_pPausedServiceList.begin(), m_pPausedServiceList.end(), s) != m_pPausedServiceList.end() )
