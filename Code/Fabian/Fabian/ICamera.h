@@ -8,25 +8,26 @@ FDISABLE_WARNING_START(4201)
 FDISABLE_WARNING_END(4201)
 
 //******************************************
-// Class CCompCamera:
-// A basic camera for drawing scenes, including
-// the most simple settings.
+// Interface ICamera:
+// interface for getting default camera patameters
 //******************************************
 class ICamera
 {
 public:
 	//-------------------------------------
 	// Constructor
-	// p1 in* - pointer to parent object, this causes
-	//            the object to be linked to the parent
 	ICamera() { }
 	//-------------------------------------
 	// Destructor
 	virtual ~ICamera() { }
 	//-------------------------------------
-
+	
+	//-------------------------------------
+	// Get the view or projection matrix of this camera
+	// rv - matrix
 	virtual glm::mat4& GetProjection() = 0;
 	virtual glm::mat4& GetView() = 0;
+	//-------------------------------------
 
 protected:
 

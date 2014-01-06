@@ -99,27 +99,21 @@ void CRendererOpenGL::Clear(float r, float g, float b, float a)
 }
 //-------------------------------------
 
-void CRendererOpenGL::StartDraw()
+
+void CRendererOpenGL::SetActiveCamera(ICamera* pCam)
 {
+    if(pCam == nullptr)
+		return;
+
     // set all view and projection matrices for the shader
-    glm::mat4   &mView = m_pActiveCam->GetView(),
-                &mProj = m_pActiveCam->GetProjection();
+    glm::mat4   &mView = pCam->GetView(),
+                &mProj = pCam->GetProjection();
 
     for ( IShader *pShader : m_vpShaders)
     {
         pShader->SetView(mView);
         pShader->SetProjection(mProj);
     }
-}
-void CRendererOpenGL::EndDraw()
-{
-    // nothing to do to finish drawing
-}
-
-void CRendererOpenGL::SetActiveCamera(ICamera* pCam)
-{
-    FASSERT(pCam != nullptr);
-    m_pActiveCam = pCam;
 }
 
 //-------------------------------------
@@ -135,18 +129,13 @@ IShader *CRendererOpenGL::LoadShader(const std::string& sName)
 		return nullptr;
 	}
 
-    m_vpShaders.push_back(pShader); // should change to content manager style something
-                                    // -> check if shader is loaded, if not load
-									
-									// changing is not needed if a loader like a content manager is used
-
+    m_vpShaders.push_back(pShader);
 	return pShader;
 }
 //-------------------------------------
 // Loads in a mesh from a file and returns it
-// p1 in - string, name of the mesh file (without extension)
-// p2 in - string, extension of the file
-// rv - pointer IMesh object and nullptr if failed
+	// p1 in - pointer to the meshdata for the mesh
+	// rv - pointer IMesh object and nullptr if failed
 IMesh *CRendererOpenGL::LoadMesh(MeshData* md)
 {
 	IMesh *pMesh = new CMeshOpenGL();
@@ -161,8 +150,8 @@ IMesh *CRendererOpenGL::LoadMesh(MeshData* md)
 }
 //-------------------------------------
 // Loads in a image from a file and returns it
-// p1 in - pointer to the imagedata for the mesh
-// rv - pointer IImage object and nullptr if failed
+	// p1 in - pointer to the imagedata for the mesh
+	// rv - pointer IImage object and nullptr if failed
 IImage *CRendererOpenGL::LoadImage(ImageData* id)
 {
 	IImage *pImage = new CImageOpenGL();

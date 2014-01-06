@@ -160,6 +160,8 @@ CInputSDL::CInputSDL()
 	m_mapMouse.insert( std::pair<FKey, Uint8>(FKEY_MMBUTTON, SDL_BUTTON_MIDDLE) );
 	m_mapMouse.insert( std::pair<FKey, Uint8>(FKEY_MXBUTTON1, SDL_BUTTON_X1) );
 	m_mapMouse.insert( std::pair<FKey, Uint8>(FKEY_MXBUTTON2, SDL_BUTTON_X2) );
+
+	SDL_Init(0);
 }
 //-------------------------------------
 // Destructor

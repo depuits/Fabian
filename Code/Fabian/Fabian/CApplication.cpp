@@ -44,7 +44,7 @@ int CApplication::Run(int argc, char *argv[])
 	
 	CLoggerToConsole* pLoggerConsole = new CLoggerToConsole(true);
 	pLoggerConsole->Init();
-	CLoggerToFiles* pLoggerFiles = new CLoggerToFiles();
+	CLoggerToFiles* pLoggerFiles = new CLoggerToFiles(false);
 	pLoggerFiles->Init();
 	
 	pLogger->AddLogger(pLoggerConsole);
@@ -74,6 +74,10 @@ int CApplication::Run(int argc, char *argv[])
   
 	//set up the profiler output
 
+	//temperary set up and exit sdl here
+	// this will move with the sdl depended services to a DLL
+	SDL_Init(0);
+
 	//add services to use
 	pKernel->AddService( new CServiceInput(50) ); // must be called before msg loop to copy the keyboard state
 	pKernel->AddService( new CServiceMessageLoop(100) );
@@ -88,6 +92,7 @@ int CApplication::Run(int argc, char *argv[])
 	int rv = pKernel->Execute();
   
 	//clean up
+	SDL_Quit();
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "----------------- Application Ended -----------------\n");
 
 	return rv;

@@ -24,13 +24,18 @@ CLoggerMultiple::~CLoggerMultiple()
 
 //-------------------------------------
 // Adds an new ILogger to log to
-//    This accepts the same logger multiple times
 // p1 in - pointer to ILogger
 void CLoggerMultiple::AddLogger(ILogger *pLogger)
 {
     // check if the logger isn't already added
     //    This is important for when the class deletes them
     //    Can't be this
+	if(pLogger == this)
+		return;
+
+	if( std::find(m_vLoggers.begin(), m_vLoggers.end(), pLogger) != m_vLoggers.end() )
+		return;
+
 	m_vLoggers.push_back(pLogger);
 }
 //-------------------------------------

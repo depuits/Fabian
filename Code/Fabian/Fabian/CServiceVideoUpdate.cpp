@@ -191,6 +191,8 @@ bool CServiceVideoUpdate::SetFullScreen(bool bFullscreen)
 // rv - bool, true when succeeds
 bool CServiceVideoUpdate::SetScreenResolution(int w, int h)
 {
+	CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "OpenGlVideoService::SetScreenResolution -> Not fully working yet");
+
 	m_iScreenWidth = w;
 	m_iScreenHeight = h;
 

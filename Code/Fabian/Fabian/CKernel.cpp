@@ -1,6 +1,5 @@
 #include "CKernel.h"
 
-#include <SDL.h>
 #include "IService.h"
 #include <algorithm>
 
@@ -40,9 +39,7 @@ CKernel::~CKernel()
 int CKernel::Execute()
 {
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Executing Kernel" );
-
-	SDL_Init(0);
-
+	
 	bool bRunning(true);
 	while(bRunning)
 	{
@@ -61,7 +58,7 @@ int CKernel::Execute()
 					{
 						s->Stop();
 						m_pServiceList.remove(s);
-						delete s;
+						delete s; // remove service using its dll to load
 						s = nullptr;
 					}
 				}
@@ -75,9 +72,6 @@ int CKernel::Execute()
 		if ( m_pServiceList.size() <= 0 )
 			bRunning = false;
 	}
-
-	SDL_Quit();
-
 	return 0;
 }
 //-------------------------------------
@@ -112,10 +106,6 @@ IService* CKernel::AddService(IService* s)
 }
 //-------------------------------------
 
-//-------------------------------------
-// Planned :
-//           Use service ID to interact with the services
-//              instead of pointers
 //-------------------------------------
 // Suspend or resume a service
 // !!! - these methods might be removed

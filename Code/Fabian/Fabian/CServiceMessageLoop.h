@@ -7,13 +7,16 @@
 // Class CServiceMessageLoop:
 // service responsable for handling message from the system
 // this is needed for moving and closing the window
+// !!! this seric should merge with the video update service
+//        because this is handling the messages from the created
+//        window from that service
 //******************************************
 class CServiceMessageLoop : public IService
 {
 public:
 	//-------------------------------------
 	// Constructor
-	// p1 in* - int, the priorety of the service 
+	// p1 in - int, the priorety of the service 
 	//            ( the lower the higher the priorety )
 	CServiceMessageLoop(int priorety = 100);
 	//-------------------------------------

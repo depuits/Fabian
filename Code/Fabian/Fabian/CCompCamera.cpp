@@ -41,12 +41,6 @@ bool CCompCamera::Start()
 	return true;
 }
 //-------------------------------------
-// Sets this camera to the current one
-// p1 in - pointer to the shader the object should "draw" with
-void CCompCamera::Draw()
-{
-}
-//-------------------------------------
 
 //-------------------------------------
 // Sets/Creates the projection matrix of the camera

@@ -16,6 +16,8 @@ class ICamera;
 // Interface IRenderer:
 // interface used for basic rendering methods
 // and loading shaders and meshes.
+// !!! this still need lots off extension 
+//        for more advanced things
 //******************************************
 class IRenderer
 {
@@ -59,11 +61,12 @@ public:
 	// p4 in - float, A value
 	virtual void Clear(float, float, float, float) = 0;
 	//-------------------------------------
-
-	virtual void StartDraw() = 0;
-	virtual void EndDraw() = 0;
-
+	
+	//-------------------------------------
+	// Set The active drawing camera for the comming frame
+	// p1 in - pointer to the camera to use
 	virtual void SetActiveCamera(ICamera*) = 0;
+	//-------------------------------------
 
 	//-------------------------------------
 	// Loads in a shader from a file and returns it

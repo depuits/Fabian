@@ -42,7 +42,7 @@ bool CCompModel::Start()
 // p1 in - pointer to the shader the object should draw with
 void CCompModel::Draw()
 {
-    m_pMaterial->Apply(m_pGameObject->Transform());
+    m_pMaterial->Apply(*m_pGameObject->Transform());
 	m_pMesh->Draw();
 }
 //-------------------------------------

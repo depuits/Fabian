@@ -16,7 +16,8 @@ class CLoggerToFiles : public ILogger
 public:
 	//-------------------------------------
 	// Constructor
-	CLoggerToFiles();
+	// p1 in - bool, append to the already existing file
+	CLoggerToFiles(bool = true);
 	//-------------------------------------
 	// Destructor
 	virtual ~CLoggerToFiles();
@@ -39,6 +40,8 @@ public:
 	//-------------------------------------
 
 private:
+	bool m_bAppend;
+	
     std::ofstream m_osAppLog;
     std::ofstream m_osClientLog;
     std::ofstream m_osServerLog;

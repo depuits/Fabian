@@ -12,7 +12,7 @@ class IComponent;
 
 //******************************************
 // Class CGameObject:
-//
+// base gameobject with component system
 //******************************************
 class CGameObject
 {
@@ -45,16 +45,36 @@ public:
 	// rv - pointer to the CTransform object
 	CTransform *Transform();
 	//-------------------------------------
-
-    // (takes over ownership)
+	
+	//-------------------------------------
+	// Add a component to the gameobject
+	// p1 in - pointer to component (takes over ownership)
+	// rv - bool, true if succeeded
 	bool AddComponent(IComponent*);
+	//-------------------------------------
+	// Removes and destroys a component from the gameobject
+	// p1 in - pointer to component 
+	//            (if its found in the component list it will be destroyed)
+	// rv - bool, true if succeeded
 	bool RemoveComponent(IComponent*);
-
+	//-------------------------------------
+	
+	//-------------------------------------
+	// Disables or enables a component
+	//    this will disable or re-enable the update and draw of the component
+	// p1 in - pointer to component 
+	//            (if its found in the component list it will be destroyed)
+	// rv - bool, true if succeeded
 	bool DisableComponent(IComponent*);
 	bool EnableComponent(IComponent*);
-
+	//-------------------------------------
+	
+	//-------------------------------------
+	// Find the first component of type T
+	// rv - pointer to the component or nullptr if none is found
 	template<typename T>
 	T *GetComponentOfType();
+	//-------------------------------------
 
 protected:
 	CTransform m_Transform;

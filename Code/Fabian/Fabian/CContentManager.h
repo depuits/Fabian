@@ -17,6 +17,7 @@ class IImage;
 // Class CContentManager:
 // the content manager is responsible for loading
 // and unloading objects like meshes and textures.
+// Unloading isn't implemented yet
 //******************************************
 class CContentManager
 {
@@ -33,11 +34,13 @@ public:
 	// Loads in a mesh or texture from a file and returns it
 	// p1 in - string, name of the file to load
 	// rv - pointer IMesh or IImage object and nullptr if failed
+	// !!! - for loading shaders you shouldn't add the extension
 	virtual IShader *LoadShader(const std::string&);
 	virtual IMesh *LoadMesh(const std::string&);
 	virtual IImage *LoadImage(const std::string&);
 	//-------------------------------------
 	// Loads in a mesh or texture from a file and returns it
+	//    using a specifiv dll
 	// p1 in - string, name of lib used to load
 	// p2 in - string, name of the file to load
 	// rv - pointer IMesh or IImage object and nullptr if failed
@@ -47,7 +50,7 @@ public:
 
 	//-------------------------------------
 	// Checks weither or not the mesh or image has already been loaded.
-	// p1 in - string, name of the object file (without extension)
+	// p1 in - string, name of the object file
 	// rv - bool, true if the object is already loaded
 	bool IsShaderLoaded(const std::string&) const;
 	bool IsMeshLoaded(const std::string&) const;

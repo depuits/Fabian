@@ -2,6 +2,7 @@
 #define FABIAN_CSERVICEGAME_H_
 
 #include "IService.h"
+#include <string>
 
 // --forward declarations--
 class IInput;
@@ -41,7 +42,7 @@ public:
 	// rv - return true on succes,
 	//         when false is returned then the service gets deleted
 	virtual bool Start();
-	void LoadLevel();
+	void LoadLevel(const std::string&);
 	//-------------------------------------
 	// Called every time the service has to update
 	virtual void Update();

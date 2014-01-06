@@ -34,10 +34,6 @@ public:
 	// rv - bool, false if something failed
 	virtual bool Start();
 	//-------------------------------------
-	// Sets this camera to the current one
-	// p1 in - pointer to the shader the object should "draw" with
-	virtual void Draw();
-	//-------------------------------------
 
 	//-------------------------------------
 	// Sets/Creates the projection matrix of the camera

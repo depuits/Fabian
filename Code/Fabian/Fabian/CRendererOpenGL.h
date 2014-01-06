@@ -56,11 +56,12 @@ public:
 	// p4 in - float, A value
 	virtual void Clear(float, float, float, float);
 	//-------------------------------------
-
-	virtual void StartDraw();
-	virtual void EndDraw();
-
+	
+	//-------------------------------------
+	// Set The active drawing camera for the comming frame
+	// p1 in - pointer to the camera to use
 	virtual void SetActiveCamera(ICamera*);
+	//-------------------------------------
 
 	//-------------------------------------
 	// Loads in a shader from a file and returns it

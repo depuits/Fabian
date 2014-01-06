@@ -40,10 +40,6 @@ public:
 	//-------------------------------------
 
 	//-------------------------------------
-	// Planned :
-	//           Use service ID to interact with the services
-	//              instead of pointers
-	//-------------------------------------
 	// Suspend or resume a service
 	// !!! - these methods might be removed
 	// p1 in - a pointer to the service to suspend or resume

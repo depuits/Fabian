@@ -49,6 +49,8 @@ IMaterial   *g_pMatDefault,
             *g_pMatPlayer,
             *g_pMatBug01;
 
+ICamera *g_pCam;
+
 //******************************************
 // Class CServiceGame:
 // game specific service which defines the actual game
@@ -142,9 +144,9 @@ bool CServiceGame::Start()
 	pGo->Transform()->Rotate( glm::vec3(0, -glm::half_pi<float>(), 0));
 	g_vpGameObjects.push_back(pGo);
 	CGlobalAccessor::Get().AddObject("Camera", pGo);
-	m_pRenderer->SetActiveCamera(pCam);
+	g_pCam = pCam;
 
-	LoadLevel();
+	LoadLevel("level.lvl");
 
 	for (CGameObject* go : g_vpGameObjects)
 		go->Init();
@@ -153,17 +155,15 @@ bool CServiceGame::Start()
 	return true;
 }
 
-void CServiceGame::LoadLevel()
+void CServiceGame::LoadLevel(const std::string& sFile)
 {
-	std::string file("level.lvl");
-
 	int w = 0,
 		h = 1; // start at 1 because last line doesn't need an \n
 	int tw = 0;
 
 	//read file twice
 	// 1. read and count the grid size
-	std::ifstream is(file);		// open file
+	std::ifstream is(sFile);		// open file
 	while (is.good())				// loop while extraction from file is possible
 	{
 		char c = (char)is.get();       // get character from file
@@ -391,11 +391,10 @@ void CServiceGame::Update()
 		go->Update(s_fDtime);
 
 	//draw
-	m_pRenderer->Clear(0.01f, 0.1f, 0.4f, 1.0f);
-	m_pRenderer->StartDraw();
+	m_pRenderer->Clear(0.01f, 0.1f, 0.1f, 1.0f);
+	m_pRenderer->SetActiveCamera(g_pCam);
 	for (CGameObject* go : g_vpGameObjects)
 		go->Draw();
-    m_pRenderer->EndDraw();
 }
 //-------------------------------------
 // Called when the service will be deleted

@@ -44,7 +44,7 @@ bool CLoggerToConsole::Init()
 // p1 in - log level, useally ERROR, WARNING or INFO
 // p2 in - log id, the place where to write to
 // p3 in - log message
-void CLoggerToConsole::Write(char lvl, char id, const char* msg)
+void CLoggerToConsole::Write(char lvl, char, const char* msg)
 {
 	time_t rawtime;
 	tm * timeinfo;

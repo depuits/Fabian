@@ -25,6 +25,7 @@ public:
 	// !!! - loads 2 files,
 	//          ".vsh" for the vertex shader
 	//          ".fsh" for the fragment(pixel) shader
+	// p1 in - shader file name without any extensions
 	// rv - bool, return false if something failed
 	virtual bool Load(const std::string&);
 	//-------------------------------------

@@ -222,6 +222,9 @@
     <ClInclude Include="IMaterial.h">
       <Filter>Engine Files\Video</Filter>
     </ClInclude>
+    <ClInclude Include="ICamera.h">
+      <Filter>Engine Files\Video</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CKernel.cpp">

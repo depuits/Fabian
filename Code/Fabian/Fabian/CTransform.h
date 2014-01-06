@@ -19,8 +19,9 @@ class CTransform
 public:
 	//-------------------------------------
 	// Constructor
-	// p1 in* - pointer to parent object, this causes
+	// p1 in - pointer to parent object, this causes
 	//            the object to be linked to the parent
+	// !!! Parent system needs to be reworked
 	CTransform(CTransform* = nullptr);
 	//-------------------------------------
 	// Destructor
@@ -44,7 +45,7 @@ public:
 	void LocalMove(const glm::vec3&);
 	//-------------------------------------
 	// Rotates the object allong its local axis
-	// !!! - not sure if working correct
+	// !!! - not sure if working correct because of axis order
 	// p1 in - vec3, rotation
 	void LocalRotate(const glm::vec3&);
 	//-------------------------------------

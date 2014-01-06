@@ -4,7 +4,9 @@
 #include "CLibrary.h"
 #include "CLog.h"
 
+FDISABLE_WARNING_START(4505)
 #include <dirent.h>
+//FDISABLE_WARNING_END(4505) // don't end it because of the way the warning is generated
 
 //******************************************
 // Class CContentManager:
@@ -12,11 +14,9 @@
 // and unloading objects like meshes and textures.
 //******************************************
 
-typedef MeshData* (*LOAD_MESHDATA)(const char*);
-typedef void (*RELEASE_MESHDATA)(MeshData*);
-
-typedef ImageData* (*LOAD_IMAGEDATA)(const char*);
-typedef void (*RELEASE_IMAGEDATA)(ImageData*);
+typedef void* (*LOAD_DATA)(const char*);
+// typedef void* (*LOAD_DATA)(const char*, char&); // new call look, filename, errorCode
+typedef void (*RELEASE_DATA)(void*);
 
 //-------------------------------------
 // Constructor
@@ -176,8 +176,8 @@ IMesh *CContentManager::LoadMeshUsing(const std::string& sLib, const std::string
             CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of plugin failed: \"%s\"", sLib.c_str());
 			return nullptr;
         }
-		LOAD_MESHDATA fLoadMD = (LOAD_MESHDATA)lib.GetFunction("LoadData"); // meshData Loading function
-		RELEASE_MESHDATA fReleaseMD = (RELEASE_MESHDATA)lib.GetFunction("ReleaseData"); // meshData Release function
+		LOAD_DATA fLoadMD = (LOAD_DATA)lib.GetFunction("LoadData"); // meshData Loading function
+		RELEASE_DATA fReleaseMD = (RELEASE_DATA)lib.GetFunction("ReleaseData"); // meshData Release function
 
 		if( fLoadMD == nullptr || fReleaseMD == nullptr )
 		{
@@ -186,7 +186,7 @@ IMesh *CContentManager::LoadMeshUsing(const std::string& sLib, const std::string
         }
 
 		// load from dll
-		MeshData *md = fLoadMD(sFile.c_str());
+		MeshData *md = static_cast<MeshData*>( fLoadMD(sFile.c_str()) );
 		if( md == nullptr ) // dll failed to load
 		{
 			CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: Loading mesh failed");
@@ -220,8 +220,8 @@ IImage *CContentManager::LoadImageUsing(const std::string& sLib, const std::stri
             CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of plugin failed: \"%s\"", sLib.c_str());
 			return nullptr;
         }
-		LOAD_IMAGEDATA fLoadID = (LOAD_IMAGEDATA)lib.GetFunction("LoadData"); // meshData Loading function
-		RELEASE_IMAGEDATA fReleaseID = (RELEASE_IMAGEDATA)lib.GetFunction("ReleaseData"); // meshData Release function
+		LOAD_DATA fLoadID = (LOAD_DATA)lib.GetFunction("LoadData"); // meshData Loading function
+		RELEASE_DATA fReleaseID = (RELEASE_DATA)lib.GetFunction("ReleaseData"); // meshData Release function
 
 		if( fLoadID == nullptr || fReleaseID == nullptr )
 		{
@@ -230,7 +230,7 @@ IImage *CContentManager::LoadImageUsing(const std::string& sLib, const std::stri
         }
 
 		// load from dll
-		ImageData *id = fLoadID(sFile.c_str());
+		ImageData *id = static_cast<ImageData*>(fLoadID(sFile.c_str()));
 
 		if( id == nullptr ) // dll failed to load
 		{

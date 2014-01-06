@@ -16,8 +16,9 @@
 
 //-------------------------------------
 // Constructor
-CLoggerToFiles::CLoggerToFiles() 
+CLoggerToFiles::CLoggerToFiles(bool bAppend) 
 	:ILogger()
+	,m_bAppend(bAppend)
 {
 }
 //-------------------------------------
@@ -36,9 +37,13 @@ CLoggerToFiles::~CLoggerToFiles()
 // rv - returns false if it failed-
 bool CLoggerToFiles::Init()
 {
-	m_osAppLog.open("logApp.txt", std::ofstream::out | std::ofstream::app);
-	m_osClientLog.open("logClnt.txt", std::ofstream::out | std::ofstream::app);
-	m_osServerLog.open("logSrvr.txt", std::ofstream::out | std::ofstream::app);
+	std::ios_base::openmode mode = std::ofstream::out;
+	if( m_bAppend )
+		mode |= std::ofstream::app;
+
+	m_osAppLog.open("logApp.txt", mode);
+	m_osClientLog.open("logClnt.txt", mode);
+	m_osServerLog.open("logSrvr.txt", mode);
 
 	return (m_osAppLog.good() && m_osClientLog.good() && m_osServerLog.good() );
 }

@@ -78,7 +78,7 @@ void Console::Clear()
 void Console::SetColor()
 {
     #ifdef _WIN32
-        SetConsoleTextAttribute(hConsole, FGColor | BGColor);
+        SetConsoleTextAttribute(hConsole, (WORD)(FGColor | BGColor));
     #else
         string clr = "\033[";
         clr += BGColor;
@@ -172,7 +172,7 @@ bool Console::KeyDown()
 {
     #ifdef _WIN32
         #ifdef _MSC_VER
-            return _kbhit();
+            return (_kbhit() != 0);
         #else
             return kbhit();
         #endif
@@ -194,13 +194,13 @@ bool Console::KeyDown()
 string Console::ReadLine()
 {
     string str;
-    char c = getchar();
+    char c = (char)getchar();
     while(c != '\n'){
         if(c == '\r')
             continue;
         else
             str+=c;
-        c = getchar();
+        c = (char)getchar();
     }while(c != '\n');
     return str;
 }
@@ -356,7 +356,7 @@ void Console::SetTitle(const char* str)
 void Console::SetCursorPosition(int x,int y)
 {
     #ifdef _WIN32
-        COORD pos  = {x,y};
+        COORD pos  = {(short)x, (short)y};
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),pos);
     #else
 		stringstream str;

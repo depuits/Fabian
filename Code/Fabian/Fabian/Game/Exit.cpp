@@ -22,7 +22,7 @@ Exit::~Exit()
 //-------------------------------------
 // is called each tick an entity is on this gridentity
 // p1 in - Entity standing here
-void Exit::Collision(Entity* e)
+void Exit::Collision(Entity*)
 {
 	if( /*m_pLevel->GetPlayer() == e &&*/ Candy::CandyLeft() <= 0 && !m_bFinished)
 	{
