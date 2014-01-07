@@ -13,7 +13,7 @@
 // p1 in - int, the priorety of the service
 //            ( the lower the higher the priorety )
 CServiceTimer::CServiceTimer(int priorety)
-	:IService(priorety)
+	:CServiceBase(priorety)
 
 	,m_ulLastFrameIndex(0)
 	,m_ulThisFrameIndex(0)
@@ -34,11 +34,11 @@ CServiceTimer::~CServiceTimer()
 //         when false is returned then the service gets deleted
 bool CServiceTimer::Start()
 {
-	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Time Service: Starting" );
+	//CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Time Service: Starting" );
 	m_ulThisFrameIndex = SDL_GetTicks();
 	m_ulLastFrameIndex = m_ulThisFrameIndex;
 
-	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Time Service: Started" );
+	//CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Time Service: Started" );
 	return true;
 }
 //-------------------------------------
@@ -75,7 +75,7 @@ void CServiceTimer::Update()
 // Called when the service will be deleted
 void CServiceTimer::Stop()
 {
-	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Time Service: Stopping" );
+	//CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Time Service: Stopping" );
 }
 //-------------------------------------
 
@@ -86,7 +86,7 @@ void CServiceTimer::MsgProc(SMsg* sm)
 {
 	if( sm->id == SM_TIMER )
 	{
-		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Time Service: Registering Time Callback" );
+		//CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Time Service: Registering Time Callback" );
 		TimerCallbackFunc f = SMsg::Cast<SMsgTimer*>(sm)->pCallbackFunc;
 		if( f != nullptr)
 			m_vCallbackFuncs.push_back(f);

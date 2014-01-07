@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "CServiceVideoUpdate.h"
-#include "CServiceTimer.h"
+//#include "CServiceTimer.h"
 #include "CServiceGame.h"
 #include "CServiceInput.h"
 
@@ -12,6 +12,8 @@
 #include "CLoggerMultiple.h"
 #include "CLoggerToConsole.h"
 #include "CLoggerToFiles.h"
+
+#include "CLibrary.h"
 
 //******************************************
 // Class CApplication:
@@ -79,10 +81,17 @@ int CApplication::Run(int argc, char *argv[])
 
 	//add services to use
 	pKernel->AddService( new CServiceInput(50) );
-	pKernel->AddService( new CServiceTimer(110) );
+	//pKernel->AddService( new CServiceTimer(110) );
 	CServiceVideoUpdate *pServiceVideo = dynamic_cast<CServiceVideoUpdate*>( pKernel->AddService( new CServiceVideoUpdate(1000) ) );
 	//pServiceVideo->SetScreenResolution(800, 600);
 	pServiceVideo->SetWindowName("Dimo's Quest");
+
+	CLibrary pLib;
+	pLib.Load("../Debug/SDLServices.dll");
+	IService*(*func)(const char*) = (IService*(*)(const char*))pLib.GetFunction("LoadService");
+
+	IService* pServTimer = func("Timer");
+	pKernel->AddService( pServTimer );
 
 	pKernel->AddService( new CServiceGame(500) ); // graphic need to be initialized before the game because of opengl initialization
 

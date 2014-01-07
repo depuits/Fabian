@@ -62,7 +62,7 @@ float CServiceGame::s_fDtime = 0;
 // p1 in* - int, the priorety of the service
 //            ( the lower the higher the priorety )
 CServiceGame::CServiceGame(int priorety)
-	:IService(priorety)
+	:CServiceBase(priorety)
 
 	,m_pInput(nullptr)
 	,m_pRenderer(nullptr)

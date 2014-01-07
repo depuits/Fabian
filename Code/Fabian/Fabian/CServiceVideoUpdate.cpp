@@ -16,7 +16,7 @@
 // p1 in* - int, the priorety of the service
 //            ( the lower the higher the priorety )
 CServiceVideoUpdate::CServiceVideoUpdate(int priorety)
-	:IService(priorety)
+	:CServiceBase(priorety)
 
 	,m_iScreenWidth(1280)
 	,m_iScreenHeight(800)

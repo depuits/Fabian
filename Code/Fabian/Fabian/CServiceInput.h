@@ -1,7 +1,7 @@
 #ifndef FABIAN_CSERVICEINPUT_H_
 #define FABIAN_CSERVICEINPUT_H_
 
-#include "IService.h"
+#include "CServiceBase.h"
 
 class CInputSDL;
 
@@ -10,7 +10,7 @@ class CInputSDL;
 // service responsable giving the input object
 // and for updating it.
 //******************************************
-class CServiceInput : public IService
+class CServiceInput : public CServiceBase
 {
 public:
 	//-------------------------------------

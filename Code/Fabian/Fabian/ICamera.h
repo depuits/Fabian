@@ -4,7 +4,7 @@
 #include "FabianDef.h"
 
 FDISABLE_WARNING_START(4201)
-#include <glm/glm.hpp>
+#include "glm/glm.hpp"
 FDISABLE_WARNING_END(4201)
 
 //******************************************

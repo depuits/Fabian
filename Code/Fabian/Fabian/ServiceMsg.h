@@ -115,6 +115,4 @@ struct SMsgRenderer : public SMsg
 	IRenderer* pRenderer;
 };
 
-
-
 #endif //FABIAN_ServiceMsg_H_

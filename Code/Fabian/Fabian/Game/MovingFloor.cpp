@@ -5,7 +5,7 @@
 
 FDISABLE_WARNING_START(4201)
 //#define GLM_SWIZZLE <- can be used for vec4.xyz() method
-#include <glm/glm.hpp>
+#include "../glm/glm.hpp"
 FDISABLE_WARNING_END(4201)
 
 //-------------------------------------

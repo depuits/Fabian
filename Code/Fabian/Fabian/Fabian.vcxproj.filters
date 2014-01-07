@@ -51,9 +51,6 @@
     <ClInclude Include="CKernel.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
-    <ClInclude Include="IService.h">
-      <Filter>Engine Files</Filter>
-    </ClInclude>
     <ClInclude Include="FabianDef.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
@@ -90,14 +87,8 @@
     <ClInclude Include="CTransform.h">
       <Filter>Engine Files\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="ServiceMsg.h">
-      <Filter>Engine Files</Filter>
-    </ClInclude>
     <ClInclude Include="IRenderer.h">
       <Filter>Engine Files\Video</Filter>
-    </ClInclude>
-    <ClInclude Include="CServiceTimer.h">
-      <Filter>Engine Files\Services</Filter>
     </ClInclude>
     <ClInclude Include="CLibraryLoader.h">
       <Filter>Engine Files\LibraryLoader</Filter>
@@ -222,12 +213,18 @@
     <ClInclude Include="ICamera.h">
       <Filter>Engine Files\Video</Filter>
     </ClInclude>
+    <ClInclude Include="ServiceMsg.h">
+      <Filter>Engine Files\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="IService.h">
+      <Filter>Engine Files\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="CServiceBase.h">
+      <Filter>Engine Files\Services</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CKernel.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IService.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
@@ -256,9 +253,6 @@
     </ClCompile>
     <ClCompile Include="CTransform.cpp">
       <Filter>Engine Files\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="CServiceTimer.cpp">
-      <Filter>Engine Files\Services</Filter>
     </ClCompile>
     <ClCompile Include="CLibraryLoader.cpp">
       <Filter>Engine Files\LibraryLoader</Filter>

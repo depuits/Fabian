@@ -1,7 +1,7 @@
 #include "CShaderOpenGL.h"
 
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 #include <fstream>
 #include <vector>
 #include "CLog.h"

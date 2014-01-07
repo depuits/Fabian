@@ -10,9 +10,6 @@
 // the interface for all service, used to define
 // parts of the game
 // ex.: rendering, input, physics, AI, ...
-// !!! should be a pure interface for dll usage
-//        going to create a CServiceBase with this implementation
-//        for easy use
 //******************************************
 class IService
 {
@@ -21,9 +18,7 @@ public:
 	// Constructor
 	// p1 in - int, the priorety of the service 
 	//            ( the lower the higher the priorety )
-	IService(int priorety = 5000)
-		:m_bCanKill(false)
-		,m_iPriority(priorety)
+	IService(int = 5000)
 	{
 	};
 	//-------------------------------------
@@ -59,18 +54,16 @@ public:
 	//-------------------------------------
 	// Get/Set weither this service is marked for remove
 	// rv / p1 in - bool, true if its marked for remove
-	bool GetCanKill() const { return m_bCanKill; };
-	void SetCanKill(bool canKill) { m_bCanKill = canKill; };	
+	virtual bool GetCanKill() const = 0;
+	virtual void SetCanKill(bool) = 0;	
 	//-------------------------------------
 	// Get the priorety of this service
 	// rv - int, priorety number
-	int GetPriorety() const { return m_iPriority; };
+	virtual int GetPriorety() const = 0;
 	//void SetPriorety(int priorety) { m_iPriority = priorety; }; // shouldn't be set once running to avoid reordening
 	//-------------------------------------
 
 protected:
-	bool m_bCanKill;
-	int m_iPriority;
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(IService);

@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\External\glm;..\..\External\glew\include;..\..\External\dirent\include;..\..\External\sdl2\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\External\glew\include;..\..\External\dirent\include;..\..\External\sdl2\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\External\glew\lib\Release\Win32;..\..\External\sdl2\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -104,11 +104,11 @@
     <ClInclude Include="Console\console.h" />
     <ClInclude Include="Console\ConsoleColor.h" />
     <ClInclude Include="Console\keys.h" />
+    <ClInclude Include="CServiceBase.h" />
     <ClInclude Include="DataStructures.h" />
     <ClInclude Include="CRendererOpenGL.h" />
     <ClInclude Include="CServiceGame.h" />
     <ClInclude Include="CServiceInput.h" />
-    <ClInclude Include="CServiceTimer.h" />
     <ClInclude Include="CServiceVideoUpdate.h" />
     <ClInclude Include="CShaderOpenGL.h" />
     <ClInclude Include="Game\Bomb.h" />
@@ -165,7 +165,6 @@
     <ClCompile Include="CRendererOpenGL.cpp" />
     <ClCompile Include="CServiceGame.cpp" />
     <ClCompile Include="CServiceInput.cpp" />
-    <ClCompile Include="CServiceTimer.cpp" />
     <ClCompile Include="CServiceVideoUpdate.cpp" />
     <ClCompile Include="CShaderOpenGL.cpp" />
     <ClCompile Include="Game\Bomb.cpp" />
@@ -189,7 +188,6 @@
     <ClCompile Include="CTransform.cpp" />
     <ClCompile Include="IMaterial.cpp" />
     <ClCompile Include="IObject.cpp" />
-    <ClCompile Include="IService.cpp" />
     <ClCompile Include="CLibraryLoader.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="CCompModel.cpp" />

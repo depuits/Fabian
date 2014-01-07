@@ -1,7 +1,7 @@
 #ifndef FABIAN_CSERVICEVIDEOUPDATE_H_
 #define FABIAN_CSERVICEVIDEOUPDATE_H_
 
-#include "IService.h"
+#include "CServiceBase.h"
 #include <string>
 #include <SDL.h>
 
@@ -14,7 +14,7 @@ class CRendererOpenGL;
 // service responsable for creating and updating 
 // the video output
 //******************************************
-class CServiceVideoUpdate : public IService
+class CServiceVideoUpdate : public CServiceBase
 {
 public:
 	//-------------------------------------

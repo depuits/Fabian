@@ -1,7 +1,7 @@
 #ifndef FABIAN_CSERVICEGAME_H_
 #define FABIAN_CSERVICEGAME_H_
 
-#include "IService.h"
+#include "CServiceBase.h"
 #include <string>
 
 // --forward declarations--
@@ -17,14 +17,14 @@ class CGameObject;
 
 FDISABLE_WARNING_START(4201)
 //#define GLM_SWIZZLE <- can be used for vec4.xyz() method
-#include <glm/glm.hpp>
+#include "glm/glm.hpp"
 FDISABLE_WARNING_END(4201)
 
 //******************************************
 // Class CServiceGame:
 // game specific service which defines the actual game
 //******************************************
-class CServiceGame : public IService
+class CServiceGame : public CServiceBase
 {
 public:
 	//-------------------------------------

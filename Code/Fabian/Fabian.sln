@@ -9,6 +9,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FPI_SOILLoader", "FPI_SOILL
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FPM_OBJLoader", "FPM_OBJLoader\FPM_OBJLoader.vcxproj", "{7C3519E0-A8AA-4078-8A14-F4419D3C49B4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SDLServices", "SDLServices\SDLServices.vcxproj", "{9EC3AD08-6A36-4FE6-B996-DA24533CFD68}"
+	ProjectSection(ProjectDependencies) = postProject
+		{67B412F1-A350-418E-A4A8-94D56A4B44B1} = {67B412F1-A350-418E-A4A8-94D56A4B44B1}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -31,6 +36,10 @@ Global
 		{7C3519E0-A8AA-4078-8A14-F4419D3C49B4}.Debug|Win32.Build.0 = Debug|Win32
 		{7C3519E0-A8AA-4078-8A14-F4419D3C49B4}.Release|Win32.ActiveCfg = Release|Win32
 		{7C3519E0-A8AA-4078-8A14-F4419D3C49B4}.Release|Win32.Build.0 = Release|Win32
+		{9EC3AD08-6A36-4FE6-B996-DA24533CFD68}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9EC3AD08-6A36-4FE6-B996-DA24533CFD68}.Debug|Win32.Build.0 = Debug|Win32
+		{9EC3AD08-6A36-4FE6-B996-DA24533CFD68}.Release|Win32.ActiveCfg = Release|Win32
+		{9EC3AD08-6A36-4FE6-B996-DA24533CFD68}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

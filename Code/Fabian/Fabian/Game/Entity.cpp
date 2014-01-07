@@ -6,8 +6,8 @@
 #include "../CGlobalAccessor.h"
 #include "../CGameObject.h"
 
-#include <glm/gtx/quaternion.hpp>
-#include <glm/gtx/norm.hpp>
+#include "../glm/gtx/quaternion.hpp"
+#include "../glm/gtx/norm.hpp"
 
 //-------------------------------------
 // constructor

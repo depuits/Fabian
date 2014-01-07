@@ -1,7 +1,7 @@
 #ifndef FABIAN_CSERVICETIMER_H_
 #define FABIAN_CSERVICETIMER_H_
 
-#include "IService.h"
+#include <CServiceBase.h>
 #include <vector>
 
 typedef void (*TimerCallbackFunc)(float);
@@ -10,7 +10,7 @@ typedef void (*TimerCallbackFunc)(float);
 // Class CServiceTimer:
 // service responsable for sending out the dTime
 //******************************************
-class CServiceTimer : public IService
+class CServiceTimer : public CServiceBase
 {
 public:
 	//-------------------------------------
