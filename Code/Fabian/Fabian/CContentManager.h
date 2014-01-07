@@ -68,4 +68,34 @@ private:
 	DISALLOW_COPY_AND_ASSIGN(CContentManager);
 };
 
+/////////////////////////////////////////////////////////////////////////
+
+//Extern "C" functions that each plugin must implement in order to be recognized as a plugin by us.
+// Data* equals to MeshData* for meshes and ImageData* for textures	
+
+
+//-------------------------------------
+// Plugin data loading function
+// p1 in - filename to load
+// rv - return a pointer to a filled in data structure
+// -> needs to be implemted
+//extern "C" Data* LoadData (const char*);
+//-------------------------------------
+// Plugin data cleanup function
+// p1 in - pointer to the created data structures which needs to be cleaned up
+// -> needs to be implemted
+//extern "C" void ReleaseData (Data*);
+//-------------------------------------
+	 
+//-------------------------------------
+// !!! Not needed yet or implemented
+// The plugin version function
+// rv - return the plugin version
+// -> use this implementation
+//extern "C" int Version() { return FVERSION_PLUGIN_DATA; }
+//-------------------------------------
+
+
 #endif //FABIAN_CCONTENTMANAGER_H_
+
+

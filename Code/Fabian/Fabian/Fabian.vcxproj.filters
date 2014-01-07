@@ -96,9 +96,6 @@
     <ClInclude Include="IRenderer.h">
       <Filter>Engine Files\Video</Filter>
     </ClInclude>
-    <ClInclude Include="CServiceMessageLoop.h">
-      <Filter>Engine Files\Services</Filter>
-    </ClInclude>
     <ClInclude Include="CServiceTimer.h">
       <Filter>Engine Files\Services</Filter>
     </ClInclude>
@@ -259,9 +256,6 @@
     </ClCompile>
     <ClCompile Include="CTransform.cpp">
       <Filter>Engine Files\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="CServiceMessageLoop.cpp">
-      <Filter>Engine Files\Services</Filter>
     </ClCompile>
     <ClCompile Include="CServiceTimer.cpp">
       <Filter>Engine Files\Services</Filter>

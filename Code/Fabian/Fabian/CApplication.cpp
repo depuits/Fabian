@@ -4,7 +4,6 @@
 #include <iostream>
 
 #include "CServiceVideoUpdate.h"
-#include "CServiceMessageLoop.h"
 #include "CServiceTimer.h"
 #include "CServiceGame.h"
 #include "CServiceInput.h"
@@ -79,8 +78,7 @@ int CApplication::Run(int argc, char *argv[])
 	SDL_Init(0);
 
 	//add services to use
-	pKernel->AddService( new CServiceInput(50) ); // must be called before msg loop to copy the keyboard state
-	pKernel->AddService( new CServiceMessageLoop(100) );
+	pKernel->AddService( new CServiceInput(50) );
 	pKernel->AddService( new CServiceTimer(110) );
 	CServiceVideoUpdate *pServiceVideo = dynamic_cast<CServiceVideoUpdate*>( pKernel->AddService( new CServiceVideoUpdate(1000) ) );
 	//pServiceVideo->SetScreenResolution(800, 600);

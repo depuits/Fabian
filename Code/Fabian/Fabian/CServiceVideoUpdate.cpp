@@ -112,6 +112,18 @@ void CServiceVideoUpdate::Update()
 {
 	// swap the buffers
 	SDL_GL_SwapWindow(m_pWindow);
+
+	// check for events like the QUIT
+	SDL_Event e;
+	while ( SDL_PollEvent( &e ) != 0 )
+	{
+		//User requests quit 
+		if( e.type == SDL_QUIT )
+		{	
+			SMsg msg(SM_QUIT);
+			CKernel::Get().SendMessage( &msg );
+		}
+	}
 }
 //-------------------------------------
 // Called when the service will be deleted

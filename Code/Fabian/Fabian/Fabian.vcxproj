@@ -108,7 +108,6 @@
     <ClInclude Include="CRendererOpenGL.h" />
     <ClInclude Include="CServiceGame.h" />
     <ClInclude Include="CServiceInput.h" />
-    <ClInclude Include="CServiceMessageLoop.h" />
     <ClInclude Include="CServiceTimer.h" />
     <ClInclude Include="CServiceVideoUpdate.h" />
     <ClInclude Include="CShaderOpenGL.h" />
@@ -166,7 +165,6 @@
     <ClCompile Include="CRendererOpenGL.cpp" />
     <ClCompile Include="CServiceGame.cpp" />
     <ClCompile Include="CServiceInput.cpp" />
-    <ClCompile Include="CServiceMessageLoop.cpp" />
     <ClCompile Include="CServiceTimer.cpp" />
     <ClCompile Include="CServiceVideoUpdate.cpp" />
     <ClCompile Include="CShaderOpenGL.cpp" />
