@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Game" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="Debug/bin/Game" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="0" extension_auto="1" />
+				<Option object_output="Debug/obj/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-std=c++11" />
+					<Add option="-g" />
+					<Add option="-fPIC" />
+					<Add option="-D_DEBUG" />
+					<Add directory="../Fabian" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="Release/bin/Game" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="0" extension_auto="1" />
+				<Option object_output="Release/obj/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="../Fabian/CCompCamera.cpp" />
+		<Unit filename="../Fabian/CCompCamera.h" />
+		<Unit filename="../Fabian/CCompControl.cpp" />
+		<Unit filename="../Fabian/CCompControl.h" />
+		<Unit filename="../Fabian/CCompModel.cpp" />
+		<Unit filename="../Fabian/CCompModel.h" />
+		<Unit filename="../Fabian/CContentManager.cpp" />
+		<Unit filename="../Fabian/CContentManager.h" />
+		<Unit filename="../Fabian/CGameObject.cpp" />
+		<Unit filename="../Fabian/CGameObject.h" />
+		<Unit filename="../Fabian/CMatDifTexture.cpp" />
+		<Unit filename="../Fabian/CMatDifTexture.h" />
+		<Unit filename="../Fabian/CTransform.cpp" />
+		<Unit filename="../Fabian/CTransform.h" />
+		<Unit filename="../Fabian/IComponent.cpp" />
+		<Unit filename="../Fabian/IComponent.h" />
+		<Unit filename="CServiceGame.cpp" />
+		<Unit filename="CServiceGame.h" />
+		<Unit filename="Game/Bomb.cpp" />
+		<Unit filename="Game/Bomb.h" />
+		<Unit filename="Game/Candy.cpp" />
+		<Unit filename="Game/Candy.h" />
+		<Unit filename="Game/CollapseFloor.cpp" />
+		<Unit filename="Game/CollapseFloor.h" />
+		<Unit filename="Game/Enemy.cpp" />
+		<Unit filename="Game/Enemy.h" />
+		<Unit filename="Game/Enemy1D.cpp" />
+		<Unit filename="Game/Enemy1D.h" />
+		<Unit filename="Game/EnemyRot.cpp" />
+		<Unit filename="Game/EnemyRot.h" />
+		<Unit filename="Game/Entity.cpp" />
+		<Unit filename="Game/Entity.h" />
+		<Unit filename="Game/Exit.cpp" />
+		<Unit filename="Game/Exit.h" />
+		<Unit filename="Game/Floor.cpp" />
+		<Unit filename="Game/Floor.h" />
+		<Unit filename="Game/Grid.cpp" />
+		<Unit filename="Game/Grid.h" />
+		<Unit filename="Game/GridEntity.cpp" />
+		<Unit filename="Game/GridEntity.h" />
+		<Unit filename="Game/MovingFloor.cpp" />
+		<Unit filename="Game/MovingFloor.h" />
+		<Unit filename="Game/Player.cpp" />
+		<Unit filename="Game/Player.h" />
+		<Unit filename="Game/Wall.cpp" />
+		<Unit filename="Game/Wall.h" />
+		<Unit filename="Game/Water.cpp" />
+		<Unit filename="Game/Water.h" />
+		<Unit filename="main.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

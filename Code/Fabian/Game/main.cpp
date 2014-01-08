@@ -5,6 +5,7 @@
 #include "CServiceGame.h"
 
 #include <vector>
+#include <algorithm>
 
 #ifdef DECLDIR
 	#undef DECLDIR

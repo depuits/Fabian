@@ -1,4 +1,5 @@
 #include "CLoggerMultiple.h"
+#include <algorithm>
 
 //******************************************
 // Class CLoggerMultiple:

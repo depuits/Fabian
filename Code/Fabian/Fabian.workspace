@@ -4,5 +4,8 @@
 		<Project filename="Fabian/Fabian.cbp" />
 		<Project filename="FPI_SOILLoader/FPI_SOILLoader.cbp" />
 		<Project filename="FPM_OBJLoader/FPM_OBJLoader.cbp" />
+		<Project filename="Application/Application.cbp" />
+		<Project filename="SDLServices/SDLServices.cbp" />
+		<Project filename="Game/Game.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>
