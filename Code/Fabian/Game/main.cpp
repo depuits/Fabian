@@ -2,11 +2,8 @@
 #include <Fabian.h>
 #include <string>
 
-#include "CServiceTimer.h"
-#include "CServiceInput.h"
-#include "CServiceVideoUpdate.h"
+#include "CServiceGame.h"
 
-#include <SDL.h>
 #include <vector>
 
 #ifdef DECLDIR
@@ -29,21 +26,11 @@ extern "C"
 		std::string name(sServ);
 		IService* pServ = nullptr;
 
-		if(name == "Timer")
-			pServ = new CServiceTimer(prior);
-		else if(name == "Input")
-			pServ = new CServiceInput(prior);
-		else if(name == "Video")
-			pServ = new CServiceVideoUpdate(prior);
+		if(name == "Game")
+			pServ = new CServiceGame(prior);
 
 		if( pServ != nullptr )
-		{
-			// if its the first service to create then init sdl
-			if( g_vpServices.size() <= 0 )
-				SDL_Init(0);
-
 			g_vpServices.push_back(pServ);
-		}
 
 		return pServ;
 	}
@@ -61,10 +48,6 @@ extern "C"
 
 		delete pServ;
 		g_vpServices.erase(it);
-
-		// if it was our last service then exit sdl
-		if( g_vpServices.size() <= 0 )
-			SDL_Quit();
 	}
 }
 

@@ -26,7 +26,7 @@ CLog::CLog()
 // Destructor
 CLog::~CLog()
 {
-	delete m_pLogger;
+	m_pLogger->DeleteThis();
 }
 //-------------------------------------
 
@@ -37,7 +37,7 @@ CLog::~CLog()
 bool CLog::AssignLogger(ILogger* pLogger)
 {
 	if( m_pLogger != nullptr )
-		delete m_pLogger;
+		m_pLogger->DeleteThis();
 
 	m_pLogger = pLogger;
 	return true;

@@ -1,8 +1,8 @@
 #ifndef FABIAN_CINPUTSDL_H_
 #define FABIAN_CINPUTSDL_H_
 
-#include "FabianDef.h"
-#include "IInput.h"
+#include <FabianDef.h>
+#include <IInput.h>
 #include <SDL.h>
 #include <map>
 

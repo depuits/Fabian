@@ -54,7 +54,7 @@ typedef struct SMsg
 	template <class T>
 	inline static T Cast(SMsg* sm)
 	{
-		FASSERTR( dynamic_cast<T>(sm) == static_cast<T>(sm) );
+		FASSERT( dynamic_cast<T>(sm) == static_cast<T>(sm) );
 		return static_cast<T>(sm);
 	}
 	//-------------------------------------

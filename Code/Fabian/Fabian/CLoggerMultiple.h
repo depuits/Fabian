@@ -17,8 +17,10 @@ public:
 	// Constructor
 	CLoggerMultiple();
 	//-------------------------------------
-	// Destructor
-	virtual ~CLoggerMultiple();
+    // This function must not be implemented in the header or the
+    // linker will build the code to call the application delete()
+    // function instead of the library delete() function.
+    virtual void DeleteThis();
 	//-------------------------------------
 
 	//-------------------------------------
@@ -34,6 +36,12 @@ public:
 	// p2 in - log id, the place where to write to
 	// p3 in - log message
 	virtual void Write(char, char, const char*);
+	//-------------------------------------
+	
+protected:
+	//-------------------------------------
+	// Destructor
+	virtual ~CLoggerMultiple();
 	//-------------------------------------
 
 private:

@@ -1,7 +1,7 @@
 #ifndef FABIAN_CAPPLICATION_H_
 #define FABIAN_CAPPLICATION_H_
 
-#include "FabianDef.h"
+#include <FabianDef.h>
 
 //******************************************
 // Class CApplication:

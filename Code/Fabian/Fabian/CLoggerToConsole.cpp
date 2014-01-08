@@ -26,6 +26,14 @@ CLoggerToConsole::~CLoggerToConsole()
 {
 }
 //-------------------------------------
+// This function must not be implemented in the header or the
+// linker will build the code to call the application delete()
+// function instead of the library delete() function.
+void CLoggerToConsole::DeleteThis()
+{
+    delete this;  // called from the right "delete context"
+}
+//-------------------------------------
 
 //-------------------------------------
 // Initializes the logger, should be called

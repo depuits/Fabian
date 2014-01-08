@@ -5,13 +5,15 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Services">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Services\Input">
+      <UniqueIdentifier>{1e17ade4-7763-4d5e-84ae-c9f790dc759f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Video">
+      <UniqueIdentifier>{1abd6a7c-8c20-4d24-94ac-f4dc95723648}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -21,10 +23,52 @@
     <ClCompile Include="CServiceTimer.cpp">
       <Filter>Services</Filter>
     </ClCompile>
+    <ClCompile Include="CInputSDL.cpp">
+      <Filter>Services\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="CServiceInput.cpp">
+      <Filter>Services\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="CImageOpenGL.cpp">
+      <Filter>Services\Video</Filter>
+    </ClCompile>
+    <ClCompile Include="CMeshOpenGL.cpp">
+      <Filter>Services\Video</Filter>
+    </ClCompile>
+    <ClCompile Include="CRendererOpenGL.cpp">
+      <Filter>Services\Video</Filter>
+    </ClCompile>
+    <ClCompile Include="CServiceVideoUpdate.cpp">
+      <Filter>Services\Video</Filter>
+    </ClCompile>
+    <ClCompile Include="CShaderOpenGL.cpp">
+      <Filter>Services\Video</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CServiceTimer.h">
       <Filter>Services</Filter>
+    </ClInclude>
+    <ClInclude Include="CInputSDL.h">
+      <Filter>Services\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="CServiceInput.h">
+      <Filter>Services\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="CImageOpenGL.h">
+      <Filter>Services\Video</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeshOpenGL.h">
+      <Filter>Services\Video</Filter>
+    </ClInclude>
+    <ClInclude Include="CRendererOpenGL.h">
+      <Filter>Services\Video</Filter>
+    </ClInclude>
+    <ClInclude Include="CServiceVideoUpdate.h">
+      <Filter>Services\Video</Filter>
+    </ClInclude>
+    <ClInclude Include="CShaderOpenGL.h">
+      <Filter>Services\Video</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

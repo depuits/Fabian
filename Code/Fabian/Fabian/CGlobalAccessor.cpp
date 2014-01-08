@@ -1,7 +1,5 @@
 #include "CGlobalAccessor.h"
-
-
-#include "CLog.h"
+#include <string>
 
 //******************************************
 // Class CGlobalAccessor:
@@ -23,6 +21,7 @@ CGlobalAccessor& CGlobalAccessor::Get()
 //-------------------------------------
 // Constructor
 CGlobalAccessor::CGlobalAccessor()
+	:IGlobalAccessor()
 {
 }
 //-------------------------------------
@@ -36,8 +35,9 @@ CGlobalAccessor::~CGlobalAccessor()
 // Get a stored object from the accessor
 // p1 in - name of the object
 // rv - if found a pointer to the object else nullptr
-void *CGlobalAccessor::GetObject(const std::string& sKey)
+void *CGlobalAccessor::GetObject(const char* key)
 {
+	std::string sKey(key);
 	FASSERT( m_mpObjects.find(sKey) != m_mpObjects.end() );
 	return m_mpObjects[sKey];
 }
@@ -45,8 +45,9 @@ void *CGlobalAccessor::GetObject(const std::string& sKey)
 // Add or update an object stored in the accessor
 // p1 in -name for the objct to update or store
 // p2 in - a pointer to the object to store
-void CGlobalAccessor::AddObject(const std::string& sKey, void* pObject)
+void CGlobalAccessor::AddObject(const char* key, void* pObject)
 {
+	std::string sKey(key);
 	FASSERT( m_mpObjects.find(sKey) == m_mpObjects.end() );
 	m_mpObjects[sKey] = pObject;
 }

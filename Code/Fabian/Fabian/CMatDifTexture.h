@@ -4,6 +4,7 @@
 #include "IMaterial.h"
 
 // --forward declarations--
+class IShader;
 class IImage;
 // ------------------------
 
@@ -31,8 +32,16 @@ public:
     virtual void Apply(CTransform&);
 	//-------------------------------------
 
+	//-------------------------------------
+	// gives the used shader of this material
+	// rv - pointer to the shader used in this material
+    IShader *GetShader() { return m_pShader; }
+	//-------------------------------------
+
 
 protected:
+    IShader *m_pShader;
+
     int m_iIdTexture;
     IImage* m_pTexture;
 

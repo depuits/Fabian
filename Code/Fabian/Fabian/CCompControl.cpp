@@ -1,8 +1,8 @@
 #include "CCompControl.h"
 
+#include <Fabian.h>
 #include "CGameObject.h"
-#include "CGlobalAccessor.h"
-#include "IInput.h"
+#include <IInput.h>
 
 //******************************************
 // Interface IObject:
@@ -34,7 +34,7 @@ CCompControl::~CCompControl()
 // rv - bool, return false if something failed
 bool CCompControl::Start()
 {
-	m_pInput = static_cast<IInput*>(CGlobalAccessor::Get().GetObject("Input"));
+	m_pInput = static_cast<IInput*>(Fab_GlobalAccessorGetObject("Input"));
 	return true;
 }
 //-------------------------------------

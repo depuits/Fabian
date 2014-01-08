@@ -1,76 +1,65 @@
-#ifndef FABIAN_CKERNEL_H_
-#define FABIAN_CKERNEL_H_
+#ifndef FABIAN_IKERNEL_H_
+#define FABIAN_IKERNEL_H_
 
-#include "IKernel.h"
-#include <list>
+#include "FabianDef.h"
+#include "ServiceMsg.h"
+
+// --forward declarations--
+class IService;
+// ------------------------
 
 //******************************************
-// Class CKernel:
+// Interface IKernel:
 // the kernel class is the heart of the engine
 // this class manages all services and the messaging between them
+// This is the interface created for useabilety from dll's
 //******************************************
-class CKernel : public IKernel
+class IKernel
 {
 public:
 	//-------------------------------------
-	// Singleton accessor
-	static CKernel& Get();
+	// Constructor
+	IKernel() { }
 	//-------------------------------------
 	// Destructor
-	virtual ~CKernel();
+	virtual ~IKernel() { }
 	//-------------------------------------
 
 	//-------------------------------------
 	// Start running the engine,
 	//    should be called after the base services are added
 	// rv - returns 0
-	virtual int Execute();
+	virtual int Execute() = 0;
 	//-------------------------------------
 
 	//-------------------------------------
 	// Adds a service to the kernel and takes ownership of it
 	// p1 in - a pointer to the service to add (can't be 0)(takes over ownership)
 	// rv - returns pointer to the service on succes and a nullptr when it fails
-	virtual IService* AddService(IService*);
-	//-------------------------------------
-
-	//-------------------------------------
-	// Suspend or resume a service
-	// !!! - these methods might be removed
-	// p1 in - a pointer to the service to suspend or resume
-	// rv - returns true on succes
-	void SuspendService(IService*);
-	void ResumeService(IService*);
+	virtual IService* AddService(IService*) = 0;
 	//-------------------------------------
 	// Marks a service to be removed, the service
 	//    will be deleted next loop
 	// p1 in - a pointer to the service to remove
-	virtual void RemoveService(IService*);
+	virtual void RemoveService(IService*) = 0;
 	//-------------------------------------
 
 	//-------------------------------------
 	// Mark all services to be removed and end the
 	//    application by doing so
-	virtual void KillAllServices();
+	virtual void KillAllServices() = 0;
 	//-------------------------------------
 
 	//-------------------------------------
 	// Send a message to the services
 	//    (including the service who sends it)
 	// p1 in - pointer to SMsg object
-	virtual void SendMessage(SMsg*);
+	virtual void SendMessage(SMsg*) = 0;
 	//-------------------------------------
 
 private:
-	//-------------------------------------
-	// Constructor
-	CKernel();
-	//-------------------------------------
 
-	std::list<IService*> m_pServiceList;
-	std::list<IService*> m_pPausedServiceList;
-
-	DISALLOW_COPY_AND_ASSIGN(CKernel);
+	DISALLOW_COPY_AND_ASSIGN(IKernel);
 };
 
-#endif //FABIAN_CKERNEL_H_
+#endif //FABIAN_IKERNEL_H_

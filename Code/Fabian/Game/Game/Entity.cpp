@@ -3,11 +3,11 @@
 #include "Grid.h"
 #include "GridEntity.h"
 
-#include "../CGlobalAccessor.h"
-#include "../CGameObject.h"
+#include <Fabian.h>
+#include <CGameObject.h>
 
-#include "../glm/gtx/quaternion.hpp"
-#include "../glm/gtx/norm.hpp"
+#include <glm/gtx/quaternion.hpp>
+#include <glm/gtx/norm.hpp>
 
 //-------------------------------------
 // constructor
@@ -37,7 +37,7 @@ Entity::~Entity()
 // rv - bool, return false if something failed
 bool Entity::Start()
 {
-	m_pGrid = static_cast<Grid*>(CGlobalAccessor::Get().GetObject("Grid"));
+	m_pGrid = static_cast<Grid*>(Fab_GlobalAccessorGetObject("Grid"));
 	return true;
 }
 //-------------------------------------

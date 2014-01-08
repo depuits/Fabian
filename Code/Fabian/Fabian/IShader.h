@@ -2,7 +2,6 @@
 #define FABIAN_ISHADER_H_
 
 #include "FabianDef.h"
-#include <string>
 
 FDISABLE_WARNING_START(4201)
 #include "glm/glm.hpp"
@@ -28,10 +27,6 @@ public:
 	virtual ~IShader() { };
 	//-------------------------------------
 
-	//-------------------------------------
-	// Loads in the shader and set it up for use
-	// rv - bool, return false if something failed
-	virtual bool Load(const std::string&) = 0;
 	//-------------------------------------
 	// Activates the shader as the current
 	virtual void Apply() = 0;
@@ -63,9 +58,9 @@ public:
 	virtual void SetVarImage(int, IImage*) = 0;
 	//-------------------------------------
 	// Gets a shader variable id from the name
-	// p1 in - string, variable name
+	// p1 in - variable name
 	// rv - int, the id of the variable, -1 when failed
-	virtual int GetVarId(const std::string&) = 0;
+	virtual int GetVarId(const char*) = 0;
 	//-------------------------------------
 
 	//-------------------------------------

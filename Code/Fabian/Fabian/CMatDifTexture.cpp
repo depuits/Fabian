@@ -8,9 +8,10 @@
 // simple diffusetexture material class
 //******************************************
 CMatDifTexture::CMatDifTexture(IShader* pShader, IImage *pTex)
-    :IMaterial(pShader)
+    :m_pShader(pShader)
     ,m_pTexture(pTex)
 {
+    FASSERT(m_pShader != nullptr);
 	m_iIdTexture = pShader->GetVarId("TextureSampler");
 }
 //-------------------------------------

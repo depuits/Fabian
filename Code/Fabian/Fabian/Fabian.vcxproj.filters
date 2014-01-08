@@ -1,363 +1,136 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Engine Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Game Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Engine Files\Input">
+    <Filter Include="Input">
       <UniqueIdentifier>{d4f5ec71-3a4f-47fa-ade5-b2aedd343e3e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine Files\Video">
-      <UniqueIdentifier>{6c8fff41-8a4d-430f-86f9-c28fc0af950b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine Files\Objects">
-      <UniqueIdentifier>{fa994b6b-4703-4290-8e28-f8cd5c7048e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine Files\Services">
-      <UniqueIdentifier>{0c9e9e67-d1c2-4c42-b07e-8e8f1ce2450f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine Files\LibraryLoader">
+    <Filter Include="LibraryLoader">
       <UniqueIdentifier>{5b5e2cb1-999e-4a89-87c2-9d299f1c1a6c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine Files\Logging">
+    <Filter Include="Logging">
       <UniqueIdentifier>{5cfb219e-e933-45b8-9dec-f4b5defe39f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine Files\Content">
-      <UniqueIdentifier>{a0674aa9-b863-4e30-844e-b316a6ec93bf}</UniqueIdentifier>
+    <Filter Include="Logging\Loggers">
+      <UniqueIdentifier>{3b13b46d-4b2e-45e0-aba7-c9f770f303f7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine Files\Video\OpenGL">
-      <UniqueIdentifier>{bd5a0a9d-30eb-435b-9e18-212e626d5a99}</UniqueIdentifier>
+    <Filter Include="Logging\Loggers\Console">
+      <UniqueIdentifier>{bc932626-f237-41d5-aaf1-7624d0f1a279}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine Files\Logging\Console">
-      <UniqueIdentifier>{1564ee3a-fbce-4488-b7b2-81212c77a018}</UniqueIdentifier>
+    <Filter Include="Services">
+      <UniqueIdentifier>{0c9e9e67-d1c2-4c42-b07e-8e8f1ce2450f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine Files\Objects\Components">
-      <UniqueIdentifier>{34462220-88f2-4523-b51e-b0974f2d5215}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game Files\Game">
-      <UniqueIdentifier>{ae1aa867-c6d4-4946-bcc6-f746a78415e6}</UniqueIdentifier>
+    <Filter Include="Video">
+      <UniqueIdentifier>{6c8fff41-8a4d-430f-86f9-c28fc0af950b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CKernel.h">
-      <Filter>Engine Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FabianDef.h">
-      <Filter>Engine Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CApplication.h">
-      <Filter>Game Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CServiceGame.h">
-      <Filter>Game Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CInputSDL.h">
-      <Filter>Engine Files\Input</Filter>
-    </ClInclude>
     <ClInclude Include="IInput.h">
-      <Filter>Engine Files\Input</Filter>
+      <Filter>Input</Filter>
     </ClInclude>
     <ClInclude Include="InputDef.h">
-      <Filter>Engine Files\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="CServiceInput.h">
-      <Filter>Engine Files\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="CServiceVideoUpdate.h">
-      <Filter>Engine Files\Video</Filter>
+      <Filter>Input</Filter>
     </ClInclude>
     <ClInclude Include="IShader.h">
-      <Filter>Engine Files\Video</Filter>
+      <Filter>Video</Filter>
     </ClInclude>
     <ClInclude Include="IMesh.h">
-      <Filter>Engine Files\Video</Filter>
-    </ClInclude>
-    <ClInclude Include="IObject.h">
-      <Filter>Engine Files\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="CTransform.h">
-      <Filter>Engine Files\Objects</Filter>
+      <Filter>Video</Filter>
     </ClInclude>
     <ClInclude Include="IRenderer.h">
-      <Filter>Engine Files\Video</Filter>
+      <Filter>Video</Filter>
     </ClInclude>
     <ClInclude Include="CLibraryLoader.h">
-      <Filter>Engine Files\LibraryLoader</Filter>
+      <Filter>LibraryLoader</Filter>
     </ClInclude>
     <ClInclude Include="CLibrary.h">
-      <Filter>Engine Files\LibraryLoader</Filter>
+      <Filter>LibraryLoader</Filter>
     </ClInclude>
     <ClInclude Include="CLog.h">
-      <Filter>Engine Files\Logging</Filter>
+      <Filter>Logging</Filter>
     </ClInclude>
     <ClInclude Include="ILogger.h">
-      <Filter>Engine Files\Logging</Filter>
-    </ClInclude>
-    <ClInclude Include="CLoggerToFiles.h">
-      <Filter>Engine Files\Logging</Filter>
+      <Filter>Logging</Filter>
     </ClInclude>
     <ClInclude Include="DataStructures.h">
-      <Filter>Engine Files\Video</Filter>
-    </ClInclude>
-    <ClInclude Include="CContentManager.h">
-      <Filter>Engine Files\Content</Filter>
+      <Filter>Video</Filter>
     </ClInclude>
     <ClInclude Include="IImage.h">
-      <Filter>Engine Files\Video</Filter>
-    </ClInclude>
-    <ClInclude Include="CMeshOpenGL.h">
-      <Filter>Engine Files\Video\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="CRendererOpenGL.h">
-      <Filter>Engine Files\Video\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="CShaderOpenGL.h">
-      <Filter>Engine Files\Video\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="CImageOpenGL.h">
-      <Filter>Engine Files\Video\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Console\console.h">
-      <Filter>Engine Files\Logging\Console</Filter>
-    </ClInclude>
-    <ClInclude Include="Console\ConsoleColor.h">
-      <Filter>Engine Files\Logging\Console</Filter>
-    </ClInclude>
-    <ClInclude Include="Console\keys.h">
-      <Filter>Engine Files\Logging\Console</Filter>
-    </ClInclude>
-    <ClInclude Include="CLoggerMultiple.h">
-      <Filter>Engine Files\Logging</Filter>
-    </ClInclude>
-    <ClInclude Include="CLoggerToConsole.h">
-      <Filter>Engine Files\Logging</Filter>
-    </ClInclude>
-    <ClInclude Include="IComponent.h">
-      <Filter>Engine Files\Objects\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="CGameObject.h">
-      <Filter>Engine Files\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="CCompCamera.h">
-      <Filter>Engine Files\Objects\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="CCompModel.h">
-      <Filter>Engine Files\Objects\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="CGlobalAccessor.h">
-      <Filter>Engine Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CCompControl.h">
-      <Filter>Engine Files\Objects\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Enemy.h">
-      <Filter>Game Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Enemy1D.h">
-      <Filter>Game Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\EnemyRot.h">
-      <Filter>Game Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Entity.h">
-      <Filter>Game Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Player.h">
-      <Filter>Game Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Bomb.h">
-      <Filter>Game Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Candy.h">
-      <Filter>Game Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\CollapseFloor.h">
-      <Filter>Game Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Exit.h">
-      <Filter>Game Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Floor.h">
-      <Filter>Game Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Grid.h">
-      <Filter>Game Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GridEntity.h">
-      <Filter>Game Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\MovingFloor.h">
-      <Filter>Game Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Wall.h">
-      <Filter>Game Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Water.h">
-      <Filter>Game Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="CMatDifTexture.h">
-      <Filter>Engine Files\Video</Filter>
+      <Filter>Video</Filter>
     </ClInclude>
     <ClInclude Include="IMaterial.h">
-      <Filter>Engine Files\Video</Filter>
+      <Filter>Video</Filter>
     </ClInclude>
     <ClInclude Include="ICamera.h">
-      <Filter>Engine Files\Video</Filter>
+      <Filter>Video</Filter>
     </ClInclude>
     <ClInclude Include="ServiceMsg.h">
-      <Filter>Engine Files\Services</Filter>
+      <Filter>Services</Filter>
     </ClInclude>
     <ClInclude Include="IService.h">
-      <Filter>Engine Files\Services</Filter>
+      <Filter>Services</Filter>
     </ClInclude>
     <ClInclude Include="CServiceBase.h">
-      <Filter>Engine Files\Services</Filter>
+      <Filter>Services</Filter>
     </ClInclude>
+    <ClInclude Include="LogDef.h">
+      <Filter>Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="CLibrary.hpp">
+      <Filter>LibraryLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="CLoggerToFiles.h">
+      <Filter>Logging\Loggers</Filter>
+    </ClInclude>
+    <ClInclude Include="CLoggerToConsole.h">
+      <Filter>Logging\Loggers</Filter>
+    </ClInclude>
+    <ClInclude Include="CLoggerMultiple.h">
+      <Filter>Logging\Loggers</Filter>
+    </ClInclude>
+    <ClInclude Include="Console\console.h">
+      <Filter>Logging\Loggers\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="Console\ConsoleColor.h">
+      <Filter>Logging\Loggers\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="Console\keys.h">
+      <Filter>Logging\Loggers\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="IKernel.h" />
+    <ClInclude Include="CGlobalAccessor.h" />
+    <ClInclude Include="CKernel.h" />
+    <ClInclude Include="Fabian.h" />
+    <ClInclude Include="FabianDef.h" />
+    <ClInclude Include="IGlobalAccessor.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CKernel.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Game Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CApplication.cpp">
-      <Filter>Game Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CServiceGame.cpp">
-      <Filter>Game Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CInputSDL.cpp">
-      <Filter>Engine Files\Input</Filter>
-    </ClCompile>
     <ClCompile Include="IInput.cpp">
-      <Filter>Engine Files\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="CServiceInput.cpp">
-      <Filter>Engine Files\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="CServiceVideoUpdate.cpp">
-      <Filter>Engine Files\Video</Filter>
-    </ClCompile>
-    <ClCompile Include="IObject.cpp">
-      <Filter>Engine Files\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="CTransform.cpp">
-      <Filter>Engine Files\Objects</Filter>
+      <Filter>Input</Filter>
     </ClCompile>
     <ClCompile Include="CLibraryLoader.cpp">
-      <Filter>Engine Files\LibraryLoader</Filter>
+      <Filter>LibraryLoader</Filter>
     </ClCompile>
     <ClCompile Include="CLibrary.cpp">
-      <Filter>Engine Files\LibraryLoader</Filter>
+      <Filter>LibraryLoader</Filter>
     </ClCompile>
     <ClCompile Include="CLog.cpp">
-      <Filter>Engine Files\Logging</Filter>
+      <Filter>Logging</Filter>
     </ClCompile>
     <ClCompile Include="CLoggerToFiles.cpp">
-      <Filter>Engine Files\Logging</Filter>
-    </ClCompile>
-    <ClCompile Include="CContentManager.cpp">
-      <Filter>Engine Files\Content</Filter>
-    </ClCompile>
-    <ClCompile Include="CMeshOpenGL.cpp">
-      <Filter>Engine Files\Video\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="CRendererOpenGL.cpp">
-      <Filter>Engine Files\Video\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="CShaderOpenGL.cpp">
-      <Filter>Engine Files\Video\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="CImageOpenGL.cpp">
-      <Filter>Engine Files\Video\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="Console\console.cpp">
-      <Filter>Engine Files\Logging\Console</Filter>
-    </ClCompile>
-    <ClCompile Include="CLoggerMultiple.cpp">
-      <Filter>Engine Files\Logging</Filter>
+      <Filter>Logging\Loggers</Filter>
     </ClCompile>
     <ClCompile Include="CLoggerToConsole.cpp">
-      <Filter>Engine Files\Logging</Filter>
+      <Filter>Logging\Loggers</Filter>
     </ClCompile>
-    <ClCompile Include="IComponent.cpp">
-      <Filter>Engine Files\Objects\Components</Filter>
+    <ClCompile Include="CLoggerMultiple.cpp">
+      <Filter>Logging\Loggers</Filter>
     </ClCompile>
-    <ClCompile Include="CGameObject.cpp">
-      <Filter>Engine Files\Objects</Filter>
+    <ClCompile Include="Console\console.cpp">
+      <Filter>Logging\Loggers\Console</Filter>
     </ClCompile>
-    <ClCompile Include="CCompCamera.cpp">
-      <Filter>Engine Files\Objects\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="CCompModel.cpp">
-      <Filter>Engine Files\Objects\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="CGlobalAccessor.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CCompControl.cpp">
-      <Filter>Engine Files\Objects\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Enemy.cpp">
-      <Filter>Game Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Enemy1D.cpp">
-      <Filter>Game Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\EnemyRot.cpp">
-      <Filter>Game Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Entity.cpp">
-      <Filter>Game Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Player.cpp">
-      <Filter>Game Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Bomb.cpp">
-      <Filter>Game Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Candy.cpp">
-      <Filter>Game Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\CollapseFloor.cpp">
-      <Filter>Game Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Exit.cpp">
-      <Filter>Game Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Floor.cpp">
-      <Filter>Game Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Grid.cpp">
-      <Filter>Game Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GridEntity.cpp">
-      <Filter>Game Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\MovingFloor.cpp">
-      <Filter>Game Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Wall.cpp">
-      <Filter>Game Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Water.cpp">
-      <Filter>Game Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="CMatDifTexture.cpp">
-      <Filter>Engine Files\Video</Filter>
-    </ClCompile>
-    <ClCompile Include="IMaterial.cpp">
-      <Filter>Engine Files\Video</Filter>
-    </ClCompile>
+    <ClCompile Include="CGlobalAccessor.cpp" />
+    <ClCompile Include="CKernel.cpp" />
+    <ClCompile Include="Fabian.cpp" />
+    <ClCompile Include="FabianDef.cpp" />
   </ItemGroup>
 </Project>

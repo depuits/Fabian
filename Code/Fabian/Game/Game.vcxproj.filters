@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ToMove">
+      <UniqueIdentifier>{53147a7a-c2a3-4064-9675-63e6661897be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ToMove\Content">
+      <UniqueIdentifier>{932b61c7-8ba9-4b17-8164-e23cf72b479f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ToMove\Objects">
+      <UniqueIdentifier>{42e351a4-7639-4690-b2e4-265d6968bdf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ToMove\Objects\Components">
+      <UniqueIdentifier>{45e3cbf8-6521-459a-b733-3903a3ca005d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{0fcd4cc0-9c05-4ec4-bce1-50372bd3e3c9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Fabian\CGameObject.h">
+      <Filter>ToMove\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Fabian\CTransform.h">
+      <Filter>ToMove\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Fabian\CCompCamera.h">
+      <Filter>ToMove\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Fabian\CCompControl.h">
+      <Filter>ToMove\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Fabian\IComponent.h">
+      <Filter>ToMove\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Fabian\CCompModel.h">
+      <Filter>ToMove\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Fabian\CContentManager.h">
+      <Filter>ToMove\Content</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Fabian\CMatDifTexture.h">
+      <Filter>ToMove</Filter>
+    </ClInclude>
+    <ClInclude Include="CServiceGame.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Bomb.h">
+      <Filter>Source Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Candy.h">
+      <Filter>Source Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CollapseFloor.h">
+      <Filter>Source Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Enemy.h">
+      <Filter>Source Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Enemy1D.h">
+      <Filter>Source Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\EnemyRot.h">
+      <Filter>Source Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Entity.h">
+      <Filter>Source Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Exit.h">
+      <Filter>Source Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Floor.h">
+      <Filter>Source Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Grid.h">
+      <Filter>Source Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GridEntity.h">
+      <Filter>Source Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\MovingFloor.h">
+      <Filter>Source Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player.h">
+      <Filter>Source Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Wall.h">
+      <Filter>Source Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Water.h">
+      <Filter>Source Files\Game</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Fabian\CGameObject.cpp">
+      <Filter>ToMove\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Fabian\CTransform.cpp">
+      <Filter>ToMove\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Fabian\CCompCamera.cpp">
+      <Filter>ToMove\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Fabian\CCompControl.cpp">
+      <Filter>ToMove\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Fabian\IComponent.cpp">
+      <Filter>ToMove\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Fabian\CCompModel.cpp">
+      <Filter>ToMove\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Fabian\CContentManager.cpp">
+      <Filter>ToMove\Content</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Fabian\CMatDifTexture.cpp">
+      <Filter>ToMove</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CServiceGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Bomb.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Candy.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CollapseFloor.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Enemy.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Enemy1D.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\EnemyRot.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Entity.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Exit.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Floor.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Grid.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GridEntity.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\MovingFloor.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Player.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Wall.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Water.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

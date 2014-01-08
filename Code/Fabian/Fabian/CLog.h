@@ -2,6 +2,7 @@
 #define FABIAN_CLOG_H_
 
 #include "FabianDef.h"
+#include "LogDef.h"
 
 #include <string>
 #include <vector>
@@ -9,26 +10,6 @@
 // --forward declarations--
 class ILogger;
 // ------------------------
-
-// Log level iddentifiers
-enum FLOG_LVL : char
-{
-	FLOG_LVL_UNKNOWN	 = 0,
-	FLOG_LVL_INFO		 = 1,
-	FLOG_LVL_WARNING	 = 2,
-	FLOG_LVL_ERROR		 = 4
-};
-
-// Log id iddentifiers
-// You can extend on these if the ILogger supports it
-// keep in mind that these are bit flags
-enum FLOG_ID : char
-{
-	FLOG_ID_APP			 = 1,
-	FLOG_ID_CLIENT		 = 2,
-	FLOG_ID_SERVER		 = 4,
-	FLOG_ID_USER		 = 8
-};
 
 //******************************************
 // Class CLog:

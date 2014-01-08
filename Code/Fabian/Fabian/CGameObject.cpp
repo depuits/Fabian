@@ -1,7 +1,7 @@
 #include "CGameObject.h"
 #include "IComponent.h"
 
-#include "CLog.h"
+#include <Fabian.h>
 #include <algorithm>
 
 //******************************************
@@ -81,12 +81,12 @@ bool CGameObject::AddComponent(IComponent *pComp)
     //check if component isn't alreay added
     if(std::find(m_vpComponents.begin(), m_vpComponents.end(), pComp) != m_vpComponents.end()) // first check if the component is in the list, because most change is its could be here
     {
-        CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "GameObject: Component already exists in the list, you shouldn't add the same component twice");
+        Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "GameObject: Component already exists in the list, you shouldn't add the same component twice");
         return false;
 	}
 	else if(std::find(m_vpDisabledComponents.begin(), m_vpDisabledComponents.end(), pComp) != m_vpDisabledComponents.end()) // then check if it isn't in the disabled list
     {
-        CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "GameObject: Component already exists in the disabled component list, try enabling the component in stead");
+        Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "GameObject: Component already exists in the disabled component list, try enabling the component in stead");
         return false;
 	}
 
@@ -126,13 +126,13 @@ bool CGameObject::RemoveComponent(IComponent *pComp)
     }
 
 	// not implemented yet
-    CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "GameObject: Could not find Component to remove");
+    Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "GameObject: Could not find Component to remove");
 	return false;
 }
 
 bool CGameObject::DisableComponent(IComponent *pComp)
 {
-	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "GameObject: Disable Component" );
+	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "GameObject: Disable Component" );
     //check if component is enabled
     std::vector<IComponent*>::iterator it( std::find(m_vpComponents.begin(), m_vpComponents.end(), pComp) );
 	if( it != m_vpComponents.end() )
@@ -144,12 +144,12 @@ bool CGameObject::DisableComponent(IComponent *pComp)
 		return true;
 	}
 
-    CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "GameObject: Could not find Component to disable");
+    Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "GameObject: Could not find Component to disable");
 	return false;
 }
 bool CGameObject::EnableComponent(IComponent *pComp)
 {
-	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "GameObject: Enable Component" );
+	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "GameObject: Enable Component" );
     //check if component is enabled
     std::vector<IComponent*>::iterator it( std::find(m_vpDisabledComponents.begin(), m_vpDisabledComponents.end(), pComp) );
 	if( it != m_vpDisabledComponents.end() )
@@ -161,7 +161,7 @@ bool CGameObject::EnableComponent(IComponent *pComp)
 		return true;
 	}
 
-    CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "GameObject: Could not find Component to enable");
+    Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "GameObject: Could not find Component to enable");
 	return false;
 }
 

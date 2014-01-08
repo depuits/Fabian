@@ -21,18 +21,10 @@
     #define FDISABLE_WARNING_END(warningc)
 #endif
 
-// sdl assertion within a macro because of compiler warnings
-#include <SDL_assert.h>
+// assertion within a macro for easy changing
+#include <assert.h>
 
-#define FASSERT(condition)			\
-	FDISABLE_WARNING_START(4127)	\
-    SDL_assert(condition);			\
-    FDISABLE_WARNING_END(4127)
-
-#define FASSERTR(condition)			\
-	FDISABLE_WARNING_START(4127)	\
-    SDL_assert_release(condition);	\
-    FDISABLE_WARNING_END(4127)
+#define FASSERT(condition)	assert(condition)
 
 
 // dll export define

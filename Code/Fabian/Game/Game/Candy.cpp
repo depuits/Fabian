@@ -1,6 +1,6 @@
 #include "Candy.h"
-#include "../CGameObject.h"
-#include "../CCompModel.h"
+#include <CGameObject.h>
+#include <CCompModel.h>
 
 unsigned Candy::s_CandyCount = 0;
 

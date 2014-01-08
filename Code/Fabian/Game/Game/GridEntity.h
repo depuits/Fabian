@@ -1,7 +1,7 @@
 #ifndef H_GRIDENTITY
 #define H_GRIDENTITY
 
-#include "../IComponent.h"
+#include <IComponent.h>
 class Entity;
 
 class GridEntity : public IComponent

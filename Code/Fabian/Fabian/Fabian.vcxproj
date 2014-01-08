@@ -17,13 +17,13 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -41,13 +41,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\External\glew\include;..\..\External\dirent\include;..\..\External\sdl2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\External\glew\lib\Release\Win32;..\..\External\sdl2\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\External\dirent\include;..\..\External\sdl2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\External\sdl2\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\External\glm;..\..\External\glew\include;..\..\External\dirent\include;..\..\External\sdl2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\External\glew\lib\Release\Win32;..\..\External\sdl2\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\External\dirent\include;..\..\External\sdl2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\External\sdl2\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -62,7 +62,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -82,55 +82,29 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CApplication.h" />
-    <ClInclude Include="CCompCamera.h" />
-    <ClInclude Include="CCompControl.h" />
-    <ClInclude Include="CContentManager.h" />
     <ClInclude Include="CGlobalAccessor.h" />
-    <ClInclude Include="CImageOpenGL.h" />
-    <ClInclude Include="CInputSDL.h" />
     <ClInclude Include="CKernel.h" />
     <ClInclude Include="CLibrary.h" />
+    <ClInclude Include="CLibrary.hpp" />
     <ClInclude Include="CLog.h" />
-    <ClInclude Include="CLoggerToConsole.h" />
     <ClInclude Include="CLoggerMultiple.h" />
+    <ClInclude Include="CLoggerToConsole.h" />
     <ClInclude Include="CLoggerToFiles.h" />
-    <ClInclude Include="CMatDifTexture.h" />
-    <ClInclude Include="CMeshOpenGL.h" />
     <ClInclude Include="Console\console.h" />
     <ClInclude Include="Console\ConsoleColor.h" />
     <ClInclude Include="Console\keys.h" />
     <ClInclude Include="CServiceBase.h" />
     <ClInclude Include="DataStructures.h" />
-    <ClInclude Include="CRendererOpenGL.h" />
-    <ClInclude Include="CServiceGame.h" />
-    <ClInclude Include="CServiceInput.h" />
-    <ClInclude Include="CServiceVideoUpdate.h" />
-    <ClInclude Include="CShaderOpenGL.h" />
-    <ClInclude Include="Game\Bomb.h" />
-    <ClInclude Include="Game\Candy.h" />
-    <ClInclude Include="Game\CollapseFloor.h" />
-    <ClInclude Include="Game\Enemy.h" />
-    <ClInclude Include="Game\Enemy1D.h" />
-    <ClInclude Include="Game\EnemyRot.h" />
-    <ClInclude Include="Game\Entity.h" />
-    <ClInclude Include="Game\Exit.h" />
-    <ClInclude Include="Game\Floor.h" />
-    <ClInclude Include="Game\Grid.h" />
-    <ClInclude Include="Game\GridEntity.h" />
-    <ClInclude Include="Game\MovingFloor.h" />
-    <ClInclude Include="Game\Player.h" />
-    <ClInclude Include="Game\Wall.h" />
-    <ClInclude Include="Game\Water.h" />
+    <ClInclude Include="Fabian.h" />
     <ClInclude Include="ICamera.h" />
-    <ClInclude Include="IComponent.h" />
-    <ClInclude Include="CGameObject.h" />
+    <ClInclude Include="IGlobalAccessor.h" />
     <ClInclude Include="IImage.h" />
     <ClInclude Include="IInput.h" />
+    <ClInclude Include="IKernel.h" />
     <ClInclude Include="ILogger.h" />
     <ClInclude Include="IMaterial.h" />
     <ClInclude Include="IMesh.h" />
@@ -138,59 +112,24 @@
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="IShader.h" />
     <ClInclude Include="FabianDef.h" />
-    <ClInclude Include="IObject.h" />
     <ClInclude Include="IService.h" />
-    <ClInclude Include="CCompModel.h" />
-    <ClInclude Include="CTransform.h" />
     <ClInclude Include="CLibraryLoader.h" />
+    <ClInclude Include="LogDef.h" />
     <ClInclude Include="ServiceMsg.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CApplication.cpp" />
-    <ClCompile Include="CCompCamera.cpp" />
-    <ClCompile Include="CCompControl.cpp" />
-    <ClCompile Include="CContentManager.cpp" />
     <ClCompile Include="CGlobalAccessor.cpp" />
-    <ClCompile Include="CImageOpenGL.cpp" />
-    <ClCompile Include="CInputSDL.cpp" />
     <ClCompile Include="CKernel.cpp" />
     <ClCompile Include="CLibrary.cpp" />
     <ClCompile Include="CLog.cpp" />
-    <ClCompile Include="CLoggerToConsole.cpp" />
     <ClCompile Include="CLoggerMultiple.cpp" />
+    <ClCompile Include="CLoggerToConsole.cpp" />
     <ClCompile Include="CLoggerToFiles.cpp" />
-    <ClCompile Include="CMatDifTexture.cpp" />
-    <ClCompile Include="CMeshOpenGL.cpp" />
     <ClCompile Include="Console\console.cpp" />
-    <ClCompile Include="CRendererOpenGL.cpp" />
-    <ClCompile Include="CServiceGame.cpp" />
-    <ClCompile Include="CServiceInput.cpp" />
-    <ClCompile Include="CServiceVideoUpdate.cpp" />
-    <ClCompile Include="CShaderOpenGL.cpp" />
-    <ClCompile Include="Game\Bomb.cpp" />
-    <ClCompile Include="Game\Candy.cpp" />
-    <ClCompile Include="Game\CollapseFloor.cpp" />
-    <ClCompile Include="Game\Enemy.cpp" />
-    <ClCompile Include="Game\Enemy1D.cpp" />
-    <ClCompile Include="Game\EnemyRot.cpp" />
-    <ClCompile Include="Game\Entity.cpp" />
-    <ClCompile Include="Game\Exit.cpp" />
-    <ClCompile Include="Game\Floor.cpp" />
-    <ClCompile Include="Game\Grid.cpp" />
-    <ClCompile Include="Game\GridEntity.cpp" />
-    <ClCompile Include="Game\MovingFloor.cpp" />
-    <ClCompile Include="Game\Player.cpp" />
-    <ClCompile Include="Game\Wall.cpp" />
-    <ClCompile Include="Game\Water.cpp" />
-    <ClCompile Include="IComponent.cpp" />
-    <ClCompile Include="CGameObject.cpp" />
+    <ClCompile Include="Fabian.cpp" />
+    <ClCompile Include="FabianDef.cpp" />
     <ClCompile Include="IInput.cpp" />
-    <ClCompile Include="CTransform.cpp" />
-    <ClCompile Include="IMaterial.cpp" />
-    <ClCompile Include="IObject.cpp" />
     <ClCompile Include="CLibraryLoader.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="CCompModel.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

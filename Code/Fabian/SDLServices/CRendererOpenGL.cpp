@@ -4,12 +4,12 @@
 #include <GL/glew.h>
 #include "CServiceVideoUpdate.h"
 
-#include "ICamera.h"
+#include <ICamera.h>
 #include "CShaderOpenGL.h"
 #include "CMeshOpenGL.h"
 #include "CImageOpenGL.h"
 
-#include "CLog.h"
+#include <Fabian.h>
 
 //******************************************
 // Class CRendererOpenGL:
@@ -32,15 +32,15 @@ CRendererOpenGL::CRendererOpenGL(CServiceVideoUpdate *pServiceParent)
 CRendererOpenGL::~CRendererOpenGL()
 {
 	//clear all resources
-	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Renderer: Unloading Shaders: %d", m_vpShaders.size());
+	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Renderer: Unloading Shaders: %d", m_vpShaders.size());
     for ( IShader *pShader : m_vpShaders)
         delete pShader;
 
-	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Renderer: Unloading Meshes: %d", m_vpMeshes.size());
+	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Renderer: Unloading Meshes: %d", m_vpMeshes.size());
     for ( IMesh *pMesh : m_vpMeshes)
         delete pMesh;
 
-	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Renderer: Unloading Images: %d", m_vpImages.size());
+	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Renderer: Unloading Images: %d", m_vpImages.size());
     for ( IImage *pImage : m_vpImages)
         delete pImage;
 }
@@ -122,7 +122,7 @@ void CRendererOpenGL::SetActiveCamera(ICamera* pCam)
 // rv - pointer IShader object and nullptr if failed
 IShader *CRendererOpenGL::LoadShader(const std::string& sName)
 {
-	IShader *pShader = new CShaderOpenGL();
+	CShaderOpenGL *pShader = new CShaderOpenGL();
 	if( !pShader->Load(sName) )
 	{
 		delete pShader;

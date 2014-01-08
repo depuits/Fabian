@@ -1,7 +1,6 @@
 #include "Enemy.h"
 
-#include "../CGlobalAccessor.h"
-#include "../CLog.h"
+#include <Fabian.h>
 
 //-------------------------------------
 // constructor
@@ -22,7 +21,7 @@ Enemy::~Enemy()
 // rv - bool, return false if something failed
 bool Enemy::Start()
 {
-	m_pPlayer = static_cast<Entity*>(CGlobalAccessor::Get().GetObject("Player"));
+	m_pPlayer = static_cast<Entity*>(Fab_GlobalAccessorGetObject("Player"));
 	return Entity::Start();
 }
 //-------------------------------------
@@ -49,7 +48,7 @@ void Enemy::DerivedUpdate(float dt)
 void Enemy::Die()
 {
 	//delete the enemy instead of the default respawn behavior
-	CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_CLIENT, "Enemy destroying not implemented yet (respawning for now)");
+	Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_CLIENT, "Enemy destroying not implemented yet (respawning for now)");
 	Entity::Die();
 }
 

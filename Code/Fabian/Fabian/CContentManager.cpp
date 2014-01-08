@@ -1,8 +1,8 @@
 #include "CContentManager.h"
 #include "IRenderer.h"
 
-#include "CLibrary.h"
-#include "CLog.h"
+#include "CLibrary.hpp"
+#include <Fabian.h>
 
 FDISABLE_WARNING_START(4505)
 #include <dirent.h>
@@ -49,13 +49,13 @@ IShader *CContentManager::LoadShader(const std::string& sFile)
 {
 	if ( !IsShaderLoaded(sFile))
 	{
-		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new Shader: \"%s\"", sFile.c_str());
+		Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new Shader: \"%s\"", sFile.c_str());
 
 		IShader *pShader = m_pRenderer->LoadShader(sFile);
 
 		if( pShader == nullptr )
 		{
-			CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading shader failed");
+			Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading shader failed");
 			return nullptr;
 		}
 
@@ -78,7 +78,7 @@ IMesh *CContentManager::LoadMesh(const std::string& sFile)
     //CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Mesh");
 	if ( !IsMeshLoaded(sFile))
 	{
-        CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Searching lib to load Mesh");
+        Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Searching lib to load Mesh");
         DIR *dir;
         struct dirent *ent;
         if ( (dir = opendir ("plugins")) != NULL )
@@ -103,15 +103,16 @@ IMesh *CContentManager::LoadMesh(const std::string& sFile)
         else
         {
             /* could not open directory */
-            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Failed to open plugin directory");
+            Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Failed to open plugin directory");
             return nullptr;
         }
-        CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: No plugin found to load mesh");
+        Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: No plugin found to load mesh");
         return nullptr;
     }
 
 	return m_mMeshMap[sFile];
 }
+#undef LoadImage
 IImage *CContentManager::LoadImage(const std::string& sFile)
 {
     std::string sExt =
@@ -126,7 +127,7 @@ IImage *CContentManager::LoadImage(const std::string& sFile)
     //CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Texture");
 	if ( !IsImageLoaded(sFile))
 	{
-        CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Searching lib to load Texture");
+        Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Searching lib to load Texture");
         DIR *dir;
         struct dirent *ent;
         if ( (dir = opendir ("plugins")) != NULL )
@@ -151,10 +152,10 @@ IImage *CContentManager::LoadImage(const std::string& sFile)
         else
         {
             /* could not open directory */
-            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Failed to open plugin directory");
+            Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Failed to open plugin directory");
             return nullptr;
         }
-        CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: No plugin found to load image");
+        Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: No plugin found to load image");
         return nullptr;
     }
 
@@ -167,13 +168,13 @@ IImage *CContentManager::LoadImage(const std::string& sFile)
 // rv - pointer IMesh or IImage object and nullptr if failed
 IMesh *CContentManager::LoadMeshUsing(const std::string& sLib, const std::string& sFile)
 {
-	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Mesh (\"%s\") using \"%s\"", sFile.c_str(), sLib.c_str());
+	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Mesh (\"%s\") using \"%s\"", sFile.c_str(), sLib.c_str());
 	if ( !IsMeshLoaded(sFile))
 	{
 		CLibrary lib;
 		if( !lib.Load(sLib.c_str()) )
 		{
-            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of plugin failed: \"%s\"", sLib.c_str());
+            Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of plugin failed: \"%s\"", sLib.c_str());
 			return nullptr;
         }
 		LOAD_DATA fLoadMD = (LOAD_DATA)lib.GetFunction("LoadData"); // meshData Loading function
@@ -181,7 +182,7 @@ IMesh *CContentManager::LoadMeshUsing(const std::string& sLib, const std::string
 
 		if( fLoadMD == nullptr || fReleaseMD == nullptr )
 		{
-            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of LOADDATA(%d) or RELEASEDATA(%d) in \"%s\" failed.", fLoadMD, fReleaseMD, sLib.c_str());
+            Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of LOADDATA(%d) or RELEASEDATA(%d) in \"%s\" failed.", fLoadMD, fReleaseMD, sLib.c_str());
 			return nullptr;
         }
 
@@ -189,18 +190,18 @@ IMesh *CContentManager::LoadMeshUsing(const std::string& sLib, const std::string
 		MeshData *md = static_cast<MeshData*>( fLoadMD(sFile.c_str()) );
 		if( md == nullptr ) // dll failed to load
 		{
-			CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: Loading mesh failed");
+			Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: Loading mesh failed");
             return nullptr;
 		}
 
-		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loaded MeshData ( v: %d - i: %d )", md->vCount / 8 /* divided by 8 becaus the vcount is x,y,z,nx,ny,nz,u,v*/, md->iCount);
+		Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loaded MeshData ( v: %d - i: %d )", md->vCount / 8 /* divided by 8 becaus the vcount is x,y,z,nx,ny,nz,u,v*/, md->iCount);
 		IMesh *pMesh = m_pRenderer->LoadMesh(md);
 		// release dll data
 		fReleaseMD(md);
 
 		if( pMesh == nullptr )
 		{
-			CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading mesh failed");
+			Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading mesh failed");
 			return nullptr;
 		}
 
@@ -211,13 +212,13 @@ IMesh *CContentManager::LoadMeshUsing(const std::string& sLib, const std::string
 }
 IImage *CContentManager::LoadImageUsing(const std::string& sLib, const std::string& sFile)
 {
-	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Texture (\"%s\") using \"%s\"", sFile.c_str(), sLib.c_str());
+	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Texture (\"%s\") using \"%s\"", sFile.c_str(), sLib.c_str());
 	if ( !IsImageLoaded(sFile))
 	{
 		CLibrary lib;
 		if( !lib.Load(sLib.c_str()) )
 		{
-            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of plugin failed: \"%s\"", sLib.c_str());
+            Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of plugin failed: \"%s\"", sLib.c_str());
 			return nullptr;
         }
 		LOAD_DATA fLoadID = (LOAD_DATA)lib.GetFunction("LoadData"); // meshData Loading function
@@ -225,7 +226,7 @@ IImage *CContentManager::LoadImageUsing(const std::string& sLib, const std::stri
 
 		if( fLoadID == nullptr || fReleaseID == nullptr )
 		{
-            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of LOADDATA(%d) or RELEASEDATA(%d) in \"%s\" failed.", fLoadID, fReleaseID, sLib.c_str());
+            Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of LOADDATA(%d) or RELEASEDATA(%d) in \"%s\" failed.", fLoadID, fReleaseID, sLib.c_str());
 			return nullptr;
         }
 
@@ -234,18 +235,18 @@ IImage *CContentManager::LoadImageUsing(const std::string& sLib, const std::stri
 
 		if( id == nullptr ) // dll failed to load
 		{
-			CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: Loading texture failed");
+			Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: Loading texture failed");
             return nullptr;
 		}
 
-        CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loaded ImageData ( w: %d - h: %d )", id->w, id->h);
+        Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loaded ImageData ( w: %d - h: %d )", id->w, id->h);
         IImage *pImage = m_pRenderer->LoadImage(id);
         // release dll data
         fReleaseID(id);
 
         if( pImage == nullptr )
         {
-            CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading texture failed");
+            Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading texture failed");
             return nullptr;
         }
 

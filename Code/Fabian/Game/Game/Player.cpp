@@ -3,9 +3,9 @@
 #include "Grid.h"
 #include "GridEntity.h"
 
-#include "../IInput.h"
-#include "../CGameObject.h"
-#include "../CGlobalAccessor.h"
+#include <Fabian.h>
+#include <IInput.h>
+#include <CGameObject.h>
 
 //-------------------------------------
 // constructor
@@ -29,8 +29,8 @@ Player::~Player()
 // rv - bool, return false if something failed
 bool Player::Start()
 {
-	m_pInput = static_cast<IInput*>(CGlobalAccessor::Get().GetObject("Input"));
-	m_pCamera = static_cast<CGameObject*>(CGlobalAccessor::Get().GetObject("Camera"));
+	m_pInput = static_cast<IInput*>(Fab_GlobalAccessorGetObject("Input"));
+	m_pCamera = static_cast<CGameObject*>(Fab_GlobalAccessorGetObject("Camera"));
 	return Entity::Start();
 }
 //-------------------------------------

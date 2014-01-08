@@ -16,8 +16,10 @@ public:
 	// Constructor
 	ILogger() { }
 	//-------------------------------------
-	// Destructor
-	virtual ~ILogger() { }
+    // This function must not be implemented in the header or the
+    // linker will build the code to call the application delete()
+    // function instead of the library delete() function.
+    virtual void DeleteThis() = 0;
 	//-------------------------------------
 	
 	//-------------------------------------
@@ -29,8 +31,14 @@ public:
 	virtual void Write(char, char, const char*) = 0;
 	//-------------------------------------
 
+protected:
+	//-------------------------------------
+	// Destructor
+	// private so it can only be called by DeleteThis();
+	virtual ~ILogger() { }
+	//-------------------------------------
+	
 private:
-
 	DISALLOW_COPY_AND_ASSIGN(ILogger);
 };
 

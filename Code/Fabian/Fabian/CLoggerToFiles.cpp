@@ -1,5 +1,5 @@
 #include "CLoggerToFiles.h"
-#include "CLog.h"
+#include "LogDef.h"
 
 #include <string>
 #include <time.h>       /* time_t, struct tm, difftime, time, mktime */
@@ -30,6 +30,14 @@ CLoggerToFiles::~CLoggerToFiles()
 	m_osServerLog.close();
 }
 //------------------------------------
+// This function must not be implemented in the header or the
+// linker will build the code to call the application delete()
+// function instead of the library delete() function.
+void CLoggerToFiles::DeleteThis()
+{
+    delete this;  // called from the right "delete context"
+}
+//-------------------------------------
 	
 //-------------------------------------
 // Initializes the logger, should be called

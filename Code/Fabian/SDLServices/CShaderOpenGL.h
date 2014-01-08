@@ -4,6 +4,7 @@
 #include "FabianDef.h"
 #include "IShader.h"
 #include <GL/glew.h>
+#include <string>
 
 //******************************************
 // Class CShaderOpenGL:
@@ -62,7 +63,7 @@ public:
 	// Gets a shader variable id from the name
 	// p1 in - string, variable name
 	// rv - int, the id of the variable, -1 when failed
-	virtual int GetVarId(const std::string&);
+	virtual int GetVarId(const char*);
 	//-------------------------------------
 
 	//-------------------------------------

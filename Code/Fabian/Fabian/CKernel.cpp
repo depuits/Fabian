@@ -22,6 +22,7 @@ CKernel& CKernel::Get()
 //-------------------------------------
 // Constructor
 CKernel::CKernel()
+	:IKernel()
 {
 }
 //-------------------------------------

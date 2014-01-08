@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{9EC3AD08-6A36-4FE6-B996-DA24533CFD68}</ProjectGuid>
-    <RootNamespace>SDLServices</RootNamespace>
+    <ProjectGuid>{734291DE-E96E-4E7A-AE35-33006195972A}</ProjectGuid>
+    <RootNamespace>Game</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -39,12 +39,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\Fabian;..\..\External\sdl2\include;..\..\External\glew\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\Debug;..\..\External\sdl2\lib\x86;..\..\External\glew\lib\Release\Win32;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\External\dirent\include;..\Fabian;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>..\Fabian;..\..\External\sdl2\include;..\..\External\glew\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\Debug;..\..\External\sdl2\lib\x86;..\..\External\glew\lib\Release\Win32;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\External\dirent\include;..\Fabian;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -54,7 +54,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Fabian.lib;SDL2.lib;SDL2main.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Fabian.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -63,36 +63,67 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Fabian.lib;SDL2.lib;SDL2main.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Fabian.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CImageOpenGL.cpp" />
-    <ClCompile Include="CInputSDL.cpp" />
-    <ClCompile Include="CMeshOpenGL.cpp" />
-    <ClCompile Include="CRendererOpenGL.cpp" />
-    <ClCompile Include="CServiceInput.cpp" />
-    <ClCompile Include="CServiceTimer.cpp" />
-    <ClCompile Include="CServiceVideoUpdate.cpp" />
-    <ClCompile Include="CShaderOpenGL.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClInclude Include="..\Fabian\CCompCamera.h" />
+    <ClInclude Include="..\Fabian\CCompControl.h" />
+    <ClInclude Include="..\Fabian\CCompModel.h" />
+    <ClInclude Include="..\Fabian\CContentManager.h" />
+    <ClInclude Include="..\Fabian\CGameObject.h" />
+    <ClInclude Include="..\Fabian\CMatDifTexture.h" />
+    <ClInclude Include="..\Fabian\CTransform.h" />
+    <ClInclude Include="..\Fabian\IComponent.h" />
+    <ClInclude Include="CServiceGame.h" />
+    <ClInclude Include="Game\Bomb.h" />
+    <ClInclude Include="Game\Candy.h" />
+    <ClInclude Include="Game\CollapseFloor.h" />
+    <ClInclude Include="Game\Enemy.h" />
+    <ClInclude Include="Game\Enemy1D.h" />
+    <ClInclude Include="Game\EnemyRot.h" />
+    <ClInclude Include="Game\Entity.h" />
+    <ClInclude Include="Game\Exit.h" />
+    <ClInclude Include="Game\Floor.h" />
+    <ClInclude Include="Game\Grid.h" />
+    <ClInclude Include="Game\GridEntity.h" />
+    <ClInclude Include="Game\MovingFloor.h" />
+    <ClInclude Include="Game\Player.h" />
+    <ClInclude Include="Game\Wall.h" />
+    <ClInclude Include="Game\Water.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CImageOpenGL.h" />
-    <ClInclude Include="CInputSDL.h" />
-    <ClInclude Include="CMeshOpenGL.h" />
-    <ClInclude Include="CRendererOpenGL.h" />
-    <ClInclude Include="CServiceInput.h" />
-    <ClInclude Include="CServiceTimer.h" />
-    <ClInclude Include="CServiceVideoUpdate.h" />
-    <ClInclude Include="CShaderOpenGL.h" />
+    <ClCompile Include="..\Fabian\CCompCamera.cpp" />
+    <ClCompile Include="..\Fabian\CCompControl.cpp" />
+    <ClCompile Include="..\Fabian\CCompModel.cpp" />
+    <ClCompile Include="..\Fabian\CContentManager.cpp" />
+    <ClCompile Include="..\Fabian\CGameObject.cpp" />
+    <ClCompile Include="..\Fabian\CMatDifTexture.cpp" />
+    <ClCompile Include="..\Fabian\CTransform.cpp" />
+    <ClCompile Include="..\Fabian\IComponent.cpp" />
+    <ClCompile Include="CServiceGame.cpp" />
+    <ClCompile Include="Game\Bomb.cpp" />
+    <ClCompile Include="Game\Candy.cpp" />
+    <ClCompile Include="Game\CollapseFloor.cpp" />
+    <ClCompile Include="Game\Enemy.cpp" />
+    <ClCompile Include="Game\Enemy1D.cpp" />
+    <ClCompile Include="Game\EnemyRot.cpp" />
+    <ClCompile Include="Game\Entity.cpp" />
+    <ClCompile Include="Game\Exit.cpp" />
+    <ClCompile Include="Game\Floor.cpp" />
+    <ClCompile Include="Game\Grid.cpp" />
+    <ClCompile Include="Game\GridEntity.cpp" />
+    <ClCompile Include="Game\MovingFloor.cpp" />
+    <ClCompile Include="Game\Player.cpp" />
+    <ClCompile Include="Game\Wall.cpp" />
+    <ClCompile Include="Game\Water.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

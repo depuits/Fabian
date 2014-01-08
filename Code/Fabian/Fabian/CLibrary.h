@@ -2,7 +2,6 @@
 #define FABIAN_CLIBRARY_H_
 
 #include "FabianDef.h"
-#include <string>
 
 //******************************************
 // Class CLibrary:

@@ -1,14 +1,14 @@
 #include "CServiceGame.h"
 
-#include "CKernel.h"
+#include <Fabian.h>
 
-#include "IInput.h"
-#include "IRenderer.h"
+#include <IInput.h>
+#include <IRenderer.h>
 #include "CContentManager.h"
 
-#include "IShader.h"
-#include "CMatDifTexture.h"
-#include "IImage.h"
+#include <IShader.h>
+#include <CMatDifTexture.h>
+#include <IImage.h>
 
 #include "CCompModel.h"
 #include "CCompCamera.h"
@@ -18,15 +18,11 @@
 
 #include "CGlobalAccessor.h"
 
-#include "CLog.h"
-
 #include "Game/Grid.h"
-
 #include "Game/Entity.h"
 #include "Game/Player.h"
 #include "Game/Enemy1D.h"
 #include "Game/EnemyRot.h"
-
 #include "Game/Floor.h"
 #include "Game/Wall.h"
 #include "Game/Bomb.h"
@@ -82,7 +78,7 @@ CServiceGame::~CServiceGame()
 void SendMsg(int id, IService *pServ)
 {
 	SMsgRequest msg(id, pServ);
-	CKernel::Get().SendMessage(&msg);
+	Fab_KernelSendMessage(&msg);
 }
 //-------------------------------------
 
@@ -92,21 +88,21 @@ void SendMsg(int id, IService *pServ)
 //         when false is returned then the service gets deleted
 bool CServiceGame::Start()
 {
-	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Starting" );
+	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Starting" );
 	SendMsg(SM_INPUT, this);
 	SendMsg(SM_RENDERER, this);
 
 	SMsgTimer msg(TimerCallback);
-	CKernel::Get().SendMessage(&msg);
+	Fab_KernelSendMessage(&msg);
 
 	// just quit when the renderer or input wasn't filled in
-	FASSERTR(m_pInput != nullptr);
-	FASSERTR(m_pRenderer != nullptr);
+	if(m_pInput == nullptr || m_pRenderer == nullptr)
+		return false;
 
 	m_pRenderer->SetVSync(true);
 
 	// make needed object accesable for user
-	CGlobalAccessor::Get().AddObject("Input", m_pInput);
+	Fab_GlobalAccessorAddObject("Input", m_pInput);
 
 	m_pContent = new CContentManager(m_pRenderer);
 
@@ -143,7 +139,7 @@ bool CServiceGame::Start()
 	pGo->Transform()->SetRot( glm::vec3(0, 0, glm::half_pi<float>()) );
 	pGo->Transform()->Rotate( glm::vec3(0, -glm::half_pi<float>(), 0));
 	g_vpGameObjects.push_back(pGo);
-	CGlobalAccessor::Get().AddObject("Camera", pGo);
+	Fab_GlobalAccessorAddObject("Camera", pGo);
 	g_pCam = pCam;
 
 	LoadLevel("level.lvl");
@@ -151,7 +147,7 @@ bool CServiceGame::Start()
 	for (CGameObject* go : g_vpGameObjects)
 		go->Init();
 
-	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Started" );
+	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Started" );
 	return true;
 }
 
@@ -191,7 +187,7 @@ void CServiceGame::LoadLevel(const std::string& sFile)
 
 	// 2. read and load in objects
 	Grid *pGrid = new Grid(w, h);
-	CGlobalAccessor::Get().AddObject("Grid", pGrid);
+	Fab_GlobalAccessorAddObject("Grid", pGrid);
 
     glm::vec2 vPos(0, 0);
 
@@ -245,7 +241,7 @@ void CServiceGame::LoadLevel(const std::string& sFile)
 					pGo->AddComponent( new CCompModel( m_pContent->LoadMesh("Meshes/Player.obj"),  g_pMatPlayer ) );
 					pGo->Transform()->SetScale( 0.5f );
 					g_vpGameObjects.push_back(pGo);
-					CGlobalAccessor::Get().AddObject("Player", pEnt);
+					Fab_GlobalAccessorAddObject("Player", pEnt);
 					break;
 				}
 
@@ -400,14 +396,14 @@ void CServiceGame::Update()
 // Called when the service will be deleted
 void CServiceGame::Stop()
 {
-	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Stopping" );
+	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Stopping" );
 	// we don't delete the mesh and image because it was loaded by de contentloader and it will destroy it for use
 
 	for (CGameObject* go : g_vpGameObjects)
 		delete go;
 	g_vpGameObjects.clear();
 
-	delete static_cast<Grid*>( CGlobalAccessor::Get().GetObject("Grid") );
+	delete static_cast<Grid*>( Fab_GlobalAccessorGetObject("Grid") );
 	delete m_pContent;
 
     delete g_pMatDefault;
@@ -436,7 +432,7 @@ void CServiceGame::MsgProc(SMsg* sm)
 
 	case SM_INPUT + SM_H_REMOVE:
 	case SM_RENDERER + SM_H_REMOVE:
-		CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Game Service: Stopping (Renderer or Input removed)" );
+		Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "Game Service: Stopping (Renderer or Input removed)" );
 		this->SetCanKill(true);
 		break;
 	}

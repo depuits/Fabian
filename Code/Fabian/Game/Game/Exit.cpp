@@ -1,8 +1,7 @@
 #include "Exit.h"
-
 #include "Candy.h"
 
-#include "../CLog.h"
+#include <Fabian.h>
 
 //-------------------------------------
 // constructor
@@ -28,7 +27,7 @@ void Exit::Collision(Entity*)
 	{
 		// go to next level
 		m_bFinished = true;
-		CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_CLIENT | FLOG_ID_USER, "Congratz: You\'ve won");
+		Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_CLIENT | FLOG_ID_USER, "Congratz: You\'ve won");
 	}
 }
 //-------------------------------------
