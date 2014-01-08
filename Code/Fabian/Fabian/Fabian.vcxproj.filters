@@ -131,6 +131,5 @@
     <ClCompile Include="CGlobalAccessor.cpp" />
     <ClCompile Include="CKernel.cpp" />
     <ClCompile Include="Fabian.cpp" />
-    <ClCompile Include="FabianDef.cpp" />
   </ItemGroup>
 </Project>

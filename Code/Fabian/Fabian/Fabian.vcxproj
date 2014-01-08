@@ -127,7 +127,6 @@
     <ClCompile Include="CLoggerToFiles.cpp" />
     <ClCompile Include="Console\console.cpp" />
     <ClCompile Include="Fabian.cpp" />
-    <ClCompile Include="FabianDef.cpp" />
     <ClCompile Include="IInput.cpp" />
     <ClCompile Include="CLibraryLoader.cpp" />
   </ItemGroup>
