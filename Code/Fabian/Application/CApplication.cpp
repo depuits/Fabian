@@ -91,13 +91,22 @@ int CApplication::Run(int argc, char *argv[])
 
 	pServ = func("Video", 5000);
 	Fab_KernelAddService( pServ );
+	
 
 	CLibrary pLibGame;
-	//pLibGame.Load( std::string("TestApp" + sExt).c_str() );
-	pLibGame.Load( std::string("Game" + sExt).c_str() );
-	func = (IService*(*)(const char*, int))pLibGame.GetFunction("LoadService");
-	pServ = func("Game", 500); // graphic need to be initialized before the game because of opengl initialization
-	Fab_KernelAddService( pServ );
+	if(argc > 1)
+	{
+		//pLibGame.Load( std::string("TestApp" + sExt).c_str() );
+		pLibGame.Load( std::string(argv[1] + sExt).c_str() );
+		func = (IService*(*)(const char*, int))pLibGame.GetFunction("LoadService");
+		pServ = func("Game", 500); // graphic need to be initialized before the game because of opengl initialization
+		Fab_KernelAddService( pServ );
+	}
+	else
+	{
+		Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_USER, "No meaningfull dll was loaded please add some arguents");
+		return 0;
+	}
 
 	//main game loop
 	int rv = Fab_KernelExecute();
