@@ -6,6 +6,7 @@
 #include "CLog.h"
 #include "CKernel.h"
 #include "CGlobalAccessor.h"
+#include "CContentManager.h"
 #include "CMatDifTexture.h"
 
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
@@ -136,7 +137,24 @@ extern "C"
 		CGlobalAccessor::Get().AddObject(sKey, pVal);
 	}
 	//-------------------------------------
-
+	
+	//-------------------------------------
+	// create a new content manager to load and manage content
+	// p1 in - renderer used for creating the content
+	// rv - pointer to the contentmanager
+	DECLDIR IContentManager *Fab_ContentCreateManager(IRenderer *pRend)
+	{
+		return new CContentManager(pRend);
+	}
+	//-------------------------------------
+	// releases a contentManager
+	// p1 in - ContentManager to release
+	DECLDIR void Fab_ContentReleaseManager(IContentManager* pCM)
+	{
+		// here could some checks to see if i created this object
+		delete pCM;
+	}
+	//-------------------------------------
 
 	//-------------------------------------
 	// creates an material using the given shader and image

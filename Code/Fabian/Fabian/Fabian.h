@@ -9,7 +9,6 @@
 extern "C"
 {	
 	class ILogger;
-	
 	//-------------------------------------
 	// Creates logger object used for logging
 	// rv - pointer to logger object
@@ -37,7 +36,6 @@ extern "C"
 	
 	class IKernel;
 	class IService;
-	
 	//-------------------------------------
 	// Get the kernel from this dll
 	// rv - returns pointer to the kernel
@@ -69,7 +67,6 @@ extern "C"
 	//-------------------------------------
 
 	class IGlobalAccessor;
-	
 	//-------------------------------------
 	// Get the GlobalAccessor from this dll
 	// rv - returns pointer to the GlobalAccessor
@@ -81,15 +78,27 @@ extern "C"
 	DECLDIR void *Fab_GlobalAccessorGetObject(const char*);
 	//-------------------------------------
 	// Add or update an object stored in the accessor
-	// p1 in -name for the objct to update or store
+	// p1 in - name for the objct to update or store
 	// p2 in - a pointer to the object to store
 	DECLDIR void Fab_GlobalAccessorAddObject(const char*, void*);
 	//-------------------------------------
 
+	class IContentManager;
+	//-------------------------------------
+	// create a new content manager to load and manage content
+	// p1 in - renderer used for creating the content
+	// rv - pointer to the contentmanager
+	DECLDIR IContentManager *Fab_ContentCreateManager(IRenderer*);
+	//-------------------------------------
+	// releases a contentManager
+	// p1 in - ContentManager to release
+	DECLDIR void Fab_ContentReleaseManager(IContentManager*);
+	//-------------------------------------
+
+
 	class IMaterial;
 	class IShader;
 	class IImage;
-
 	//-------------------------------------
 	// creates an material using the given shader and image
 	//    filling in the image for the draw in the shader

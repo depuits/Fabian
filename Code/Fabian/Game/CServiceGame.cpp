@@ -4,7 +4,7 @@
 
 #include <IInput.h>
 #include <IRenderer.h>
-#include "CContentManager.h"
+#include <IContentManager.h>
 
 #include <IShader.h>
 #include <IMaterial.h>
@@ -102,7 +102,7 @@ bool CServiceGame::Start()
 	// make needed object accesable for user
 	Fab_GlobalAccessorAddObject("Input", m_pInput);
 
-	m_pContent = new CContentManager(m_pRenderer);
+	m_pContent = Fab_ContentCreateManager(m_pRenderer);
 
 	IShader *pShader = m_pContent->LoadShader("Shaders/SimpleShader");
 	pShader->Apply();
@@ -402,7 +402,7 @@ void CServiceGame::Stop()
 	g_vpGameObjects.clear();
 
 	delete static_cast<Grid*>( Fab_GlobalAccessorGetObject("Grid") );
-	delete m_pContent;
+	Fab_ContentReleaseManager(m_pContent);
 
     g_pMatDefault->Release();
     g_pMatGround->Release();

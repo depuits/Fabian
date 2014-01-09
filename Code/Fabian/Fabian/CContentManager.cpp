@@ -1,8 +1,8 @@
 #include "CContentManager.h"
 #include "IRenderer.h"
 
-#include "CLibrary.hpp"
-#include <Fabian.h>
+#include "CLibrary.h"
+#include "Fabian.h"
 
 FDISABLE_WARNING_START(4505)
 #include <dirent.h>
@@ -21,7 +21,8 @@ typedef void (*RELEASE_DATA)(void*);
 //-------------------------------------
 // Constructor
 CContentManager::CContentManager(IRenderer* pRend)
-	:m_pRenderer(pRend)
+	:IContentManager()
+	,m_pRenderer(pRend)
 {
 }
 //-------------------------------------
@@ -45,11 +46,11 @@ CContentManager::~CContentManager()
 // Loads in a mesh or texture from a file and returns it
 // p1 in - string, name of the file to load
 // rv - pointer IMesh or IImage object and nullptr if failed
-IShader *CContentManager::LoadShader(const std::string& sFile)
+IShader *CContentManager::LoadShader(const char* sFile)
 {
 	if ( !IsShaderLoaded(sFile))
 	{
-		Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new Shader: \"%s\"", sFile.c_str());
+		Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new Shader: \"%s\"", sFile);
 
 		IShader *pShader = m_pRenderer->LoadShader(sFile);
 
@@ -64,7 +65,7 @@ IShader *CContentManager::LoadShader(const std::string& sFile)
 
 	return m_mShaderMap[sFile];
 }
-IMesh *CContentManager::LoadMesh(const std::string& sFile)
+IMesh *CContentManager::LoadMesh(const char* sFile)
 {
     std::string sExt =
 #if defined WIN32 /*windows*/
@@ -113,7 +114,7 @@ IMesh *CContentManager::LoadMesh(const std::string& sFile)
 	return m_mMeshMap[sFile];
 }
 #undef LoadImage
-IImage *CContentManager::LoadImage(const std::string& sFile)
+IImage *CContentManager::LoadImage(const char* sFile)
 {
     std::string sExt =
 #if defined WIN32 /*windows*/

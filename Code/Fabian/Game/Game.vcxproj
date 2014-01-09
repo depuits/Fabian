@@ -73,7 +73,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\Fabian\CContentManager.h" />
     <ClInclude Include="CServiceGame.h" />
     <ClInclude Include="Game\Bomb.h" />
     <ClInclude Include="Game\Candy.h" />
@@ -92,7 +91,6 @@
     <ClInclude Include="Game\Water.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Fabian\CContentManager.cpp" />
     <ClCompile Include="CServiceGame.cpp" />
     <ClCompile Include="Game\Bomb.cpp" />
     <ClCompile Include="Game\Candy.cpp" />

@@ -5,20 +5,11 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="ToMove">
-      <UniqueIdentifier>{53147a7a-c2a3-4064-9675-63e6661897be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ToMove\Content">
-      <UniqueIdentifier>{932b61c7-8ba9-4b17-8164-e23cf72b479f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Game">
       <UniqueIdentifier>{0fcd4cc0-9c05-4ec4-bce1-50372bd3e3c9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Fabian\CContentManager.h">
-      <Filter>ToMove\Content</Filter>
-    </ClInclude>
     <ClInclude Include="CServiceGame.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -69,9 +60,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Fabian\CContentManager.cpp">
-      <Filter>ToMove\Content</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

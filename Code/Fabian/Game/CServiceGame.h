@@ -7,7 +7,7 @@
 // --forward declarations--
 class IInput;
 class IRenderer;
-class CContentManager;
+class IContentManager;
 
 class Grid;
 class GridEntity;
@@ -68,7 +68,7 @@ protected:
 
 	IInput *m_pInput;
 	IRenderer *m_pRenderer;
-	CContentManager *m_pContent;
+	IContentManager *m_pContent;
 	static float s_fDtime;
 
 private:

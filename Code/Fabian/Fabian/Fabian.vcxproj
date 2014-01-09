@@ -90,6 +90,7 @@
     <ClInclude Include="CCompCamera.hpp" />
     <ClInclude Include="CCompControl.hpp" />
     <ClInclude Include="CCompModel.hpp" />
+    <ClInclude Include="CContentManager.h" />
     <ClInclude Include="CGameObject.hpp" />
     <ClInclude Include="CGlobalAccessor.h" />
     <ClInclude Include="CKernel.h" />
@@ -109,6 +110,7 @@
     <ClInclude Include="Fabian.h" />
     <ClInclude Include="ICamera.h" />
     <ClInclude Include="IComponent.h" />
+    <ClInclude Include="IContentManager.h" />
     <ClInclude Include="IGlobalAccessor.h" />
     <ClInclude Include="IImage.h" />
     <ClInclude Include="IInput.h" />
@@ -126,6 +128,7 @@
     <ClInclude Include="ServiceMsg.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CContentManager.cpp" />
     <ClCompile Include="CGlobalAccessor.cpp" />
     <ClCompile Include="CKernel.cpp" />
     <ClCompile Include="CLibrary.cpp" />

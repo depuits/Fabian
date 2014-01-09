@@ -1,29 +1,29 @@
-#ifndef FABIAN_CCONTENTMANAGER_H_
-#define FABIAN_CCONTENTMANAGER_H_
+#ifndef FABIAN_ICONTENTMANAGER_H_
+#define FABIAN_ICONTENTMANAGER_H_
 
-#include "IContentManager.h"
-#include <string>
-#include <map>
+#include "FabianDef.h"
 
 // --forward declarations--
-class IRenderer;
+class IShader;
+class IMesh;
+class IImage;
 // ------------------------
 
 //******************************************
-// Class CContentManager:
+// Interface IContentManager:
 // the content manager is responsible for loading
 // and unloading objects like meshes and textures.
 // Unloading isn't implemented yet
 //******************************************
-class CContentManager : public IContentManager
+class IContentManager
 {
 public:
 	//-------------------------------------
 	// Constructor
-	CContentManager(IRenderer*);
+	IContentManager() { }
 	//-------------------------------------
 	// Destructor
-	virtual ~CContentManager();
+	virtual ~IContentManager() { }
 	//-------------------------------------
 
 	//-------------------------------------
@@ -31,37 +31,13 @@ public:
 	// p1 in - string, name of the file to load
 	// rv - pointer IMesh or IImage object and nullptr if failed
 	// !!! - for loading shaders you shouldn't add the extension
-	virtual IShader *LoadShader(const char*);
-	virtual IMesh *LoadMesh(const char*);
-	virtual IImage *LoadImage(const char*);
-	//-------------------------------------
-	// Loads in a mesh or texture from a file and returns it
-	//    using a specifiv dll
-	// p1 in - string, name of lib used to load
-	// p2 in - string, name of the file to load
-	// rv - pointer IMesh or IImage object and nullptr if failed
-	virtual IMesh *LoadMeshUsing(const std::string&, const std::string&);
-	virtual IImage *LoadImageUsing(const std::string&, const std::string&);
-	//-------------------------------------
-
-	//-------------------------------------
-	// Checks weither or not the mesh or image has already been loaded.
-	// p1 in - string, name of the object file
-	// rv - bool, true if the object is already loaded
-	bool IsShaderLoaded(const std::string&) const;
-	bool IsMeshLoaded(const std::string&) const;
-	bool IsImageLoaded(const std::string&) const;
+	virtual IShader *LoadShader(const char*) = 0;
+	virtual IMesh *LoadMesh(const char*) = 0;
+	virtual IImage *LoadImage(const char*) = 0;
 	//-------------------------------------
 
 private:
-
-	IRenderer *m_pRenderer;
-	std::map<std::string, IShader*> m_mShaderMap;
-	std::map<std::string, IMesh*> m_mMeshMap;
-	std::map<std::string, IImage*> m_mImageMap;
-
-
-	DISALLOW_COPY_AND_ASSIGN(CContentManager);
+	DISALLOW_COPY_AND_ASSIGN(IContentManager);
 };
 
 /////////////////////////////////////////////////////////////////////////
@@ -92,6 +68,6 @@ private:
 //-------------------------------------
 
 
-#endif //FABIAN_CCONTENTMANAGER_H_
+#endif //FABIAN_ICONTENTMANAGER_H_
 
 

@@ -28,6 +28,9 @@
     <Filter Include="Objects\Components">
       <UniqueIdentifier>{2e5e4f0c-cae2-4fcc-92eb-078431aaaf7f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Content">
+      <UniqueIdentifier>{af6bdc1a-ebb8-41a2-aa62-003016488c7c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IInput.h">
@@ -132,6 +135,12 @@
     <ClInclude Include="CMatDifTexture.h">
       <Filter>Video</Filter>
     </ClInclude>
+    <ClInclude Include="CContentManager.h">
+      <Filter>Content</Filter>
+    </ClInclude>
+    <ClInclude Include="IContentManager.h">
+      <Filter>Content</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IInput.cpp">
@@ -163,6 +172,9 @@
     <ClCompile Include="Fabian.cpp" />
     <ClCompile Include="CMatDifTexture.cpp">
       <Filter>Video</Filter>
+    </ClCompile>
+    <ClCompile Include="CContentManager.cpp">
+      <Filter>Content</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
