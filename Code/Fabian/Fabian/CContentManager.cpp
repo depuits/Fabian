@@ -92,7 +92,7 @@ IMesh *CContentManager::LoadMesh(const char* sFile)
                     std::string fname(ent->d_name);
                     if( fname.find(sExt, (fname.length() - sExt.length()) ) != std::string::npos )
                     {
-                        printf("%s\n", fname.c_str());
+                        //printf("%s\n", fname.c_str());
                         IMesh *pMesh = LoadMeshUsing("plugins/" + fname, sFile);
                         if( pMesh != nullptr )
                             return pMesh;
@@ -141,7 +141,7 @@ IImage *CContentManager::LoadImage(const char* sFile)
                     std::string fname(ent->d_name);
                     if( fname.find(sExt, (fname.length() - sExt.length()) ) != std::string::npos )
                     {
-                        printf("%s\n", fname.c_str());
+                        //printf("%s\n", fname.c_str());
                         IImage *pImg = LoadImageUsing("plugins/" + fname, sFile);
                         if( pImg != nullptr )
                             return pImg;
@@ -191,7 +191,7 @@ IMesh *CContentManager::LoadMeshUsing(const std::string& sLib, const std::string
 		MeshData *md = static_cast<MeshData*>( fLoadMD(sFile.c_str()) );
 		if( md == nullptr ) // dll failed to load
 		{
-			Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: Loading mesh failed");
+			Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: Loading mesh data failed");
             return nullptr;
 		}
 
@@ -236,7 +236,7 @@ IImage *CContentManager::LoadImageUsing(const std::string& sLib, const std::stri
 
 		if( id == nullptr ) // dll failed to load
 		{
-			Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: Loading texture failed");
+			Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: Loading texture data failed");
             return nullptr;
 		}
 

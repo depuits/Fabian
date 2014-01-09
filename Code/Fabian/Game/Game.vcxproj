@@ -39,12 +39,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\..\External\dirent\include;..\Fabian;$(IncludePath)</IncludePath>
+    <IncludePath>..\Fabian;$(IncludePath)</IncludePath>
     <LibraryPath>..\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>..\..\External\dirent\include;..\Fabian;$(IncludePath)</IncludePath>
-    <LibraryPath>..\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\Fabian;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

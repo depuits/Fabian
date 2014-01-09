@@ -93,6 +93,7 @@ int CApplication::Run(int argc, char *argv[])
 	Fab_KernelAddService( pServ );
 
 	CLibrary pLibGame;
+	//pLibGame.Load( std::string("TestApp" + sExt).c_str() );
 	pLibGame.Load( std::string("Game" + sExt).c_str() );
 	func = (IService*(*)(const char*, int))pLibGame.GetFunction("LoadService");
 	pServ = func("Game", 500); // graphic need to be initialized before the game because of opengl initialization

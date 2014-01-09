@@ -42,6 +42,9 @@ public:
 	// rv - int, returns true if succeeds
 	bool Load(const char* sFile)
 	{
+		if( m_pLib != nullptr )
+			return false;
+
 		m_pLib =
 	#if defined WIN32 /*windows*/
 		LoadLibraryA(sFile);

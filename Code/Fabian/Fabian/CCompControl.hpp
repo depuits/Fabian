@@ -19,6 +19,7 @@ public:
 		:CCompBase()
 		,m_fMouseSens(0.05f)
 		,m_fCamSpeed(200.0f)
+		,m_pInput(nullptr)
 	{
 	}
 	//-------------------------------------

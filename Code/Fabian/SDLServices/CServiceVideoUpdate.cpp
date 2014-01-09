@@ -109,10 +109,8 @@ bool CServiceVideoUpdate::Start()
 // Called every time the service has to update
 void CServiceVideoUpdate::Update()
 {
-	// swap the buffers
-	SDL_GL_SwapWindow(m_pWindow);
-
 	// check for events like the QUIT
+	// needs to be called for the swap because of input things
 	SDL_Event e;
 	while ( SDL_PollEvent( &e ) != 0 )
 	{
@@ -123,6 +121,10 @@ void CServiceVideoUpdate::Update()
 			Fab_KernelSendMessage( &msg );
 		}
 	}
+
+	// swap the buffers
+	SDL_GL_SwapWindow(m_pWindow);
+
 }
 //-------------------------------------
 // Called when the service will be deleted
