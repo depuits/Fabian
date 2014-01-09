@@ -21,14 +21,22 @@ public:
 	// Constructor
 	IMaterial() { }
 	//-------------------------------------
-	// Destructor
-	virtual ~IMaterial() { }
+    // This function must not be implemented in the header or the
+    // linker will build the code to call the application delete()
+    // function instead of the library delete() function.
+    virtual void Release() = 0;
 	//-------------------------------------
 	
 	//-------------------------------------
 	// Apply the material before you draw the mesh
 	// p1 in - transform of the object to draw
     virtual void Apply(CTransform&) = 0;
+	//-------------------------------------
+
+protected:
+	//-------------------------------------
+	// Destructor
+	virtual ~IMaterial() { }
 	//-------------------------------------
 
 private:

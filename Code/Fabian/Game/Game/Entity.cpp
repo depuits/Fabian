@@ -4,15 +4,13 @@
 #include "GridEntity.h"
 
 #include <Fabian.h>
-#include <CGameObject.h>
 
-#include <glm/gtx/quaternion.hpp>
 #include <glm/gtx/norm.hpp>
 
 //-------------------------------------
 // constructor
 Entity::Entity()
-	:IComponent()
+	:CCompBase()
 	,m_pGrid(nullptr)
 	,m_Pos(0, 0)
 	,m_PosOld(0, 0)

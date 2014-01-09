@@ -5,7 +5,6 @@
 
 #include <Fabian.h>
 #include <IInput.h>
-#include <CGameObject.h>
 
 //-------------------------------------
 // constructor

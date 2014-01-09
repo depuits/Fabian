@@ -22,8 +22,10 @@ public:
 	// p2 in - pointer to the diffuse image
     CMatDifTexture(IShader*, IImage*);
 	//-------------------------------------
-	// Destructor
-    virtual ~CMatDifTexture();
+    // This function must not be implemented in the header or the
+    // linker will build the code to call the application delete()
+    // function instead of the library delete() function.
+    virtual void Release();
 	//-------------------------------------
 	
 	//-------------------------------------
@@ -40,6 +42,11 @@ public:
 
 
 protected:
+	//-------------------------------------
+	// Destructor
+    virtual ~CMatDifTexture();
+	//-------------------------------------
+
     IShader *m_pShader;
 
     int m_iIdTexture;

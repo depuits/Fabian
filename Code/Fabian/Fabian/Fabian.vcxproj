@@ -86,6 +86,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CCompBase.hpp" />
+    <ClInclude Include="CCompCamera.hpp" />
+    <ClInclude Include="CCompControl.hpp" />
+    <ClInclude Include="CCompModel.hpp" />
+    <ClInclude Include="CGameObject.hpp" />
     <ClInclude Include="CGlobalAccessor.h" />
     <ClInclude Include="CKernel.h" />
     <ClInclude Include="CLibrary.h" />
@@ -94,13 +99,16 @@
     <ClInclude Include="CLoggerMultiple.h" />
     <ClInclude Include="CLoggerToConsole.h" />
     <ClInclude Include="CLoggerToFiles.h" />
+    <ClInclude Include="CMatDifTexture.h" />
     <ClInclude Include="Console\console.h" />
     <ClInclude Include="Console\ConsoleColor.h" />
     <ClInclude Include="Console\keys.h" />
-    <ClInclude Include="CServiceBase.h" />
+    <ClInclude Include="CServiceBase.hpp" />
+    <ClInclude Include="CTransform.hpp" />
     <ClInclude Include="DataStructures.h" />
     <ClInclude Include="Fabian.h" />
     <ClInclude Include="ICamera.h" />
+    <ClInclude Include="IComponent.h" />
     <ClInclude Include="IGlobalAccessor.h" />
     <ClInclude Include="IImage.h" />
     <ClInclude Include="IInput.h" />
@@ -125,6 +133,7 @@
     <ClCompile Include="CLoggerMultiple.cpp" />
     <ClCompile Include="CLoggerToConsole.cpp" />
     <ClCompile Include="CLoggerToFiles.cpp" />
+    <ClCompile Include="CMatDifTexture.cpp" />
     <ClCompile Include="Console\console.cpp" />
     <ClCompile Include="Fabian.cpp" />
     <ClCompile Include="IInput.cpp" />

@@ -1,7 +1,7 @@
 #ifndef FABIAN_CSERVICEGAME_H_
 #define FABIAN_CSERVICEGAME_H_
 
-#include "CServiceBase.h"
+#include <CServiceBase.hpp>
 #include <string>
 
 // --forward declarations--

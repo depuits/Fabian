@@ -7,16 +7,14 @@
 #include "CContentManager.h"
 
 #include <IShader.h>
-#include <CMatDifTexture.h>
+#include <IMaterial.h>
 #include <IImage.h>
 
-#include "CCompModel.h"
-#include "CCompCamera.h"
-#include "CCompControl.h"
+#include "CCompModel.hpp"
+#include "CCompCamera.hpp"
+#include "CCompControl.hpp"
 
-#include "CGameObject.h"
-
-#include "CGlobalAccessor.h"
+#include <CGameObject.hpp>
 
 #include "Game/Grid.h"
 #include "Game/Entity.h"
@@ -122,14 +120,14 @@ bool CServiceGame::Start()
             *pImagePlayer = m_pContent->LoadImage("Textures/PlayerDif.png"),
             *pImageBug01 = m_pContent->LoadImage("Textures/Bug01Dif.png");
 
-    g_pMatDefault = new CMatDifTexture(pShader, pImage);
-    g_pMatGround = new CMatDifTexture(pShader, pImageFloor);
-    g_pMatWall = new CMatDifTexture(pShader, pImageWall);
-    g_pMatFinish = new CMatDifTexture(pShader, pImageFinish);
-    g_pMatWater = new CMatDifTexture(pShader, pImageWater);
+    g_pMatDefault = Fab_MatCreateDifTexture(pShader, pImage);
+    g_pMatGround = Fab_MatCreateDifTexture(pShader, pImageFloor);
+    g_pMatWall = Fab_MatCreateDifTexture(pShader, pImageWall);
+    g_pMatFinish = Fab_MatCreateDifTexture(pShader, pImageFinish);
+    g_pMatWater = Fab_MatCreateDifTexture(pShader, pImageWater);
 
-	g_pMatPlayer = new CMatDifTexture(pShader, pImagePlayer);
-	g_pMatBug01 = new CMatDifTexture(pShader, pImageBug01);
+	g_pMatPlayer = Fab_MatCreateDifTexture(pShader, pImagePlayer);
+	g_pMatBug01 = Fab_MatCreateDifTexture(pShader, pImageBug01);
 
 	CGameObject *pGo = new CGameObject();
 	pGo->Init();
@@ -406,13 +404,13 @@ void CServiceGame::Stop()
 	delete static_cast<Grid*>( Fab_GlobalAccessorGetObject("Grid") );
 	delete m_pContent;
 
-    delete g_pMatDefault;
-    delete g_pMatGround;
-    delete g_pMatWall;
-    delete g_pMatFinish;
-    delete g_pMatWater;
-    delete g_pMatPlayer;
-    delete g_pMatBug01;
+    g_pMatDefault->Release();
+    g_pMatGround->Release();
+    g_pMatWall->Release();
+    g_pMatFinish->Release();
+    g_pMatWater->Release();
+    g_pMatPlayer->Release();
+    g_pMatBug01->Release();
 }
 //-------------------------------------
 

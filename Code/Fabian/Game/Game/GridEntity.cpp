@@ -4,7 +4,7 @@
 //-------------------------------------
 // constructor
 GridEntity::GridEntity()
-	:IComponent()
+	:CCompBase()
 	,m_CfCollision(CfVoid)
 {
 }

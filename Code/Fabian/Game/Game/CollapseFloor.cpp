@@ -1,7 +1,6 @@
 #include "CollapseFloor.h"
 
 #include "Grid.h"
-#include <CGameObject.h>
 
 //-------------------------------------
 // constructor

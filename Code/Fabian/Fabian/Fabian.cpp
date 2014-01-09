@@ -6,6 +6,7 @@
 #include "CLog.h"
 #include "CKernel.h"
 #include "CGlobalAccessor.h"
+#include "CMatDifTexture.h"
 
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
 
@@ -133,6 +134,19 @@ extern "C"
 	DECLDIR void Fab_GlobalAccessorAddObject(const char* sKey, void* pVal)
 	{
 		CGlobalAccessor::Get().AddObject(sKey, pVal);
+	}
+	//-------------------------------------
+
+
+	//-------------------------------------
+	// creates an material using the given shader and image
+	//    filling in the image for the draw in the shader
+	// p1 in - pointer to the shader
+	// p2 in - pointer to the image
+	// rv - returns pointer to the IMaterial
+	DECLDIR IMaterial *Fab_MatCreateDifTexture(IShader* pShad, IImage* pImg)
+	{
+		return new CMatDifTexture(pShad, pImg);
 	}
 	//-------------------------------------
 }

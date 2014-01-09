@@ -1,7 +1,7 @@
 #ifndef FABIAN_CSERVICEINPUT_H_
 #define FABIAN_CSERVICEINPUT_H_
 
-#include <CServiceBase.h>
+#include <CServiceBase.hpp>
 
 class CInputSDL;
 

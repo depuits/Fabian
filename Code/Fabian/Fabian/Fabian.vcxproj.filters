@@ -22,6 +22,12 @@
     <Filter Include="Video">
       <UniqueIdentifier>{6c8fff41-8a4d-430f-86f9-c28fc0af950b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{f031dc05-2f49-4d61-a874-914a1ab10dbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Components">
+      <UniqueIdentifier>{2e5e4f0c-cae2-4fcc-92eb-078431aaaf7f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IInput.h">
@@ -69,9 +75,6 @@
     <ClInclude Include="IService.h">
       <Filter>Services</Filter>
     </ClInclude>
-    <ClInclude Include="CServiceBase.h">
-      <Filter>Services</Filter>
-    </ClInclude>
     <ClInclude Include="LogDef.h">
       <Filter>Logging</Filter>
     </ClInclude>
@@ -102,6 +105,33 @@
     <ClInclude Include="Fabian.h" />
     <ClInclude Include="FabianDef.h" />
     <ClInclude Include="IGlobalAccessor.h" />
+    <ClInclude Include="CServiceBase.hpp">
+      <Filter>Services</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameObject.hpp">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CTransform.hpp">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CCompCamera.hpp">
+      <Filter>Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CCompControl.hpp">
+      <Filter>Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CCompModel.hpp">
+      <Filter>Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="IComponent.h">
+      <Filter>Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CCompBase.hpp">
+      <Filter>Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CMatDifTexture.h">
+      <Filter>Video</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IInput.cpp">
@@ -131,5 +161,8 @@
     <ClCompile Include="CGlobalAccessor.cpp" />
     <ClCompile Include="CKernel.cpp" />
     <ClCompile Include="Fabian.cpp" />
+    <ClCompile Include="CMatDifTexture.cpp">
+      <Filter>Video</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

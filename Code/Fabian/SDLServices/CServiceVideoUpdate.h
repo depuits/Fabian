@@ -1,7 +1,7 @@
 #ifndef FABIAN_CSERVICEVIDEOUPDATE_H_
 #define FABIAN_CSERVICEVIDEOUPDATE_H_
 
-#include "CServiceBase.h"
+#include <CServiceBase.hpp>
 #include <string>
 #include <SDL.h>
 

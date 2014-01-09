@@ -85,6 +85,19 @@ extern "C"
 	// p2 in - a pointer to the object to store
 	DECLDIR void Fab_GlobalAccessorAddObject(const char*, void*);
 	//-------------------------------------
+
+	class IMaterial;
+	class IShader;
+	class IImage;
+
+	//-------------------------------------
+	// creates an material using the given shader and image
+	//    filling in the image for the draw in the shader
+	// p1 in - pointer to the shader
+	// p2 in - pointer to the image
+	// rv - returns pointer to the IMaterial
+	DECLDIR IMaterial *Fab_MatCreateDifTexture(IShader*, IImage*);
+	//-------------------------------------
 }
 
 #endif //FABIAN_FABIAN_H_

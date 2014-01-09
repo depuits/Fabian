@@ -19,7 +19,7 @@ public:
     // This function must not be implemented in the header or the
     // linker will build the code to call the application delete()
     // function instead of the library delete() function.
-    virtual void DeleteThis() = 0;
+    virtual void Release() = 0;
 	//-------------------------------------
 	
 	//-------------------------------------
@@ -34,7 +34,7 @@ public:
 protected:
 	//-------------------------------------
 	// Destructor
-	// private so it can only be called by DeleteThis();
+	// private so it can only be called by Release();
 	virtual ~ILogger() { }
 	//-------------------------------------
 	

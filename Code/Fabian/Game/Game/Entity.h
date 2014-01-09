@@ -1,7 +1,7 @@
 #ifndef H_ENTITY
 #define H_ENTITY
 
-#include <IComponent.h>
+#include <CCompBase.hpp>
 
 FDISABLE_WARNING_START(4201)
 //#define GLM_SWIZZLE <- can be used for vec4.xyz() method
@@ -10,7 +10,7 @@ FDISABLE_WARNING_END(4201)
 
 class Grid;
 
-class Entity : public IComponent
+class Entity : public CCompBase
 {
 public:
 	//-------------------------------------

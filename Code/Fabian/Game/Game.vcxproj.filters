@@ -11,40 +11,13 @@
     <Filter Include="ToMove\Content">
       <UniqueIdentifier>{932b61c7-8ba9-4b17-8164-e23cf72b479f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ToMove\Objects">
-      <UniqueIdentifier>{42e351a4-7639-4690-b2e4-265d6968bdf2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ToMove\Objects\Components">
-      <UniqueIdentifier>{45e3cbf8-6521-459a-b733-3903a3ca005d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Game">
       <UniqueIdentifier>{0fcd4cc0-9c05-4ec4-bce1-50372bd3e3c9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Fabian\CGameObject.h">
-      <Filter>ToMove\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Fabian\CTransform.h">
-      <Filter>ToMove\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Fabian\CCompCamera.h">
-      <Filter>ToMove\Objects\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Fabian\CCompControl.h">
-      <Filter>ToMove\Objects\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Fabian\IComponent.h">
-      <Filter>ToMove\Objects\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Fabian\CCompModel.h">
-      <Filter>ToMove\Objects\Components</Filter>
-    </ClInclude>
     <ClInclude Include="..\Fabian\CContentManager.h">
       <Filter>ToMove\Content</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Fabian\CMatDifTexture.h">
-      <Filter>ToMove</Filter>
     </ClInclude>
     <ClInclude Include="CServiceGame.h">
       <Filter>Source Files</Filter>
@@ -96,29 +69,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Fabian\CGameObject.cpp">
-      <Filter>ToMove\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Fabian\CTransform.cpp">
-      <Filter>ToMove\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Fabian\CCompCamera.cpp">
-      <Filter>ToMove\Objects\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Fabian\CCompControl.cpp">
-      <Filter>ToMove\Objects\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Fabian\IComponent.cpp">
-      <Filter>ToMove\Objects\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Fabian\CCompModel.cpp">
-      <Filter>ToMove\Objects\Components</Filter>
-    </ClCompile>
     <ClCompile Include="..\Fabian\CContentManager.cpp">
       <Filter>ToMove\Content</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Fabian\CMatDifTexture.cpp">
-      <Filter>ToMove</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>

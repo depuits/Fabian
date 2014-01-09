@@ -2,6 +2,7 @@
 
 #include <Fabian.h>
 #include <iostream>
+#include <string>
 
 #include "CLibrary.hpp"
 
@@ -68,10 +69,18 @@ int CApplication::Run(int argc, char *argv[])
 	//pServiceVideo->SetScreenResolution(800, 600);
 	pServiceVideo->SetWindowName("Dimo's Quest");
 	*/
+	    std::string sExt =
+#if defined WIN32 /*windows*/
+        ".dll";
+#elif defined UNIX /*unix*/
+        ".so";
+#else
+#error PLATFORM NOT IMPLENTED
+#endif
 
 	//add null safety checks
 	CLibrary pLib;
-	pLib.Load("SDLServices.so");
+	pLib.Load( std::string("SDLServices" + sExt).c_str() );
 	IService*(*func)(const char*, int) = (IService*(*)(const char*, int))pLib.GetFunction("LoadService");
 
 	IService* pServ = func("Timer", 100);
@@ -84,7 +93,7 @@ int CApplication::Run(int argc, char *argv[])
 	Fab_KernelAddService( pServ );
 
 	CLibrary pLibGame;
-	pLibGame.Load("Game.so");
+	pLibGame.Load( std::string("Game" + sExt).c_str() );
 	func = (IService*(*)(const char*, int))pLibGame.GetFunction("LoadService");
 	pServ = func("Game", 500); // graphic need to be initialized before the game because of opengl initialization
 	Fab_KernelAddService( pServ );

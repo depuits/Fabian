@@ -19,13 +19,13 @@ CLoggerMultiple::CLoggerMultiple()
 CLoggerMultiple::~CLoggerMultiple()
 {
 	for(std::vector<ILogger*>::iterator it( m_vLoggers.begin() ); it != m_vLoggers.end(); ++it)
-		(*it)->DeleteThis();
+		(*it)->Release();
 }
 //-------------------------------------
 // This function must not be implemented in the header or the
 // linker will build the code to call the application delete()
 // function instead of the library delete() function.
-void CLoggerMultiple::DeleteThis()
+void CLoggerMultiple::Release()
 {
     delete this;  // called from the right "delete context"
 }

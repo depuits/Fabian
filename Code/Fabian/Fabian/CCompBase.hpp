@@ -1,42 +1,28 @@
-#ifndef FABIAN_ICOMPONENT_H_
-#define FABIAN_ICOMPONENT_H_
+#ifndef FABIAN_CCOMPBASE_H_
+#define FABIAN_CCOMPBASE_H_
 
-#include "FabianDef.h"
-
-// --forward declarations--
-class IShader;
-class CGameObject;
-// ------------------------
-
-// Log level iddentifiers
-enum FCOMP_STATE : unsigned char
-{
-	FCOMP_STATE_ENABLE      = 0,
-	FCOMP_STATE_DISABLE	    = 1,
-
-	FCOMP_STATE_USER     	= 32,
-	FCOMP_STATE_MAX     	= 255
-};
+#include "IComponent.h"
+#include "CGameObject.hpp"
 
 //******************************************
-// Interface IObject:
-// the base for all drawable or/and updateable objects
-// for the game. This includes a transfrom variable to
-// move the object arround.
+// Class CCompBase:
+// the base implementation of IComponent
 //******************************************
-class IComponent
+class CCompBase : public IComponent
 {
-	friend class CGameObject;
-
 public:
 	//-------------------------------------
 	// Constructor
 	// p1 in* - pointer to parent object, this causes
 	//            the object to be linked to the parent
-	IComponent() { }
+	CCompBase()
+		:IComponent()
+		,m_pGameObject(nullptr)
+	{
+	}
 	//-------------------------------------
 	// Destructor
-	virtual ~IComponent() { }
+	virtual ~CCompBase() { }
 	//-------------------------------------
 
 	//-------------------------------------
@@ -46,39 +32,53 @@ public:
 	virtual bool Start() = 0;
 	//-------------------------------------
 	// Method called when the component gets removed
-	virtual void End() = 0;
+	virtual void End() {};
 	//-------------------------------------
 	// Updates the object according to dTime
 	// p1 in - float, dTime since last update call
-	virtual void Update(float) = 0;
+	virtual void Update(float) {}
 	//-------------------------------------
 	// Draws the object on the screen ussing the given shader
 	// p1 in - pointer to the shader the object should draw with
-	virtual void Draw() = 0;
+	virtual void Draw() {}
 	//-------------------------------------
 
 	//-------------------------------------
 	// This method is called when the component states changed
 	//    You can also use this method to send custom messages or states
 	// p1 in - FCOMP_STATE, state identifier
-	virtual void UpdateState(unsigned char) = 0;
+	virtual void UpdateState(unsigned char) {};
 	//-------------------------------------
 
 
 
 	//-------------------------------------
 	// Enables the component in the gameobject
-	virtual void Enable() = 0;
+	void Enable()
+	{
+		m_pGameObject->EnableComponent(this);
+	}
 	//-------------------------------------
 	// disables the component in the gameobject
-	virtual void Disable() = 0;
+	void Disable()
+	{
+		m_pGameObject->DisableComponent(this);
+	}
 	//-------------------------------------
 
+
+
 protected:
-	virtual void SetParent(CGameObject*) = 0;
+	CGameObject *m_pGameObject;
 
 private:
-	DISALLOW_COPY_AND_ASSIGN(IComponent);
+	void SetParent(CGameObject* pPar)
+	{
+		FASSERT( pPar != nullptr && m_pGameObject == nullptr );
+		m_pGameObject = pPar;
+	}
+
+	DISALLOW_COPY_AND_ASSIGN(CCompBase);
 };
 
-#endif //FABIAN_ICOMPONENT_H_
+#endif //FABIAN_CCOMPBASE_H_

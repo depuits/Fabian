@@ -1,7 +1,7 @@
 #include "CMatDifTexture.h"
 
 #include "IShader.h"
-#include "CTransform.h"
+#include "CTransform.hpp"
 
 //******************************************
 // Class CMatDifTexture:
@@ -18,6 +18,14 @@ CMatDifTexture::CMatDifTexture(IShader* pShader, IImage *pTex)
 // Destructor
 CMatDifTexture::~CMatDifTexture()
 {
+}
+//-------------------------------------
+// This function must not be implemented in the header or the
+// linker will build the code to call the application delete()
+// function instead of the library delete() function.
+void CMatDifTexture::Release()
+{
+	delete this;
 }
 //-------------------------------------
 	

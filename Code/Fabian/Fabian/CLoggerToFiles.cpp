@@ -33,7 +33,7 @@ CLoggerToFiles::~CLoggerToFiles()
 // This function must not be implemented in the header or the
 // linker will build the code to call the application delete()
 // function instead of the library delete() function.
-void CLoggerToFiles::DeleteThis()
+void CLoggerToFiles::Release()
 {
     delete this;  // called from the right "delete context"
 }

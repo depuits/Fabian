@@ -1,7 +1,7 @@
 #ifndef FABIAN_CSERVICETIMER_H_
 #define FABIAN_CSERVICETIMER_H_
 
-#include <CServiceBase.h>
+#include <CServiceBase.hpp>
 #include <vector>
 
 typedef void (*TimerCallbackFunc)(float);
