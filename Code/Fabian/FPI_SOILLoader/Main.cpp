@@ -2,6 +2,7 @@
 #include "SOIL/SOIL.h"
 #include <DataStructures.h>
 #include <vector>
+#include <Fabian.h>
 
 #ifdef WIN32
 	#define DECLDIR __declspec(dllexport)
@@ -23,7 +24,7 @@ extern "C"
 
 		if( pID->data == nullptr )
 		{
-			printf("SOIL loading error: '%s'\n", SOIL_last_result());
+            Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "SOIL loading error: '%s'\n", SOIL_last_result());
 			delete pID;
 			return nullptr;
 		}

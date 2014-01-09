@@ -26,6 +26,9 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-std=c++11" />
+					<Add option="-fPIC" />
+					<Add directory="../Fabian" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -35,22 +38,6 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="../Fabian/CCompCamera.cpp" />
-		<Unit filename="../Fabian/CCompCamera.h" />
-		<Unit filename="../Fabian/CCompControl.cpp" />
-		<Unit filename="../Fabian/CCompControl.h" />
-		<Unit filename="../Fabian/CCompModel.cpp" />
-		<Unit filename="../Fabian/CCompModel.h" />
-		<Unit filename="../Fabian/CContentManager.cpp" />
-		<Unit filename="../Fabian/CContentManager.h" />
-		<Unit filename="../Fabian/CGameObject.cpp" />
-		<Unit filename="../Fabian/CGameObject.h" />
-		<Unit filename="../Fabian/CMatDifTexture.cpp" />
-		<Unit filename="../Fabian/CMatDifTexture.h" />
-		<Unit filename="../Fabian/CTransform.cpp" />
-		<Unit filename="../Fabian/CTransform.h" />
-		<Unit filename="../Fabian/IComponent.cpp" />
-		<Unit filename="../Fabian/IComponent.h" />
 		<Unit filename="CServiceGame.cpp" />
 		<Unit filename="CServiceGame.h" />
 		<Unit filename="Game/Bomb.cpp" />

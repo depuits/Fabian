@@ -27,11 +27,16 @@
 				<Option object_output="Release/obj/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-std=c++11" />
+					<Add directory="../Fabian" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add option="-ldl" />
+					<Add library="./Fabian.so" />
 				</Linker>
 			</Target>
 		</Build>

@@ -78,9 +78,11 @@ int CApplication::Run(int argc, char *argv[])
 #error PLATFORM NOT IMPLENTED
 #endif
 
+	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "going to load: %s", std::string("SDLServices" + sExt).c_str() );
+
 	//add null safety checks
 	CLibrary pLib;
-	pLib.Load( std::string("SDLServices" + sExt).c_str() );
+	pLib.Load( std::string("./SDLServices" + sExt).c_str() );
 	IService*(*func)(const char*, int) = (IService*(*)(const char*, int))pLib.GetFunction("LoadService");
 
 	IService* pServ = func("Timer", 100);
@@ -91,7 +93,7 @@ int CApplication::Run(int argc, char *argv[])
 
 	pServ = func("Video", 5000);
 	Fab_KernelAddService( pServ );
-	
+
 
 	CLibrary pLibGame;
 	if(argc > 1)
