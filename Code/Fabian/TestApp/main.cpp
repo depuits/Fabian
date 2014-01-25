@@ -22,13 +22,13 @@ std::vector<IService*> g_vpServices;
 extern "C"
 {
 	// Plugin factory function
-	DECLDIR IService* LoadService(const char* sServ, int prior)
+	DECLDIR IService* LoadService(const char* sServ)
 	{
 		std::string name(sServ);
 		IService* pServ = nullptr;
 
 		if(name == "Game")
-			pServ = new CServiceTestApp(prior);
+			pServ = new CServiceTestApp();
 
 		if( pServ != nullptr )
 			g_vpServices.push_back(pServ);

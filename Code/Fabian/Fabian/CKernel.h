@@ -4,6 +4,14 @@
 #include "IKernel.h"
 #include <list>
 
+typedef struct ServiceData
+{
+	int LibId;
+	IService* pService;
+	bool bCanKill;
+	int iPriority;
+} ServiceData;
+
 //******************************************
 // Class CKernel:
 // the kernel class is the heart of the engine
@@ -31,7 +39,7 @@ public:
 	// Adds a service to the kernel and takes ownership of it
 	// p1 in - a pointer to the service to add (can't be 0)(takes over ownership)
 	// rv - returns pointer to the service on succes and a nullptr when it fails
-	virtual IService* AddService(IService*);
+	virtual IService* AddService(IService*, int);
 	//-------------------------------------
 
 	//-------------------------------------
@@ -67,8 +75,8 @@ private:
 	CKernel();
 	//-------------------------------------
 
-	std::list<IService*> m_pServiceList;
-	std::list<IService*> m_pPausedServiceList;
+	std::list<ServiceData> m_pServiceList;
+	std::list<ServiceData> m_pPausedServiceList;
 
 	DISALLOW_COPY_AND_ASSIGN(CKernel);
 };

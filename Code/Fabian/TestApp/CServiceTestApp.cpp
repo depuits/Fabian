@@ -42,8 +42,8 @@ float CServiceTestApp::s_fDtime = 0;
 // Constructor
 // p1 in* - int, the priorety of the service
 //            ( the lower the higher the priorety )
-CServiceTestApp::CServiceTestApp(int priorety)
-	:CServiceBase(priorety)
+CServiceTestApp::CServiceTestApp()
+	:CServiceBase()
 
 	,m_pInput(nullptr)
 	,m_pRenderer(nullptr)
@@ -209,7 +209,8 @@ void CServiceTestApp::MsgProc(SMsg* sm)
 	case SM_INPUT + SM_H_REMOVE:
 	case SM_RENDERER + SM_H_REMOVE:
 		Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "Game Service: Stopping (Renderer or Input removed)" );
-		this->SetCanKill(true);
+		//this->SetCanKill(true);
+		Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "Game Service: Disabling service not implemented");
 		break;
 	}
 }

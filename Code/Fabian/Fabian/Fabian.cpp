@@ -84,9 +84,9 @@ extern "C"
 	// Adds a service to the kernel and takes ownership of it
 	// p1 in - a pointer to the service to add (can't be 0)(takes over ownership)
 	// rv - returns pointer to the service on succes and a nullptr when it fails
-	DECLDIR IService* Fab_KernelAddService(IService* pServ)
+	DECLDIR IService* Fab_KernelAddService(IService* pServ, int iPrior)
 	{
-		return CKernel::Get().AddService(pServ);
+		return CKernel::Get().AddService(pServ, iPrior);
 	}
 	//-------------------------------------
 	// Marks a service to be removed, the service

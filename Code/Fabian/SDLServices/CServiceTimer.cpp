@@ -12,8 +12,8 @@
 // Constructor
 // p1 in - int, the priorety of the service
 //            ( the lower the higher the priorety )
-CServiceTimer::CServiceTimer(int priorety)
-	:CServiceBase(priorety)
+CServiceTimer::CServiceTimer()
+	:CServiceBase()
 
 	,m_ulLastFrameIndex(0)
 	,m_ulThisFrameIndex(0)

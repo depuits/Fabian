@@ -4,6 +4,10 @@
 #include <vector>
 #include <Fabian.h>
 
+#ifdef DECLDIR
+	#undef DECLDIR
+#endif
+
 #ifdef WIN32
 	#define DECLDIR __declspec(dllexport)
 #else

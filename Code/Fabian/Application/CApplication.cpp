@@ -83,16 +83,16 @@ int CApplication::Run(int argc, char *argv[])
 	//add null safety checks
 	CLibrary pLib;
 	pLib.Load( std::string("./SDLServices" + sExt).c_str() );
-	IService*(*func)(const char*, int) = (IService*(*)(const char*, int))pLib.GetFunction("LoadService");
+	IService*(*func)(const char*) = (IService*(*)(const char*))pLib.GetFunction("LoadService");
 
-	IService* pServ = func("Timer", 100);
-	Fab_KernelAddService( pServ );
+	IService* pServ = func("Timer");
+	Fab_KernelAddService( pServ, 100 );
 
-	pServ = func("Input", 50);
-	Fab_KernelAddService( pServ );
+	pServ = func("Input");
+	Fab_KernelAddService( pServ, 50 );
 
-	pServ = func("Video", 5000);
-	Fab_KernelAddService( pServ );
+	pServ = func("Video");
+	Fab_KernelAddService( pServ, 5000 );
 
 
 	CLibrary pLibGame;
@@ -100,14 +100,20 @@ int CApplication::Run(int argc, char *argv[])
 	{
 		//pLibGame.Load( std::string("TestApp" + sExt).c_str() );
 		pLibGame.Load( std::string(argv[1] + sExt).c_str() );
-		func = (IService*(*)(const char*, int))pLibGame.GetFunction("LoadService");
-		pServ = func("Game", 500); // graphic need to be initialized before the game because of opengl initialization
-		Fab_KernelAddService( pServ );
+		func = (IService*(*)(const char*))pLibGame.GetFunction("LoadService");
+		pServ = func("Game"); // graphic need to be initialized before the game because of opengl initialization
+		Fab_KernelAddService( pServ, 500 );
 	}
 	else
 	{
-		Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_USER, "No meaningfull dll was loaded please add some arguents");
-		return 0;
+		//pLibGame.Load( std::string("TestApp" + sExt).c_str() );
+		pLibGame.Load( std::string("Game" + sExt).c_str() );
+		func = (IService*(*)(const char*))pLibGame.GetFunction("LoadService");
+		pServ = func("Game"); // graphic need to be initialized before the game because of opengl initialization
+		Fab_KernelAddService( pServ, 500 );
+
+		//Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_USER, "No meaningfull dll was loaded please add some arguents");
+		//return 0;
 	}
 
 	//main game loop

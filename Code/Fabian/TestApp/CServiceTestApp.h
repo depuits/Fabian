@@ -24,7 +24,7 @@ public:
 	// Constructor
 	// p1 in* - int, the priorety of the service
 	//            ( the lower the higher the priorety )
-	CServiceTestApp(int priorety = 500);
+	CServiceTestApp();
 	//-------------------------------------
 	// Destructor
 	virtual ~CServiceTestApp();

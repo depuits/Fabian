@@ -15,8 +15,8 @@
 // Constructor
 // p1 in* - int, the priorety of the service 
 //            ( the lower the higher the priorety )
-CServiceInput::CServiceInput(int priorety)
-	:CServiceBase(priorety)
+CServiceInput::CServiceInput()
+	:CServiceBase()
 	,m_pInput(nullptr)
 {
 }

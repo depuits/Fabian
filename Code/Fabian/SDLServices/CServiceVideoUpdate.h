@@ -21,7 +21,7 @@ public:
 	// Constructor
 	// p1 in* - int, the priorety of the service 
 	//            ( the lower the higher the priorety )
-	CServiceVideoUpdate(int priorety = 5000);
+	CServiceVideoUpdate();
 	//-------------------------------------
 	// Destructor
 	virtual ~CServiceVideoUpdate();

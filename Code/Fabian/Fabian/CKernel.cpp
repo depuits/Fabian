@@ -5,6 +5,12 @@
 
 #include "CLog.h"
 
+
+bool operator== (const ServiceData& a, const ServiceData& b)
+{
+	return (a.pService == b.pService);
+}
+
 //******************************************
 // Class CKernel:
 // the kernel class is the heart of the engine
@@ -48,22 +54,24 @@ int CKernel::Execute()
 			{
 				//PROFILE("Kernel task loop");
 
-				std::list<IService*>::iterator it( m_pServiceList.begin() );
+				std::list<ServiceData>::iterator it( m_pServiceList.begin() );
 				for( ; it != m_pServiceList.end(); )
 				{
-					IService *s = (*it);
+					ServiceData &s = (*it);
 					++it;
-					if( !s->GetCanKill() )
-						s->Update();
+					if( !s.bCanKill )
+						s.pService->Update();
 					else
 					{
-						s->Stop();
+						s.pService->Stop();
+
+						// call lib functions here to free the services
+						delete s.pService; // remove service using its dll to load
+						s.pService = nullptr;
+
 						m_pServiceList.remove(s);
-						delete s; // remove service using its dll to load
-						s = nullptr;
 					}
 				}
-				//IMMObject::CollectGarbage();
 			}
 	#ifdef DEBUG
 			CProfileSample::Output();
@@ -81,11 +89,9 @@ int CKernel::Execute()
 // Adds a service to the kernel and takes ownership of it
 //    Because the kernel takes ownership of the service
 //    you don't have to delete it yourself.
-// Planned :
-//           Return service IDs for acces (-1 on fail)
 // p1 in - a pointer to the service to add (can't be 0)
 // rv - returns pointer to the service on succes and a nullptr when it fails
-IService* CKernel::AddService(IService* s)
+IService* CKernel::AddService(IService* s, int iPrior)
 {
 	FASSERT(s != nullptr);
 
@@ -95,14 +101,20 @@ IService* CKernel::AddService(IService* s)
 		delete s;
 		return nullptr;
 	}
+	
+	ServiceData sd;
+	sd.bCanKill = false;
+	sd.LibId = 0;
+	sd.pService = s;
+	sd.iPriority = iPrior;
 
 	//keep the order of priorities straight
-	std::list<IService*>::iterator it( m_pServiceList.begin() );
+	std::list<ServiceData>::iterator it( m_pServiceList.begin() );
 	for( ; it != m_pServiceList.end(); ++it)
-		if( (*it)->GetPriorety() > s->GetPriorety() )
+		if( (*it).iPriority > sd.iPriority )
 			break;
 
-	m_pServiceList.insert(it, s);
+	m_pServiceList.insert(it, sd);
 	return s;
 }
 //-------------------------------------
@@ -147,9 +159,9 @@ void CKernel::ResumeService(IService*)
 // p1 in - a pointer to the service to remove
 void CKernel::RemoveService(IService* s)
 {
-	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Removing Service" );
-	if( std::find(m_pServiceList.begin(), m_pServiceList.end(), s) != m_pServiceList.end() )
-		s->SetCanKill(true);
+	CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Kernel: Removing Service" );
+	/*if( std::find(m_pServiceList.begin(), m_pServiceList.end(), s) != m_pServiceList.end() )
+		s->SetCanKill(true);*/
 }
 //-------------------------------------
 
@@ -159,8 +171,8 @@ void CKernel::RemoveService(IService* s)
 void CKernel::KillAllServices()
 {
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Killing All Services" );
-	for(std::list<IService*>::iterator it( m_pServiceList.begin() ); it != m_pServiceList.end(); ++it)
-		(*it)->SetCanKill(true);
+	for(std::list<ServiceData>::iterator it( m_pServiceList.begin() ); it != m_pServiceList.end(); ++it)
+		(*it).bCanKill = true;
 }
 //-------------------------------------
 
@@ -174,8 +186,8 @@ void CKernel::SendMessage(SMsg* msg)
 	if( msg->id == SM_QUIT )
 		KillAllServices();
 
-	for(std::list<IService*>::iterator it( m_pServiceList.begin() ); it != m_pServiceList.end(); ++it)
-		(*it)->MsgProc(msg);
+	for(std::list<ServiceData>::iterator it( m_pServiceList.begin() ); it != m_pServiceList.end(); ++it)
+		(*it).pService->MsgProc(msg);
 }
 //-------------------------------------
 

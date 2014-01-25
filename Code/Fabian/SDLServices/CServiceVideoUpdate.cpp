@@ -14,8 +14,8 @@
 // Constructor
 // p1 in* - int, the priorety of the service
 //            ( the lower the higher the priorety )
-CServiceVideoUpdate::CServiceVideoUpdate(int priorety)
-	:CServiceBase(priorety)
+CServiceVideoUpdate::CServiceVideoUpdate()
+	:CServiceBase()
 
 	,m_iScreenWidth(1280)
 	,m_iScreenHeight(800)

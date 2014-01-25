@@ -25,17 +25,17 @@ std::vector<IService*> g_vpServices;
 extern "C"
 {
 	// Plugin factory function
-	DECLDIR IService* LoadService(const char* sServ, int prior)
+	DECLDIR IService* LoadService(const char* sServ)
 	{
 		std::string name(sServ);
 		IService* pServ = nullptr;
 
 		if(name == "Timer")
-			pServ = new CServiceTimer(prior);
+			pServ = new CServiceTimer();
 		else if(name == "Input")
-			pServ = new CServiceInput(prior);
+			pServ = new CServiceInput();
 		else if(name == "Video")
-			pServ = new CServiceVideoUpdate(prior);
+			pServ = new CServiceVideoUpdate();
 
 		if( pServ != nullptr )
 		{

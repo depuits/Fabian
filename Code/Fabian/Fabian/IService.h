@@ -18,7 +18,7 @@ public:
 	// Constructor
 	// p1 in - int, the priorety of the service 
 	//            ( the lower the higher the priorety )
-	IService(int = 5000)
+	IService()
 	{
 	};
 	//-------------------------------------
@@ -49,18 +49,6 @@ public:
 	// Called when there are messages send somewhere
 	// p1 in - pointer to SMsg object
 	virtual void MsgProc(SMsg*) { };
-	//-------------------------------------
-	
-	//-------------------------------------
-	// Get/Set weither this service is marked for remove
-	// rv / p1 in - bool, true if its marked for remove
-	virtual bool GetCanKill() const = 0;
-	virtual void SetCanKill(bool) = 0;	
-	//-------------------------------------
-	// Get the priorety of this service
-	// rv - int, priorety number
-	virtual int GetPriorety() const = 0;
-	//void SetPriorety(int priorety) { m_iPriority = priorety; }; // shouldn't be set once running to avoid reordening
 	//-------------------------------------
 
 protected:
