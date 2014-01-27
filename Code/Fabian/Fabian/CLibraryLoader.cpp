@@ -46,13 +46,21 @@ int CLibraryLoader::LoadLib(const char* sFile)
 	if( pLib == nullptr )
 		return -1;
 
+	// check if the dll is already loaded and check for an empty spot
+	unsigned fn(-1);
 	for (unsigned i(0); i < m_vLibs.size(); ++i)
 	{
-		if( m_vLibs[i] == nullptr )
-		{
-			m_vLibs[i] = pLib;
+		if( m_vLibs[i] == pLib )
 			return i;
-		}
+
+		if( m_vLibs[i] == nullptr && fn == -1 )
+			fn = i;
+	}
+
+	if( fn != -1 )
+	{
+		m_vLibs[fn] = pLib;
+		return fn;
 	}
 
 	m_vLibs.push_back(pLib);

@@ -11,6 +11,11 @@ bool operator== (const ServiceData& a, const ServiceData& b)
 	return (a.pService == b.pService);
 }
 
+bool operator== (const ServiceData& a, const IService* b)
+{
+	return (a.pService == b);
+}
+
 //******************************************
 // Class CKernel:
 // the kernel class is the heart of the engine
@@ -66,8 +71,15 @@ int CKernel::Execute()
 						s.pService->Stop();
 
 						// call lib functions here to free the services
-						delete s.pService; // remove service using its dll to load
-						s.pService = nullptr;
+						void (*funcFree)(IService*) = (void(*)(IService*))m_LibLoader.GetFunction(s.LibId, "ReleaseService");
+						if( funcFree == nullptr )
+						{
+							//crash and burn
+							CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Failed to load unloading function for service, trying normal delete ( high crash potential )" );
+							delete s.pService;
+						}
+						else
+							funcFree(s.pService); // remove service using its dll to load
 
 						m_pServiceList.remove(s);
 					}
@@ -91,21 +103,56 @@ int CKernel::Execute()
 //    you don't have to delete it yourself.
 // p1 in - a pointer to the service to add (can't be 0)
 // rv - returns pointer to the service on succes and a nullptr when it fails
-IService* CKernel::AddService(IService* s, int iPrior)
+IService* CKernel::AddService(const char* sLib, const char* sService, int iPrior)
 {
-	FASSERT(s != nullptr);
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Adding Service\nLib: %s\nService: %s", sLib, sService );
 
-	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Adding Service" );
-	if(!s->Start())
+	std::string sExt =
+#if defined WIN32 /*windows*/
+    ".dll";
+#elif defined UNIX /*unix*/
+    ".so";
+#else
+#error PLATFORM NOT IMPLENTED
+#endif
+
+	int lib = m_LibLoader.LoadLib( std::string(sLib + sExt).c_str() );
+	if(lib == -1 )
 	{
-		delete s;
+		CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Kernel: Loading lib \"%s\" failed.", sLib );
+		return nullptr;
+	}
+	
+	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Lib loaded(id: %d), now checking functions", lib );
+	IService *(*funcLoad)(const char*) = (IService*(*)(const char*))m_LibLoader.GetFunction(lib, "LoadService");
+	void (*funcFree)(IService*) = (void(*)(IService*))m_LibLoader.GetFunction(lib, "ReleaseService");
+
+	// don't go any further if the dll can't load AND unload his services
+	if( funcLoad == nullptr || funcFree == nullptr )
+	{
+		CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Kernel: Loading functions failed." );
+		return nullptr;
+	}
+
+	IService *pServ = funcLoad(sService);
+	if( pServ == nullptr )
+	{
+		CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Kernel: Loading service \"%s\" failed.", sService );
+		return nullptr;
+	}
+
+	if(!pServ->Start())
+	{
+		CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Kernel: Starting Service failed" );
+		// free service ussing dll
+		funcFree(pServ);
 		return nullptr;
 	}
 	
 	ServiceData sd;
 	sd.bCanKill = false;
-	sd.LibId = 0;
-	sd.pService = s;
+	sd.LibId = lib;
+	sd.pService = pServ;
 	sd.iPriority = iPrior;
 
 	//keep the order of priorities straight
@@ -115,43 +162,7 @@ IService* CKernel::AddService(IService* s, int iPrior)
 			break;
 
 	m_pServiceList.insert(it, sd);
-	return s;
-}
-//-------------------------------------
-
-//-------------------------------------
-// Suspend or resume a service
-// !!! - these methods might be removed
-// p1 in - a pointer to the service to suspend or resume
-// rv - returns true on succes
-void CKernel::SuspendService(IService*)
-{
-	CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Kernel: Suspend Service Disabled" );
-	//check that this task is in our list - we don't want to suspend
-	//a task that isn't running
-	/*if( std::find(m_pServiceList.begin(), m_pServiceList.end(), s) != m_pServiceList.end() )
-	{
-		s->OnSuspend();
-		m_pServiceList.remove(s);
-		m_pPausedServiceList.push_back(s);
-	}*/
-}
-void CKernel::ResumeService(IService*)
-{
-	CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Kernel: Resume Service Disabled" );
-	/*if( std::find(m_pPausedServiceList.begin(), m_pPausedServiceList.end(), s) != m_pPausedServiceList.end() )
-	{
-		s->OnResume();
-		m_pPausedServiceList.remove(s);
-
-		//keep the order of priorities straight
-		std::list<IService*>::iterator it( m_pServiceList.begin() );
-		for( ; it != m_pServiceList.end(); ++it)
-			if( (*it)->GetPriorety() > s->GetPriorety() )
-				break;
-
-		m_pServiceList.insert(it, s);
-	}*/
+	return pServ;
 }
 //-------------------------------------
 // Marks a service to be removed, the service
@@ -160,8 +171,11 @@ void CKernel::ResumeService(IService*)
 void CKernel::RemoveService(IService* s)
 {
 	CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Kernel: Removing Service" );
-	/*if( std::find(m_pServiceList.begin(), m_pServiceList.end(), s) != m_pServiceList.end() )
-		s->SetCanKill(true);*/
+	
+	std::list<ServiceData>::iterator it( std::find(m_pServiceList.begin(), m_pServiceList.end(), s) );
+	if( it != m_pServiceList.end() )
+		it->bCanKill = true;
+
 }
 //-------------------------------------
 
@@ -172,7 +186,7 @@ void CKernel::KillAllServices()
 {
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Killing All Services" );
 	for(std::list<ServiceData>::iterator it( m_pServiceList.begin() ); it != m_pServiceList.end(); ++it)
-		(*it).bCanKill = true;
+		it->bCanKill = true;
 }
 //-------------------------------------
 

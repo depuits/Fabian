@@ -431,8 +431,7 @@ void CServiceGame::MsgProc(SMsg* sm)
 	case SM_INPUT + SM_H_REMOVE:
 	case SM_RENDERER + SM_H_REMOVE:
 		Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "Game Service: Stopping (Renderer or Input removed)" );
-		//this->SetCanKill(true);
-		Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "Game Service: Disabling service not implemented");
+		Fab_KernelRemoveService(this);
 		break;
 	}
 }

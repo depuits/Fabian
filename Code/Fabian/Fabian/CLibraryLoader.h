@@ -2,7 +2,6 @@
 #define FABIAN_CLIBRARYLOADER_H_
 
 #include "FabianDef.h"
-#include <string>
 #include <vector>
 
 //******************************************
