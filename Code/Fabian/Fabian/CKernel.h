@@ -3,7 +3,7 @@
 
 #include "IKernel.h"
 #include <list>
-#include "CLibraryLoader.h";
+#include "CLibraryLoader.h"
 
 typedef struct ServiceData
 {
