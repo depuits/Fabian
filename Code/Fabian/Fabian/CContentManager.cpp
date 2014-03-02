@@ -70,8 +70,7 @@ bool CContentManager::StartLoading(const char* path)
                 std::string fname(ent->d_name);
                 if( fname.find(sExt, (fname.length() - sExt.length()) ) != std::string::npos )
                 {
-                    //printf("%s\n", fname.c_str());
-
+					Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Lib: \"%s\"", fname.c_str());
 					int id = m_pLibraryLoader->LoadLib( ("plugins/" + fname).c_str() );
 					if( id == -1 )
 					{
@@ -107,7 +106,8 @@ bool CContentManager::StartLoading(const char* path)
 		delete m_pLibraryLoader;
 		return false;
 	}
-
+	
+	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Done loading, plugins loaded: %d.", m_vpLoadData.size());
 	return true;
 }
 //-------------------------------------
@@ -115,13 +115,18 @@ bool CContentManager::StartLoading(const char* path)
 //    You can still "load" objects wich are buffered or already loaded in memory
 void CContentManager::EndLoading()
 {
-	if(m_pLibraryLoader != nullptr)
-	{
-		m_vpLoadData.clear();
-		m_vpReleaseData.clear();
-
-		delete m_pLibraryLoader;
+	if(m_pLibraryLoader == nullptr)
+	{	
+		Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: End loading called when not correctly started.");
+		return;
 	}
+
+	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: End loading, unloading plugins: %d.", m_vpLoadData.size());
+	m_vpLoadData.clear();
+	m_vpReleaseData.clear();
+
+	delete m_pLibraryLoader;
+	m_pLibraryLoader = nullptr;
 }
 //-------------------------------------
 
@@ -151,80 +156,66 @@ bool CContentManager::BufferMesh(const char* sFile)
 	if( m_pLibraryLoader == nullptr )
 		return false;
 	
-	if ( !IsMeshLoaded(sFile))
+	if (IsMeshLoaded(sFile))
+		return true;
+
+	for( unsigned i(0); i < m_vpLoadData.size(); ++i )
 	{
-		for( unsigned i(0); i < m_vpLoadData.size(); ++i )
+		MeshData *md = static_cast<MeshData*>( m_vpLoadData[i](sFile) );
+		if( md == nullptr ) // dll failed to load
 		{
-			MeshData *md = static_cast<MeshData*>( m_vpLoadData[i](sFile) );
-			if( md == nullptr ) // dll failed to load
-			{
-				Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: Loading mesh data failed");
-				continue;
-			}
-
-			Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loaded MeshData ( v: %d - i: %d )", md->vCount / 8 /* divided by 8 becaus the vcount is x,y,z,nx,ny,nz,u,v*/, md->iCount);
-			IMesh *pMesh = m_pRenderer->LoadMesh(md);
-			// release dll data
-			m_vpReleaseData[i](md);
-
-			if( pMesh == nullptr )
-			{
-				Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading mesh failed");
-				return false;
-			}
-
-			m_mMeshMap[sFile] = pMesh;
-			return true;
+			Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: Loading mesh data failed");
+			continue;
 		}
-		return false;
+
+		Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loaded MeshData ( v: %d - i: %d )", md->vCount / 8 /* divided by 8 becaus the vcount is x,y,z,nx,ny,nz,u,v*/, md->iCount);
+		IMesh *pMesh = m_pRenderer->LoadMesh(md);
+		// release dll data
+		m_vpReleaseData[i](md);
+
+		if( pMesh == nullptr )
+		{
+			Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading mesh failed");
+			return false;
+		}
+
+		m_mMeshMap[sFile] = pMesh;
+		return true;
 	}
-	return true;
+	return false; // no plugin could load the data
 }
 bool CContentManager::BufferImage(const char* sFile)
 {
 	if( m_pLibraryLoader == nullptr )
 		return false;
 
-	if ( !IsImageLoaded(sFile))
+	if (IsImageLoaded(sFile))
+		return true;
+
+	for( unsigned i(0); i < m_vpLoadData.size(); ++i )
 	{
-		CLibrary lib;
-		if( !lib.Load(sLib.c_str()) )
-		{
-            Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of plugin failed: \"%s\"", sLib.c_str());
-			return nullptr;
-        }
-		LOAD_DATA fLoadID = (LOAD_DATA)lib.GetFunction("LoadData"); // meshData Loading function
-		RELEASE_DATA fReleaseID = (RELEASE_DATA)lib.GetFunction("ReleaseData"); // meshData Release function
-
-		if( fLoadID == nullptr || fReleaseID == nullptr )
-		{
-            Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of LOADDATA(%d) or RELEASEDATA(%d) in \"%s\" failed.", fLoadID, fReleaseID, sLib.c_str());
-			return nullptr;
-        }
-
-		// load from dll
-		ImageData *id = static_cast<ImageData*>(fLoadID(sFile.c_str()));
-
+		ImageData *id = static_cast<ImageData*>( m_vpLoadData[i](sFile) );
 		if( id == nullptr ) // dll failed to load
 		{
 			Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: Loading texture data failed");
-            return nullptr;
+			continue;
 		}
+			
+		Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loaded ImageData ( w: %d - h: %d )", id->w, id->h);
+		IImage *pImage = m_pRenderer->LoadImage(id);
+		// release dll data
+		m_vpReleaseData[i](id);
 
-        Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loaded ImageData ( w: %d - h: %d )", id->w, id->h);
-        IImage *pImage = m_pRenderer->LoadImage(id);
-        // release dll data
-        fReleaseID(id);
-
-        if( pImage == nullptr )
-        {
-            Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading texture failed");
-            return nullptr;
-        }
-
-        m_mImageMap[sFile] = pImage;
+		if( pImage == nullptr )
+		{
+			Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading texture failed");
+			return false;
+		}
+			
+		m_mImageMap[sFile] = pImage;
+		return true;
 	}
-	return true;
+	return false; // no plugin could load the data
 }
 //-------------------------------------
 // Loads in a mesh or texture from a file and returns it
@@ -254,52 +245,6 @@ IImage *CContentManager::LoadImage(const char* sFile)
 			return nullptr;
 
     return m_mImageMap[sFile];
-}
-//-------------------------------------
-IImage *CContentManager::LoadImageUsing(const std::string& sLib, const std::string& sFile)
-{
-	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading Texture (\"%s\") using \"%s\"", sFile.c_str(), sLib.c_str());
-	if ( !IsImageLoaded(sFile))
-	{
-		CLibrary lib;
-		if( !lib.Load(sLib.c_str()) )
-		{
-            Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of plugin failed: \"%s\"", sLib.c_str());
-			return nullptr;
-        }
-		LOAD_DATA fLoadID = (LOAD_DATA)lib.GetFunction("LoadData"); // meshData Loading function
-		RELEASE_DATA fReleaseID = (RELEASE_DATA)lib.GetFunction("ReleaseData"); // meshData Release function
-
-		if( fLoadID == nullptr || fReleaseID == nullptr )
-		{
-            Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading of LOADDATA(%d) or RELEASEDATA(%d) in \"%s\" failed.", fLoadID, fReleaseID, sLib.c_str());
-			return nullptr;
-        }
-
-		// load from dll
-		ImageData *id = static_cast<ImageData*>(fLoadID(sFile.c_str()));
-
-		if( id == nullptr ) // dll failed to load
-		{
-			Fab_LogWrite(FLOG_LVL_WARNING, FLOG_ID_APP, "Content: Loading texture data failed");
-            return nullptr;
-		}
-
-        Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loaded ImageData ( w: %d - h: %d )", id->w, id->h);
-        IImage *pImage = m_pRenderer->LoadImage(id);
-        // release dll data
-        fReleaseID(id);
-
-        if( pImage == nullptr )
-        {
-            Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_APP, "Content: Loading texture failed");
-            return nullptr;
-        }
-
-        m_mImageMap[sFile] = pImage;
-	}
-
-	return m_mImageMap[sFile];
 }
 //-------------------------------------
 

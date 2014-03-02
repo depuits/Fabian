@@ -1,13 +1,7 @@
 - ContentManager
-	° less repetitive code
+	° maybe even less repetitive code
 	° error logging in plugins
 	° version checking
-	° not always "reloading" dlls
-	° new methods
-		StartLoading(optional path for plugins);
-		EndLoading();
-		BufferXxxxx(string);
-		LoadXxxxx(string);
 
 - Input
 	° support for controllers

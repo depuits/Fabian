@@ -103,6 +103,11 @@ bool CServiceGame::Start()
 	Fab_GlobalAccessorAddObject("Input", m_pInput);
 
 	m_pContent = Fab_ContentCreateManager(m_pRenderer);
+	if( !m_pContent->StartLoading() )
+	{
+		Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_APP, "Game Service: Starting content loading failed." );
+		return false;
+	}
 
 	IShader *pShader = m_pContent->LoadShader("Shaders/SimpleShader");
 	pShader->Apply();
@@ -145,6 +150,7 @@ bool CServiceGame::Start()
 	for (CGameObject* go : g_vpGameObjects)
 		go->Init();
 
+	m_pContent->EndLoading();
 	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Started" );
 	return true;
 }
