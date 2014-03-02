@@ -22,9 +22,7 @@ CLibraryLoader::CLibraryLoader()
 // Destructor
 CLibraryLoader::~CLibraryLoader()
 {
-	//unload all the libs when the objects get deleted
-	for (unsigned i(0); i < m_vLibs.size(); ++i)
-		UnLoadLib(i);
+	UnLoadAll();
 }
 //-------------------------------------
 
@@ -90,6 +88,14 @@ bool CLibraryLoader::UnLoadLib(int id)
 	m_vLibs[id] = nullptr;
 
 	return true;
+}
+//-------------------------------------
+// unloads all librarys from memory
+void CLibraryLoader::UnLoadAll()
+{
+	//unload all the libs when the objects get deleted
+	for (unsigned i(0); i < m_vLibs.size(); ++i)
+		UnLoadLib(i);
 }
 //-------------------------------------
 

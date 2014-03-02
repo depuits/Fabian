@@ -11,7 +11,7 @@
 
 - Input
 	° support for controllers
-	° IputMapper
+	° InputMapper
 
 - Rendering
 	° DirectX implementation

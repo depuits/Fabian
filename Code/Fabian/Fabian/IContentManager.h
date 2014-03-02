@@ -25,7 +25,28 @@ public:
 	// Destructor
 	virtual ~IContentManager() { }
 	//-------------------------------------
+	
+	//-------------------------------------
+	// Enables loading and buffering of objects from the storage
+	//    to the memory.
+	// p1 in - string, path of where to load the plugins from
+	// rv - bool, returns false if nothing will be able to load
+	//               (in case no plugins we're found).
+	virtual bool StartLoading(const char* = "plugins") = 0;
+	//-------------------------------------
+	// Ends the loading of objects and unloads the plugins.
+	//    You can still "load" objects wich are buffered or already loaded in memory
+	virtual void EndLoading() = 0;
+	//-------------------------------------
 
+	//-------------------------------------
+	// Loads in a mesh or texture from a file and keeps it loaded
+	// p1 in - string, name of the file to load
+	// rv - bool, true if the loading succeeded
+	// !!! - for loading shaders you shouldn't add the extension
+	virtual bool BufferShader(const char*) = 0;
+	virtual bool BufferMesh(const char*) = 0;
+	virtual bool BufferImage(const char*) = 0;
 	//-------------------------------------
 	// Loads in a mesh or texture from a file and returns it
 	// p1 in - string, name of the file to load

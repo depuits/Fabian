@@ -33,6 +33,9 @@ public:
 	//         linked to the id
 	bool UnLoadLib(int);
 	//-------------------------------------
+	// unloads all librarys from memory
+	void UnLoadAll();
+	//-------------------------------------
 	
 	//-------------------------------------
 	// gets the pointer to a function from a specific library
