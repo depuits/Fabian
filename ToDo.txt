@@ -1,0 +1,34 @@
+- ContentManager
+	° less repetitive code
+	° error logging in plugins
+	° version checking
+	° not always "reloading" dlls
+	° new methods
+		StartLoading(optional path for plugins);
+		EndLoading();
+		BufferXxxxx(string);
+		LoadXxxxx(string);
+
+- Input
+	° support for controllers
+	° IputMapper
+
+- Rendering
+	° DirectX implementation
+	° Expand for more control
+
+- Timer
+	° SDL independant timer
+
+- General
+	° split SDL into separate independant components
+	° make Fabian.h "C" compatible
+		* maybe split into multiple header and recombine in Fabian.h
+	° create more generic usefull components/objects
+
+- Logging
+	° Create hooked logger wich outputs to a controllable log
+		* Clear log
+		* show/hide error, info, warning, unknown
+		* possible more
+

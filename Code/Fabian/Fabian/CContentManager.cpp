@@ -29,7 +29,7 @@ CContentManager::CContentManager(IRenderer* pRend)
 // Destructor
 CContentManager::~CContentManager()
 {
-	// do not delete resources here because they belong to the renderer
+	// !!! do not delete resources here because they belong to the renderer
 	/*CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Unloading Meshes: %d", m_mMeshMap.size());
 	for (std::map<std::string, IMesh*>::iterator it( m_mMeshMap.begin() ); it != m_mMeshMap.end(); ++it)
 		delete it->second;
