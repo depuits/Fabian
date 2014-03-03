@@ -158,7 +158,8 @@ bool CContentManager::BufferMesh(const char* sFile)
 	
 	if (IsMeshLoaded(sFile))
 		return true;
-
+	
+	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new Mesh: \"%s\"", sFile);
 	for( unsigned i(0); i < m_vpLoadData.size(); ++i )
 	{
 		MeshData *md = static_cast<MeshData*>( m_vpLoadData[i](sFile) );
@@ -191,7 +192,8 @@ bool CContentManager::BufferImage(const char* sFile)
 
 	if (IsImageLoaded(sFile))
 		return true;
-
+	
+	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Loading new Image: \"%s\"", sFile);
 	for( unsigned i(0); i < m_vpLoadData.size(); ++i )
 	{
 		ImageData *id = static_cast<ImageData*>( m_vpLoadData[i](sFile) );

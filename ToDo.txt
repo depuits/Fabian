@@ -1,5 +1,4 @@
 - ContentManager
-	° maybe even less repetitive code
 	° error logging in plugins
 	° version checking
 
@@ -19,6 +18,7 @@
 	° make Fabian.h "C" compatible
 		* maybe split into multiple header and recombine in Fabian.h
 	° create more generic usefull components/objects
+	° version checking in service dlls
 
 - Logging
 	° Create hooked logger wich outputs to a controllable log
