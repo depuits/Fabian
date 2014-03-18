@@ -4,50 +4,56 @@
 #include "FabianDef.h"
 #include "InputDef.h"
 
-//******************************************
-// Interface IInput:
-// this interface provides a way of getting all
-// input stages for the game and for manipulating them.
-//******************************************
+////////////////////////////////////////////
+//! Interface IInput: 
+//! this interface provides a way of getting all
+//! input stages for the game and for manipulating them.
+////////////////////////////////////////////
 class IInput
 {
 public:
-	//-------------------------------------
-	// Constructor
+	/************************************/
+	/*! Constructor */
 	IInput() { };
-	//-------------------------------------
-	// Destructor
+	/************************************/
+	/*! Destructor */
 	virtual ~IInput() { };
-	//-------------------------------------
+	/************************************/
 	
-	//-------------------------------------
-	// Gets the state of a requested key
-	// rv - KeyState, the state of the key
-	virtual KeyState GetKeyState(FKey) const = 0;
-	//-------------------------------------
+	/************************************/
+	/*! Gets the state of a requested key
+	 * @param [in] k - FKey to check the state of
+	 * @return The state of the key
+	 */
+	virtual KeyState GetKeyState(FKey k) const = 0;
+	/************************************/
 	
-	//-------------------------------------
-	// Gets the current position of the mouse relatieve to the window
-	// p1 out - int, X value of the position
-	// p2 out - int, Y value of the position
-	virtual void GetMousePos(int&, int&) const = 0;
-	//-------------------------------------
-	// Gets the distance the mouse moved since last frame
-	// p1 out - int, X value of the movement
-	// p2 out - int, Y value of the movement
-	virtual void GetMouseMovement(int&, int&) const = 0;
-	//-------------------------------------
+	/************************************/
+	/*! Gets the current position of the mouse relative to the window
+	 * @param [out] x - X value of the position
+	 * @param [out] y - Y value of the position
+	 */
+	virtual void GetMousePos(int& x, int& y) const = 0;
+	/************************************/
+	/*! Gets the distance the mouse moved since last frame
+	 * @param [out] x - X value of the movement
+	 * @param [out] y - Y value of the movement
+	 */
+	virtual void GetMouseMovement(int& x, int& y) const = 0;
+	/************************************/
 	
-	//-------------------------------------
-	// Locks/unlocks the mouse inside the window
-	// p1 in - bool, true to lock the mouse and false to free it
-	virtual void LockMouse(bool) = 0;
-	//-------------------------------------
-	// Locks the mouse inside the window at a specific position
-	// p1 in - int, X value of the position
-	// p2 in - int, Y value of the position
-	virtual void LockMouse(int, int) = 0;
-	//-------------------------------------
+	/************************************/
+	/*! Locks/unlocks the mouse inside the window
+	 * @param [in] bLockMouse - True to lock the mouse and false to free it
+	 */
+	virtual void LockMouse(bool bLockMouse) = 0;
+	/************************************/
+	/*! Locks the mouse inside the window at a specific position
+	 * @param [in] x - X value of the position
+	 * @param [in] y - Y value of the position
+	 */
+	virtual void LockMouse(int x, int y) = 0;
+	/************************************/
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(IInput);

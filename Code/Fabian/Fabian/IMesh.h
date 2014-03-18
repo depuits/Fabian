@@ -4,32 +4,33 @@
 #include "FabianDef.h"
 #include "DataStructures.h"
 
-//******************************************
-// Interface IMesh:
-// the mesh object is responsible for loading 
-// the buffers and calling any graphics related
-// methods
-//******************************************
+////////////////////////////////////////////
+//! Interface IMesh: 
+//! the mesh object is responsible for loading 
+//! the buffers and calling any graphics related 
+//! methods
+////////////////////////////////////////////
 class IMesh
 {
 public:
-	//-------------------------------------
-	// Constructor
+	/************************************/
+	/*! Constructor */
 	IMesh() { };
-	//-------------------------------------
-	// Destructor
+	/************************************/
+	/*! Destructor */
 	virtual ~IMesh() { };
-	//-------------------------------------
+	/************************************/
 	
-	//-------------------------------------
-	// Loads and initializes the mesh by loading any needed buffers, etc.
-	// p1 in - pointer to the meshdata for the mesh
-	// rv - bool, return false if something failed
-	virtual bool Load(MeshData*) = 0;
-	//-------------------------------------
-	// Calls the internal draw methods
+	/************************************/
+	/*! Loads and initializes the mesh by loading any needed buffers, etc.
+	 * @param [in] md -¨Pointer to the MeshData for the mesh
+	 * @return False if something failed
+	 */
+	virtual bool Load(MeshData* md) = 0;
+	/************************************/
+	/*! Calls the internally used draw methods */
 	virtual void Draw() = 0;
-	//-------------------------------------
+	/************************************/
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(IMesh);

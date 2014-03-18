@@ -5,7 +5,7 @@
 
 //******************************************
 // Class CMatDifTexture:
-// simple diffusetexture material class
+// simple diffuse texture material class
 //******************************************
 CMatDifTexture::CMatDifTexture(IShader* pShader, IImage *pTex)
     :m_pShader(pShader)
@@ -20,7 +20,7 @@ CMatDifTexture::~CMatDifTexture()
 {
 }
 //-------------------------------------
-// This function must not be implemented in the header or the
+// This function must NOT be implemented in the header or the
 // linker will build the code to call the application delete()
 // function instead of the library delete() function.
 void CMatDifTexture::Release()

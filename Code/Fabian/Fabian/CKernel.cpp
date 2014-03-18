@@ -16,38 +16,34 @@ bool operator== (const ServiceData& a, const IService* b)
 	return (a.pService == b);
 }
 
-//******************************************
-// Class CKernel:
-// the kernel class is the heart of the engine
-// this class manages all services and the messaging between them
-//******************************************
-
-//-------------------------------------
-// Singleton accessor
+/************************************/
+/*! Singleton accessor 
+ * @return Pointer to CKernel singleton object
+ */
 CKernel& CKernel::Get()
 {
 	static CKernel kernel;
 	return kernel;
 }
-
-//-------------------------------------
-// Constructor
+/************************************/
+/*! Constructor */
 CKernel::CKernel()
 	:IKernel()
 {
 }
-//-------------------------------------
-// Destructor
+/************************************/
+/*! Destructor */
 CKernel::~CKernel()
 {
 	FASSERT(m_pServiceList.size() <= 0);
 }
-//-------------------------------------
+/************************************/
 
-//-------------------------------------
-// Start running the engine,
-//    should be called after the base services are added
-// rv - returns 0
+/************************************/
+/*! Start running the engine,
+ *    should be called after the base services are added
+ * @return 0
+ */
 int CKernel::Execute()
 {
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Executing Kernel" );
@@ -57,7 +53,7 @@ int CKernel::Execute()
 	{
 		{
 			{
-				//PROFILE("Kernel task loop");
+				/// \todo PROFILE("Kernel task loop");
 
 				std::list<ServiceData>::iterator it( m_pServiceList.begin() );
 				for( ; it != m_pServiceList.end(); )
@@ -95,14 +91,15 @@ int CKernel::Execute()
 	}
 	return 0;
 }
-//-------------------------------------
+/************************************/
 
-//-------------------------------------
-// Adds a service to the kernel and takes ownership of it
-//    Because the kernel takes ownership of the service
-//    you don't have to delete it yourself.
-// p1 in - a pointer to the service to add (can't be 0)
-// rv - returns pointer to the service on succes and a nullptr when it fails
+/************************************/
+/*! Loads a new IService into the kernel from a library
+ * @param [in] sLib		Lib file from which to load the service
+ * @param [in] sService	Name of the service to load (one lib can contain multiple services)
+ * @param [in] iPrior	The priority of this service
+ * @return Pointer to the service on success and a nullptr when it fails
+ */
 IService* CKernel::AddService(const char* sLib, const char* sService, int iPrior)
 {
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Adding Service\nLib: %s\nService: %s", sLib, sService );
@@ -164,10 +161,11 @@ IService* CKernel::AddService(const char* sLib, const char* sService, int iPrior
 	m_pServiceList.insert(it, sd);
 	return pServ;
 }
-//-------------------------------------
-// Marks a service to be removed, the service
-//    will be deleted next loop
-// p1 in - a pointer to the service to remove
+/************************************/
+/*! Marks a service to be removed, the service
+ *    will be deleted next loop
+ * @param [in] s	A pointer to the service to remove
+ */
 void CKernel::RemoveService(IService* s)
 {
 	CLog::Get().Write(FLOG_LVL_WARNING, FLOG_ID_APP, "Kernel: Removing Service" );
@@ -177,23 +175,25 @@ void CKernel::RemoveService(IService* s)
 		it->bCanKill = true;
 
 }
-//-------------------------------------
+/************************************/
 
-//-------------------------------------
-// Mark all services to be removed and end the
-//    application by doing so
+/************************************/
+/*! Mark all services to be removed
+ * @remark This will also end the application
+ */
 void CKernel::KillAllServices()
 {
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Killing All Services" );
 	for(std::list<ServiceData>::iterator it( m_pServiceList.begin() ); it != m_pServiceList.end(); ++it)
 		it->bCanKill = true;
 }
-//-------------------------------------
+/************************************/
 
-//-------------------------------------
-// Send a message to the services
-//    (including the service who sends it)
-// p1 in - pointer to SMsg object
+/************************************/
+/*! Send a message to the services
+ *    (including the service who sends it)
+ * @param [in] msg Pointer to SMsg object
+ */
 void CKernel::SendMessage(SMsg* msg)
 {
 	CLog::Get().Write(FLOG_LVL_INFO, FLOG_ID_APP, "Kernel: Message Broadcast: %d", msg->id );
@@ -203,7 +203,7 @@ void CKernel::SendMessage(SMsg* msg)
 	for(std::list<ServiceData>::iterator it( m_pServiceList.begin() ); it != m_pServiceList.end(); ++it)
 		(*it).pService->MsgProc(msg);
 }
-//-------------------------------------
+/************************************/
 
 
 
