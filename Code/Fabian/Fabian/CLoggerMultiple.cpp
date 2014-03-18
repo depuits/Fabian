@@ -49,8 +49,8 @@ void CLoggerMultiple::AddLogger(ILogger *pLogger)
 /************************************/
 /*! Gets called whenever the logs receives a message 
  *    and needs it to be actually logged
- * @param [in] lvl	- FLOG_LVL, useally ERROR, WARNING or INFO
- * @param [in] id	- FLOG_ID, the place where to write to
+ * @param [in] lvl	- @ref FLOG_LVL, useally ERROR, WARNING or INFO
+ * @param [in] id	- @ref FLOG_ID, the place where to write to
  * @param [in] msg	- Log message
  */
 void CLoggerMultiple::Write(char lvl, char id, const char* msg)

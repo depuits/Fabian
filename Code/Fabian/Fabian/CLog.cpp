@@ -56,8 +56,8 @@ int CLog::RegisterMsg(const std::string& sMsg)
 /************************************/
 /// @{
 /*! Write an message to the log
- * @param [in] lvl	- FLOG_LVL, useally ERROR, WARNING or INFO
- * @param [in] id	- FLOG_ID, the place where to write to
+ * @param [in] lvl	- @ref FLOG_LVL, useally ERROR, WARNING or INFO
+ * @param [in] id	- @ref FLOG_ID, the place where to write to
  * @param [in] msg	- Log message, registered id or string message
  * @param [in] ...	- Extra parameters, see sprintf
  */
