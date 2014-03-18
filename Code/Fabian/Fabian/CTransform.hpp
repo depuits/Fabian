@@ -69,8 +69,8 @@ public:
 	}
 	/************************************/
 	/*! Rotates the object allong its local axis
-	 * @todo Check: not sure if working correct because of axis order
 	 * @param [in] v3Rot - Rotation
+	 * @todo Check: not sure if working correct because of axis order
 	 */
 	void LocalRotate(const glm::vec3& v3Rot)
 	{
