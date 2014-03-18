@@ -25,46 +25,47 @@ class IInput;
 class IRenderer;
 // ------------------------
 
-//******************************************
-// Struct SMsg:
-// the service message struct is used to send messages
-//    through services.
-//    Derived structs can be used for extra parameters
-//******************************************
+////////////////////////////////////////////
+//! Struct SMsg: 
+//! the service message struct is used to send messages 
+//!    through services.
+//!    Derived structs can be used for extra parameters
+////////////////////////////////////////////
 typedef struct SMsg
 {
-	//-------------------------------------
-	// constructor
-	// p1 in - int, the id of the message
-	//            used to define what your getting
+	/************************************/
+	/*! constructor
+	 * @param [in] pId - The id of the message 
+	 *            used to define what your getting
+	 */
 	SMsg( int pId = SM_INVALID )
 		:id(pId)
 	{
 	}
-	//-------------------------------------
-	// Destructor
+	/************************************/
+	/*! Destructor */
 	virtual ~SMsg() { }
-	//-------------------------------------
+	/************************************/
 	DISALLOW_COPY_AND_ASSIGN(SMsg);
 
 	const int id;
 	
-	//-------------------------------------
-	// Template method for casting SMsg's
+	/************************************/
+	/*! Template method for casting SMsg's */
 	template <class T>
 	inline static T Cast(SMsg* sm)
 	{
 		FASSERT( dynamic_cast<T>(sm) == static_cast<T>(sm) );
 		return static_cast<T>(sm);
 	}
-	//-------------------------------------
+	/************************************/
 
 } SMsg;
 
-//******************************************
-// Derived Struct SMsg:
-// structs derived from SMsg for extra info
-//******************************************
+////////////////////////////////////////////
+//! Derived Struct SMsg:
+//! structs derived from SMsg for extra info
+////////////////////////////////////////////
 struct SMsgRequest : public SMsg
 {
 	SMsgRequest(int id, IService *pServ)
@@ -72,12 +73,16 @@ struct SMsgRequest : public SMsg
 		,pService(pServ)
 	{
 	}
-	//-------------------------------------
+	/************************************/
 	DISALLOW_COPY_AND_ASSIGN(SMsgRequest);
 
 	IService *pService;
 };
 
+////////////////////////////////////////////
+//! Derived Struct SMsg:
+//! structs derived from SMsg for extra info
+////////////////////////////////////////////
 struct SMsgTimer : public SMsg
 {
 	SMsgTimer( void (*pCallFunc)(float) )
@@ -85,12 +90,16 @@ struct SMsgTimer : public SMsg
 		,pCallbackFunc(pCallFunc)
 	{
 	}
-	//-------------------------------------
+	/************************************/
 	DISALLOW_COPY_AND_ASSIGN(SMsgTimer);
 
 	void (*pCallbackFunc)(float);
 };
 
+////////////////////////////////////////////
+//! Derived Struct SMsg:
+//! structs derived from SMsg for extra info
+////////////////////////////////////////////
 struct SMsgInput : public SMsg
 {
 	SMsgInput(IInput* ppInput, int r)
@@ -103,6 +112,10 @@ struct SMsgInput : public SMsg
 	IInput* pInput;
 };
 
+////////////////////////////////////////////
+//! Derived Struct SMsg:
+//! structs derived from SMsg for extra info
+////////////////////////////////////////////
 struct SMsgRenderer : public SMsg
 {
 	SMsgRenderer(IRenderer* ppRenderer, int r)
