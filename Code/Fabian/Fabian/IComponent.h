@@ -8,7 +8,7 @@ class IShader;
 class CGameObject;
 // ------------------------
 
-// Log level iddentifiers
+/// Log level iddentifiers
 enum FCOMP_STATE : unsigned char
 {
 	FCOMP_STATE_ENABLE      = 0,
@@ -18,64 +18,64 @@ enum FCOMP_STATE : unsigned char
 	FCOMP_STATE_MAX     	= 255
 };
 
-//******************************************
-// Interface IObject:
-// the base for all drawable or/and updateable objects
-// for the game. This includes a transfrom variable to
-// move the object arround.
-//******************************************
+////////////////////////////////////////////
+//! Interface IComponent: 
+//! the base for all components that can be 
+//! added to a CGameObject
+////////////////////////////////////////////
 class IComponent
 {
 	friend class CGameObject;
 
 public:
-	//-------------------------------------
-	// Constructor
-	// p1 in* - pointer to parent object, this causes
-	//            the object to be linked to the parent
+	/************************************/
+	/*! Constructor */
 	IComponent() { }
-	//-------------------------------------
-	// Destructor
+	/************************************/
+	/*! Destructor */
 	virtual ~IComponent() { }
-	//-------------------------------------
+	/************************************/
 
-	//-------------------------------------
-	// Initializes the object, should be called before any other
-	//    method of the object.
-	// rv - bool, return false if something failed
+	/************************************/
+	/*! Initializes the object, should be called before any other
+	 *    method of the object.
+	 * @return False if something failed
+	 */
 	virtual bool Start() = 0;
-	//-------------------------------------
-	// Method called when the component gets removed
+	/************************************/
+	/*! Method called when the component gets removed */
 	virtual void End() = 0;
-	//-------------------------------------
-	// Updates the object according to dTime
-	// p1 in - float, dTime since last update call
-	virtual void Update(float) = 0;
-	//-------------------------------------
-	// Draws the object on the screen ussing the given shader
-	// p1 in - pointer to the shader the object should draw with
+	/************************************/
+	/*! Updates the object according to dTime
+	 * @param [in] fDt - Time past since last update call
+	 */
+	virtual void Update(float fDt) = 0;
+	/************************************/
+	/*! Draws the object on the screen */
 	virtual void Draw() = 0;
-	//-------------------------------------
+	/************************************/
 
-	//-------------------------------------
-	// This method is called when the component states changed
-	//    You can also use this method to send custom messages or states
-	// p1 in - FCOMP_STATE, state identifier
-	virtual void UpdateState(unsigned char) = 0;
-	//-------------------------------------
+	/************************************/
+	/*! This method is called when the component states changed
+	 *    You can also use this method to send custom messages or states
+	 * @param [in] state - FCOMP_STATE, state identifier
+	 */
+	virtual void UpdateState(unsigned char state) = 0;
+	/************************************/
 
-
-
-	//-------------------------------------
-	// Enables the component in the gameobject
+	/************************************/
+	/*! Enables the component in the gameobject */
 	virtual void Enable() = 0;
-	//-------------------------------------
-	// disables the component in the gameobject
+	/************************************/
+	/*! disables the component in the gameobject */
 	virtual void Disable() = 0;
-	//-------------------------------------
+	/************************************/
 
 protected:
+	/************************************/
+	/*! Change the component parent CGameObject */
 	virtual void SetParent(CGameObject*) = 0;
+	/************************************/
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(IComponent);

@@ -11,52 +11,58 @@
 class ILogger;
 // ------------------------
 
-//******************************************
-// Class CLog:
-// singleton class used for message logging
-// and debugging the application
-//******************************************
+////////////////////////////////////////////
+//! Class CLog: 
+//! singleton class used for message logging 
+//! and debugging the application
+////////////////////////////////////////////
 class CLog
 {
 public:
-
-	//-------------------------------------
-	// Singleton accessor
+	/************************************/
+	/*! Singleton accessor 
+	 * @return Pointer to CLog singleton object
+	 */
 	static CLog& Get();
-	//-------------------------------------
-	// Destructor
+	/************************************/
+	/*! Destructor */
 	virtual ~CLog();
-	//-------------------------------------
+	/************************************/
 
-	//-------------------------------------
-	// Assign a logger used to do the actual logging
-	// p1 in - pointer to ILogger object (takes over ownership)
-	// rv - bool, true when succesfully assigned
-	bool AssignLogger(ILogger*);
-	//-------------------------------------
+	/************************************/
+	/*! Assign a ILogger used to do the actual logging
+	 * @param [in] pLogger - Pointer to ILogger object (takes over ownership)
+	 * @return True when succesfully assigned
+	 */
+	bool AssignLogger(ILogger* pLogger);
+	/************************************/
 
-	//-------------------------------------
-	// Registers a message to be re-used for logging
-	// p1 in - actuall message
-	// rv - int, id of the message
-	int RegisterMsg(const std::string&);
-	//-------------------------------------
+	/************************************/
+	/*! Registers a message to be re-used for logging
+	 * @param [in] sMsg - actuall message
+	 * @return Id of the message
+	 */
+	int RegisterMsg(const std::string& sMsg);
+	/************************************/
 
-	//-------------------------------------
-	// Write an message to the log
-	// p1 in - Log Level
-	// p2 in - Log id
-	// p3 in - Log message, registered id or string message
-	// ... - Extra parameters, see sprintf in
+	/************************************/
+	/// @{
+	/*! Write an message to the log
+	 * @param [in] lvl	- FLOG_LVL, useally ERROR, WARNING or INFO
+	 * @param [in] id	- FLOG_ID, the place where to write to
+	 * @param [in] msg	- Log message, registered id or string message
+	 * @param [in] ...	- Extra parameters, see sprintf
+	 */
 	void Write(char, char, unsigned msgId, ...);
 	void Write(char, char, const char*, ...);
-	//-------------------------------------
+	/// @}
+	/************************************/
 
 private:
-	//-------------------------------------
-	// Constructor
+	/************************************/
+	/*! Constructor */
 	CLog();
-	//-------------------------------------
+	/************************************/
 
 	ILogger *m_pLogger;
 	std::vector<std::string> m_vLogStrings;

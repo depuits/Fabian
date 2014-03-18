@@ -2,38 +2,35 @@
 #include "ILogger.h"
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
 
-//******************************************
-// Class CLog:
-// singleton class used for message logging
-// and debugging the application
-//******************************************
-
-//-------------------------------------
-// Singleton accessor
+/************************************/
+/*! Singleton accessor 
+ * @return Pointer to CLog singleton object
+ */
 CLog& CLog::Get()
 {
 	static CLog log;
 	return log;
 }
 
-//-------------------------------------
-// Constructor
+/************************************/
+/*! Constructor */
 CLog::CLog()
 	:m_pLogger(nullptr)
 {
 }
-//-------------------------------------
-// Destructor
+/************************************/
+/*! Destructor */
 CLog::~CLog()
 {
 	m_pLogger->Release();
 }
-//-------------------------------------
+/************************************/
 
-//-------------------------------------
-// Assign a logger used to do the actual logging
-// p1 in - pointer to ILogger object
-// rv - bool, true when succesfully assigned
+/************************************/
+/*! Assign a ILogger used to do the actual logging
+ * @param [in] pLogger - Pointer to ILogger object (takes over ownership)
+ * @return True when succesfully assigned
+ */
 bool CLog::AssignLogger(ILogger* pLogger)
 {
 	if( m_pLogger != nullptr )
@@ -42,25 +39,28 @@ bool CLog::AssignLogger(ILogger* pLogger)
 	m_pLogger = pLogger;
 	return true;
 }
-//-------------------------------------
-	
-//-------------------------------------
-// Registers a message to be re-used for logging
-// p1 in - actuall message
-// rv - int, id of the message
+/************************************/
+
+/************************************/
+/*! Registers a message to be re-used for logging
+ * @param [in] sMsg - actuall message
+ * @return Id of the message
+ */
 int CLog::RegisterMsg(const std::string& sMsg)
 {
 	m_vLogStrings.push_back(sMsg);
 	return ( m_vLogStrings.size() - 1 );
 }
-//-------------------------------------
-	
-//-------------------------------------
-// Write an message to the log
-// p1 in - Log Level
-// p2 in - Log id
-// p3 in - Log message, registered id or string message
-// ... - Extra parameters, see sprintf in 
+/************************************/
+
+/************************************/
+/// @{
+/*! Write an message to the log
+ * @param [in] lvl	- FLOG_LVL, useally ERROR, WARNING or INFO
+ * @param [in] id	- FLOG_ID, the place where to write to
+ * @param [in] msg	- Log message, registered id or string message
+ * @param [in] ...	- Extra parameters, see sprintf
+ */
 void CLog::Write(char lvl, char id, unsigned msgId, ...)
 {
 	va_list args; 
@@ -83,7 +83,8 @@ void CLog::Write(char lvl, char id, const char* msg, ...)
 
 	m_pLogger->Write(lvl, id, szBuf);
 }
-//-------------------------------------
+/// @}
+/************************************/
 
 
 

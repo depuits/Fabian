@@ -6,52 +6,52 @@
 
 #include "Console/console.h"
 
-//******************************************
-// Class CLoggerToConsole:
-// ILogger class which writes out the log to
-// a console using color codes
-//******************************************
-
-//-------------------------------------
-// Constructor
-// p1 in - bool, await user input on error
+/************************************/
+/*! Constructor
+ * @param [in] bWaitOnError - Await user input on error
+ */
 CLoggerToConsole::CLoggerToConsole(bool bWaitOnError)
 	:ILogger()
 	,m_bWaitOnError(bWaitOnError)
 {
 }
-//-------------------------------------
-// Destructor
+/************************************/
+/*! Destructor, 
+ * private so it can only be called by Release();
+ */
 CLoggerToConsole::~CLoggerToConsole()
 {
 }
-//-------------------------------------
-// This function must not be implemented in the header or the
-// linker will build the code to call the application delete()
-// function instead of the library delete() function.
+/************************************/
+/*! This function must NOT be implemented in the header or the 
+ * linker will build the code to call the application delete() 
+ * function instead of the library delete() function.
+ */
 void CLoggerToConsole::Release()
 {
     delete this;  // called from the right "delete context"
 }
-//-------------------------------------
+/************************************/
 
-//-------------------------------------
-// Initializes the logger, should be called
-//    before using or assigning the logger
-// rv - returns false if it failed
+/************************************/
+/*! Initializes the logger, should be called 
+ *    before using or assigning the logger
+ * @return False if it failed
+ */
 bool CLoggerToConsole::Init()
 {
 	Console::Open();
 	return true;
 }
-//-------------------------------------
+/************************************/
 
-//-------------------------------------
-// Gets called whenever the logs receives a message
-//    and needs it to be actually logged
-// p1 in - log level, useally ERROR, WARNING or INFO
-// p2 in - log id, the place where to write to
-// p3 in - log message
+/************************************/
+/*! Gets called whenever the logs receives a message 
+ *    and needs it to be actually logged
+ * @param [in] lvl	- FLOG_LVL, useally ERROR, WARNING or INFO
+ * @param [in] id	- FLOG_ID, the place where to write to
+ * @param [in] msg	- Log message
+ */
 void CLoggerToConsole::Write(char lvl, char, const char* msg)
 {
 	time_t rawtime;
@@ -90,5 +90,5 @@ void CLoggerToConsole::Write(char lvl, char, const char* msg)
 	if( lvl == FLOG_LVL_ERROR && m_bWaitOnError )
 		Console::ReadKey();
 }
-//-------------------------------------
+/************************************/
 

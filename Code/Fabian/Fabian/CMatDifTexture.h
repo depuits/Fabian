@@ -8,44 +8,48 @@ class IShader;
 class IImage;
 // ------------------------
 
-//******************************************
-// Class CMatDifTexture:
-// simple diffusetexture material class
-//******************************************
+////////////////////////////////////////////
+//! Class CMatDifTexture: 
+//! simple diffusetexture material class
+////////////////////////////////////////////
 class CMatDifTexture : public IMaterial
 {
 public:
-	//-------------------------------------
-	// Constructor
-	// p1 in - pointer to the shader used in this material
-	//            Shaders can be shared across materials
-	// p2 in - pointer to the diffuse image
-    CMatDifTexture(IShader*, IImage*);
-	//-------------------------------------
-    // This function must not be implemented in the header or the
-    // linker will build the code to call the application delete()
-    // function instead of the library delete() function.
+	/************************************/
+	/*! Constructor
+	 * @param [in] pShader 	- Pointer to the IShader used in this material. 
+	 *            Shaders can be shared across materials
+	 * @param [in] pTex 	- Pointer to the diffuse image
+	 */
+    CMatDifTexture(IShader* pShader, IImage* pTex);
+	/************************************/
+    /*! @warning This function must NOT be implemented in the header or the
+     * linker will build the code to call the application delete()
+     * function instead of the library delete() function.
+	 */
     virtual void Release();
-	//-------------------------------------
+	/************************************/
 	
-	//-------------------------------------
-	// Apply the material before you draw the mesh
-	// p1 in - transform of the object to draw
-    virtual void Apply(CTransform&);
+	/************************************/
+	/*! Apply the material before you draw the mesh
+	 * @param [in] trans - Transform of the object to draw
+	 */
+    virtual void Apply(CTransform& trans);
 	//-------------------------------------
 
-	//-------------------------------------
-	// gives the used shader of this material
-	// rv - pointer to the shader used in this material
+	/************************************/
+	/*! Gives the used shader of this material
+	 * @return Pointer of the IShader used in this material
+	 */
     IShader *GetShader() { return m_pShader; }
-	//-------------------------------------
+	/************************************/
 
 
 protected:
-	//-------------------------------------
-	// Destructor
+	/************************************/
+	/*! Destructor */
     virtual ~CMatDifTexture();
-	//-------------------------------------
+	/************************************/
 
     IShader *m_pShader;
 

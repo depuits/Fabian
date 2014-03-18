@@ -53,7 +53,7 @@ int CKernel::Execute()
 	{
 		{
 			{
-				/// \todo PROFILE("Kernel task loop");
+				/// @todo PROFILE("Kernel task loop");
 
 				std::list<ServiceData>::iterator it( m_pServiceList.begin() );
 				for( ; it != m_pServiceList.end(); )

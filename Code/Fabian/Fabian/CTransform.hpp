@@ -12,15 +12,15 @@ FDISABLE_WARNING_END(4201)
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtx/transform.hpp"
 
-//******************************************
-// Class CTransform:
-// class used to move, rotate and scale objects
-//******************************************
+////////////////////////////////////////////
+//! Class CTransform: 
+//! class used to move, rotate and scale objects
+////////////////////////////////////////////
 class CTransform
 {
 public:
-	//-------------------------------------
-	// Constructor
+	/************************************/
+	/*! Constructor */
 	CTransform()
 		:m_bIsChanged(true)
 
@@ -29,116 +29,131 @@ public:
 		,m_qRot()
 	{
 	}
-	//-------------------------------------
-	// Destructor
+	/************************************/
+	/*! Destructor */
 	virtual ~CTransform()
 	{
 	}
-	//-------------------------------------
+	/************************************/
 
-	//-------------------------------------
-	// Move a certain distance from the current position
-	// p1 in - vec3, distance
+	/************************************/
+	/*! Move a certain distance from the current position
+	 * @param [in] v3Dist - Distance
+	 */
 	void Move(const glm::vec3& v3Dist)
 	{
 		m_bIsChanged = true;
 		m_v3Pos += v3Dist;
 	}
-	//-------------------------------------
-	// Rotates the object allong its axis
-	// p1 in - vec3, rotation
+	/************************************/
+	/*! Rotates the object allong its axis
+	 * @param [in] v3Rot - Rotation
+	 */
 	void Rotate(const glm::vec3& v3Rot)
 	{
 		m_bIsChanged = true;
 		m_qRot = glm::quat(v3Rot) * m_qRot;
 	}
-	//-------------------------------------
+	/************************************/
 
-	//-------------------------------------
-	// Move a certain distance from the current position
-	//    relative to its local axis, (so x == forward)
-	// p1 in - vec3, distance
+	/************************************/
+	/*! Move a certain distance from the current position
+	 *    relative to its local axis, (so x == forward)
+	 * @param [in] v3Dist - Distance
+	 */
 	void LocalMove(const glm::vec3& v3Dist)
 	{
 		m_bIsChanged = true;
 		glm::vec4 vec(v3Dist, 1.0f);
 		m_v3Pos += glm::vec3(glm::toMat4(m_qRot) * vec);
 	}
-	//-------------------------------------
-	// Rotates the object allong its local axis
-	// !!! - not sure if working correct because of axis order
-	// p1 in - vec3, rotation
+	/************************************/
+	/*! Rotates the object allong its local axis
+	 * @todo Check: not sure if working correct because of axis order
+	 * @param [in] v3Rot - Rotation
+	 */
 	void LocalRotate(const glm::vec3& v3Rot)
 	{
 		m_bIsChanged = true;
 		m_qRot = m_qRot * glm::quat(v3Rot);
 	}
-	//-------------------------------------
+	/************************************/
 
-	//-------------------------------------
-	// Sets the position
-	// p1 in - vec3, new position
+	/************************************/
+	/*! Sets the position
+	 * @param [in] v3Pos - New position
+	 */
 	void SetPos(const glm::vec3& v3Pos)
 	{
 		m_bIsChanged = true;
 		m_v3Pos = v3Pos;
 	}
-	//-------------------------------------
-	// Sets the scale
-	// p1 in - float, scale
-	//       - vec3, scale per axis
+	/************************************/
+	/*! Sets the scale
+	 * @param [in] fScale - Scale
+	 */
 	void SetScale(float fScale)
 	{
 		m_bIsChanged = true;
 		m_v3Scale = glm::vec3(fScale);
 	}
+	/*! Sets the scale
+	 * @param [in] v3Scale - Scale per axis
+	 */
 	void SetScale(const glm::vec3& v3Scale)
 	{
 		m_bIsChanged = true;
 		m_v3Scale = v3Scale;
 	}
-	//-------------------------------------
-	// Sets the rotation
-	// p1 in - vec3, rotation
-	//       - quat, rotation
+	/************************************/
+	/*! Sets the rotation
+	 * @param [in] v3Rot - Rotation
+	 */
 	void SetRot(const glm::vec3& v3Rot)
 	{
 		m_bIsChanged = true;
 		m_qRot = glm::quat(v3Rot);
 	}
+	/*! Sets the rotation
+	 * @param [in] qRot - Rotation
+	 */
 	void SetRot(const glm::quat& qRot)
 	{
 		m_bIsChanged = true;
 		m_qRot = qRot;
 	}
-	//-------------------------------------
+	/************************************/
 
-	//-------------------------------------
-	// Gets the position
-	// rv - vec3, position
+	/************************************/
+	/*! Gets the position
+	 * @return Position
+	 */
 	const glm::vec3& GetPos() const
 	{
 		return m_v3Pos;
 	}
-	//-------------------------------------
-	// Gets the scale
-	// rv - vec3, scale per axis
+	/************************************/
+	/*! Gets the scale
+	 * @return Scale per axis
+	 */
 	const glm::vec3& GetScale() const
 	{
 		return m_v3Scale;
 	}
-	//-------------------------------------
-	// Gets the rotation
-	// rv - quat, rotation
+	/************************************/
+	/*! Gets the rotation
+	 * @return Rotation
+	 */
 	const glm::quat& GetRot() const
 	{
 		return m_qRot;
 	}
-	//-------------------------------------
+	/************************************/
 
-	//-------------------------------------
-	// Gets the world matrix
-	// rv - mat4, world matrix
+	/************************************/
+	/*! Gets the world matrix
+	 * @return World matrix
+	 */
 	const glm::mat4& GetWorld()
 	{
 		if( m_bIsChanged )
@@ -149,16 +164,17 @@ public:
 
 		return m_mWorld;
 	}
-	//-------------------------------------
+	/************************************/
 
-	//-------------------------------------
-	// Check weither any variables got changed
-	// rv - bool, return true if something changed
+	/************************************/
+	/*! Check weither any variables got changed
+	 * @return True if something changed
+	 */
 	bool IsChanged() const { return m_bIsChanged; }
-	//-------------------------------------
-	// Resets the changed param to false
+	/************************************/
+	/*! Resets the changed param to false */
 	void ResetIsChanged() { m_bIsChanged = false; }
-	//-------------------------------------
+	/************************************/
 
 protected:
 	CTransform *m_pParent;

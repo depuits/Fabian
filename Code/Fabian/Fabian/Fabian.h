@@ -41,73 +41,87 @@ extern "C"
 	 */
 	DECLDIR bool Fab_LogAssignLogger(ILogger* pLogger);
 	/************************************/
-	/// Write an message to the log
-	/// p1 in - Log Level
-	/// p2 in - Log id
-	/// p3 in - Log message, registered id or string message
-	/// ... - Extra parameters, see sprintf in
-	DECLDIR void Fab_LogWrite(char, char, const char*, ...);
+	/*! Write an message to the log
+	 * @param [in] lvl 	- FLOG_LVL, useally ERROR, WARNING or INFO
+	 * @param [in] id	- FLOG_ID, the place where to write to
+	 * @param [in] msg	- Log message
+	 * @param [in] ... - Extra parameters, see sprintf
+	 */
+	DECLDIR void Fab_LogWrite(char lvl, char id, const char* msg, ...);
 	/************************************/
 	
 	class IKernel;
 	class IService;
 	/************************************/
-	/// Get the kernel from this dll
-	/// rv - returns pointer to the kernel
+	/*! Get the kernel from this dll
+	 * @return Pointer to the IKernel
+	 */
 	DECLDIR IKernel* Fab_GetKernel();
 	/************************************/
-	/// Start running the engine,
-	///    should be called after the base services are added
-	/// rv - returns 0
+	/*! Start running the engine, 
+	 *    should be called after the base services are added
+	 * @return 0
+	 */
 	DECLDIR int Fab_KernelExecute();
 	/************************************/
-	/// Adds a service to the kernel and takes ownership of it
-	/// p1 in - a pointer to the service to add (can't be 0)(takes over ownership)
-	/// rv - returns pointer to the service on succes and a nullptr when it fails
-	DECLDIR IService* Fab_KernelAddService(const char*, const char*, int);
+	/*! Adds a service to the kernel and takes ownership of it
+	 * @param [in] sLib		- Lib file from which to load the service
+	 * @param [in] sService - Name of the service to load (one lib can contain multiple services)
+	 * @param [in] iPrior 	- The priority of this service
+	 * @return Pointer to the IService on succes and a nullptr when it fails
+	 */
+	DECLDIR IService* Fab_KernelAddService(const char* sLib, const char* sService, int iPrior);
 	/************************************/
-	/// Marks a service to be removed, the service
-	///    will be deleted next loop
-	/// p1 in - a pointer to the service to remove
-	DECLDIR void Fab_KernelRemoveService(IService*);
+	/*! Marks a service to be removed, the service
+	 *    will be deleted next loop
+	 * @param [in] s - A pointer to the service to remove
+	 */
+	DECLDIR void Fab_KernelRemoveService(IService* s);
 	/************************************/
-	/// Mark all services to be removed and end the
-	///    application by doing so
+	/*! Mark all services to be removed
+	 * @remark This will also end the application
+	 */
 	DECLDIR void Fab_KernelKillAllServices();
 	/************************************/
-	/// Send a message to the services
-	///    (including the service who sends it)
-	/// p1 in - pointer to SMsg object
-	DECLDIR void Fab_KernelSendMessage(SMsg*);
+	/*! Send a message to the services
+	 *    (including the service who sends it)
+	 * @param [in] msg - Pointer to SMsg object
+	 */
+	DECLDIR void Fab_KernelSendMessage(SMsg* msg);
 	/************************************/
 
 	class IGlobalAccessor;
 	/************************************/
-	/// Get the GlobalAccessor from this dll
-	/// rv - returns pointer to the GlobalAccessor
+	/*! Get the IGlobalAccessor from this dll
+	 * @return Pointer to the IGlobalAccessor
+	 */
 	DECLDIR IGlobalAccessor* Fab_GetGlobalAccessor();
 	/************************************/
-	/// Get a stored object from the accessor
-	/// p1 in - name of the object
-	/// rv - if found a pointer to the object else nullptr
-	DECLDIR void *Fab_GlobalAccessorGetObject(const char*);
+	/*! Get a stored object from the accessor
+	 * @param [in] key - Name/key of the object
+	 * @return If found a pointer to the object else nullptr
+	 */
+	DECLDIR void *Fab_GlobalAccessorGetObject(const char* key);
 	/************************************/
-	/// Add or update an object stored in the accessor
-	/// p1 in - name for the objct to update or store
-	/// p2 in - a pointer to the object to store
-	DECLDIR void Fab_GlobalAccessorAddObject(const char*, void*);
+	/*! Add or update an object stored in the accessor
+	 * @param [in] key - Name/key for the objct to update or store
+	 * @param [in] pObject - Pointer to the object to store
+	 */
+	DECLDIR void Fab_GlobalAccessorAddObject(const char* key, void* pObject);
 	/************************************/
 
 	class IContentManager;
 	/************************************/
-	/// create a new content manager to load and manage content
-	/// p1 in - renderer used for creating the content
-	/// rv - pointer to the contentmanager
-	DECLDIR IContentManager *Fab_ContentCreateManager(IRenderer*);
+	/*! Create a new content manager to load and manage content
+	 * @param [in] pRend - IRenderer used for creating the content
+	 * @return Pointer to the IContentmanager
+	 */
+	DECLDIR IContentManager *Fab_ContentCreateManager(IRenderer* pRend);
 	/************************************/
-	/// releases a contentManager
-	/// p1 in - ContentManager to release
-	DECLDIR void Fab_ContentReleaseManager(IContentManager*);
+	/*! Releases a contentManager
+	 * @param[in] pCM - IContentManager to release
+	 */
+	DECLDIR void Fab_ContentReleaseManager(IContentManager* pCM);
 	/************************************/
 
 
@@ -115,12 +129,13 @@ extern "C"
 	class IShader;
 	class IImage;
 	/************************************/
-	/// creates an material using the given shader and image
-	///    filling in the image for the draw in the shader
-	/// p1 in - pointer to the shader
-	/// p2 in - pointer to the image
-	/// rv - returns pointer to the IMaterial
-	DECLDIR IMaterial *Fab_MatCreateDifTexture(IShader*, IImage*);
+	/*! Creates an material ussing the given shader and image 
+	 *    filling in the image for the draw in the shader
+	 * @param [in] pShad	- pointer to a IShader
+	 * @param [in] pImg		- pointer to a IImage
+	 * @return Pointer to the IMaterial
+	 */
+	DECLDIR IMaterial *Fab_MatCreateDifTexture(IShader* pShad, IImage* pImg);
 	/************************************/
 }
 

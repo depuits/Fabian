@@ -40,13 +40,13 @@ public:
 	 * @param [in] iPrior 	- The priority of this service
 	 * @return Pointer to the service on success and a nullptr when it fails
 	 */
-	virtual IService* AddService(const char*, const char*, int) = 0;
+	virtual IService* AddService(const char* sLib, const char* sService, int iPrior) = 0;
 	/************************************/
 	/*! Marks a service to be removed, the service
 	 *    will be deleted next loop
 	 * @param [in] s - A pointer to the service to remove
 	 */
-	virtual void RemoveService(IService*) = 0;
+	virtual void RemoveService(IService* s) = 0;
 	/************************************/
 
 	/************************************/
@@ -61,7 +61,7 @@ public:
 	 *    (including the service who sends it)
 	 * @param [in] msg - Pointer to SMsg object
 	 */
-	virtual void SendMessage(SMsg*) = 0;
+	virtual void SendMessage(SMsg* msg) = 0;
 	/************************************/
 
 private:

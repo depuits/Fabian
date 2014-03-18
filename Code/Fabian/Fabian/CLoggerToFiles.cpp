@@ -6,43 +6,41 @@
 
 #include <SDL.h>
 
-//******************************************
-// Class CLoggerToFiles:
-// ILogger class which writes out the log to 
-// files, one file per log id. It uses only the
-// default log id's. The user log id get shown a
-// messagebox. 
-//******************************************
-
-//-------------------------------------
-// Constructor
+/************************************/
+/*! Constructor
+ * @param [in] bAppend - Append to the already existing file
+ */
 CLoggerToFiles::CLoggerToFiles(bool bAppend) 
 	:ILogger()
 	,m_bAppend(bAppend)
 {
 }
-//-------------------------------------
-// Destructor
+/************************************/
+/*! Destructor, 
+ * private so it can only be called by Release();
+ */
 CLoggerToFiles::~CLoggerToFiles()
 {
 	m_osAppLog.close();
 	m_osClientLog.close();
 	m_osServerLog.close();
 }
-//------------------------------------
-// This function must not be implemented in the header or the
-// linker will build the code to call the application delete()
-// function instead of the library delete() function.
+/************************************/
+/*! This function must NOT be implemented in the header or the 
+ * linker will build the code to call the application delete() 
+ * function instead of the library delete() function.
+ */
 void CLoggerToFiles::Release()
 {
     delete this;  // called from the right "delete context"
 }
-//-------------------------------------
-	
-//-------------------------------------
-// Initializes the logger, should be called
-//    before using or assigning the logger
-// rv - returns false if it failed-
+/************************************/
+
+/************************************/
+/*! Initializes the logger, should be called 
+ *    before using or assigning the logger
+ * @return False if it failed
+ */
 bool CLoggerToFiles::Init()
 {
 	std::ios_base::openmode mode = std::ofstream::out;
@@ -55,14 +53,15 @@ bool CLoggerToFiles::Init()
 
 	return (m_osAppLog.good() && m_osClientLog.good() && m_osServerLog.good() );
 }
-//-------------------------------------
+/************************************/
 
-//-------------------------------------
-// Gets called whenever the logs receives a message
-//    and needs it to be actually logged
-// p1 in - log level, useally ERROR, WARNING or INFO
-// p2 in - log id, the place where to write to
-// p3 in - log message
+/************************************/
+/*! Gets called whenever the logs receives a message 
+ *    and needs it to be actually logged
+ * @param [in] lvl	- FLOG_LVL, useally ERROR, WARNING or INFO
+ * @param [in] id	- FLOG_ID, the place where to write to
+ * @param [in] msg	- Log message
+ */
 void CLoggerToFiles::Write(char lvl, char id, const char* msg)
 {
 	time_t rawtime;
@@ -121,5 +120,5 @@ void CLoggerToFiles::Write(char lvl, char id, const char* msg)
 		SDL_ShowSimpleMessageBox(flag, sLvl.c_str(), msg, NULL);
 	}
 }
-//-------------------------------------
+/************************************/
 
