@@ -32,14 +32,14 @@ public:
 	/************************************/
 	/*! Assign a ILogger used to do the actual logging
 	 * @param [in] pLogger - Pointer to ILogger object (takes over ownership)
-	 * @return True when succesfully assigned
+	 * @return True when successfully assigned
 	 */
 	bool AssignLogger(ILogger* pLogger);
 	/************************************/
 
 	/************************************/
 	/*! Registers a message to be re-used for logging
-	 * @param [in] sMsg - actuall message
+	 * @param [in] sMsg - actual message
 	 * @return Id of the message
 	 */
 	int RegisterMsg(const std::string& sMsg);
@@ -48,10 +48,11 @@ public:
 	/************************************/
 	/// @{
 	/*! Write an message to the log
-	 * @param [in] lvl	- @ref FLOG_LVL, useally ERROR, WARNING or INFO
+	 * @param [in] lvl	- @ref FLOG_LVL, usually ERROR, WARNING or INFO
 	 * @param [in] id	- @ref FLOG_ID, the place where to write to
 	 * @param [in] msg	- Log message, registered id or string message
 	 * @param [in] ...	- Extra parameters, see sprintf
+	 * @remark Logging can slow down your application a lot. Don't use it inside big loops. This mostly depends on the assigned ILogger
 	 */
 	void Write(char, char, unsigned msgId, ...);
 	void Write(char, char, const char*, ...);

@@ -9,7 +9,7 @@
 //! ILogger class which writes out the log to 
 //! files, one file per log id. It uses only the 
 //! default log id's. The user log id get shown a 
-//! messagebox. 
+//! message box. 
 ////////////////////////////////////////////
 class CLoggerToFiles : public ILogger
 {
@@ -38,7 +38,7 @@ public:
 	/************************************/
 	/*! Gets called whenever the logs receives a message 
 	 *    and needs it to be actually logged
-	 * @param [in] lvl	- @ref FLOG_LVL, useally ERROR, WARNING or INFO
+	 * @param [in] lvl	- @ref FLOG_LVL, usually ERROR, WARNING or INFO
 	 * @param [in] id	- @ref FLOG_ID, the place where to write to
 	 * @param [in] msg	- Log message
 	 */

@@ -141,7 +141,7 @@ IService* CKernel::AddService(const char* sLib, const char* sService, int iPrior
 	if(!pServ->Start())
 	{
 		CLog::Get().Write(FLOG_LVL_ERROR, FLOG_ID_APP, "Kernel: Starting Service failed" );
-		// free service ussing dll
+		// free service using dll
 		funcFree(pServ);
 		return nullptr;
 	}
