@@ -43,7 +43,7 @@ public:
 	 */
 	virtual bool Start() = 0;
 	/************************************/
-	/*! Method called when the component gets removed */
+	/*! Method called when the IComponent gets removed */
 	virtual void End() = 0;
 	/************************************/
 	/*! Updates the object according to dTime
@@ -64,16 +64,18 @@ public:
 	/************************************/
 
 	/************************************/
-	/*! Enables the component in the gameobject */
+	/*! Enables the IComponent in the gameobject */
 	virtual void Enable() = 0;
 	/************************************/
-	/*! disables the component in the gameobject */
+	/*! disables the IComponent in the gameobject */
 	virtual void Disable() = 0;
 	/************************************/
 
 protected:
 	/************************************/
-	/*! Change the component parent CGameObject */
+	/*! Change the component parent CGameObject 
+	 * @param [in] pPar - Pointer to CGameObject parent
+	 */
 	virtual void SetParent(CGameObject*) = 0;
 	/************************************/
 

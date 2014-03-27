@@ -31,7 +31,9 @@ CGlobalAccessor::~CGlobalAccessor()
 void *CGlobalAccessor::GetObject(const char* key)
 {
 	std::string sKey(key);
-	FASSERT( m_mpObjects.find(sKey) != m_mpObjects.end() );
+	if( m_mpObjects.find(sKey) == m_mpObjects.end() )
+		return nullptr;
+
 	return m_mpObjects[sKey];
 }
 /************************************/

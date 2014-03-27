@@ -2,7 +2,7 @@
 // Used only for compiling header only files
 ////////////////////////////////////////////
  
-#define COMPILE_HEADER_ONLY
+//#define COMPILE_HEADER_ONLY
 
 #ifdef COMPILE_HEADER_ONLY // only compile headers when specified
 

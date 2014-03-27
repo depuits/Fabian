@@ -6,15 +6,16 @@
 
 class IInput;
 
-//******************************************
-// Class CCompPlayer:
-// test component class
-//******************************************
+////////////////////////////////////////////
+//! Class CCompPlayer: 
+//! test component class used for moving with an object
+//! @remark Getting the input from global accessor key "Input"
+////////////////////////////////////////////
 class CCompControl : public CCompBase
 {
 public:
-	//-------------------------------------
-	// Constructor
+	/************************************/
+	/*! Constructor */
 	CCompControl()
 		:CCompBase()
 		,m_fMouseSens(0.05f)
@@ -22,24 +23,30 @@ public:
 		,m_pInput(nullptr)
 	{
 	}
-	//-------------------------------------
-	// Destructor
+	/************************************/
+	/*! Destructor */
 	virtual ~CCompControl()
 	{
 	}
-	//-------------------------------------
-	
-	//-------------------------------------
-	// Initializes the component
-	// rv - bool, return false if something failed
+	/************************************/
+
+	/************************************/
+	/*! Initializes the object, should be called before any other
+	 *    method of the object.
+	 * @return False if something failed
+	 */
 	virtual bool Start()
 	{
 		m_pInput = static_cast<IInput*>(Fab_GlobalAccessorGetObject("Input"));
+		if( m_pInput == nullptr )
+			return false;
+
 		return true;
 	}
-	//-------------------------------------
-	// Updates the object according to dTime
-	// p1 in - float, dTime since last update call
+	/************************************/
+	/*! Updates the object according to dTime
+	 * @param [in] fDt - Time past since last update call
+	 */
 	virtual void Update(float fDt)
 	{
 		if ( (m_pInput->GetKeyState(FKEY_MRBUTTON) & DOWN) == DOWN )
@@ -66,7 +73,7 @@ public:
 		else if ( m_pInput->GetKeyState(FKEY_RIGHT) & DOWN )
 			m_pGameObject->Transform()->LocalMove( glm::vec3(0, 0, -m_fCamSpeed * fDt) );
 	}
-	//-------------------------------------
+	/************************************/
 	
 protected:
 	float	m_fMouseSens,

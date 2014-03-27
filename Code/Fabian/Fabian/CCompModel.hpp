@@ -9,49 +9,49 @@
 #include "IMaterial.h"
 
 
-//******************************************
-// Class CCompModel:
-// Wrapper class to draw a meshes with a transform
-//******************************************
+////////////////////////////////////////////
+//! Class CCompModel: 
+//! Wrapper class to draw a meshes with a transform
+////////////////////////////////////////////
 class CCompModel : public CCompBase
 {
 public:
-	//-------------------------------------
-	// Constructor
-	// p1 in - pointer to Mesh object to draw
-	// p2 in* - pointer to parent object, this causes
-	//            the object to be linked to the parent
-	CCompModel(IMesh *pMesh, IMaterial *m_pMat)
+	/************************************/
+	/*! Constructor
+	 * @param [in] pMesh - Pointer to IMesh object to draw
+	 * @param [in] pMat	 - pointer to IMaterial to draw the IMesh with
+	 */
+	CCompModel(IMesh *pMesh, IMaterial *pMat)
 		:CCompBase()
 		,m_pMesh(pMesh)
-		,m_pMaterial(m_pMat)
+		,m_pMaterial(pMat)
 	{
 		FASSERT(m_pMesh != nullptr && m_pMaterial != nullptr);
 	}
-	//-------------------------------------
-	// Destructor
+	/************************************/
+	/*! Destructor */
 	virtual ~CCompModel()
 	{
 	}
-	//-------------------------------------
+	/************************************/
 
-	//-------------------------------------
-	// Initializes the object, should be called before any other
-	//    method of the object.
-	// rv - bool, false if something failed
+	/************************************/
+	/*! Initializes the object, should be called before any other
+	 *    method of the object.
+	 * @return False if something failed
+	 */
 	virtual bool Start()
 	{
 		return true;
 	}
-	//-------------------------------------
-	// Draws the object on the screen ussing the given shader
-	// p1 in - pointer to the shader the object should draw with
+	/************************************/
+	/*! Draws the object on the screen */
 	virtual void Draw()
 	{
 		m_pMaterial->Apply(*m_pGameObject->Transform());
 		m_pMesh->Draw();
 	}
-	//-------------------------------------
+	/************************************/
 
 protected:
 	IMesh* m_pMesh;

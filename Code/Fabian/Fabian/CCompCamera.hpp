@@ -7,18 +7,16 @@
 #include "ICamera.h"
 #include "IShader.h"
 
-//******************************************
-// Class CCompCamera:
-// A basic camera for drawing scenes, including
-// the most simple settings.
-//******************************************
+////////////////////////////////////////////
+//! Class CCompCamera: 
+//! A basic camera for drawing scenes, including 
+//! the most simple settings.
+////////////////////////////////////////////
 class CCompCamera : public CCompBase, public ICamera
 {
 public:
-	//-------------------------------------
-	// Constructor
-	// p1 in* - pointer to parent object, this causes
-	//            the object to be linked to the parent
+	/************************************/
+	/*! Constructor */
 	CCompCamera()
 		:CCompBase()
 		,ICamera()
@@ -30,29 +28,31 @@ public:
 		,m_bProjectionChanged(true)
 	{
 	}
-	//-------------------------------------
-	// Destructor
+	/************************************/
+	/*! Destructor */
 	virtual ~CCompCamera()
 	{
 	}
-	//-------------------------------------
-
-	//-------------------------------------
-	// Initializes the object, should be called before any other
-	//    method of the object.
-	// rv - bool, false if something failed
+	/************************************/
+	
+	/************************************/
+	/*! Initializes the object, should be called before any other
+	 *    method of the object.
+	 * @return False if something failed
+	 */
 	virtual bool Start()
 	{
 		return true;
 	}
-	//-------------------------------------
-
-	//-------------------------------------
-	// Sets/Creates the projection matrix of the camera
-	// p1 in - float, FOV (Filed Of View)
-	// p2 in - float, AspectRatio (4/3, 16/9, 16/10)
-	// p3 in - float, Near plane
-	// p4 in - float, Far plane
+	/************************************/
+		
+	/************************************/
+	/*! Sets/Creates the projection matrix of the camera
+	 * @param [in] fFOV			- FOV (Field Of View)
+	 * @param [in] fAspectRatio - AspectRatio (4/3, 16/9, 16/10)
+	 * @param [in] fNear		- Near plane
+	 * @param [in] fFar			- Far plane
+	 */
 	void SetProjectionParams(float fFOV, float fAspectRatio, float fNear, float fFar)
 	{
 		m_fFOV = fFOV;
@@ -62,8 +62,13 @@ public:
 
 		m_bProjectionChanged = true;
 	}
-	//-------------------------------------
-
+	/************************************/
+	
+	/************************************/
+	/// @{
+	/*! Get the view or projection matrix of this camera
+	 * @return Matrix
+	 */
 	virtual glm::mat4& GetProjection()
 	{
 		if( m_bProjectionChanged ) // recalcutlate the projection when changed
@@ -86,6 +91,8 @@ public:
 
 		return m_mView;
 	}
+	/// @}
+	/************************************/
 
 protected:
 	float	m_fFOV,
