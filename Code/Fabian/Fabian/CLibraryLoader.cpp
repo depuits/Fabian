@@ -6,30 +6,24 @@
 #include <dlfcn.h>
 #endif
 
-//******************************************
-// Class CLibraryLoader:
-// object for loading and unloading dynamic librarys
-// when this object get destroyed then all loaded
-// librarys get unloaded
-//******************************************
-
-//-------------------------------------
-// Constructor
+/************************************/
+/*! Constructor */
 CLibraryLoader::CLibraryLoader()
 {
 }
-//-------------------------------------
-// Destructor
+/************************************/
+/*! Destructor */
 CLibraryLoader::~CLibraryLoader()
 {
 	UnLoadAll();
 }
-//-------------------------------------
-
-//-------------------------------------
-// loads library into memory returning an acces id
-// p1 in - name and path of the library to load
-// rv - int, returns the id for the library (-1 on fail)
+/************************************/
+	
+/************************************/
+/*! Loads library into memory returning an acces id
+ * @param [in] sFile - Name and path of the library to load
+ * @return The id for the library (-1 on fail)
+ */
 int CLibraryLoader::LoadLib(const char* sFile)
 {
 	void *pLib =
@@ -64,11 +58,11 @@ int CLibraryLoader::LoadLib(const char* sFile)
 	m_vLibs.push_back(pLib);
 	return m_vLibs.size() - 1;
 }
-//-------------------------------------
-// unloads a specific library from memory
-// p1 in - id of the library to unload
-// rv - bool, returns false if there was no lib
-//         linked to the id
+/************************************/
+/*! Unloads a specific library from memory
+ * @param [in] id - Id of the library to unload
+ * @return False if there was no lib linked to the id
+ */
 bool CLibraryLoader::UnLoadLib(int id)
 {
 	if( id < 0 || id >= (int)m_vLibs.size() )
@@ -89,20 +83,21 @@ bool CLibraryLoader::UnLoadLib(int id)
 
 	return true;
 }
-//-------------------------------------
-// unloads all librarys from memory
+/************************************/
+/*! Unloads all libraries from memory */
 void CLibraryLoader::UnLoadAll()
 {
 	//unload all the libs when the objects get deleted
 	for (unsigned i(0); i < m_vLibs.size(); ++i)
 		UnLoadLib(i);
 }
-//-------------------------------------
-
-//-------------------------------------
-// gets the pointer to a function from a specific library
-// p1 in - id of the library to load from
-// p2 in - name of the function
+/************************************/
+	
+/************************************/
+/*! Gets the pointer to a function from a specific library
+ * @param [in] id - Id of the library to load from
+ * @param [in] sFunc - Name of the function
+ */
 void *CLibraryLoader::GetFunction(int id, const char* sFunc) const
 {
 	if( id < 0 || id >= (int)m_vLibs.size() )
@@ -122,5 +117,5 @@ void *CLibraryLoader::GetFunction(int id, const char* sFunc) const
 
 	return ret;
 }
-//-------------------------------------
+/************************************/
 

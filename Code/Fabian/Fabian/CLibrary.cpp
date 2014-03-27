@@ -6,19 +6,14 @@
 #include <dlfcn.h>
 #endif
 
-//******************************************
-// Class CLibrary:
-// object for loading and unloading a dynamic library
-//******************************************
-
-//-------------------------------------
-// Constructor
+/************************************/
+/*! Constructor */
 CLibrary::CLibrary()
 	:m_pLib(nullptr)
 {
 }
-//-------------------------------------
-// Destructor
+/************************************/
+/*! Destructor */
 CLibrary::~CLibrary()
 {
 #if defined WIN32 /*windows*/
@@ -29,12 +24,13 @@ CLibrary::~CLibrary()
 #error PLATFORM NOT IMPLEMENTED
 #endif
 }
-//-------------------------------------
-
-//-------------------------------------
-// loads library into memory returning an acces id
-// p1 in - name and path of the library to load
-// rv - int, returns true if succeeds
+/************************************/
+	
+/************************************/
+/*! Loads a library into memory 
+ * @param [in] sFile - Name and path of the library to load
+ * @return True on success
+ */
 bool CLibrary::Load(const  char* sFile)
 {
 	if( m_pLib != nullptr )
@@ -53,12 +49,14 @@ bool CLibrary::Load(const  char* sFile)
 		return false;
 	return true;
 }
-//-------------------------------------
-
-//-------------------------------------
-// gets the pointer to a function from a specific library
-// p1 in - id of the library to load from
-// p2 in - name of the function
+/************************************/
+	
+/************************************/
+/*! Gets the pointer to a function in the library
+ * @param [in] sFunc - Name of the function
+ * @return Pointer to the function or 
+ *            nullptr if somethign failed
+ */
 void *CLibrary::GetFunction(const  char* sFunc)
 {
 	if( m_pLib == nullptr )
@@ -75,5 +73,5 @@ void *CLibrary::GetFunction(const  char* sFunc)
 
 	return ret;
 }
-//-------------------------------------
+/************************************/
 
