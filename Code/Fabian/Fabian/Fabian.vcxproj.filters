@@ -143,9 +143,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="IInput.cpp">
-      <Filter>Input</Filter>
-    </ClCompile>
     <ClCompile Include="CLibraryLoader.cpp">
       <Filter>LibraryLoader</Filter>
     </ClCompile>
@@ -176,5 +173,6 @@
     <ClCompile Include="CContentManager.cpp">
       <Filter>Content</Filter>
     </ClCompile>
+    <ClCompile Include="HCompiling.cpp" />
   </ItemGroup>
 </Project>

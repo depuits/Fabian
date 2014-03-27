@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\External\dirent\include;..\..\External\sdl2\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\External\dirent\include;..\..\External\sdl2\include;..\Fabian;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\External\sdl2\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -139,8 +139,8 @@
     <ClCompile Include="CMatDifTexture.cpp" />
     <ClCompile Include="Console\console.cpp" />
     <ClCompile Include="Fabian.cpp" />
-    <ClCompile Include="IInput.cpp" />
     <ClCompile Include="CLibraryLoader.cpp" />
+    <ClCompile Include="HCompiling.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

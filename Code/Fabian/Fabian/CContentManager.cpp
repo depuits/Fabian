@@ -8,35 +8,34 @@ FDISABLE_WARNING_START(4505)
 #include <dirent.h>
 //FDISABLE_WARNING_END(4505) // don't end it because of the way the warning is generated
 
-//******************************************
-// Class CContentManager:
-// the content manager is responsible for loading
-// and unloading objects like meshes and textures.
-//******************************************
 
-//-------------------------------------
-// Constructor
+/************************************/
+/*! Constructor 
+ * @param [in] pRend - IRenderer used for loading 
+ *                        the content into the graphics engine
+ */
 CContentManager::CContentManager(IRenderer* pRend)
 	:IContentManager()
 	,m_pRenderer(pRend)
 	,m_pLibraryLoader(nullptr)
 {
 }
-//-------------------------------------
-// Destructor
+/************************************/
+/*! Destructor */
 CContentManager::~CContentManager()
 {
 	if(m_pLibraryLoader != nullptr)
 		delete m_pLibraryLoader;
 }
-//-------------------------------------
-
-//-------------------------------------
-// Enables loading and buffering of objects from the storage
-//    to the memory.
-// p1 in - string, path of where to load the plugins from
-// rv - bool, returns false if nothing will be able to load
-//               (in case no plugins we're found).
+/************************************/
+	
+/************************************/
+/*! Enables loading and buffering of objects from the storage
+ *    to the memory.
+ * @param [in] path - Path of where to load the plugins from
+ * @return False if nothing will be able to load
+ *               (in case no plugins we're found).
+ */
 bool CContentManager::StartLoading(const char* path)
 {
 	if( m_pLibraryLoader != nullptr )
@@ -110,9 +109,10 @@ bool CContentManager::StartLoading(const char* path)
 	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Content: Done loading, plugins loaded: %d.", m_vpLoadData.size());
 	return true;
 }
-//-------------------------------------
-// Ends the loading of objects and unloads the plugins.
-//    You can still "load" objects wich are buffered or already loaded in memory
+/************************************/
+/*! Ends the loading of objects and unloads the plugins.
+ * @remark You can still "load" objects wich are buffered or already loaded in memory
+ */
 void CContentManager::EndLoading()
 {
 	if(m_pLibraryLoader == nullptr)
@@ -128,13 +128,15 @@ void CContentManager::EndLoading()
 	delete m_pLibraryLoader;
 	m_pLibraryLoader = nullptr;
 }
-//-------------------------------------
+/************************************/
 
-//-------------------------------------
-// Loads in a mesh or texture from a file and keeps it loaded
-// p1 in - string, name of the file to load
-// rv - bool, true if the loading succeeded
-// !!! - for loading shaders you shouldn't add the extension
+/************************************/
+/// @{
+/*! Loads in a mesh or texture from a file and keeps it loaded
+ * @param [in] sFile - Name of the file to load
+ * @return True if the loading succeeded
+ * @warning For loading shaders you shouldn't add the extension
+ */
 bool CContentManager::BufferShader(const char* sFile)
 {
 	if ( !IsShaderLoaded(sFile))
@@ -219,10 +221,14 @@ bool CContentManager::BufferImage(const char* sFile)
 	}
 	return false; // no plugin could load the data
 }
-//-------------------------------------
-// Loads in a mesh or texture from a file and returns it
-// p1 in - string, name of the file to load
-// rv - pointer IMesh or IImage object and nullptr if failed
+/// @}
+/************************************/
+/// @{
+/*! Loads in a mesh or texture from a file and returns it
+ * @param [in] sFile - Name of the file to load
+ * @return Pointer IMesh, IImage or IShader object and nullptr if failed
+ * @remark For loading shaders you shouldn't add the extension
+ */
 IShader *CContentManager::LoadShader(const char* sFile)
 {
 	if ( !IsShaderLoaded(sFile))
@@ -248,12 +254,15 @@ IImage *CContentManager::LoadImage(const char* sFile)
 
     return m_mImageMap[sFile];
 }
-//-------------------------------------
+/// @}
+/************************************/
 
-//-------------------------------------
-// Checks weither or not the mesh or image has already been loaded.
-// p1 in - string, name of the object file (without extension)
-// rv - bool, true if the object is already loaded
+/************************************/
+/// @{
+/*! Checks weither or not the mesh or image has already been loaded.
+ * @param [in] sKey - Name of the object file
+ * @return True if the object is already loaded
+ */
 bool CContentManager::IsShaderLoaded(const std::string& sKey) const
 {
 	return  m_mShaderMap.find(sKey) != m_mShaderMap.end();
@@ -266,6 +275,7 @@ bool CContentManager::IsImageLoaded(const std::string& sKey) const
 {
 	return  m_mImageMap.find(sKey) != m_mImageMap.end();
 }
-//-------------------------------------
+/// @}
+/************************************/
 
 

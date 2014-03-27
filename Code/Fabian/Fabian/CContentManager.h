@@ -16,62 +16,77 @@ typedef void* (*LOAD_DATA)(const char*);
 typedef void (*RELEASE_DATA)(void*);
 // ------------------------
 
-//******************************************
-// Class CContentManager:
-// the content manager is responsible for loading
-// and unloading objects like meshes and textures.
-// Unloading isn't implemented yet
+////////////////////////////////////////////
+//! Class CContentManager: 
+//! the content manager is responsible for loading 
+//! and unloading objects like meshes and textures. 
+//! @remark Manual unloading isn't implemented yet
 //******************************************
 class CContentManager : public IContentManager
 {
 public:
-	//-------------------------------------
-	// Constructor
-	CContentManager(IRenderer*);
-	//-------------------------------------
-	// Destructor
+	/************************************/
+	/*! Constructor 
+	 * @param [in] pRend - IRenderer used for loading 
+	 *                        the content into the graphics engine
+	 */
+	CContentManager(IRenderer* pRend);
+	/************************************/
+	/*! Destructor */
 	virtual ~CContentManager();
-	//-------------------------------------
+	/************************************/
 	
-	//-------------------------------------
-	// Enables loading and buffering of objects from the storage
-	//    to the memory.
-	// p1 in - string, path of where to load the plugins from
-	// rv - bool, returns false if nothing will be able to load
-	//               (in case no plugins we're found).
-	virtual bool StartLoading(const char*);
-	//-------------------------------------
-	// Ends the loading of objects and unloads the plugins.
-	//    You can still "load" objects wich are buffered or already loaded in memory
+	/************************************/
+	/*! Enables loading and buffering of objects from the storage
+	 *    to the memory.
+	 * @param [in] path - Path of where to load the plugins from
+	 * @return False if nothing will be able to load
+	 *               (in case no plugins we're found).
+	 */
+	virtual bool StartLoading(const char*  path);
+	/************************************/
+	/*! Ends the loading of objects and unloads the plugins.
+	 * @remark You can still "load" objects wich are buffered or already loaded in memory
+	 */
 	virtual void EndLoading();
-	//-------------------------------------
+	/************************************/
 
-	//-------------------------------------
-	// Loads in a mesh or texture from a file and keeps it loaded
-	// p1 in - string, name of the file to load
-	// rv - bool, true if the loading succeeded
-	// !!! - for loading shaders you shouldn't add the extension
-	virtual bool BufferShader(const char*);
-	virtual bool BufferMesh(const char*);
-	virtual bool BufferImage(const char*);
-	//-------------------------------------
-	// Loads in a mesh or texture from a file and returns it
-	// p1 in - string, name of the file to load
-	// rv - pointer IMesh or IImage object and nullptr if failed
-	// !!! - for loading shaders you shouldn't add the extension
-	virtual IShader *LoadShader(const char*);
-	virtual IMesh *LoadMesh(const char*);
-	virtual IImage *LoadImage(const char*);
-	//-------------------------------------
+	/************************************/
+	/// @{
+	/*! Loads in a mesh or texture from a file and keeps it loaded
+	 * @param [in] sFile - Name of the file to load
+	 * @return True if the loading succeeded
+	 * @warning For loading shaders you shouldn't add the extension
+	 */
+	virtual bool BufferShader(const char* sFile);
+	virtual bool BufferMesh(const char* sFile);
+	virtual bool BufferImage(const char* sFile);
+	/// @}
+	/************************************/
+	/// @{
+	/*! Loads in a mesh or texture from a file and returns it
+	 * @param [in] sFile - Name of the file to load
+	 * @return Pointer IMesh, IImage or IShader object and nullptr if failed
+	 * @remark For loading shaders you shouldn't add the extension
+	 */
+	virtual IShader *LoadShader(const char* sFile);
+	virtual IMesh *LoadMesh(const char* sFile);
+	virtual IImage *LoadImage(const char* sFile);
+	/// @}
+	/************************************/
 
-	//-------------------------------------
-	// Checks weither or not the mesh or image has already been loaded.
-	// p1 in - string, name of the object file
-	// rv - bool, true if the object is already loaded
-	bool IsShaderLoaded(const std::string&) const;
-	bool IsMeshLoaded(const std::string&) const;
-	bool IsImageLoaded(const std::string&) const;
-	//-------------------------------------
+protected:
+	/************************************/
+	/// @{
+	/*! Checks weither or not the mesh or image has already been loaded.
+	 * @param [in] sKey - Name of the object file
+	 * @return True if the object is already loaded
+	 */
+	bool IsShaderLoaded(const std::string& sKey) const;
+	bool IsMeshLoaded(const std::string& sKey) const;
+	bool IsImageLoaded(const std::string& sKey) const;
+	/// @}
+	/************************************/
 
 private:
 	IRenderer *m_pRenderer;

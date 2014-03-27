@@ -56,7 +56,7 @@ public:
 	/*! Loads in a mesh or texture from a file and returns it
 	 * @param [in] sFile - Name of the file to load
 	 * @return Pointer IMesh, IImage or IShader object and nullptr if failed
-	 * !!! - for loading shaders you shouldn't add the extension
+	 * @remark For loading shaders you shouldn't add the extension
 	 */
 	virtual IShader *LoadShader(const char* sFile) = 0;
 	virtual IMesh *LoadMesh(const char* sFile) = 0;
