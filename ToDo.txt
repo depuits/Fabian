@@ -1,50 +1,51 @@
-- ContentManager
-	° error logging in plugins
-	° version checking
+ï»¿- ContentManager
+	Â° error logging in plugins
+	Â° version checking
 
 - Input
-	° support for controllers
-	° InputMapper
+	Â° support for controllers
+	Â° InputMapper
 
 - Rendering
-	° DirectX implementation
-	° Expand for more control
+	Â° DirectX implementation
+	Â° Expand for more control
 
 - Timer
-	° SDL independant timer
+	Â° SDL independant timer
 
 - General
-	° split SDL into separate independant components
-	° make Fabian.h "C" compatible
+	Â° split SDL into separate independant components
+	Â° make Fabian.h "C" compatible
 		* maybe split into multiple header and recombine in Fabian.h
-	° create more generic usefull components/objects
-	° version checking in service dlls
+	Â° create more generic usefull components/objects
+	Â° version checking in service dlls
 
 - Logging
-	° Create hooked logger wich outputs to a controllable log
+	Â° Create hooked logger wich outputs to a controllable log
 		* Clear log
 		* show/hide error, info, warning, unknown
 		* possible more
 
 - Planned features
-	° Drawing text (BM font rendering)
-	° Drawing primitives (plane, cube, sphere, ...)
-	° Drawing shapes (point, line, rectangle, ...)
-	° Standerized in game console
+	Â° Drawing text (BM font rendering)
+	Â° Drawing primitives (plane, cube, sphere, ...)
+	Â° Drawing shapes (point, line, rectangle, ...)
+	Â° Standerized in game console
 
 		(register systems to the engine in a more intuitive way then the globalaccesor)
-		(system == service)
-	° UI system
-	° Animation system
-	° Particle system
-	° Audio system
-	° Physics system 
+		(system â‰ˆ service)
+	Â° UI system
+	Â° Animation system
+	Â° Particle system
+	Â° Audio system
+	Â° Physics system 
+	Â° AI system
 
-	° Editor (scenes and more)
+	Â° Editor (scenes and more)
 
 - Implemented features
-	° Cross platform
-	° Modular (remove, replace or add services)
-	° Load any file format using plug-ins
-	° Extend-able logging
-	° 
+	Â° Cross platform
+	Â° Modular (remove, replace or add services)
+	Â° Load any file format using plug-ins
+	Â° Extend-able logging
+	Â° 
