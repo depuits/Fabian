@@ -26,3 +26,25 @@
 		* show/hide error, info, warning, unknown
 		* possible more
 
+- Planned features
+	° Drawing text (BM font rendering)
+	° Drawing primitives (plane, cube, sphere, ...)
+	° Drawing shapes (point, line, rectangle, ...)
+	° Standerized in game console
+
+		(register systems to the engine in a more intuitive way then the globalaccesor)
+		(system == service)
+	° UI system
+	° Animation system
+	° Particle system
+	° Audio system
+	° Physics system 
+
+	° Editor (scenes and more)
+
+- Implemented features
+	° Cross platform
+	° Modular (remove, replace or add services)
+	° Load any file format using plug-ins
+	° Extend-able logging
+	° 
