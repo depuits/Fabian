@@ -85,12 +85,12 @@
 		<Unit filename="Fabian.cpp" />
 		<Unit filename="Fabian.h" />
 		<Unit filename="FabianDef.h" />
+		<Unit filename="HCompiling.cpp" />
 		<Unit filename="ICamera.h" />
 		<Unit filename="IComponent.h" />
 		<Unit filename="IContentManager.h" />
 		<Unit filename="IGlobalAccessor.h" />
 		<Unit filename="IImage.h" />
-		<Unit filename="IInput.cpp" />
 		<Unit filename="IInput.h" />
 		<Unit filename="IKernel.h" />
 		<Unit filename="ILogger.h" />

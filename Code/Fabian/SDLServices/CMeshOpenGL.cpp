@@ -2,7 +2,7 @@
 
 //******************************************
 // Class CMeshOpenGL:
-// this class is an OpenGL implementation of 
+// this class is an OpenGL implementation of
 // the IMesh interface
 //******************************************
 
@@ -27,7 +27,7 @@ CMeshOpenGL::~CMeshOpenGL()
 	glDeleteVertexArrays(1, &m_VertexArrayID);
 }
 //-------------------------------------
-	
+
 //-------------------------------------
 // Loads and initializes the mesh by loading any needed buffers, etc.
 // p1 in - pointer to the meshdata for the mesh
@@ -51,7 +51,7 @@ bool CMeshOpenGL::Load(MeshData* md)
 	// ------------------------------------ creater buffers end ---------------------------------------------------------------------
 
 	glBindVertexArray(m_VertexArrayID);		// bind the VAO
-	
+
 	// 1rst attribute buffer : vertices
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
@@ -83,10 +83,10 @@ bool CMeshOpenGL::Load(MeshData* md)
 	   stride,							// stride
 	   (void*)(6  * sizeof(GL_FLOAT))	// array buffer offset
 	);
-		
+
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
 	glBindVertexArray(0); // Disable our Vertex Array Object
-	
+
 	//unbind buffers
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -98,7 +98,7 @@ bool CMeshOpenGL::Load(MeshData* md)
 void CMeshOpenGL::Draw()
 {
 	glBindVertexArray(m_VertexArrayID); // Bind VAO
-	glDrawElements( GL_TRIANGLES, m_iIndicesCount, GL_UNSIGNED_INT, (void*)0 ); // Draw
+	glDrawElements( GL_LINES /*GL_TRIANGLES*/, m_iIndicesCount, GL_UNSIGNED_INT, (void*)0 ); // Draw
 	glBindVertexArray(0); // Unbind VAO
 }
 //-------------------------------------
