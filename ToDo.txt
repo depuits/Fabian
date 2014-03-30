@@ -27,8 +27,8 @@
 		* possible more
 
 - Planned features
-	° Drawing text (BM font rendering)
 	° Drawing primitives (plane, cube, sphere, ...)
+	° Drawing text (BM font rendering)
 	° Drawing shapes (point, line, rectangle, ...)
 	° Standerized in game console
 

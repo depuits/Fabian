@@ -407,9 +407,7 @@ void CServiceGame::Stop()
 		delete go;
 	g_vpGameObjects.clear();
 
-	delete static_cast<Grid*>( Fab_GlobalAccessorGetObject("Grid") );
-	Fab_ContentReleaseManager(m_pContent);
-
+    // first delete the materials
     g_pMatDefault->Release();
     g_pMatGround->Release();
     g_pMatWall->Release();
@@ -417,6 +415,10 @@ void CServiceGame::Stop()
     g_pMatWater->Release();
     g_pMatPlayer->Release();
     g_pMatBug01->Release();
+
+	delete static_cast<Grid*>( Fab_GlobalAccessorGetObject("Grid") );
+    // release the content as last when nothing is using it anymore
+	Fab_ContentReleaseManager(m_pContent);
 }
 //-------------------------------------
 

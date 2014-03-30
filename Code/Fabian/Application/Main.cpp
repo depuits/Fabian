@@ -5,11 +5,7 @@
 int main(int argc, char *argv[])
 {
 	// create a new app
-	CApplication *pApp = new CApplication();
+	CApplication app;
 	// run the app
-	int rv = pApp->Run(argc, argv);
-	// remove the app
-	delete pApp;
-
-	return rv;
+	return app.Run(argc, argv);
 }

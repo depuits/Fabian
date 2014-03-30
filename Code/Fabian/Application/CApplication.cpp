@@ -58,7 +58,6 @@ int CApplication::Run(int argc, char *argv[])
 	Fab_KernelAddService( "./SDLServices", "Input", 50 );
 	Fab_KernelAddService( "./SDLServices", "Video", 5000 );
 
-	CLibrary pLibGame;
 	if(argc > 1)
 		Fab_KernelAddService( argv[1], "Game", 500 );
 	else
