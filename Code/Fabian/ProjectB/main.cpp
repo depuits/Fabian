@@ -2,7 +2,7 @@
 #include <Fabian.h>
 #include <string>
 
-#include "CServicePB.h"
+#include "CPBService.h"
 
 #include <vector>
 #include <algorithm>
@@ -28,7 +28,7 @@ extern "C"
 		IService* pServ = nullptr;
 
 		if(name == "Project B")
-			pServ = new CServicePB();
+			pServ = new CPBService();
 
 		if( pServ != nullptr )
 			g_vpServices.push_back(pServ);

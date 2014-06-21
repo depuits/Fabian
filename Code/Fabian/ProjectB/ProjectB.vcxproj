@@ -73,11 +73,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CServicePB.cpp" />
+    <ClCompile Include="CPBService.cpp" />
+    <ClCompile Include="GameObjects\CPBCamera.cpp" />
+    <ClCompile Include="GameObjects\CPBGameObject.cpp" />
+    <ClCompile Include="GameObjects\CPBPlayer.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CServicePB.h" />
+    <ClInclude Include="CPBService.h" />
+    <ClInclude Include="GameObjects\CPBCamera.h" />
+    <ClInclude Include="GameObjects\CPBGameObject.h" />
+    <ClInclude Include="GameObjects\CPBPlayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

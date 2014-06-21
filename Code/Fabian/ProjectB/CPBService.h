@@ -1,18 +1,15 @@
-#ifndef FABIAN_CSERVICEGAME_H_
-#define FABIAN_CSERVICEGAME_H_
+#ifndef PROJECTB_CPBSERVICE_H_
+#define PROJECTB_CPBSERVICE_H_
 
 #include <CServiceBase.hpp>
-#include <string>
 
 // --forward declarations--
 class IInput;
 class IRenderer;
 class IContentManager;
 
-class Grid;
-class GridEntity;
-class IComponent;
-class CGameObject;
+class CPBPlayer;
+class CPBCamera;
 // ------------------------
 
 FDISABLE_WARNING_START(4201)
@@ -24,17 +21,17 @@ FDISABLE_WARNING_END(4201)
 // Class CServiceGame:
 // game specific service which defines the actual game
 //******************************************
-class CServicePB : public CServiceBase
+class CPBService : public CServiceBase
 {
 public:
 	//-------------------------------------
 	// Constructor
 	// p1 in* - int, the priorety of the service
 	//            ( the lower the higher the priorety )
-	CServicePB();
+	CPBService();
 	//-------------------------------------
 	// Destructor
-	virtual ~CServicePB();
+	virtual ~CPBService();
 	//-------------------------------------
 
 	//-------------------------------------
@@ -63,14 +60,16 @@ public:
 	//-------------------------------------
 
 protected:
-
 	IInput *m_pInput;
 	IRenderer *m_pRenderer;
 	IContentManager *m_pContent;
 	static float s_fDtime;
+	
+	CPBPlayer *m_pPlayer;
+	CPBCamera *m_pCamera;
 
 private:
-	DISALLOW_COPY_AND_ASSIGN(CServicePB);
+	DISALLOW_COPY_AND_ASSIGN(CPBService);
 };
 
-#endif //FABIAN_CSERVICEGAME_H_
+#endif //PROJECTB_CPBSERVICE_H_

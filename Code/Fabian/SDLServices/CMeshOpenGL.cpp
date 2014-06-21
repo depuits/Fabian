@@ -98,7 +98,8 @@ bool CMeshOpenGL::Load(MeshData* md)
 void CMeshOpenGL::Draw()
 {
 	glBindVertexArray(m_VertexArrayID); // Bind VAO
-	glDrawElements( GL_LINES /*GL_TRIANGLES*/, m_iIndicesCount, GL_UNSIGNED_INT, (void*)0 ); // Draw
+	glDrawElements( GL_TRIANGLES, m_iIndicesCount, GL_UNSIGNED_INT, (void*)0 ); // Draw
+	//glDrawElements( GL_LINES , m_iIndicesCount, GL_UNSIGNED_INT, (void*)0 ); // Draw
 	glBindVertexArray(0); // Unbind VAO
 }
 //-------------------------------------
