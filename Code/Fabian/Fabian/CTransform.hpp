@@ -177,8 +177,6 @@ public:
 	/************************************/
 
 protected:
-	CTransform *m_pParent;
-
 	bool m_bIsChanged;
 
 	glm::vec3 m_v3Pos;

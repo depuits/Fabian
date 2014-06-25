@@ -26,6 +26,7 @@ void CPBCamera::Init()					// used for (re)initializing the object
 }
 void CPBCamera::Update(float)			// called when the onject needs to update
 {
+	//! @todo Implement target "snapping"
 }
 	
 /************************************/
@@ -72,3 +73,8 @@ glm::mat4& CPBCamera::GetView()
 	return m_mView;
 }
 /************************************/
+
+void CPBCamera::SetTarget(CPBGameObject* pTarget)
+{
+	m_pTarget = pTarget;
+}

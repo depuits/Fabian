@@ -85,12 +85,20 @@ bool CPBService::Start()
 	m_pPlayer->LoadData(m_pContent);
 	m_pCamera->LoadData(m_pContent);
 	
-	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: finished loading content." );
 	m_pContent->EndLoading();
 
+	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: finished loading content." );
 	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: initializing game objects." );
+
 	m_pPlayer->Init();
 	m_pCamera->Init();
+	
+	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: setting up objects." );
+
+	m_pPlayer->GetTransform()->SetPos( glm::vec3(0, 0, 0) );
+
+	m_pCamera->GetTransform()->SetRot( glm::vec3(glm::half_pi<float>(), 0, glm::half_pi<float>()) );
+	m_pCamera->GetTransform()->SetPos( glm::vec3(0, 150, 0) );
 
 	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Started" );
 	return true;
@@ -100,7 +108,6 @@ bool CPBService::Start()
 // Called every time the service has to update
 void CPBService::Update()
 {
-	m_pCamera->GetTransform()->SetPos( glm::vec3(100, 0, 0) );
 
 	m_pPlayer->Update(s_fDtime);
 	m_pCamera->Update(s_fDtime);

@@ -1,11 +1,14 @@
 #include "CPBPlayer.h"
 
+#include <Fabian.h>
+
 #include <IContentManager.h>
 #include <IShader.h>
 #include <IMaterial.h>
 #include <IMesh.h>
 
-#include <Fabian.h>
+#include <IInput.h>
+
 
 //-------------------------------------
 // Constructor
@@ -41,8 +44,33 @@ void CPBPlayer::LoadData(IContentManager* pContent)	// used to load all the need
 void CPBPlayer::Init()						// used for (re)initializing the object
 {
 }
-void CPBPlayer::Update(float)				// called when the onject needs to update
+void CPBPlayer::Update(float dTime)				// called when the onject needs to update
 {
+	//! @todo change to fluid control
+
+	float speed = 50.0f;
+	glm::vec3 dpos;
+	
+	if( m_pInput->GetKeyState( FKEY_UP ) & DOWN )
+	{
+		dpos.z += 1;
+	}
+	if( m_pInput->GetKeyState( FKEY_DOWN ) & DOWN )
+	{
+		dpos.z -= 1;
+	}
+
+	if( m_pInput->GetKeyState( FKEY_LEFT ) & DOWN )
+	{
+		dpos.x += 1;
+	}
+	if( m_pInput->GetKeyState( FKEY_RIGHT ) & DOWN )
+	{
+		dpos.x -= 1;
+	}
+	
+	dpos *= dTime * speed;
+	m_Transform.Move(dpos);
 }
 void CPBPlayer::Draw()						// called when the object needs to be drawn
 {

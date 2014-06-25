@@ -40,6 +40,8 @@ public:
 	virtual glm::mat4& GetView();
 	/************************************/
 
+	void SetTarget(CPBGameObject* pTarget);
+
 protected:
 	float	m_fFOV,
 			m_fAspectRatio,
@@ -50,6 +52,8 @@ protected:
 
 	glm::mat4   m_mProjection,
                 m_mView;
+
+	CPBGameObject* m_pTarget;
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(CPBCamera);
