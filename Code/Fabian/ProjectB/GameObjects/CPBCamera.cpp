@@ -12,6 +12,9 @@ CPBCamera::CPBCamera()
 		,m_fFar(1000.0f)
 
 		,m_bProjectionChanged(true)
+
+		,m_pTarget(nullptr)
+		,m_fSpeed(5.0f)
 	{
 	}
 //-------------------------------------
@@ -24,9 +27,17 @@ CPBCamera::~CPBCamera()
 void CPBCamera::Init()					// used for (re)initializing the object
 {
 }
-void CPBCamera::Update(float)			// called when the onject needs to update
+void CPBCamera::Update(float dTime)			// called when the onject needs to update
 {
-	//! @todo Implement target "snapping"
+	if( m_pTarget == nullptr )
+		return;
+
+	glm::vec3 dpos = m_pTarget->GetTransform()->GetPos() - m_Transform.GetPos();
+	//dpos = glm::normalize( dpos );
+	dpos.y = 0;
+	dpos /= 5;
+
+	m_Transform.Move( dpos * dTime * m_fSpeed );
 }
 	
 /************************************/

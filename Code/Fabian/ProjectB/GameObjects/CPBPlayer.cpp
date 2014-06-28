@@ -19,6 +19,8 @@ CPBPlayer::CPBPlayer(IInput* pInput)
 	,m_pInput(pInput)
 	,m_pMesh(nullptr)
 	,m_pMaterial(nullptr)
+
+	,m_fSpeed(5.0f)
 {
 }
 //-------------------------------------
@@ -28,11 +30,11 @@ CPBPlayer::~CPBPlayer()
 }
 //-------------------------------------
 	
-void CPBPlayer::LoadData(IContentManager* pContent)	// used to load all the needed data for the object
+void CPBPlayer::LoadData(IContentManager* pContent, IRenderer*)	// used to load all the needed data for the object
 {
 	IShader *pShader = pContent->LoadShader("Shaders/SimpleShader");
 	pShader->Apply();
-	pShader->SetVarVec3(  pShader->GetVarId("LightPosition_worldspace"),    glm::vec3(0, 100, 0));
+	pShader->SetVarVec3(  pShader->GetVarId("LightPosition_worldspace"),    glm::vec3(100, 100, 100));
 	pShader->SetVarF1(    pShader->GetVarId("LightPower"),                  1.0f);
 	pShader->SetVarVec4(  pShader->GetVarId("LightColor"),                  glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
@@ -44,32 +46,22 @@ void CPBPlayer::LoadData(IContentManager* pContent)	// used to load all the need
 void CPBPlayer::Init()						// used for (re)initializing the object
 {
 }
-void CPBPlayer::Update(float dTime)				// called when the onject needs to update
+void CPBPlayer::Update(float dTime)				// called +-*when the onject needs to update
 {
 	//! @todo change to fluid control
 
-	float speed = 50.0f;
 	glm::vec3 dpos;
-	
 	if( m_pInput->GetKeyState( FKEY_UP ) & DOWN )
-	{
 		dpos.z += 1;
-	}
 	if( m_pInput->GetKeyState( FKEY_DOWN ) & DOWN )
-	{
 		dpos.z -= 1;
-	}
 
 	if( m_pInput->GetKeyState( FKEY_LEFT ) & DOWN )
-	{
 		dpos.x += 1;
-	}
 	if( m_pInput->GetKeyState( FKEY_RIGHT ) & DOWN )
-	{
 		dpos.x -= 1;
-	}
 	
-	dpos *= dTime * speed;
+	dpos *= dTime * m_fSpeed;
 	m_Transform.Move(dpos);
 }
 void CPBPlayer::Draw()						// called when the object needs to be drawn

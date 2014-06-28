@@ -8,7 +8,7 @@ class IInput;
 class IRenderer;
 class IContentManager;
 
-class CPBPlayer;
+class CPBGameObject;
 class CPBCamera;
 // ------------------------
 
@@ -65,8 +65,9 @@ protected:
 	IContentManager *m_pContent;
 	static float s_fDtime;
 	
-	CPBPlayer *m_pPlayer;
 	CPBCamera *m_pCamera;
+	CPBGameObject *m_pPlayer;
+	CPBGameObject *m_pRoom;
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(CPBService);

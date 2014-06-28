@@ -21,10 +21,10 @@ public:
 	virtual ~CPBGameObject();
 	//-------------------------------------
 	
-	virtual void LoadData(IContentManager*) { };	// used to load al the needed data for the object
-	virtual void Init() { };						// used for (re)initializing the object
-	virtual void Update(float) { };					// called when the onject needs to update
-	virtual void Draw() { };						// called when the object needs to be drawn
+	virtual void LoadData(IContentManager*, IRenderer*) { };	// used to load al the needed data for the object
+	virtual void Init() { };									// used for (re)initializing the object
+	virtual void Update(float) { };								// called when the onject needs to update
+	virtual void Draw() { };									// called when the object needs to be drawn
 
 	CTransform *GetTransform();
 

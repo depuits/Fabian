@@ -54,6 +54,7 @@ protected:
                 m_mView;
 
 	CPBGameObject* m_pTarget;
+	float m_fSpeed;
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(CPBCamera);

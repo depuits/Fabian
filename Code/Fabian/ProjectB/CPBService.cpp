@@ -6,8 +6,9 @@
 #include <IRenderer.h>
 #include <IContentManager.h>
 
-#include "GameObjects\CPBPlayer.h"
 #include "GameObjects\CPBCamera.h"
+#include "GameObjects\CPBPlayer.h"
+#include "GameObjects\CPBRoom.h"
 
 //******************************************
 // Class CServiceGame:
@@ -26,8 +27,9 @@ CPBService::CPBService()
 	,m_pRenderer(nullptr)
 	,m_pContent(nullptr)
 
-	,m_pPlayer(nullptr)
 	,m_pCamera(nullptr)
+	,m_pPlayer(nullptr)
+	,m_pRoom(nullptr)
 {
 }
 //-------------------------------------
@@ -70,8 +72,9 @@ bool CPBService::Start()
 	Fab_GlobalAccessorAddObject("Input", m_pInput);
 	
 	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: creating game objects." );
-	m_pPlayer = new CPBPlayer( m_pInput );
 	m_pCamera = new CPBCamera();
+	m_pPlayer = new CPBPlayer( m_pInput );
+	m_pRoom = new CPBRoom();
 
 	
 	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: start loading content." );
@@ -82,23 +85,27 @@ bool CPBService::Start()
 		return false;
 	}
 
-	m_pPlayer->LoadData(m_pContent);
-	m_pCamera->LoadData(m_pContent);
+	m_pCamera->LoadData(m_pContent, m_pRenderer);
+	m_pPlayer->LoadData(m_pContent, m_pRenderer);
+	m_pRoom->LoadData(m_pContent, m_pRenderer);
 	
 	m_pContent->EndLoading();
 
 	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: finished loading content." );
 	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: initializing game objects." );
 
-	m_pPlayer->Init();
 	m_pCamera->Init();
+	m_pPlayer->Init();
+	m_pRoom->Init();
 	
 	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: setting up objects." );
 
 	m_pPlayer->GetTransform()->SetPos( glm::vec3(0, 0, 0) );
 
 	m_pCamera->GetTransform()->SetRot( glm::vec3(glm::half_pi<float>(), 0, glm::half_pi<float>()) );
-	m_pCamera->GetTransform()->SetPos( glm::vec3(0, 150, 0) );
+	m_pCamera->GetTransform()->SetPos( glm::vec3(0, 15, 0) );
+
+	m_pCamera->SetTarget(m_pPlayer);
 
 	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Started" );
 	return true;
@@ -108,13 +115,14 @@ bool CPBService::Start()
 // Called every time the service has to update
 void CPBService::Update()
 {
-
+	m_pRoom->Update(s_fDtime);
 	m_pPlayer->Update(s_fDtime);
 	m_pCamera->Update(s_fDtime);
 	
 	m_pRenderer->Clear(0.01f, 0.1f, 0.1f, 1.0f);
 	m_pRenderer->SetActiveCamera(m_pCamera);
 
+	m_pRoom->Draw();
 	m_pPlayer->Draw();
 	m_pCamera->Draw();
 }
@@ -125,8 +133,9 @@ void CPBService::Stop()
 	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: Stopping" );
 
 	// we don't delete the mesh and image because it was loaded by de contentloader and it will destroy it for use
-	delete m_pCamera;
+	delete m_pRoom;
 	delete m_pPlayer;
+	delete m_pCamera;
 
     // release the content as last when nothing is using it anymore
 	Fab_ContentReleaseManager(m_pContent);

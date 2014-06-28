@@ -1,5 +1,5 @@
-#ifndef PROJECTB_CPBPLAYER_H_
-#define PROJECTB_CPBPLAYER_H_
+#ifndef PROJECTB_CPBROOM_H_
+#define PROJECTB_CPBROOM_H_
 
 #include "CPBGameObject.h"
 
@@ -10,17 +10,17 @@ class IMaterial;
 // Class CServiceGame:
 // game specific service which defines the actual game
 //******************************************
-class CPBPlayer : public CPBGameObject
+class CPBRoom : public CPBGameObject
 {
 public:
 	//-------------------------------------
 	// Constructor
 	// p1 in* - int, the priorety of the service
 	//            ( the lower the higher the priorety )
-	CPBPlayer(IInput*);
+	CPBRoom();
 	//-------------------------------------
 	// Destructor
-	virtual ~CPBPlayer();
+	virtual ~CPBRoom();
 	//-------------------------------------
 	
 	virtual void LoadData(IContentManager*, IRenderer*);	// used to load al the needed data for the object
@@ -29,15 +29,11 @@ public:
 	virtual void Draw();						// called when the object needs to be drawn
 
 protected:
-	IInput* m_pInput;
-
 	IMesh* m_pMesh;
 	IMaterial* m_pMaterial;
-
-	float m_fSpeed;
-
+	
 private:
-	DISALLOW_COPY_AND_ASSIGN(CPBPlayer);
+	DISALLOW_COPY_AND_ASSIGN(CPBRoom);
 };
 
-#endif //PROJECTB_CPBPLAYER_H_
+#endif //PROJECTB_CPBROOM_H_
