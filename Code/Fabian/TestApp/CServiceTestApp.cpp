@@ -127,8 +127,9 @@ bool CServiceTestApp::Start()
 	pGo->AddComponent( pCam );
 	pGo->AddComponent( new CCompControl() );
 	pGo->AddComponent( new CCompPrintTransform() );
-	pGo->Transform()->SetPos( glm::vec3(77, 52, 198) );
-	pGo->Transform()->SetRot( glm::vec3( glm::radians(-20.0f), glm::radians(-60.0f), glm::radians(24.0f)) );
+	pGo->Transform()->SetPos( glm::vec3(0, 0, 250) );
+	//pGo->Transform()->SetPos( glm::vec3(77, 52, 198) );
+	//pGo->Transform()->SetRot( glm::vec3( glm::radians(-20.0f), glm::radians(-60.0f), glm::radians(24.0f)) );
 	g_vpGameObjects.push_back(pGo);
 	g_pCam = pCam;
 	

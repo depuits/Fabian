@@ -29,8 +29,13 @@ public:
 	virtual void Draw();						// called when the object needs to be drawn
 
 protected:
-	IMesh* m_pMesh;
-	IMaterial* m_pMaterial;
+	IMesh* m_pMeshFloor;
+	IMesh* m_pMeshWalls;
+	IMesh* m_pMeshRoof;
+
+	IMaterial* m_pMaterialFloor;
+	IMaterial* m_pMaterialWalls;
+	IMaterial* m_pMaterialRoof;
 	
 private:
 	DISALLOW_COPY_AND_ASSIGN(CPBRoom);

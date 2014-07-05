@@ -55,7 +55,7 @@ public:
 			m_pInput->LockMouse(true);
 			m_pInput->GetMouseMovement(x, y);
 			m_pGameObject->Transform()->Rotate( glm::vec3(0,m_fMouseSens * -x * fDt,0) );
-			m_pGameObject->Transform()->LocalRotate( glm::vec3(0,0,m_fMouseSens * y * fDt) ); // change this to locale rotation
+			m_pGameObject->Transform()->LocalRotate( glm::vec3(m_fMouseSens * -y * fDt,0,0) ); // change this to locale rotation
 		
 			//m_pInput->LockMouse(300, 300);
 		}
@@ -64,14 +64,14 @@ public:
 	
 		//move forward and backward
 		if ( m_pInput->GetKeyState(FKEY_UP) & DOWN )
-			m_pGameObject->Transform()->LocalMove( glm::vec3(-m_fCamSpeed * fDt, 0, 0) );
+			m_pGameObject->Transform()->LocalMove( glm::vec3(0, 0, -m_fCamSpeed * fDt) );
 		else if ( m_pInput->GetKeyState(FKEY_DOWN) & DOWN )
-			m_pGameObject->Transform()->LocalMove( glm::vec3(m_fCamSpeed * fDt, 0, 0) );
+			m_pGameObject->Transform()->LocalMove( glm::vec3(0, 0, m_fCamSpeed * fDt) );
 		//move left and right
 		if ( m_pInput->GetKeyState(FKEY_LEFT) & DOWN )
-			m_pGameObject->Transform()->LocalMove( glm::vec3(0, 0, m_fCamSpeed * fDt) );
+			m_pGameObject->Transform()->LocalMove( glm::vec3(-m_fCamSpeed * fDt, 0, 0) );
 		else if ( m_pInput->GetKeyState(FKEY_RIGHT) & DOWN )
-			m_pGameObject->Transform()->LocalMove( glm::vec3(0, 0, -m_fCamSpeed * fDt) );
+			m_pGameObject->Transform()->LocalMove( glm::vec3(m_fCamSpeed * fDt, 0, 0) );
 	}
 	/************************************/
 	
