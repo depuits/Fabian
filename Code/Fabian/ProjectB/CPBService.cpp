@@ -102,7 +102,7 @@ bool CPBService::Start()
 
 	m_pPlayer->GetTransform()->SetPos( glm::vec3(0, 0, 0) );
 
-	m_pCamera->GetTransform()->SetRot( glm::vec3(glm::half_pi<float>(), 0, glm::half_pi<float>()) );
+	m_pCamera->GetTransform()->SetRot( glm::vec3(glm::radians(-90.0f), 0, 0) );
 	m_pCamera->GetTransform()->SetPos( glm::vec3(0, 15, 0) );
 
 	m_pCamera->SetTarget(m_pPlayer);

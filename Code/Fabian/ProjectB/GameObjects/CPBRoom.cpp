@@ -98,7 +98,8 @@ void CPBRoom::LoadData(IContentManager* pContent, IRenderer* pRenderer)	// used 
 	// wall
 	vertices.clear();
 	indices.clear();
-
+	
+	//left
 	vertices.push_back( posNull.x ); vertices.push_back( 0 ); vertices.push_back( posNull.y );	// x, y, z
 	vertices.push_back( 0 ); vertices.push_back( 0 ); vertices.push_back( 1 );	// normal
 	vertices.push_back( 0 ); vertices.push_back( 0 );							// uv
@@ -122,6 +123,32 @@ void CPBRoom::LoadData(IContentManager* pContent, IRenderer* pRenderer)	// used 
 	indices.push_back(3);
 	indices.push_back(2);
 	indices.push_back(0);
+	//right
+	vertices.push_back( posOne.x ); vertices.push_back( 0 ); vertices.push_back( posNull.y );	// x, y, z
+	vertices.push_back( 0 ); vertices.push_back( 0 ); vertices.push_back( -1 );	// normal
+	vertices.push_back( 0 ); vertices.push_back( 0 );							// uv
+
+	vertices.push_back( posOne.x ); vertices.push_back( 0 ); vertices.push_back( posOne.y );	// x, y, z
+	vertices.push_back( 0 ); vertices.push_back( 0 ); vertices.push_back( -1 );	// normal
+	vertices.push_back( size.x ); vertices.push_back( 0 );							// uv
+	
+	vertices.push_back( posOne.x ); vertices.push_back( height ); vertices.push_back( posOne.y );	// x, y, z
+	vertices.push_back( 0 ); vertices.push_back( 0 ); vertices.push_back( -1 );	// normal
+	vertices.push_back( size.x ); vertices.push_back( height );							// uv
+	
+	vertices.push_back( posOne.x ); vertices.push_back( height ); vertices.push_back( posNull.y );	// x, y, z
+	vertices.push_back( 0 ); vertices.push_back( 0 ); vertices.push_back( -1 );	// normal
+	vertices.push_back( 0 ); vertices.push_back( height );							// uv
+	
+	indices.push_back(4);
+	indices.push_back(5);
+	indices.push_back(6);
+
+	indices.push_back(4);
+	indices.push_back(6);
+	indices.push_back(7);
+	//up
+	//down
 
 	md.iCount = indices.size();
 	md.iData = indices.data();

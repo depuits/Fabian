@@ -52,14 +52,14 @@ void CPBPlayer::Update(float dTime)				// called +-*when the onject needs to upd
 
 	glm::vec3 dpos;
 	if( m_pInput->GetKeyState( FKEY_UP ) & DOWN )
-		dpos.z += 1;
-	if( m_pInput->GetKeyState( FKEY_DOWN ) & DOWN )
 		dpos.z -= 1;
+	if( m_pInput->GetKeyState( FKEY_DOWN ) & DOWN )
+		dpos.z += 1;
 
 	if( m_pInput->GetKeyState( FKEY_LEFT ) & DOWN )
-		dpos.x += 1;
-	if( m_pInput->GetKeyState( FKEY_RIGHT ) & DOWN )
 		dpos.x -= 1;
+	if( m_pInput->GetKeyState( FKEY_RIGHT ) & DOWN )
+		dpos.x += 1;
 	
 	dpos *= dTime * m_fSpeed;
 	m_Transform.Move(dpos);

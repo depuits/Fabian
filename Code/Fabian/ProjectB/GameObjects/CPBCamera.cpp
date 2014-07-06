@@ -76,7 +76,7 @@ glm::mat4& CPBCamera::GetView()
 
 		m_mView = glm::lookAt(
 			m_Transform.GetPos(), // Camera is at (4,3,3), in World Space
-			m_Transform.GetPos() + (m_Transform.GetRot() * glm::vec3(-1,0,0)), // and looks at the origin
+			m_Transform.GetPos() + (m_Transform.GetRot() * glm::vec3(0,0,-1)), // and looks at the origin
 			m_Transform.GetRot() * glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
 		);
 	}
