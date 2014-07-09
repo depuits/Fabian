@@ -47,7 +47,7 @@ void CPBRoom::LoadData(IContentManager* pContent, IRenderer* pRenderer)	// used 
 	m_pMaterialWalls = Fab_MatCreateDifTexture(pShader, pImage);
 
 	glm::vec2 size(15, 15);
-	float height = 2.0f;
+	float height = 2.50f;
 	
 	glm::vec2  posNull = (size / 2.0f) * -1.0f;
 	glm::vec2  posOne = size / 2.0f;
@@ -148,7 +148,53 @@ void CPBRoom::LoadData(IContentManager* pContent, IRenderer* pRenderer)	// used 
 	indices.push_back(6);
 	indices.push_back(7);
 	//up
+	vertices.push_back( posNull.x ); vertices.push_back( 0 ); vertices.push_back( posNull.y );	// x, y, z
+	vertices.push_back( 1 ); vertices.push_back( 0 ); vertices.push_back( 0 );	// normal
+	vertices.push_back( 0 ); vertices.push_back( 0 );							// uv
+
+	vertices.push_back( posOne.x ); vertices.push_back( 0 ); vertices.push_back( posNull.y );	// x, y, z
+	vertices.push_back( 1 ); vertices.push_back( 0 ); vertices.push_back( 0 );	// normal
+	vertices.push_back( size.x ); vertices.push_back( 0 );							// uv
+	
+	vertices.push_back( posOne.x ); vertices.push_back( height ); vertices.push_back( posNull.y );	// x, y, z
+	vertices.push_back( 1 ); vertices.push_back( 0 ); vertices.push_back( 0 );	// normal
+	vertices.push_back( size.x ); vertices.push_back( height );							// uv
+	
+	vertices.push_back( posNull.x ); vertices.push_back( height ); vertices.push_back( posNull.y );	// x, y, z
+	vertices.push_back( 1 ); vertices.push_back( 0 ); vertices.push_back( 0 );	// normal
+	vertices.push_back( 0 ); vertices.push_back( height );							// uv
+	
+	indices.push_back(9);
+	indices.push_back(10);
+	indices.push_back(8);
+
+	indices.push_back(10);
+	indices.push_back(11);
+	indices.push_back(8);
 	//down
+	vertices.push_back( posNull.x ); vertices.push_back( 0 ); vertices.push_back( posOne.y );	// x, y, z
+	vertices.push_back( -1 ); vertices.push_back( 0 ); vertices.push_back( 0 );	// normal
+	vertices.push_back( 0 ); vertices.push_back( 0 );							// uv
+
+	vertices.push_back( posOne.x ); vertices.push_back( 0 ); vertices.push_back( posOne.y );	// x, y, z
+	vertices.push_back( -1 ); vertices.push_back( 0 ); vertices.push_back( 0 );	// normal
+	vertices.push_back( size.x ); vertices.push_back( 0 );							// uv
+	
+	vertices.push_back( posOne.x ); vertices.push_back( height ); vertices.push_back( posOne.y );	// x, y, z
+	vertices.push_back( -1 ); vertices.push_back( 0 ); vertices.push_back( 0 );	// normal
+	vertices.push_back( size.x ); vertices.push_back( height );							// uv
+	
+	vertices.push_back( posNull.x ); vertices.push_back( height ); vertices.push_back( posOne.y );	// x, y, z
+	vertices.push_back( -1 ); vertices.push_back( 0 ); vertices.push_back( 0 );	// normal
+	vertices.push_back( 0 ); vertices.push_back( height );							// uv
+	
+	indices.push_back(12);
+	indices.push_back(14);
+	indices.push_back(13);
+
+	indices.push_back(12);
+	indices.push_back(15);
+	indices.push_back(14);
 
 	md.iCount = indices.size();
 	md.iData = indices.data();
