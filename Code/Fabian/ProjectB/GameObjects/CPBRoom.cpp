@@ -15,7 +15,7 @@
 // Constructor
 // p1 in* - int, the priorety of the service
 //            ( the lower the higher the priorety )
-CPBRoom::CPBRoom()
+CPBRoom::CPBRoom(glm::vec2& size)
 	:CPBGameObject()
 	,m_pMeshFloor(nullptr)
 	,m_pMeshWalls(nullptr)
@@ -23,6 +23,8 @@ CPBRoom::CPBRoom()
 	,m_pMaterialFloor(nullptr)
 	,m_pMaterialWalls(nullptr)
 	,m_pMaterialRoof(nullptr)
+
+	,m_size(size)
 {
 }
 //-------------------------------------
@@ -46,11 +48,10 @@ void CPBRoom::LoadData(IContentManager* pContent, IRenderer* pRenderer)	// used 
 	pImage = pContent->LoadImage("Textures/WallDif.png");
 	m_pMaterialWalls = Fab_MatCreateDifTexture(pShader, pImage);
 
-	glm::vec2 size(15, 15);
 	float height = 2.50f;
-	
-	glm::vec2  posNull = (size / 2.0f) * -1.0f;
-	glm::vec2  posOne = size / 2.0f;
+
+	glm::vec2  posNull = (m_size / 2.0f) * -1.0f;
+	glm::vec2  posOne = m_size / 2.0f;
 	
 	MeshData md;
 
@@ -66,15 +67,15 @@ void CPBRoom::LoadData(IContentManager* pContent, IRenderer* pRenderer)	// used 
 
 	vertices.push_back( posOne.x ); vertices.push_back( 0 ); vertices.push_back( posNull.y );	// x, y, z
 	vertices.push_back( 0 ); vertices.push_back( 1 ); vertices.push_back( 0 );	// normal
-	vertices.push_back( size.x ); vertices.push_back( 0 );							// uv
+	vertices.push_back( m_size.x ); vertices.push_back( 0 );							// uv
 	
 	vertices.push_back( posOne.x ); vertices.push_back( 0 ); vertices.push_back( posOne.y );	// x, y, z
 	vertices.push_back( 0 ); vertices.push_back( 1 ); vertices.push_back( 0 );	// normal
-	vertices.push_back( size.x ); vertices.push_back( size.y );							// uv
+	vertices.push_back( m_size.x ); vertices.push_back( m_size.y );							// uv
 	
 	vertices.push_back( posNull.x ); vertices.push_back( 0 ); vertices.push_back( posOne.y );	// x, y, z
 	vertices.push_back( 0 ); vertices.push_back( 1 ); vertices.push_back( 0 );	// normal
-	vertices.push_back( 0 ); vertices.push_back( size.y );							// uv
+	vertices.push_back( 0 ); vertices.push_back( m_size.y );							// uv
 	
 	indices.push_back(2);
 	indices.push_back(1);
@@ -106,11 +107,11 @@ void CPBRoom::LoadData(IContentManager* pContent, IRenderer* pRenderer)	// used 
 
 	vertices.push_back( posNull.x ); vertices.push_back( 0 ); vertices.push_back( posOne.y );	// x, y, z
 	vertices.push_back( 0 ); vertices.push_back( 0 ); vertices.push_back( 1 );	// normal
-	vertices.push_back( size.x ); vertices.push_back( 0 );							// uv
+	vertices.push_back( m_size.y ); vertices.push_back( 0 );							// uv
 	
 	vertices.push_back( posNull.x ); vertices.push_back( height ); vertices.push_back( posOne.y );	// x, y, z
 	vertices.push_back( 0 ); vertices.push_back( 0 ); vertices.push_back( 1 );	// normal
-	vertices.push_back( size.x ); vertices.push_back( height );							// uv
+	vertices.push_back( m_size.y ); vertices.push_back( height );							// uv
 	
 	vertices.push_back( posNull.x ); vertices.push_back( height ); vertices.push_back( posNull.y );	// x, y, z
 	vertices.push_back( 0 ); vertices.push_back( 0 ); vertices.push_back( 1 );	// normal
@@ -130,11 +131,11 @@ void CPBRoom::LoadData(IContentManager* pContent, IRenderer* pRenderer)	// used 
 
 	vertices.push_back( posOne.x ); vertices.push_back( 0 ); vertices.push_back( posOne.y );	// x, y, z
 	vertices.push_back( 0 ); vertices.push_back( 0 ); vertices.push_back( -1 );	// normal
-	vertices.push_back( size.x ); vertices.push_back( 0 );							// uv
+	vertices.push_back( m_size.y ); vertices.push_back( 0 );							// uv
 	
 	vertices.push_back( posOne.x ); vertices.push_back( height ); vertices.push_back( posOne.y );	// x, y, z
 	vertices.push_back( 0 ); vertices.push_back( 0 ); vertices.push_back( -1 );	// normal
-	vertices.push_back( size.x ); vertices.push_back( height );							// uv
+	vertices.push_back( m_size.y ); vertices.push_back( height );							// uv
 	
 	vertices.push_back( posOne.x ); vertices.push_back( height ); vertices.push_back( posNull.y );	// x, y, z
 	vertices.push_back( 0 ); vertices.push_back( 0 ); vertices.push_back( -1 );	// normal
@@ -154,11 +155,11 @@ void CPBRoom::LoadData(IContentManager* pContent, IRenderer* pRenderer)	// used 
 
 	vertices.push_back( posOne.x ); vertices.push_back( 0 ); vertices.push_back( posNull.y );	// x, y, z
 	vertices.push_back( 1 ); vertices.push_back( 0 ); vertices.push_back( 0 );	// normal
-	vertices.push_back( size.x ); vertices.push_back( 0 );							// uv
+	vertices.push_back( m_size.x ); vertices.push_back( 0 );							// uv
 	
 	vertices.push_back( posOne.x ); vertices.push_back( height ); vertices.push_back( posNull.y );	// x, y, z
 	vertices.push_back( 1 ); vertices.push_back( 0 ); vertices.push_back( 0 );	// normal
-	vertices.push_back( size.x ); vertices.push_back( height );							// uv
+	vertices.push_back( m_size.x ); vertices.push_back( height );							// uv
 	
 	vertices.push_back( posNull.x ); vertices.push_back( height ); vertices.push_back( posNull.y );	// x, y, z
 	vertices.push_back( 1 ); vertices.push_back( 0 ); vertices.push_back( 0 );	// normal
@@ -178,11 +179,11 @@ void CPBRoom::LoadData(IContentManager* pContent, IRenderer* pRenderer)	// used 
 
 	vertices.push_back( posOne.x ); vertices.push_back( 0 ); vertices.push_back( posOne.y );	// x, y, z
 	vertices.push_back( -1 ); vertices.push_back( 0 ); vertices.push_back( 0 );	// normal
-	vertices.push_back( size.x ); vertices.push_back( 0 );							// uv
+	vertices.push_back( m_size.x ); vertices.push_back( 0 );							// uv
 	
 	vertices.push_back( posOne.x ); vertices.push_back( height ); vertices.push_back( posOne.y );	// x, y, z
 	vertices.push_back( -1 ); vertices.push_back( 0 ); vertices.push_back( 0 );	// normal
-	vertices.push_back( size.x ); vertices.push_back( height );							// uv
+	vertices.push_back( m_size.x ); vertices.push_back( height );							// uv
 	
 	vertices.push_back( posNull.x ); vertices.push_back( height ); vertices.push_back( posOne.y );	// x, y, z
 	vertices.push_back( -1 ); vertices.push_back( 0 ); vertices.push_back( 0 );	// normal

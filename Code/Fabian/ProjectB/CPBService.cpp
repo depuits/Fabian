@@ -74,7 +74,7 @@ bool CPBService::Start()
 	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: creating game objects." );
 	m_pCamera = new CPBCamera();
 	m_pPlayer = new CPBPlayer( m_pInput );
-	m_pRoom = new CPBRoom();
+	m_pRoom = new CPBRoom( glm::vec2(10, 100) );
 
 	
 	Fab_LogWrite(FLOG_LVL_INFO, FLOG_ID_APP, "Game Service: start loading content." );

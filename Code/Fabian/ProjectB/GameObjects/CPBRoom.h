@@ -17,7 +17,7 @@ public:
 	// Constructor
 	// p1 in* - int, the priorety of the service
 	//            ( the lower the higher the priorety )
-	CPBRoom();
+	CPBRoom(glm::vec2&);
 	//-------------------------------------
 	// Destructor
 	virtual ~CPBRoom();
@@ -37,6 +37,8 @@ protected:
 	IMaterial* m_pMaterialWalls;
 	IMaterial* m_pMaterialRoof;
 	
+	glm::vec2 m_size;
+
 private:
 	DISALLOW_COPY_AND_ASSIGN(CPBRoom);
 };
