@@ -28,3 +28,5 @@ syntax: glob
 */Fabian/Release/
 */ObjConverter/Debug/
 */ObjConverter/Release/
+
+/.project
