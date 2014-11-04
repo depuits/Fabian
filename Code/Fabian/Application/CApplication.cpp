@@ -62,7 +62,8 @@ int CApplication::Run(int argc, char *argv[])
 		Fab_KernelAddService( argv[1], "Game", 500 );
 	else
 	{
-		Fab_KernelAddService( "ProjectB", "Project B", 500 );
+		Fab_KernelAddService( "Game", "Game", 600 );
+		//Fab_KernelAddService( "ProjectB", "Project B", 500 );
 		//Fab_KernelAddService( "TestApp", "Game", 600 );
 		//Fab_LogWrite(FLOG_LVL_ERROR, FLOG_ID_USER, "No meaningfull dll was loaded please add some arguents");
 		//return 0;

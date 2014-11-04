@@ -139,8 +139,8 @@ bool CServiceGame::Start()
 	CCompCamera* pCam = new CCompCamera();
 	pGo->AddComponent( pCam );
 	pGo->Transform()->SetPos( glm::vec3(0, 1 * Grid::SCALE, 0) );
-	pGo->Transform()->SetRot( glm::vec3(0, 0, glm::half_pi<float>()) );
-	pGo->Transform()->Rotate( glm::vec3(0, -glm::half_pi<float>(), 0));
+	
+	pGo->Transform()->SetRot( glm::vec3(glm::radians(-90.0f), 0, 0) );
 	g_vpGameObjects.push_back(pGo);
 	Fab_GlobalAccessorAddObject("Camera", pGo);
 	g_pCam = pCam;
